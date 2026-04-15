@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import Image from "next/image";
+import { Info } from "lucide-react";
 import { loadPlayers } from "@/lib/data";
 import type { Surface } from "@/lib/types";
 import { flag, formatDate, formatHeight, handLabel } from "@/lib/format";
@@ -30,6 +31,9 @@ export default async function PlayerPage({ params }: { params: Promise<{ slug: s
   const bestSurface = surfaces.reduce((a, b) =>
     player.currentEloSurface[a] >= player.currentEloSurface[b] ? a : b,
   );
+  const totalMatches = surfaces.reduce((sum, s) => sum + (player.matchesBySurface[s] ?? 0), 0);
+  const bestEloNow = Math.max(...surfaces.map((s) => player.currentEloSurface[s]));
+  const bestEloPeak = Math.max(...surfaces.map((s) => career.peakEloSurface[s]));
 
   return (
     <div className="space-y-6">
@@ -78,6 +82,29 @@ export default async function PlayerPage({ params }: { params: Promise<{ slug: s
         <HeadlineStat label="Titres" value={career.titles.toString()} />
       </section>
 
+      {/* Secondary stats */}
+      <section className="card grid grid-cols-3 gap-3 text-center">
+        <div>
+          <div className="text-[10px] font-medium uppercase tracking-[0.18em] text-muted">
+            Matchs
+          </div>
+          <div className="mt-1 font-display text-xl text-text">{totalMatches}</div>
+        </div>
+        <div>
+          <div className="text-[10px] font-medium uppercase tracking-[0.18em] text-muted">
+            Défaites
+          </div>
+          <div className="mt-1 font-display text-xl text-text">{career.losses}</div>
+        </div>
+        <div>
+          <div className="text-[10px] font-medium uppercase tracking-[0.18em] text-muted">
+            Elo peak
+          </div>
+          <div className="mt-1 font-display text-xl text-text">{Math.round(bestEloPeak)}</div>
+          <div className="text-[10px] text-muted">actuel {Math.round(bestEloNow)}</div>
+        </div>
+      </section>
+
       {/* Recent form */}
       <section className="card space-y-3">
         <div className="flex items-baseline justify-between">
@@ -115,13 +142,25 @@ export default async function PlayerPage({ params }: { params: Promise<{ slug: s
 
       {/* Elo per surface */}
       <section className="card space-y-3">
-        <div className="text-[10px] font-medium uppercase tracking-[0.18em] text-muted">
-          Elo par surface
-        </div>
+        <details className="group">
+          <summary className="flex cursor-pointer list-none items-center gap-1.5 text-[10px] font-medium uppercase tracking-[0.18em] text-muted">
+            Elo par surface
+            <Info className="size-3 opacity-70 transition group-open:text-lime" />
+          </summary>
+          <p className="mt-2 text-xs leading-relaxed text-muted">
+            L&apos;<span className="text-text">Elo</span> est un score qui mesure le niveau d&apos;un
+            joueur d&apos;après ses résultats. Battre un adversaire mieux classé fait grimper le
+            score&nbsp;; perdre contre un moins bien classé le fait baisser. On calcule un Elo
+            séparé par surface car les styles (terre lente, gazon rapide) récompensent des qualités
+            différentes. Repères&nbsp;: ~2000 = top 10 mondial, ~1800 = top 50, ~1500 = débutant sur
+            le circuit.
+          </p>
+        </details>
         <div className="grid grid-cols-3 gap-3">
           {surfaces.map((s) => {
             const current = player.currentEloSurface[s];
             const peak = career.peakEloSurface[s];
+            const matches = player.matchesBySurface[s] ?? 0;
             const isBest = s === bestSurface;
             return (
               <div
@@ -136,6 +175,7 @@ export default async function PlayerPage({ params }: { params: Promise<{ slug: s
                 </div>
                 <div className="font-display text-2xl text-text">{Math.round(current)}</div>
                 <div className="mt-1 text-[10px] text-muted">peak {Math.round(peak)}</div>
+                <div className="text-[10px] text-muted">{matches} matchs</div>
               </div>
             );
           })}
