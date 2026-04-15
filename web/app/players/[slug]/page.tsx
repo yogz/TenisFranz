@@ -4,6 +4,7 @@ import { loadPlayers } from "@/lib/data";
 import type { Surface } from "@/lib/types";
 import { flag, formatDate, formatHeight, handLabel } from "@/lib/format";
 import { PlayerAvatar } from "@/components/PlayerAvatar";
+import { PlayerNavSearch } from "@/components/PlayerNavSearch";
 
 const SURFACE_LABEL: Record<Surface, string> = {
   Hard: "Dur",
@@ -21,6 +22,8 @@ export default async function PlayerPage({ params }: { params: Promise<{ slug: s
   const players = await loadPlayers();
   const player = players.find((p) => p.slug === slug);
   if (!player) notFound();
+  // Only pass same-tour players to the nav search — keeps the list focused
+  const searchPool = players.filter((p) => p.tour === player.tour);
 
   const surfaces: Surface[] = ["Hard", "Clay", "Grass"];
   const career = player.career;
@@ -30,6 +33,8 @@ export default async function PlayerPage({ params }: { params: Promise<{ slug: s
 
   return (
     <div className="space-y-6">
+      <PlayerNavSearch players={searchPool} excludeId={player.id} />
+
       {/* Hero with photo */}
       <section className="relative overflow-hidden rounded-2xl border border-border bg-surface">
         {player.photoUrl && (
