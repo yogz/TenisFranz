@@ -6,6 +6,7 @@ import { pickModel, predict } from "@/lib/predict";
 import { PlayerSearch } from "./PlayerSearch";
 import { SurfacePicker } from "./SurfacePicker";
 import { WaterfallChart } from "./WaterfallChart";
+import { PredictionDetails } from "./PredictionDetails";
 import {
   Adjustments,
   adjustmentsFromIds,
@@ -84,8 +85,9 @@ export function Predictor({
   const canPredict = a && b && a.tour === b.tour;
   let result: ReturnType<typeof predict> | null = null;
   let adjusted: ReturnType<typeof predict> | null = null;
+  let trained: ReturnType<typeof pickModel> = undefined;
   if (canPredict) {
-    const trained = pickModel(model.models, a!.tour, surface);
+    trained = pickModel(model.models, a!.tour, surface);
     if (trained) {
       result = predict(a!, b!, elo, trained, surface);
       if (adjIds.size > 0) {
@@ -209,6 +211,17 @@ export function Predictor({
               playerBName={b!.name.split(" ").pop() ?? b!.name}
             />
           </div>
+
+          {trained && (
+            <PredictionDetails
+              result={result}
+              playerA={a!}
+              playerB={b!}
+              surface={surface}
+              model={trained}
+              winnerIsA={aWins}
+            />
+          )}
         </div>
       )}
     </div>
