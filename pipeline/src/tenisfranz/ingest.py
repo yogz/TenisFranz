@@ -110,3 +110,27 @@ def load_tour(tour: str, year_from: int, year_to: int) -> pd.DataFrame:
 
 def load_all(year_from: int, year_to: int) -> dict[str, pd.DataFrame]:
     return {tour: load_tour(tour, year_from, year_to) for tour in SACKMANN_REPOS}
+
+
+def load_players_meta(tour: str) -> pd.DataFrame:
+    """Load `{tour}_players.csv` — metadata: name, hand, dob, ioc, height, wikidata_id."""
+    zip_path = CACHE_DIR / f"tennis_{tour}.zip"
+    if not zip_path.exists():
+        _download_zip(SACKMANN_REPOS[tour], zip_path)
+
+    with zipfile.ZipFile(zip_path) as zf:
+        for name in zf.namelist():
+            if name.endswith(f"{tour}_players.csv"):
+                with zf.open(name) as f:
+                    df = pd.read_csv(io.BytesIO(f.read()), low_memory=False, dtype=str)
+                break
+        else:
+            raise RuntimeError(f"{tour}_players.csv not found in zip")
+
+    df["tour"] = tour
+    df["player_id"] = df["player_id"].astype(str)
+    # normalize
+    for col in ("name_first", "name_last", "hand", "ioc", "height", "wikidata_id", "dob"):
+        if col not in df.columns:
+            df[col] = None
+    return df

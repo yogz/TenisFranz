@@ -5,6 +5,8 @@ import Fuse from "fuse.js";
 import { Search, X } from "lucide-react";
 import type { Player } from "@/lib/types";
 import { cn } from "@/lib/cn";
+import { PlayerAvatar } from "@/components/PlayerAvatar";
+import { flag } from "@/lib/format";
 
 interface Props {
   players: Player[];
@@ -41,15 +43,17 @@ export function PlayerSearch({ players, value, onChange, placeholder, excludeId 
       <button
         type="button"
         onClick={() => onChange(null)}
-        className="flex w-full items-center justify-between rounded-xl border border-lime/40 bg-lime-soft px-4 py-4 text-left"
+        className="flex w-full items-center gap-3 rounded-xl border border-lime/40 bg-lime-soft px-4 py-3 text-left transition active:scale-[0.99]"
       >
-        <div>
-          <div className="text-base font-semibold text-text">{value.name}</div>
-          <div className="text-xs text-muted">
+        <PlayerAvatar name={value.name} photoUrl={value.photoUrl} size={44} />
+        <div className="min-w-0 flex-1">
+          <div className="truncate text-base font-semibold text-text">{value.name}</div>
+          <div className="truncate text-xs text-muted">
+            {value.countryIso && <span>{flag(value.countryIso)} </span>}
             {value.country ?? "—"} · #{value.rank} · {value.tour.toUpperCase()}
           </div>
         </div>
-        <X className="size-4 text-muted" />
+        <X className="size-4 shrink-0 text-muted" />
       </button>
     );
   }
@@ -89,12 +93,14 @@ export function PlayerSearch({ players, value, onChange, placeholder, excludeId 
                     setOpen(false);
                   }}
                   className={cn(
-                    "flex w-full items-center justify-between px-4 py-3 text-left hover:bg-surface",
+                    "flex w-full items-center gap-3 px-4 py-3 text-left hover:bg-surface",
                   )}
                 >
-                  <div>
-                    <div className="text-sm font-medium">{p.name}</div>
-                    <div className="text-xs text-muted">
+                  <PlayerAvatar name={p.name} photoUrl={p.photoUrl} size={36} />
+                  <div className="min-w-0 flex-1">
+                    <div className="truncate text-sm font-medium">{p.name}</div>
+                    <div className="truncate text-xs text-muted">
+                      {p.countryIso && <span>{flag(p.countryIso)} </span>}
                       {p.country ?? "—"} · {p.tour.toUpperCase()}
                     </div>
                   </div>

@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 import re
+from datetime import datetime
 from pathlib import Path
 
 import pandas as pd
@@ -11,6 +12,8 @@ import pandas as pd
 from .backtest import BacktestMetrics
 from .config import DATA_OUT_DIR, FEATURE_NAMES, SURFACES
 from .features.elo_surface import SurfaceEloState
+from .ioc import ioc_to_iso
+from .stats import PlayerCareer
 from .train import TrainedModel
 
 
@@ -23,6 +26,29 @@ def _slugify(name: str) -> str:
 def _write(path: Path, payload: object) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(payload, separators=(",", ":"), ensure_ascii=False))
+
+
+def _parse_dob(dob: object) -> str | None:
+    if dob is None or (isinstance(dob, float) and pd.isna(dob)):
+        return None
+    s = str(dob).strip()
+    if not s or s == "nan":
+        return None
+    # Sackmann uses YYYYMMDD as a string
+    if len(s) == 8 and s.isdigit():
+        return f"{s[0:4]}-{s[4:6]}-{s[6:8]}"
+    return None
+
+
+def _age_from_dob(dob_iso: str | None, ref: datetime | None = None) -> float | None:
+    if not dob_iso:
+        return None
+    try:
+        dt = datetime.fromisoformat(dob_iso)
+    except ValueError:
+        return None
+    ref = ref or datetime.utcnow()
+    return round((ref - dt).days / 365.25, 1)
 
 
 def export_models(models_by_tour: dict[str, list[TrainedModel]]) -> None:
@@ -39,66 +65,111 @@ def export_backtest(metrics_by_tour: dict[str, BacktestMetrics]) -> None:
     _write(DATA_OUT_DIR / "backtest.json", payload)
 
 
-def export_players_and_elo(
+def build_players(
     tours_with_features: dict[str, pd.DataFrame],
     elo_states: dict[str, SurfaceEloState],
-) -> None:
+    player_meta: dict[str, pd.DataFrame],
+    careers: dict[str, dict[str, PlayerCareer]],
+    photos_by_qid: dict[str, str],
+) -> list[dict]:
+    """Assemble the rich `players.json` payload.
+
+    Only players that appear in the matches frame are kept, so list size stays bounded.
+    """
     players: list[dict] = []
-    elo_rows: list[dict] = []
-    seen: set[tuple[str, str]] = set()
 
     for tour, df in tours_with_features.items():
-        # Take each player's *latest* row to pick up their current age / country
-        for side in ("winner", "loser"):
-            cols = [f"{side}_id", f"{side}_name", f"{side}_ioc", f"{side}_age", "tourney_date"]
-            sub = df[cols].rename(
-                columns={
-                    f"{side}_id": "player_id",
-                    f"{side}_name": "name",
-                    f"{side}_ioc": "country",
-                    f"{side}_age": "age",
-                }
-            )
-            sub["tour"] = tour
-            sub = sub.sort_values("tourney_date").groupby("player_id", as_index=False).tail(1)
-            for row in sub.itertuples(index=False):
-                key = (tour, str(row.player_id))
-                if key in seen:
-                    continue
-                seen.add(key)
-                name = str(row.name)
-                players.append({
-                    "id": f"{tour}-{row.player_id}",
-                    "slug": _slugify(f"{tour}-{name}"),
-                    "name": name,
-                    "country": (str(row.country) if pd.notna(row.country) else None),
-                    "age": (float(row.age) if pd.notna(row.age) else None),
-                    "tour": tour,
-                })
-
+        meta_df = player_meta[tour]
+        meta_idx = meta_df.set_index("player_id")
+        # players we've actually seen in the matches window (winners ∪ losers)
+        seen_ids = set(df["winner_id"].astype(str)).union(df["loser_id"].astype(str))
         state = elo_states[tour]
-        # emit latest Elo per (player, surface)
+        tour_careers = careers.get(tour, {})
+
+        for pid in seen_ids:
+            career = tour_careers.get(pid)
+            if not career:
+                continue
+            raw = meta_idx.loc[pid].to_dict() if pid in meta_idx.index else {}
+            # meta CSV comes in as strings but missing values become NaN floats — normalize
+            def _s(key: str) -> str | None:
+                v = raw.get(key)
+                if v is None:
+                    return None
+                if isinstance(v, float) and pd.isna(v):
+                    return None
+                s = str(v).strip()
+                return s or None
+
+            first = _s("name_first") or ""
+            last = _s("name_last") or ""
+            name = f"{first} {last}".strip() or f"Player {pid}"
+            dob_iso = _parse_dob(_s("dob"))
+            age = _age_from_dob(dob_iso)
+            ioc = _s("ioc")
+            height_str = _s("height")
+            try:
+                height_cm = int(float(height_str)) if height_str else None
+            except ValueError:
+                height_cm = None
+            hand = (_s("hand") or "").upper() or None
+            qid = _s("wikidata_id")
+            if qid and not qid.startswith("Q"):
+                qid = None
+            photo = photos_by_qid.get(qid) if qid else None
+
+            current_elo = {s: round(state.get(s, pid), 2) for s in SURFACES}
+            matches_by_surface = {s: state.matches[s].get(pid, 0) for s in SURFACES}
+
+            players.append({
+                "id": f"{tour}-{pid}",
+                "slug": _slugify(f"{tour}-{name}"),
+                "name": name,
+                "firstName": first or None,
+                "lastName": last or None,
+                "country": ioc,
+                "countryIso": ioc_to_iso(ioc),
+                "hand": hand if hand in {"R", "L", "A"} else None,
+                "heightCm": height_cm,
+                "dob": dob_iso,
+                "age": age,
+                "tour": tour,
+                "wikidataId": qid,
+                "photoUrl": photo,
+                "currentEloSurface": current_elo,
+                "matchesBySurface": matches_by_surface,
+                "career": career.to_dict(),
+            })
+
+    # Rank per tour by best-surface Elo
+    by_tour: dict[str, list[dict]] = {}
+    for p in players:
+        by_tour.setdefault(p["tour"], []).append(p)
+    out: list[dict] = []
+    for tour, lst in by_tour.items():
+        lst.sort(key=lambda p: max(p["currentEloSurface"].values()), reverse=True)
+        for i, p in enumerate(lst, start=1):
+            p["rank"] = i
+            out.append(p)
+    return out
+
+
+def export_players(players: list[dict]) -> None:
+    _write(DATA_OUT_DIR / "players.json", players)
+
+
+def export_elo(elo_states: dict[str, SurfaceEloState]) -> None:
+    rows: list[dict] = []
+    for tour, state in elo_states.items():
         for surface in SURFACES:
             for pid, rating in state.rating[surface].items():
-                elo_rows.append({
+                rows.append({
                     "id": f"{tour}-{pid}",
                     "surface": surface,
                     "elo": round(rating, 2),
                     "matches": state.matches[surface].get(pid, 0),
                 })
-
-    # Attach a rank per tour by best-surface Elo
-    elo_df = pd.DataFrame(elo_rows)
-    if not elo_df.empty:
-        best = elo_df.sort_values("elo", ascending=False).groupby("id", as_index=False).head(1)
-        best["rank_key"] = best["elo"].rank(ascending=False, method="dense").astype(int)
-        rank_map = dict(zip(best["id"], best["rank_key"]))
-        for p in players:
-            p["rank"] = int(rank_map.get(p["id"], 9999))
-        players.sort(key=lambda p: (p["tour"], p["rank"]))
-
-    _write(DATA_OUT_DIR / "players.json", players)
-    _write(DATA_OUT_DIR / "elo.json", elo_rows)
+    _write(DATA_OUT_DIR / "elo.json", rows)
 
 
 def export_meta(year_from: int, year_to: int, trained_at: str) -> None:
