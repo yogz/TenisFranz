@@ -1,9 +1,19 @@
 name: historical_roi
 
-# Manual-only: the walk-forward simulation is expensive and only needs to be
-# refreshed when the model changes meaningfully. Trigger from the Actions tab
-# in the GitHub web UI (no local machine needed).
+# Walk-forward simulation against tennis-data.co.uk archives. Refreshes
+# `web/public/data/vs_market.json`. The job takes ~3 min (download cache
+# warms up the bookie xlsx files, then 20 years × 6 per-(tour, surface)
+# retrains).
+#
+# Schedule: once a week on Monday at 05:37 UTC. The ROI curve barely
+# moves day-to-day (new data is <0.05% of history), so a weekly refresh
+# is plenty. Off-the-hour minute (:37) avoids the GitHub-wide rate-limit
+# spike that hits every :00.
+#
+# Also stays dispatchable manually for the Actions tab / gh CLI.
 on:
+  schedule:
+    - cron: "37 5 * * 1"  # Monday 05:37 UTC
   workflow_dispatch:
     inputs:
       years:
@@ -38,10 +48,15 @@ jobs:
         run: uv sync
       - name: Run historical ROI simulation
         working-directory: pipeline
+        env:
+          # On schedule events `github.event.inputs.*` is empty, so fall
+          # back to the same defaults declared under workflow_dispatch.
+          YEARS: ${{ github.event.inputs.years || '2005-2024' }}
+          EDGE: ${{ github.event.inputs.edge || '0.03' }}
         run: |
           uv run python -m tenisfranz.historical_roi \
-            --years "${{ github.event.inputs.years }}" \
-            --edge "${{ github.event.inputs.edge }}"
+            --years "$YEARS" \
+            --edge "$EDGE"
       - name: Commit vs_market.json if changed
         run: |
           git config user.name "tenisfranz-bot"
