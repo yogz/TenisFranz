@@ -9,7 +9,7 @@ export default async function ModelPage() {
   return (
     <div className="space-y-8">
       <header className="space-y-1">
-        <h1 className="font-serif text-3xl">Modèle</h1>
+        <h1 className="font-display text-3xl">Modèle</h1>
         <p className="text-sm text-muted">
           Régression logistique · {meta.yearFrom}-{meta.yearTo} · entraîné le{" "}
           {meta.trainedAt ? new Date(meta.trainedAt).toLocaleDateString("fr-FR") : "—"}
@@ -66,7 +66,7 @@ function Stat({ label, value }: { label: string; value: string }) {
   return (
     <div className="rounded-xl bg-surface2 p-3 text-center">
       <div className="text-[11px] uppercase tracking-wider text-muted">{label}</div>
-      <div className="font-serif text-2xl text-text">{value}</div>
+      <div className="font-display text-2xl text-text">{value}</div>
     </div>
   );
 }

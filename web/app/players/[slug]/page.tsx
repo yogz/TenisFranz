@@ -20,7 +20,7 @@ export default async function PlayerPage({ params }: { params: Promise<{ slug: s
     <div className="space-y-6">
       <header className="space-y-1">
         <div className="chip">{player.tour.toUpperCase()} · #{player.rank}</div>
-        <h1 className="font-serif text-4xl leading-tight">{player.name}</h1>
+        <h1 className="font-display text-4xl leading-tight">{player.name}</h1>
         <p className="text-sm text-muted">
           {player.country ?? "—"} {player.age ? `· ${player.age.toFixed(0)} ans` : ""}
         </p>
@@ -35,7 +35,7 @@ export default async function PlayerPage({ params }: { params: Promise<{ slug: s
             return (
               <div key={s} className="rounded-xl bg-surface2 p-3 text-center">
                 <div className="text-xs uppercase tracking-wider text-muted">{label}</div>
-                <div className="font-serif text-2xl text-text">
+                <div className="font-display text-2xl text-text">
                   {row ? Math.round(row.elo) : "—"}
                 </div>
                 <div className="text-[11px] text-muted">{row ? `${row.matches} matchs` : ""}</div>

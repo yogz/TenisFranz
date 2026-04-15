@@ -56,8 +56,8 @@ export function PlayerSearch({ players, value, onChange, placeholder, excludeId 
 
   return (
     <div className="relative">
-      <div className="flex items-center gap-2 rounded-xl border border-border bg-surface px-3 py-3">
-        <Search className="size-4 text-muted" />
+      <div className="flex items-center gap-2 rounded-xl border border-border bg-surface px-3.5 py-3.5 focus-within:border-lime/40 focus-within:shadow-[0_0_0_1px_rgba(204,255,0,0.2)] transition">
+        <Search className="size-4 shrink-0 text-muted" />
         <input
           value={query}
           onChange={(e) => {
@@ -67,7 +67,11 @@ export function PlayerSearch({ players, value, onChange, placeholder, excludeId 
           onFocus={() => setOpen(true)}
           onBlur={() => setTimeout(() => setOpen(false), 120)}
           placeholder={placeholder}
-          className="flex-1 bg-transparent text-sm outline-none placeholder:text-muted"
+          autoComplete="off"
+          autoCorrect="off"
+          autoCapitalize="off"
+          spellCheck={false}
+          className="flex-1 bg-transparent text-[16px] outline-none placeholder:text-muted"
         />
       </div>
       {open && results.length > 0 && (

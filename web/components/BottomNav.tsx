@@ -14,7 +14,10 @@ const links = [
 export function BottomNav() {
   const pathname = usePathname();
   return (
-    <nav className="fixed inset-x-0 bottom-0 z-20 border-t border-border bg-bg/90 backdrop-blur">
+    <nav
+      className="fixed inset-x-0 bottom-0 z-20 border-t border-border bg-bg/80 backdrop-blur-lg"
+      style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
+    >
       <div className="mx-auto grid max-w-xl grid-cols-3">
         {links.map(({ href, label, icon: Icon }) => {
           const active = href === "/" ? pathname === "/" : pathname.startsWith(href);

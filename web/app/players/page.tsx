@@ -9,7 +9,7 @@ export default async function PlayersPage() {
   return (
     <div className="space-y-8">
       <header className="space-y-1">
-        <h1 className="font-serif text-3xl">Joueurs</h1>
+        <h1 className="font-display text-3xl">Joueurs</h1>
         <p className="text-sm text-muted">Top 100 par Elo — ATP & WTA</p>
       </header>
 

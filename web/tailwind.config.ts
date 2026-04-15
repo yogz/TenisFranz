@@ -21,8 +21,12 @@ const config: Config = {
         },
       },
       fontFamily: {
-        sans: ["var(--font-inter)", "system-ui", "sans-serif"],
-        serif: ["var(--font-instrument)", "Georgia", "serif"],
+        sans: ["var(--font-sans)", "system-ui", "sans-serif"],
+        display: ["var(--font-display)", "Georgia", "serif"],
+      },
+      fontSize: {
+        // prevent iOS Safari auto-zoom by ensuring inputs >= 16px
+        "input": ["16px", { lineHeight: "1.25rem" }],
       },
       borderRadius: {
         xl: "1rem",
