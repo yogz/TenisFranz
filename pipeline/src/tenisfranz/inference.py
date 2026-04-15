@@ -70,13 +70,14 @@ def _sigmoid(x: float) -> float:
 def feature_vector(
     a: PlayerFeatures, b: PlayerFeatures, tourney_weight: float,
 ) -> dict[str, float]:
+    # Mirrors web/lib/predict.ts::featureVector. Form and fatigue are still
+    # passed in PlayerFeatures (other callers need them) but are no longer
+    # part of the model input — see config.FEATURE_NAMES rationale.
     return {
         "elo_surface_diff": a.elo_surface - b.elo_surface,
         "serve_pts_won_diff": a.serve_pct - b.serve_pct,
         "return_pts_won_diff": a.return_pct - b.return_pct,
-        "form_diff": a.form - b.form,
         "h2h_diff": a.h2h - b.h2h,
-        "fatigue_diff": a.fatigue - b.fatigue,
         "age_diff": a.age - b.age,
         "age_sq_diff": a.age_sq - b.age_sq,
         "tourney_weight": tourney_weight,
@@ -89,10 +90,19 @@ def apply_model(
     fb: PlayerFeatures,
     tourney_weight: float = 2.0,
 ) -> float:
-    """Return P(A wins). Matches web/lib/predict.ts::predict at 1e-9."""
+    """Return P(A wins). Matches web/lib/predict.ts::predict at 1e-9.
+
+    Features the current `feature_vector` doesn't produce but the model
+    references (e.g. a legacy `form_diff` coefficient still on disk while
+    the pipeline is mid-migration) are treated as the scaled-mean (→ zero
+    logit contribution). That makes the function tolerant of model/schema
+    drift during rollouts.
+    """
     raw = feature_vector(fa, fb, tourney_weight)
     logit = model.intercept
     for i, name in enumerate(model.feature_names):
+        if name not in raw:
+            continue  # unknown feature contributes 0 logit
         mean = model.scaler_mean[i]
         scale = model.scaler_scale[i] or 1.0
         x = (raw[name] - mean) / scale

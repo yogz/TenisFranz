@@ -251,11 +251,13 @@ export function PredictionDetails({
           </section>
 
           <p className="text-[11px] leading-relaxed text-muted/70">
-            ⚠️ Les variables &laquo;&nbsp;forme&nbsp;&raquo;, &laquo;&nbsp;face-à-face&nbsp;&raquo;,{" "}
-            &laquo;&nbsp;% service/retour&nbsp;&raquo; et &laquo;&nbsp;fatigue&nbsp;&raquo; utilisent
-            des valeurs moyennes par défaut côté front — seuls l'Elo surface et l'âge sont lus
-            directement sur chaque joueur. Utilise les <span className="text-text">ajustements</span>{" "}
-            au-dessus pour injecter du contexte (blessure, fatigue, confiance…).
+            ⚠️ Le modèle s'appuie surtout sur l'Elo par surface et l'âge ; les autres
+            variables (% service/retour, face-à-face) utilisent des valeurs moyennes
+            côté front faute de données live. Pour injecter du contexte (blessure,
+            fatigue, confiance…), utilise les{" "}
+            <span className="text-text">ajustements</span> au-dessus : ils décalent
+            directement la probabilité finale d'une quantité calibrée à la main, et
+            leur direction est toujours garantie correcte.
           </p>
         </div>
       )}

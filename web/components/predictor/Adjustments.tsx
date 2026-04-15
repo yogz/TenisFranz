@@ -2,48 +2,58 @@
 
 import { ChevronDown, RotateCcw } from "lucide-react";
 import { useState } from "react";
-import type { FeatureDeltas, PredictAdjustments } from "@/lib/predict";
+import type { PredictAdjustments } from "@/lib/predict";
 
 export interface AdjustmentOption {
   id: string;
   label: string;
   icon: string;
   target: "A" | "B";
-  delta: FeatureDeltas;
+  /**
+   * Logit shift applied to this player's side when the chip is active.
+   * A positive value strengthens the target player. See the conversion
+   * table in predict.ts::PredictAdjustments — in the 50/50 region roughly:
+   *   ±0.40 ≈ ±10 pts of probability
+   *   ±0.20 ≈ ±5 pts
+   *   ±0.10 ≈ ±2.5 pts
+   */
+  logit: number;
 }
 
-// Contextual modifiers — each maps to small nudges on the feature vector.
-// Deltas are intentionally modest to avoid wild swings.
+// Contextual modifiers — hand-calibrated so the UI direction always
+// matches the user's intuition. These are applied directly to the logit
+// after the model's raw prediction, so their effect is decoupled from
+// the feature coefficients (which can flip signs under collinearity).
 const OPTIONS: Omit<AdjustmentOption, "target">[] = [
   {
     id: "injured",
     label: "Blessé·e / pas à 100%",
     icon: "🏥",
-    delta: { form: -0.15, eloSurface: -40 },
+    logit: -0.40, // ≈ −10 pts
   },
   {
     id: "five_setter",
     label: "Long match la veille",
     icon: "😴",
-    delta: { fatigue: 0.4 },
+    logit: -0.25, // ≈ −6 pts
   },
   {
     id: "confidence",
     label: "En pleine confiance",
     icon: "🔥",
-    delta: { form: 0.12 },
+    logit: +0.20, // ≈ +5 pts
   },
   {
     id: "comeback",
     label: "Retour de blessure",
     icon: "🩹",
-    delta: { eloSurface: -60, form: -0.1 },
+    logit: -0.50, // ≈ −12 pts
   },
   {
     id: "home",
     label: "À domicile",
     icon: "🏠",
-    delta: { eloSurface: 20 },
+    logit: +0.15, // ≈ +4 pts
   },
 ];
 
@@ -92,16 +102,14 @@ export function adjIdsFromUrlParts(aAdj: string | null, bAdj: string | null): Se
 }
 
 export function adjustmentsFromIds(ids: Set<string>): PredictAdjustments {
-  const out: PredictAdjustments = { A: {}, B: {} };
+  let logitA = 0;
+  let logitB = 0;
   for (const opt of ALL) {
     if (!ids.has(opt.id)) continue;
-    const bucket = opt.target === "A" ? out.A! : out.B!;
-    for (const [k, v] of Object.entries(opt.delta)) {
-      const key = k as keyof FeatureDeltas;
-      bucket[key] = (bucket[key] ?? 0) + (v ?? 0);
-    }
+    if (opt.target === "A") logitA += opt.logit;
+    else logitB += opt.logit;
   }
-  return out;
+  return { logitA, logitB };
 }
 
 export function Adjustments({

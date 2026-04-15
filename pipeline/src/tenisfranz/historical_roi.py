@@ -86,6 +86,10 @@ logger = logging.getLogger(__name__)
 
 DEFAULT_EDGE_THRESHOLD = 0.03  # 3 percentage points
 DEFAULT_STAKE = 1.0
+# Bankroll curves are downsampled for the web: full 20-year runs produce
+# 30k+ points which bloat vs_market.json past 2MB. 500 points is enough
+# resolution for a Recharts line chart at phone and desktop scale.
+BANKROLL_CURVE_MAX_POINTS = 500
 
 # First year tennis-data.co.uk publishes Shin-friendly column sets (AvgW/AvgL).
 # ATP: 2005, WTA: 2007. We probe both and skip missing files.
@@ -134,7 +138,7 @@ class VsMarketBundle:
             "roi": round(self.roi, 5),
             "bankrollCurve": [
                 {"date": p.date, "balance": round(p.balance, 4), "picks": p.picks}
-                for p in self.bankroll_curve
+                for p in _downsample_curve(self.bankroll_curve, BANKROLL_CURVE_MAX_POINTS)
             ],
             "baselines": {
                 "favoriteAlways": round(self.baselines.favorite_always, 5),
@@ -142,6 +146,42 @@ class VsMarketBundle:
                 "random": round(self.baselines.random, 5),
             },
         }
+
+
+# --- Curve downsampling -------------------------------------------------
+
+
+def _downsample_curve(
+    points: list[BankrollPoint], max_points: int = BANKROLL_CURVE_MAX_POINTS,
+) -> list[BankrollPoint]:
+    """Reduce a bankroll curve to at most `max_points` samples, preserving
+    the first point, the last point, and extrema (min / max balance) —
+    everything else is stride-sampled uniformly.
+
+    We don't use Douglas–Peucker here because the curve's character is
+    "cumulative PnL with occasional drawdowns" — a uniform stride preserves
+    the visual shape just as well at 500 points and is O(N) vs O(N log N).
+    """
+    n = len(points)
+    if n <= max_points:
+        return list(points)
+    kept: dict[int, BankrollPoint] = {0: points[0], n - 1: points[-1]}
+    # Find the argmin and argmax so drawdowns and peaks aren't lost.
+    min_i = min(range(n), key=lambda i: points[i].balance)
+    max_i = max(range(n), key=lambda i: points[i].balance)
+    kept[min_i] = points[min_i]
+    kept[max_i] = points[max_i]
+    # Uniform stride for the rest of the budget.
+    budget = max(max_points - len(kept), 0)
+    if budget > 0:
+        stride = max(n // budget, 1)
+        for i in range(0, n, stride):
+            if i in kept:
+                continue
+            kept[i] = points[i]
+            if len(kept) >= max_points:
+                break
+    return [kept[i] for i in sorted(kept)]
 
 
 # --- Core simulation ----------------------------------------------------

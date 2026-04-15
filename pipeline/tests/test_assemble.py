@@ -5,6 +5,7 @@ from __future__ import annotations
 import numpy as np
 import pandas as pd
 
+from tenisfranz.config import FEATURE_NAMES
 from tenisfranz.features.assemble import add_all, build_matrix
 
 
@@ -38,7 +39,7 @@ def test_build_matrix_shape_and_labels():
     df = _fake_matches()
     with_feats, _ = add_all(df)
     X, y = build_matrix(with_feats, seed=1)
-    assert X.shape == (len(df), 9)
+    assert X.shape == (len(df), len(FEATURE_NAMES))
     assert set(np.unique(y)).issubset({0.0, 1.0})
     # labels balanced by construction (random swap)
     assert 0.35 < y.mean() < 0.65

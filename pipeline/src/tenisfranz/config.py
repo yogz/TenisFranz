@@ -16,13 +16,23 @@ SACKMANN_REPOS = {
 
 SURFACES = ("Hard", "Clay", "Grass")
 
+# Post-leak-fix feature set (2026-04). `form_diff` and `fatigue_diff` were
+# dropped because:
+#   - After fixing the intra-tournament ordering leak, `fatigue_diff`'s
+#     coefficient collapsed from +1.08 to +0.06 (useless) — its pre-fix
+#     magnitude was 95% leak artefact.
+#   - `form_diff`'s coefficient stayed slightly negative (-0.09) due to
+#     residual collinearity with elo_surface_diff. A near-zero-magnitude
+#     feature with the "wrong" sign poisoned the explainability waterfall
+#     and made user-facing adjustments unpredictable.
+# The `w_form` / `w_fatigue` columns are still computed in the feature
+# pipeline because the player-profile page surfaces recent form as a UX
+# cue — they just aren't fed into the logistic regression anymore.
 FEATURE_NAMES = (
     "elo_surface_diff",
     "serve_pts_won_diff",
     "return_pts_won_diff",
-    "form_diff",
     "h2h_diff",
-    "fatigue_diff",
     "age_diff",
     "age_sq_diff",
     "tourney_weight",

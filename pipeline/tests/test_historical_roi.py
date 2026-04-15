@@ -8,6 +8,7 @@ import pandas as pd
 import pytest
 
 from tenisfranz import historical_roi as hr
+from tenisfranz.bookies import BankrollPoint
 
 
 def _m(date, pa, oa, ob, winner):
@@ -18,6 +19,42 @@ def _m(date, pa, oa, ob, winner):
         "odds_b": ob,
         "winner": winner,
     }
+
+
+def test_downsample_curve_passthrough_under_budget():
+    pts = [BankrollPoint(date=f"2020-01-{i+1:02d}", balance=i * 0.1, picks=i + 1) for i in range(10)]
+    out = hr._downsample_curve(pts, max_points=500)
+    assert out == pts
+
+
+def test_downsample_curve_preserves_first_last_and_extrema():
+    pts = []
+    for i in range(2000):
+        # Curve with a clear max around index 500 and min around 1500
+        bal = -((i - 500) ** 2) / 10000 if i < 1000 else ((i - 1500) ** 2) / 10000 - 100
+        pts.append(BankrollPoint(date=f"2020-{(i // 60) + 1:02d}-{(i % 28) + 1:02d}", balance=bal, picks=i + 1))
+    out = hr._downsample_curve(pts, max_points=500)
+    assert len(out) <= 500
+    assert len(out) >= 100  # reasonably dense
+    # First and last preserved
+    assert out[0].balance == pts[0].balance
+    assert out[-1].balance == pts[-1].balance
+    # Global extrema preserved
+    min_in = min(pts, key=lambda p: p.balance).balance
+    max_in = max(pts, key=lambda p: p.balance).balance
+    min_out = min(out, key=lambda p: p.balance).balance
+    max_out = max(out, key=lambda p: p.balance).balance
+    assert min_out == min_in
+    assert max_out == max_in
+
+
+def test_downsample_curve_monotonic_time_order():
+    pts = [BankrollPoint(date=f"2020-01-{i+1:02d}", balance=float(i), picks=i + 1) for i in range(1000)]
+    out = hr._downsample_curve(pts, max_points=100)
+    # Output preserves original ordering (picks counter is monotonically
+    # increasing in the input, so it must be in the output too).
+    picks_seq = [p.picks for p in out]
+    assert picks_seq == sorted(picks_seq)
 
 
 def test_simulate_empty_returns_zero():

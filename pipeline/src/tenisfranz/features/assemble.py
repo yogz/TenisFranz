@@ -39,13 +39,14 @@ def build_matrix(matches_with_features: pd.DataFrame, seed: int = 42) -> tuple[n
         base = w - l
         return np.where(swap, -base, base)
 
+    # Only features in config.FEATURE_NAMES are fed into the model. Form
+    # and fatigue are still computed (for profile-page UI) but no longer
+    # fit — see config.py for the rationale.
     feats = {
         "elo_surface_diff": diff("w_elo_surface", "l_elo_surface"),
         "serve_pts_won_diff": diff("w_serve_pct", "l_serve_pct"),
         "return_pts_won_diff": diff("w_return_pct", "l_return_pct"),
-        "form_diff": diff("w_form", "l_form"),
         "h2h_diff": diff("w_h2h", "l_h2h"),
-        "fatigue_diff": diff("w_fatigue", "l_fatigue"),
         "age_diff": diff("w_age", "l_age"),
         "age_sq_diff": diff("w_age_sq", "l_age_sq"),
         "tourney_weight": matches_with_features["tourney_weight"].to_numpy(dtype=np.float64),
