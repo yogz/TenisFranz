@@ -51,7 +51,9 @@ jobs:
             echo "no output file produced — aborting"
             exit 1
           fi
-          git add "$FILE"
+          # -f because web/public/data/*.json is gitignored by default; we
+          # deliberately commit this one derived artefact so Vercel can read it.
+          git add -f "$FILE"
           if git diff --staged --quiet; then
             echo "no change to commit"
             exit 0
