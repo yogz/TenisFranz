@@ -1,12 +1,24 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { EloRow, ModelBundle, Player, Surface } from "@/lib/types";
 import { pickModel, predict } from "@/lib/predict";
 import { PlayerSearch } from "./PlayerSearch";
 import { SurfacePicker } from "./SurfacePicker";
 import { WaterfallChart } from "./WaterfallChart";
-import { Adjustments, adjustmentsFromIds } from "./Adjustments";
+import {
+  Adjustments,
+  adjustmentsFromIds,
+  adjIdsFromUrlParts,
+  adjIdsToUrlParts,
+} from "./Adjustments";
+
+const SURFACES: Surface[] = ["Hard", "Clay", "Grass"];
+
+function findBySlug(players: Player[], slug: string | null): Player | null {
+  if (!slug) return null;
+  return players.find((p) => p.slug === slug) ?? null;
+}
 
 export function Predictor({
   players,
@@ -21,6 +33,53 @@ export function Predictor({
   const [b, setB] = useState<Player | null>(null);
   const [surface, setSurface] = useState<Surface>("Hard");
   const [adjIds, setAdjIds] = useState<Set<string>>(new Set());
+
+  // Hydrate from URL on client mount. Lazy-read from window.location to
+  // avoid the <Suspense> boundary re-render that useSearchParams would
+  // trigger on every navigation. Unknown slugs are silently ignored.
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const params = new URLSearchParams(window.location.search);
+    const aSlug = params.get("a");
+    const bSlug = params.get("b");
+    const s = params.get("s");
+    const ap = findBySlug(players, aSlug);
+    const bp = findBySlug(players, bSlug);
+    // Only accept a pair if both sides resolve AND tours match.
+    if (ap && bp && ap.tour === bp.tour) {
+      setA(ap);
+      setB(bp);
+    } else if (ap && !bp) {
+      setA(ap);
+    } else if (!ap && bp) {
+      setB(bp);
+    }
+    if (s && (SURFACES as string[]).includes(s)) {
+      setSurface(s as Surface);
+    }
+    const hydrated = adjIdsFromUrlParts(params.get("aAdj"), params.get("bAdj"));
+    if (hydrated.size > 0) {
+      setAdjIds(hydrated);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Sync selection back to the URL without triggering a router re-render.
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const url = new URL(window.location.href);
+    if (a) url.searchParams.set("a", a.slug);
+    else url.searchParams.delete("a");
+    if (b) url.searchParams.set("b", b.slug);
+    else url.searchParams.delete("b");
+    url.searchParams.set("s", surface);
+    const { aAdj, bAdj } = adjIdsToUrlParts(adjIds);
+    if (aAdj) url.searchParams.set("aAdj", aAdj);
+    else url.searchParams.delete("aAdj");
+    if (bAdj) url.searchParams.set("bAdj", bAdj);
+    else url.searchParams.delete("bAdj");
+    window.history.replaceState(null, "", url);
+  }, [a, b, surface, adjIds]);
 
   const canPredict = a && b && a.tour === b.tour;
   let result: ReturnType<typeof predict> | null = null;

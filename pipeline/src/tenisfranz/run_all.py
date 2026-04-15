@@ -8,7 +8,7 @@ from datetime import datetime, timezone
 from rich.console import Console
 from rich.table import Table
 
-from . import backtest, export, ingest, stats, train, wikidata
+from . import backtest, export, guardrail, h2h, ingest, stats, train, wikidata
 
 console = Console()
 
@@ -40,6 +40,9 @@ def main() -> None:
         table.add_row(tour, f"{m.accuracy:.3f}", f"{m.log_loss:.3f}", f"{m.brier:.3f}", f"{m.n_test}")
     console.print(table)
 
+    console.rule("guardrail")
+    guardrail.enforce(metrics_by_tour)
+
     console.rule("stats")
     careers_by_tour = {tour: stats.compute_career(df) for tour, df in tours.items()}
 
@@ -62,6 +65,7 @@ def main() -> None:
     export.export_backtest(metrics_by_tour)
     export.export_players(players)
     export.export_elo(elo_states)
+    export.export_h2h(h2h.compute_h2h(tours))
     export.export_meta(year_from, year_to, datetime.now(timezone.utc).isoformat())
 
     console.print(f"[green]done[/] — {len(players)} players exported")

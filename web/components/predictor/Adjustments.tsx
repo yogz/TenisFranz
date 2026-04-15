@@ -59,6 +59,38 @@ function buildAll(): AdjustmentOption[] {
 
 const ALL = buildAll();
 
+export const VALID_ADJ_BASE_IDS = new Set(OPTIONS.map((o) => o.id));
+
+/** Serialize an id set into the aAdj/bAdj URL format. */
+export function adjIdsToUrlParts(ids: Set<string>): { aAdj: string; bAdj: string } {
+  const a: string[] = [];
+  const b: string[] = [];
+  for (const id of ids) {
+    if (id.endsWith("_A")) a.push(id.slice(0, -2));
+    else if (id.endsWith("_B")) b.push(id.slice(0, -2));
+  }
+  a.sort();
+  b.sort();
+  return { aAdj: a.join(","), bAdj: b.join(",") };
+}
+
+/** Parse aAdj/bAdj URL params into an id set. Unknown base ids are dropped. */
+export function adjIdsFromUrlParts(aAdj: string | null, bAdj: string | null): Set<string> {
+  const out = new Set<string>();
+  const parse = (s: string | null, side: "A" | "B") => {
+    if (!s) return;
+    for (const raw of s.split(",")) {
+      const base = raw.trim();
+      if (base && VALID_ADJ_BASE_IDS.has(base)) {
+        out.add(`${base}_${side}`);
+      }
+    }
+  };
+  parse(aAdj, "A");
+  parse(bAdj, "B");
+  return out;
+}
+
 export function adjustmentsFromIds(ids: Set<string>): PredictAdjustments {
   const out: PredictAdjustments = { A: {}, B: {} };
   for (const opt of ALL) {

@@ -1,0 +1,26 @@
+[
+  {
+    "tour": "atp",
+    "date": "2026-04-18",
+    "tournament": "Monte Carlo Masters",
+    "round": "SF",
+    "surface": "Clay",
+    "player_a_last": "Alcaraz",
+    "player_a_first": "Carlos",
+    "player_b_last": "Sinner",
+    "player_b_first": "Jannik",
+    "tourney_level": "M"
+  },
+  {
+    "tour": "atp",
+    "date": "2026-04-18",
+    "tournament": "Monte Carlo Masters",
+    "round": "SF",
+    "surface": "Clay",
+    "player_a_last": "Djokovic",
+    "player_a_first": "Novak",
+    "player_b_last": "Zverev",
+    "player_b_first": "Alexander",
+    "tourney_level": "M"
+  }
+]

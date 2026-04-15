@@ -1,0 +1,61 @@
+name: upcoming
+
+on:
+  schedule:
+    - cron: "0 7 * * *" # daily 07:00 UTC — 4h after the nightly pipeline
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: commit-main # shared with pipeline.yml to prevent git-push races
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v3
+        with:
+          enable-cache: true
+      - name: Install Python
+        run: uv python install 3.11
+      - name: Install deps
+        working-directory: pipeline
+        run: uv sync
+      - name: Generate matches_upcoming.json
+        working-directory: pipeline
+        env:
+          # Wire these once the live endpoints are verified (see docs/data_sources.md).
+          # Until then, upcoming.py emits an empty match list and the commit step is a no-op.
+          TENISFRANZ_DRAWS_ATP: ${{ vars.TENISFRANZ_DRAWS_ATP }}
+          TENISFRANZ_DRAWS_WTA: ${{ vars.TENISFRANZ_DRAWS_WTA }}
+        run: uv run python -m tenisfranz.upcoming
+      - name: Commit if meaningful change
+        run: |
+          git config user.name "tenisfranz-bot"
+          git config user.email "bot@tenisfranz.local"
+          FILE=web/public/data/matches_upcoming.json
+          if [ ! -f "$FILE" ]; then
+            echo "no output file produced"
+            exit 0
+          fi
+          git add "$FILE"
+          if git diff --staged --quiet; then
+            echo "no change"
+            exit 0
+          fi
+          # Skip commit if only updatedAt / stats changed (content is the same)
+          OLD=$(git show HEAD:"$FILE" 2>/dev/null | jq -S 'del(.updatedAt) | del(.stats)' || echo "")
+          NEW=$(jq -S 'del(.updatedAt) | del(.stats)' "$FILE")
+          if [ "$OLD" = "$NEW" ]; then
+            echo "only metadata changed — skipping commit"
+            git restore --staged "$FILE"
+            git checkout -- "$FILE"
+            exit 0
+          fi
+          git commit -m "upcoming: refresh matches $(date -u +%Y-%m-%d)"
+          git push

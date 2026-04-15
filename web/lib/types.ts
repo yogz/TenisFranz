@@ -84,3 +84,45 @@ export interface Meta {
   trainedAt: string;
   featureNames: string[];
 }
+
+export interface UpcomingMatch {
+  id: string;
+  date: string; // ISO yyyy-mm-dd
+  tournament: string;
+  round: string;
+  surface: Surface;
+  tour: Tour;
+  playerA: string; // slug
+  playerB: string; // slug
+  modelProbA: number;
+}
+
+export interface UpcomingBundle {
+  updatedAt: string;
+  modelTrainedAt: string | null;
+  source: string;
+  matches: UpcomingMatch[];
+  stats: { fetched: number; resolved: number; missRatio: number };
+}
+
+export interface H2HEntry {
+  opponent: string; // tour-scoped player id, e.g. "atp-104925"
+  wins: number;
+  losses: number;
+  bestSurface: Surface;
+}
+
+export type H2HBundle = Record<string, H2HEntry[]>;
+
+export interface VsMarketBundle {
+  methodology: string;
+  source: string;
+  picksCount: number;
+  roi: number;
+  bankrollCurve: { date: string; balance: number; picks: number }[];
+  baselines: {
+    favoriteAlways: number;
+    modelAlways: number;
+    random: number;
+  };
+}

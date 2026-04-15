@@ -3,9 +3,12 @@ import path from "node:path";
 import type {
   BacktestBundle,
   EloRow,
+  H2HBundle,
   Meta,
   ModelBundle,
   Player,
+  UpcomingBundle,
+  VsMarketBundle,
 } from "./types";
 
 const DATA_DIR = path.join(process.cwd(), "public", "data");
@@ -30,4 +33,22 @@ export const loadMeta = () =>
     yearTo: 0,
     trainedAt: "",
     featureNames: [],
+  });
+export const loadUpcoming = () =>
+  readJson<UpcomingBundle>("matches_upcoming.json", {
+    updatedAt: "1970-01-01T00:00:00+00:00",
+    modelTrainedAt: null,
+    source: "seed",
+    matches: [],
+    stats: { fetched: 0, resolved: 0, missRatio: 0 },
+  });
+export const loadH2h = () => readJson<H2HBundle>("h2h.json", {});
+export const loadVsMarket = () =>
+  readJson<VsMarketBundle>("vs_market.json", {
+    methodology: "not yet computed",
+    source: "seed",
+    picksCount: 0,
+    roi: 0,
+    bankrollCurve: [],
+    baselines: { favoriteAlways: 0, modelAlways: 0, random: 0 },
   });

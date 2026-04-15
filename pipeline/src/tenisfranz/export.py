@@ -172,6 +172,10 @@ def export_elo(elo_states: dict[str, SurfaceEloState]) -> None:
     _write(DATA_OUT_DIR / "elo.json", rows)
 
 
+def export_h2h(h2h_by_player: dict[str, list[dict]]) -> None:
+    _write(DATA_OUT_DIR / "h2h.json", h2h_by_player)
+
+
 def export_meta(year_from: int, year_to: int, trained_at: str) -> None:
     _write(
         DATA_OUT_DIR / "meta.json",

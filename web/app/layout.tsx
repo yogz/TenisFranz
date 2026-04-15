@@ -20,12 +20,20 @@ export const metadata: Metadata = {
   title: "TenisFranz — Qui va gagner ?",
   description:
     "Prédictions transparentes pour tous les matchs ATP & WTA. Modèle statistique, track record public.",
+  manifest: "/manifest.webmanifest",
+  applicationName: "TenisFranz",
+  appleWebApp: {
+    capable: true,
+    title: "TenisFranz",
+    statusBarStyle: "black-translucent",
+  },
 };
 
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
+  viewportFit: "cover",
   themeColor: "#0a0a0a",
 };
 

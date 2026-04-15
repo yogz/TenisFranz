@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { Predictor } from "@/components/predictor/Predictor";
 import { loadElo, loadMeta, loadModel, loadPlayers } from "@/lib/data";
 
@@ -33,7 +34,9 @@ export default async function HomePage() {
           </pre>
         </div>
       ) : (
-        <Predictor players={players} elo={elo} model={model} />
+        <Suspense fallback={null}>
+          <Predictor players={players} elo={elo} model={model} />
+        </Suspense>
       )}
     </div>
   );

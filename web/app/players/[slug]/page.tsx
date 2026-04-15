@@ -1,7 +1,8 @@
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import { Info } from "lucide-react";
-import { loadPlayers } from "@/lib/data";
+import { loadH2h, loadPlayers } from "@/lib/data";
+import { H2HBlock } from "@/components/profile/H2HBlock";
 import type { Surface } from "@/lib/types";
 import { flag, formatDate, formatHeight, handLabel } from "@/lib/format";
 import { PlayerAvatar } from "@/components/PlayerAvatar";
@@ -20,11 +21,13 @@ export async function generateStaticParams() {
 
 export default async function PlayerPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const players = await loadPlayers();
+  const [players, h2h] = await Promise.all([loadPlayers(), loadH2h()]);
   const player = players.find((p) => p.slug === slug);
   if (!player) notFound();
   // Only pass same-tour players to the nav search — keeps the list focused
   const searchPool = players.filter((p) => p.tour === player.tour);
+  const playersById = new Map(players.map((p) => [p.id, p]));
+  const h2hEntries = h2h[player.id] ?? [];
 
   const surfaces: Surface[] = ["Hard", "Clay", "Grass"];
   const career = player.career;
@@ -212,6 +215,9 @@ export default async function PlayerPage({ params }: { params: Promise<{ slug: s
           })}
         </ul>
       </section>
+
+      {/* H2H — collapsed by default, positioned right after "Bilan par surface" */}
+      <H2HBlock player={player} entries={h2hEntries} playersById={playersById} />
 
       {/* Titles */}
       {career.lastTournaments.length > 0 && (
