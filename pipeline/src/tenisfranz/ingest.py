@@ -98,7 +98,21 @@ def load_tour(tour: str, year_from: int, year_to: int) -> pd.DataFrame:
     out["tourney_date"] = pd.to_datetime(out["tourney_date"], format="%Y%m%d", errors="coerce")
     out = out.dropna(subset=["tourney_date", "winner_id", "loser_id", "surface"])
     out = out[out["surface"].isin(["Hard", "Clay", "Grass"])]
-    out = out.sort_values("tourney_date").reset_index(drop=True)
+    # CRITICAL: secondary sort by match_num to enforce intra-tournament play
+    # order. Sackmann assigns monotonically increasing match_num within a
+    # tournament (R128 < R64 < ... < F), but the CSV row order is NOT
+    # consistent across tournaments — some list the final first and count
+    # down (Brisbane), others list R128 first and count up (Wimbledon).
+    # Without this secondary sort, pandas' stable sort on tourney_date alone
+    # preserves the CSV row order, so tournaments in reverse get processed
+    # final-first → R16-last, and every feature reads *future* rounds' state
+    # as "pre-match". That was responsible for ~5 points of accuracy and
+    # ~20 points of ROI leak in the nightly pipeline before 2026-04-15.
+    out["match_num"] = pd.to_numeric(out["match_num"], errors="coerce")
+    out = out.sort_values(
+        ["tourney_date", "tourney_id", "match_num"],
+        kind="mergesort",
+    ).reset_index(drop=True)
 
     for col in MATCH_COLUMNS:
         if col not in out.columns:

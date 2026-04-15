@@ -1,0 +1,45 @@
+{
+  "updatedAt": "2026-04-15T16:21:55.621240+00:00",
+  "modelTrainedAt": "2026-04-15T15:21:55.621240+00:00",
+  "source": "local (env-driven draws_fetcher)",
+  "matches": [
+    {
+      "id": "2026-04-18-atp-monte-carlo-masters-alcaraz-sinner",
+      "date": "2026-04-18",
+      "tournament": "Monte Carlo Masters",
+      "round": "SF",
+      "surface": "Clay",
+      "tour": "atp",
+      "playerA": "atp-carlos-alcaraz",
+      "playerB": "atp-jannik-sinner",
+      "modelProbA": 0.5608
+    },
+    {
+      "id": "2026-04-18-atp-monte-carlo-masters-djokovic-zverev",
+      "date": "2026-04-18",
+      "tournament": "Monte Carlo Masters",
+      "round": "SF",
+      "surface": "Clay",
+      "tour": "atp",
+      "playerA": "atp-novak-djokovic",
+      "playerB": "atp-alexander-zverev",
+      "modelProbA": 0.4556
+    },
+    {
+      "id": "2026-04-18-wta-stuttgart-open-swiatek-sabalenka",
+      "date": "2026-04-18",
+      "tournament": "Stuttgart Open",
+      "round": "SF",
+      "surface": "Clay",
+      "tour": "wta",
+      "playerA": "wta-iga-swiatek",
+      "playerB": "wta-aryna-sabalenka",
+      "modelProbA": 0.5797
+    }
+  ],
+  "stats": {
+    "fetched": 3,
+    "resolved": 3,
+    "missRatio": 0.0
+  }
+}

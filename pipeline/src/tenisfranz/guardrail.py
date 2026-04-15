@@ -27,8 +27,14 @@ from .config import CACHE_DIR
 BASELINE_FILE = CACHE_DIR / "guardrail_baseline.json"
 ROLLING_WINDOW = 10
 
-HARD_FLOOR_ACCURACY = 0.68
-HARD_CEIL_LOG_LOSS = 0.60
+# Calibrated against the POST-LEAK-FIX honest model (2026-04-15). The
+# pre-fix baseline rode a ~8-point feature leak from intra-tournament CSV
+# ordering (see tests/test_intra_tournament_order.py) and enforced a fake
+# 0.68 floor. Published academic ceilings for tennis match prediction on
+# Sackmann-style data are 0.67–0.68; simple Elo-only baselines sit at ~0.63.
+# We floor at 0.62 to catch regressions without pretending we beat the lit.
+HARD_FLOOR_ACCURACY = 0.62
+HARD_CEIL_LOG_LOSS = 0.66
 
 
 @dataclass
