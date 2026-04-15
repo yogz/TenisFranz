@@ -60,10 +60,19 @@ export interface TrainedModel {
   trainedAt: string;
 }
 
+export interface CalibrationCurve {
+  xs: number[];
+  ys: number[];
+}
+
 export interface ModelBundle {
   featureNames: string[];
   surfaces: Surface[];
   models: TrainedModel[];
+  /** Per-tour isotonic calibration curves fitted on walk-forward backtest
+   * predictions. Keys are tour codes ("atp" / "wta"). Missing entries mean
+   * no calibration is applied (identity transform). */
+  calibration?: Partial<Record<Tour, CalibrationCurve>>;
 }
 
 export interface BacktestMetrics {
@@ -74,6 +83,12 @@ export interface BacktestMetrics {
   nTest: number;
   byYear: { year: number; surface: Surface; accuracy: number; n: number }[];
   calibration: { bin: number; observed: number; predicted: number; count: number }[];
+  /** Accuracy/logLoss/Brier after the isotonic calibration curve is
+   * applied to the raw sigmoid output. Same dataset as the raw metrics.
+   * Null if the pipeline ran before Phase 4. */
+  accuracyCalibrated?: number | null;
+  logLossCalibrated?: number | null;
+  brierCalibrated?: number | null;
 }
 
 export type BacktestBundle = Record<Tour, BacktestMetrics>;

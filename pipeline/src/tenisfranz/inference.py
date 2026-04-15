@@ -89,6 +89,7 @@ def apply_model(
     fa: PlayerFeatures,
     fb: PlayerFeatures,
     tourney_weight: float = 2.0,
+    calibration_curve: "CalibrationView | None" = None,
 ) -> float:
     """Return P(A wins). Matches web/lib/predict.ts::predict at 1e-9.
 
@@ -97,6 +98,10 @@ def apply_model(
     the pipeline is mid-migration) are treated as the scaled-mean (→ zero
     logit contribution). That makes the function tolerant of model/schema
     drift during rollouts.
+
+    If a `calibration_curve` (raw_prob → calibrated_prob) is provided,
+    the sigmoid output is piped through it. The curve is loaded from
+    `model.json`'s top-level `calibration[tour]` entry.
     """
     raw = feature_vector(fa, fb, tourney_weight)
     logit = model.intercept
@@ -107,7 +112,60 @@ def apply_model(
         scale = model.scaler_scale[i] or 1.0
         x = (raw[name] - mean) / scale
         logit += model.coefficients[i] * x
-    return _sigmoid(logit)
+    prob = _sigmoid(logit)
+    if calibration_curve is not None:
+        # Pair-normalize so P(A) + P(B) stays exactly 1 after the
+        # non-linear transform — matches web/lib/predict.ts::predict.
+        cal_a = calibration_curve.apply(prob)
+        cal_b = calibration_curve.apply(1.0 - prob)
+        total = cal_a + cal_b
+        if total > 0:
+            prob = cal_a / total
+    return prob
+
+
+@dataclass
+class CalibrationView:
+    """Runtime-friendly mirror of calibration.CalibrationCurve for inference.
+
+    Decoupled from the top-level `calibration.CalibrationCurve` dataclass to
+    keep this module import-light — inference.py is the one module that
+    both the pipeline and the runtime (upcoming.py, historical_roi.py)
+    load, and we don't want it to pull in scikit-learn.
+    """
+
+    xs: list[float]
+    ys: list[float]
+
+    @classmethod
+    def from_json(cls, d: dict[str, Any] | None) -> "CalibrationView | None":
+        if not d or not d.get("xs") or not d.get("ys"):
+            return None
+        return cls(
+            xs=[float(x) for x in d["xs"]],
+            ys=[float(y) for y in d["ys"]],
+        )
+
+    def apply(self, prob: float) -> float:
+        if not self.xs:
+            return prob
+        if prob <= self.xs[0]:
+            return self.ys[0]
+        if prob >= self.xs[-1]:
+            return self.ys[-1]
+        lo, hi = 0, len(self.xs) - 1
+        while hi - lo > 1:
+            mid = (lo + hi) // 2
+            if self.xs[mid] <= prob:
+                lo = mid
+            else:
+                hi = mid
+        x0, x1 = self.xs[lo], self.xs[hi]
+        y0, y1 = self.ys[lo], self.ys[hi]
+        if x1 == x0:
+            return y0
+        t = (prob - x0) / (x1 - x0)
+        return y0 + t * (y1 - y0)
 
 
 def anti_symmetric(

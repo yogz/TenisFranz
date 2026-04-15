@@ -30,14 +30,26 @@ def main() -> None:
     console.rule("backtest")
     metrics_by_tour = {tour: backtest.run(df, tour) for tour, df in tours.items()}
 
-    table = Table(title="Backtest accuracy")
+    table = Table(title="Backtest accuracy (raw → calibrated)")
     table.add_column("Tour")
-    table.add_column("Accuracy", justify="right")
+    table.add_column("Acc", justify="right")
     table.add_column("LogLoss", justify="right")
     table.add_column("Brier", justify="right")
+    table.add_column("Brier (cal)", justify="right")
+    table.add_column("LogLoss (cal)", justify="right")
     table.add_column("N", justify="right")
     for tour, m in metrics_by_tour.items():
-        table.add_row(tour, f"{m.accuracy:.3f}", f"{m.log_loss:.3f}", f"{m.brier:.3f}", f"{m.n_test}")
+        brier_cal = f"{m.brier_calibrated:.3f}" if m.brier_calibrated is not None else "—"
+        ll_cal = f"{m.log_loss_calibrated:.3f}" if m.log_loss_calibrated is not None else "—"
+        table.add_row(
+            tour,
+            f"{m.accuracy:.3f}",
+            f"{m.log_loss:.3f}",
+            f"{m.brier:.3f}",
+            brier_cal,
+            ll_cal,
+            f"{m.n_test}",
+        )
     console.print(table)
 
     console.rule("guardrail")
@@ -61,7 +73,7 @@ def main() -> None:
 
     console.rule("export")
     players = export.build_players(tours, elo_states, player_meta, careers_by_tour, photos_by_qid)
-    export.export_models(models_by_tour)
+    export.export_models(models_by_tour, metrics_by_tour)
     export.export_backtest(metrics_by_tour)
     export.export_players(players)
     export.export_elo(elo_states)

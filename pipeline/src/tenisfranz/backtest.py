@@ -10,6 +10,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import brier_score_loss, log_loss
 from sklearn.preprocessing import StandardScaler
 
+from . import calibration
 from .config import FEATURE_NAMES, SURFACES
 from .features.assemble import build_matrix
 
@@ -22,7 +23,15 @@ class BacktestMetrics:
     brier: float
     n_test: int
     by_year: list[dict]
-    calibration: list[dict]
+    calibration: list[dict]  # reliability-curve bins (for the /model page)
+    # Accuracy/logLoss/Brier AFTER applying the isotonic calibration —
+    # None on the first run before the curve is available.
+    accuracy_calibrated: float | None = None
+    log_loss_calibrated: float | None = None
+    brier_calibrated: float | None = None
+    # Fitted isotonic curve (raw_prob → calibrated_prob). Callers export
+    # this into model.json so the web bundle can apply the same transform.
+    calibration_curve: calibration.CalibrationCurve | None = None
 
     def to_dict(self) -> dict:
         return {
@@ -33,6 +42,9 @@ class BacktestMetrics:
             "nTest": self.n_test,
             "byYear": self.by_year,
             "calibration": self.calibration,
+            "accuracyCalibrated": self.accuracy_calibrated,
+            "logLossCalibrated": self.log_loss_calibrated,
+            "brierCalibrated": self.brier_calibrated,
         }
 
 
@@ -91,6 +103,15 @@ def run(matches_with_features: pd.DataFrame, tour: str, min_train_years: int = 3
 
     y = np.concatenate(all_true)
     p = np.concatenate(all_preds)
+
+    # Fit isotonic calibration on the full walk-forward out-of-sample
+    # prediction cloud. This is the same prediction distribution the live
+    # site will serve, so the curve is the right shape to ship. We still
+    # report the raw (pre-calibration) accuracy/logLoss/Brier as the
+    # headline numbers, plus a calibrated counterpart for comparison.
+    curve = calibration.fit(p, y)
+    p_cal = np.array([curve.apply(float(x)) for x in p])
+
     return BacktestMetrics(
         tour=tour,
         accuracy=float(((p > 0.5) == y).mean()),
@@ -99,4 +120,8 @@ def run(matches_with_features: pd.DataFrame, tour: str, min_train_years: int = 3
         n_test=int(len(y)),
         by_year=by_year,
         calibration=_calibration_curve(y, p),
+        accuracy_calibrated=float(((p_cal > 0.5) == y).mean()),
+        log_loss_calibrated=float(log_loss(y, p_cal, labels=[0.0, 1.0])),
+        brier_calibrated=float(brier_score_loss(y, p_cal)),
+        calibration_curve=curve,
     )

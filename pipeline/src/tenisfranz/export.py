@@ -51,11 +51,26 @@ def _age_from_dob(dob_iso: str | None, ref: datetime | None = None) -> float | N
     return round((ref - dt).days / 365.25, 1)
 
 
-def export_models(models_by_tour: dict[str, list[TrainedModel]]) -> None:
+def export_models(
+    models_by_tour: dict[str, list[TrainedModel]],
+    metrics_by_tour: dict[str, BacktestMetrics] | None = None,
+) -> None:
+    """Write model.json with coefficients, scaler state, feature names, and
+    (optionally) the per-tour isotonic calibration curve fitted during the
+    backtest pass. The calibration block is a plain dict keyed by tour so
+    the web bundle can look it up at inference time.
+    """
+    calibration_block: dict[str, dict] = {}
+    if metrics_by_tour:
+        for tour, m in metrics_by_tour.items():
+            if m.calibration_curve is not None:
+                calibration_block[tour] = m.calibration_curve.to_dict()
+
     payload = {
         "featureNames": list(FEATURE_NAMES),
         "surfaces": list(SURFACES),
         "models": [m.to_dict() for ms in models_by_tour.values() for m in ms],
+        "calibration": calibration_block,
     }
     _write(DATA_OUT_DIR / "model.json", payload)
 

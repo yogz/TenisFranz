@@ -214,6 +214,11 @@ def build_upcoming_payload(
         "atp": _build_resolver_from_players(players, "atp"),
         "wta": _build_resolver_from_players(players, "wta"),
     }
+    calibration_block = model_bundle.get("calibration") or {}
+    calibration_views: dict[str, inference.CalibrationView | None] = {
+        tour: inference.CalibrationView.from_json(calibration_block.get(tour))
+        for tour in ("atp", "wta")
+    }
 
     out_matches: list[dict[str, Any]] = []
     for d in draws:
@@ -243,7 +248,11 @@ def build_upcoming_payload(
         surface_model = _pick_surface_model(model_bundle, d.tour, d.surface)
         tw = TOURNEY_WEIGHTS.get(d.tourney_level, 2.0)
         view = inference.TrainedModelView.from_json(surface_model)
-        prob_a = inference.apply_model(view, fa, fb, tourney_weight=tw)
+        prob_a = inference.apply_model(
+            view, fa, fb,
+            tourney_weight=tw,
+            calibration_curve=calibration_views.get(d.tour),
+        )
 
         out_matches.append({
             "id": _slugify(d.tour, d.tournament, d.date, d.player_a_last, d.player_b_last),

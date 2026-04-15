@@ -89,9 +89,14 @@ export function Predictor({
   if (canPredict) {
     trained = pickModel(model.models, a!.tour, surface);
     if (trained) {
-      result = predict(a!, b!, elo, trained, surface);
+      const cal = model.calibration?.[a!.tour];
+      result = predict(a!, b!, elo, trained, surface, 2.0, undefined, cal);
       if (adjIds.size > 0) {
-        adjusted = predict(a!, b!, elo, trained, surface, 2.0, adjustmentsFromIds(adjIds));
+        adjusted = predict(
+          a!, b!, elo, trained, surface, 2.0,
+          adjustmentsFromIds(adjIds),
+          cal,
+        );
       }
     }
   }

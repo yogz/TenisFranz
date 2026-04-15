@@ -1,4 +1,4 @@
-import type { EloRow, Player, Surface, TrainedModel } from "./types";
+import type { CalibrationCurve, EloRow, Player, Surface, TrainedModel } from "./types";
 
 const DEFAULT_ELO = 1500;
 const DEFAULT_SERVE = 0.63;
@@ -9,6 +9,35 @@ const DEFAULT_FATIGUE = 0;
 const DEFAULT_AGE = 25;
 
 const sigmoid = (x: number) => 1 / (1 + Math.exp(-x));
+
+/**
+ * Apply a monotone piecewise-linear calibration curve to a raw probability.
+ * Mirrors `pipeline/src/tenisfranz/inference.py::CalibrationView.apply`.
+ * Out-of-range inputs clamp to the curve endpoints — the curve was fitted
+ * on the empirical distribution of model outputs, so anything outside is
+ * extrapolation we don't want.
+ */
+export function applyCalibration(prob: number, curve?: CalibrationCurve): number {
+  if (!curve || curve.xs.length === 0) return prob;
+  const { xs, ys } = curve;
+  if (prob <= xs[0]) return ys[0];
+  if (prob >= xs[xs.length - 1]) return ys[ys.length - 1];
+  // Binary search for the right bin.
+  let lo = 0;
+  let hi = xs.length - 1;
+  while (hi - lo > 1) {
+    const mid = (lo + hi) >> 1;
+    if (xs[mid] <= prob) lo = mid;
+    else hi = mid;
+  }
+  const x0 = xs[lo];
+  const x1 = xs[hi];
+  const y0 = ys[lo];
+  const y1 = ys[hi];
+  if (x1 === x0) return y0;
+  const t = (prob - x0) / (x1 - x0);
+  return y0 + t * (y1 - y0);
+}
 
 export interface PlayerFeatures {
   eloSurface: number;
@@ -128,6 +157,7 @@ export function predict(
   surface: Surface,
   tourneyWeight = 2.0,
   adjustments?: PredictAdjustments,
+  calibration?: CalibrationCurve,
 ): PredictionResult {
   const fa = buildPlayerFeatures(playerA, elo, surface);
   const fb = buildPlayerFeatures(playerB, elo, surface);
@@ -157,8 +187,19 @@ export function predict(
   }
 
   contributions.sort((a, b) => Math.abs(b.value) - Math.abs(a.value));
-  const probA = sigmoid(logit);
-  return { probA, probB: 1 - probA, contributions, logit, surface };
+  const rawProbA = sigmoid(logit);
+  // Post-sigmoid calibration (isotonic). We re-normalize so probA + probB
+  // still sums to exactly 1 after the non-linear transform — isotonic
+  // calibration preserves monotonicity but not the "complement" property
+  // (cal(p) + cal(1-p) ≠ 1 in general), so we pair-normalize explicitly.
+  if (calibration) {
+    const calA = applyCalibration(rawProbA, calibration);
+    const calB = applyCalibration(1 - rawProbA, calibration);
+    const sum = calA + calB;
+    const probA = sum > 0 ? calA / sum : rawProbA;
+    return { probA, probB: 1 - probA, contributions, logit, surface };
+  }
+  return { probA: rawProbA, probB: 1 - rawProbA, contributions, logit, surface };
 }
 
 export function pickModel(
