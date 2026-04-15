@@ -1,0 +1,173 @@
+"use client";
+
+import { ChevronDown, RotateCcw } from "lucide-react";
+import { useState } from "react";
+import type { FeatureDeltas, PredictAdjustments } from "@/lib/predict";
+
+export interface AdjustmentOption {
+  id: string;
+  label: string;
+  icon: string;
+  target: "A" | "B";
+  delta: FeatureDeltas;
+}
+
+// Contextual modifiers — each maps to small nudges on the feature vector.
+// Deltas are intentionally modest to avoid wild swings.
+const OPTIONS: Omit<AdjustmentOption, "target">[] = [
+  {
+    id: "injured",
+    label: "Blessé·e / pas à 100%",
+    icon: "🏥",
+    delta: { form: -0.15, eloSurface: -40 },
+  },
+  {
+    id: "five_setter",
+    label: "Long match la veille",
+    icon: "😴",
+    delta: { fatigue: 0.4 },
+  },
+  {
+    id: "confidence",
+    label: "En pleine confiance",
+    icon: "🔥",
+    delta: { form: 0.12 },
+  },
+  {
+    id: "comeback",
+    label: "Retour de blessure",
+    icon: "🩹",
+    delta: { eloSurface: -60, form: -0.1 },
+  },
+  {
+    id: "home",
+    label: "À domicile",
+    icon: "🏠",
+    delta: { eloSurface: 20 },
+  },
+];
+
+function buildAll(): AdjustmentOption[] {
+  const out: AdjustmentOption[] = [];
+  for (const t of ["A", "B"] as const) {
+    for (const o of OPTIONS) {
+      out.push({ ...o, id: `${o.id}_${t}`, target: t });
+    }
+  }
+  return out;
+}
+
+const ALL = buildAll();
+
+export function adjustmentsFromIds(ids: Set<string>): PredictAdjustments {
+  const out: PredictAdjustments = { A: {}, B: {} };
+  for (const opt of ALL) {
+    if (!ids.has(opt.id)) continue;
+    const bucket = opt.target === "A" ? out.A! : out.B!;
+    for (const [k, v] of Object.entries(opt.delta)) {
+      const key = k as keyof FeatureDeltas;
+      bucket[key] = (bucket[key] ?? 0) + (v ?? 0);
+    }
+  }
+  return out;
+}
+
+export function Adjustments({
+  selected,
+  onChange,
+  playerAName,
+  playerBName,
+}: {
+  selected: Set<string>;
+  onChange: (next: Set<string>) => void;
+  playerAName: string;
+  playerBName: string;
+}) {
+  const [open, setOpen] = useState(false);
+  const count = selected.size;
+  const shortA = playerAName.split(" ").pop() ?? playerAName;
+  const shortB = playerBName.split(" ").pop() ?? playerBName;
+
+  const toggle = (id: string) => {
+    const next = new Set(selected);
+    if (next.has(id)) next.delete(id);
+    else next.add(id);
+    onChange(next);
+  };
+
+  const reset = () => onChange(new Set());
+
+  return (
+    <div className="rounded-xl border border-border bg-surface">
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        className="flex w-full items-center justify-between gap-3 px-4 py-3 text-left"
+      >
+        <div className="flex items-center gap-2">
+          <span className="text-[10px] font-medium uppercase tracking-[0.18em] text-muted">
+            Ajustements
+          </span>
+          {count > 0 && (
+            <span className="rounded-full bg-lime/15 px-2 py-0.5 text-[10px] font-semibold text-lime">
+              {count}
+            </span>
+          )}
+        </div>
+        <ChevronDown
+          className={"size-4 text-muted transition " + (open ? "rotate-180" : "")}
+        />
+      </button>
+      {open && (
+        <div className="space-y-4 border-t border-border px-4 py-4">
+          <p className="text-[11px] leading-relaxed text-muted">
+            Ajoute du contexte que le modèle ignore (blessure, fatigue, forme récente…). Le score
+            officiel reste intact — on affiche l&apos;impact à côté.
+          </p>
+          {(["A", "B"] as const).map((t) => {
+            const name = t === "A" ? shortA : shortB;
+            return (
+              <div key={t} className="space-y-2">
+                <div className="text-[10px] font-medium uppercase tracking-[0.18em] text-muted">
+                  {name}
+                </div>
+                <div className="flex flex-wrap gap-1.5">
+                  {OPTIONS.map((opt) => {
+                    const id = `${opt.id}_${t}`;
+                    const active = selected.has(id);
+                    return (
+                      <button
+                        key={id}
+                        type="button"
+                        onClick={() => toggle(id)}
+                        className={
+                          "rounded-full border px-3 py-1.5 text-xs transition " +
+                          (active
+                            ? "border-lime/60 bg-lime/15 text-lime"
+                            : "border-border bg-surface2 text-muted hover:text-text")
+                        }
+                      >
+                        <span className="mr-1">{opt.icon}</span>
+                        {opt.label}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            );
+          })}
+          {count > 0 && (
+            <button
+              type="button"
+              onClick={reset}
+              className="flex items-center gap-1.5 text-[11px] text-muted hover:text-text"
+            >
+              <RotateCcw className="size-3" />
+              Réinitialiser
+            </button>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}

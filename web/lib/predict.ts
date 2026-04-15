@@ -84,6 +84,37 @@ function featureVector(
   };
 }
 
+export interface FeatureDeltas {
+  eloSurface?: number;
+  form?: number;
+  fatigue?: number;
+  h2h?: number;
+  servePct?: number;
+  returnPct?: number;
+}
+
+export interface PredictAdjustments {
+  A?: FeatureDeltas;
+  B?: FeatureDeltas;
+}
+
+function applyDeltas(f: PlayerFeatures, d?: FeatureDeltas): PlayerFeatures {
+  if (!d) return f;
+  return {
+    ...f,
+    eloSurface: f.eloSurface + (d.eloSurface ?? 0),
+    form: clamp01(f.form + (d.form ?? 0)),
+    fatigue: f.fatigue + (d.fatigue ?? 0),
+    h2h: clamp01(f.h2h + (d.h2h ?? 0)),
+    servePct: clamp01(f.servePct + (d.servePct ?? 0)),
+    returnPct: clamp01(f.returnPct + (d.returnPct ?? 0)),
+  };
+}
+
+function clamp01(x: number): number {
+  return Math.min(1, Math.max(0, x));
+}
+
 export function predict(
   playerA: Player,
   playerB: Player,
@@ -91,9 +122,10 @@ export function predict(
   model: TrainedModel,
   surface: Surface,
   tourneyWeight = 2.0,
+  adjustments?: PredictAdjustments,
 ): PredictionResult {
-  const fa = buildPlayerFeatures(playerA, elo, surface);
-  const fb = buildPlayerFeatures(playerB, elo, surface);
+  const fa = applyDeltas(buildPlayerFeatures(playerA, elo, surface), adjustments?.A);
+  const fb = applyDeltas(buildPlayerFeatures(playerB, elo, surface), adjustments?.B);
   const raw = featureVector(fa, fb, tourneyWeight);
 
   let logit = model.intercept;
