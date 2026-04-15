@@ -1,0 +1,60 @@
+name: historical_roi
+
+# Manual-only: the walk-forward simulation is expensive and only needs to be
+# refreshed when the model changes meaningfully. Trigger from the Actions tab
+# in the GitHub web UI (no local machine needed).
+on:
+  workflow_dispatch:
+    inputs:
+      years:
+        description: "Test-year range (default: 2005..last calendar year)"
+        required: false
+        default: "2005-2024"
+      edge:
+        description: "Edge threshold, e.g. 0.03 = 3pts"
+        required: false
+        default: "0.03"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: commit-main # shared with pipeline.yml to prevent git-push races
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v3
+        with:
+          enable-cache: true
+      - name: Install Python
+        run: uv python install 3.11
+      - name: Install deps
+        working-directory: pipeline
+        run: uv sync
+      - name: Run historical ROI simulation
+        working-directory: pipeline
+        run: |
+          uv run python -m tenisfranz.historical_roi \
+            --years "${{ github.event.inputs.years }}" \
+            --edge "${{ github.event.inputs.edge }}"
+      - name: Commit vs_market.json if changed
+        run: |
+          git config user.name "tenisfranz-bot"
+          git config user.email "bot@tenisfranz.local"
+          FILE=web/public/data/vs_market.json
+          if [ ! -f "$FILE" ]; then
+            echo "no output file produced — aborting"
+            exit 1
+          fi
+          git add "$FILE"
+          if git diff --staged --quiet; then
+            echo "no change to commit"
+            exit 0
+          fi
+          git commit -m "historical_roi: refresh vs_market.json $(date -u +%Y-%m-%d)"
+          git push
