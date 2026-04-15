@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 
+import pandas as pd
 import pytest
 
 from tenisfranz import historical_roi as hr
@@ -113,3 +114,105 @@ def test_empty_bundle_is_write_safe(tmp_path):
     loaded = json.loads(out.read_text())
     assert loaded["picksCount"] == 0
     assert loaded["source"] == "seed"
+
+
+# --- Walk-forward orchestration helpers ---------------------------------
+
+
+@pytest.mark.parametrize(
+    "raw, expected",
+    [
+        ("Nadal R.", ("Nadal", "R")),
+        ("Nadal R", ("Nadal", "R")),
+        ("Del Potro J.M.", ("Del Potro", "J")),
+        ("Auger Aliassime F.", ("Auger Aliassime", "F")),
+        ("Federer R.", ("Federer", "R")),
+        ("Lastnameonly", ("Lastnameonly", "")),
+        ("", ("", "")),
+        ("   ", ("", "")),
+    ],
+)
+def test_parse_td_name(raw, expected):
+    assert hr._parse_td_name(raw) == expected
+
+
+def test_read_td_odds_canonicalizes_columns(tmp_path):
+    # Build a minimal tennis-data.co.uk-shaped xlsx and confirm _read_td_odds
+    # normalizes it, drops NaN-odds rows, and filters sub-1.0 odds.
+    src = pd.DataFrame(
+        {
+            "Date": ["2020-01-15", "2020-01-16", "2020-01-17", "2020-01-18"],
+            "Winner": ["Nadal R.", "Federer R.", "Djokovic N.", "Thiem D."],
+            "Loser": ["Thiem D.", "Nadal R.", "Federer R.", "Djokovic N."],
+            "Surface": ["Hard", "Hard", "Hard", "Hard"],
+            "AvgW": [1.50, 2.10, 1.80, None],  # last dropped
+            "AvgL": [2.60, 1.75, 2.05, 1.90],
+        }
+    )
+    path = tmp_path / "atp_2020.xlsx"
+    src.to_excel(path, index=False)
+
+    out = hr._read_td_odds(path)
+    assert list(out.columns) == ["Date", "Winner", "Loser", "Surface", "AvgW", "AvgL"]
+    assert len(out) == 3  # NaN-odds row dropped
+    assert out["Winner"].iloc[0] == "Nadal R."
+    assert out["AvgW"].dtype.kind == "f"
+
+
+def test_read_td_odds_falls_back_to_b365_when_avg_missing(tmp_path):
+    # Older files don't have AvgW/AvgL — fallback chain should pick up B365.
+    src = pd.DataFrame(
+        {
+            "Date": ["2006-06-05"],
+            "Winner": ["Federer R."],
+            "Loser": ["Nadal R."],
+            "Surface": ["Grass"],
+            "B365W": [1.45],
+            "B365L": [2.80],
+        }
+    )
+    path = tmp_path / "atp_2006.xlsx"
+    src.to_excel(path, index=False)
+
+    out = hr._read_td_odds(path)
+    assert len(out) == 1
+    assert out["AvgW"].iloc[0] == pytest.approx(1.45)
+    assert out["AvgL"].iloc[0] == pytest.approx(2.80)
+
+
+def test_read_td_odds_returns_empty_when_required_columns_missing(tmp_path):
+    src = pd.DataFrame({"Date": ["2020-01-01"], "Winner": ["Foo"]})
+    path = tmp_path / "broken.xlsx"
+    src.to_excel(path, index=False)
+    out = hr._read_td_odds(path)
+    assert out.empty
+
+
+def test_nearest_sack_row_picks_closest_within_tolerance():
+    idx = {
+        ("W1", "L1"): [
+            (pd.Timestamp("2020-01-01"), 0),
+            (pd.Timestamp("2020-01-20"), 1),
+        ],
+    }
+    # td_date is 2020-01-22 → within 21 days of both, but index 1 is closer.
+    assert hr._nearest_sack_row(idx, "W1", "L1", pd.Timestamp("2020-01-22")) == 1
+    # td_date is 2020-05-01 → outside tolerance.
+    assert hr._nearest_sack_row(idx, "W1", "L1", pd.Timestamp("2020-05-01")) is None
+    # Missing pair → None.
+    assert hr._nearest_sack_row(idx, "X", "Y", pd.Timestamp("2020-01-01")) is None
+
+
+def test_build_sack_index_groups_by_pair():
+    df = pd.DataFrame(
+        {
+            "winner_id": ["A", "A", "C"],
+            "loser_id": ["B", "B", "D"],
+            "tourney_date": pd.to_datetime(["2020-01-01", "2021-06-10", "2019-03-15"]),
+        }
+    )
+    idx = hr._build_sack_index(df)
+    assert len(idx[("A", "B")]) == 2
+    assert len(idx[("C", "D")]) == 1
+    # Row indices are preserved (0, 1, 2).
+    assert {i for _, i in idx[("A", "B")]} == {0, 1}
