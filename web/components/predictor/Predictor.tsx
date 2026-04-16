@@ -245,7 +245,7 @@ export function Predictor({
                     style={{ width: `${pWinnerAdj * 100}%` }}
                   />
                   <div
-                    className="absolute inset-y-0 rounded-full bg-red-400/50 transition-all duration-700"
+                    className="absolute inset-y-0 rounded-full bg-red-400 transition-all duration-700"
                     style={{
                       left: `${pWinnerAdj * 100}%`,
                       width: `${(pWinner - pWinnerAdj) * 100}%`,
