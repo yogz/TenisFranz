@@ -38,9 +38,11 @@ function formatDay(iso: string): string {
 export function MatchList({
   matches,
   players,
+  weather,
 }: {
   matches: UpcomingMatch[];
   players: Player[];
+  weather?: Record<string, { tempMax: number; windMax: number }>;
 }) {
   const search = useSearchParams();
   const urlTour = (search?.get("tour") ?? "all") as TourFilterValue;
@@ -92,6 +94,7 @@ export function MatchList({
                   match={m}
                   playerA={playerBySlug.get(m.playerA)}
                   playerB={playerBySlug.get(m.playerB)}
+                  weather={weather?.[m.tournament]}
                 />
               ))}
             </div>

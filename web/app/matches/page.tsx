@@ -21,7 +21,7 @@ export default async function MatchesPage() {
       </header>
 
       <Suspense fallback={null}>
-        <MatchList matches={upcoming.matches} players={players} />
+        <MatchList matches={upcoming.matches} players={players} weather={upcoming.weather} />
       </Suspense>
     </div>
   );

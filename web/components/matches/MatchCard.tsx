@@ -41,10 +41,12 @@ export function MatchCard({
   match,
   playerA,
   playerB,
+  weather,
 }: {
   match: UpcomingMatch;
   playerA: Player | undefined;
   playerB: Player | undefined;
+  weather?: { tempMax: number; windMax: number };
 }) {
   const a = ShortName(playerA, match.playerA);
   const b = ShortName(playerB, match.playerB);
@@ -134,9 +136,16 @@ export function MatchCard({
         </div>
       )}
 
-      {/* Row 5 — meta */}
-      <div className="mt-2 truncate text-[11px] text-muted">
-        {match.tournament} · {SURFACE_LABEL[match.surface]} · {formatDay(match.date)}
+      {/* Row 5 — meta + weather */}
+      <div className="mt-2 flex items-center justify-between text-[11px] text-muted">
+        <span className="truncate">
+          {match.tournament} · {SURFACE_LABEL[match.surface]} · {formatDay(match.date)}
+        </span>
+        {weather && (
+          <span className="shrink-0 ml-2 font-mono">
+            {Math.round(weather.tempMax)}° {weather.windMax >= 20 ? `💨${Math.round(weather.windMax)}` : ""}
+          </span>
+        )}
       </div>
     </Link>
   );
