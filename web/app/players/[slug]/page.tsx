@@ -121,8 +121,8 @@ export default async function PlayerPage({ params }: { params: Promise<{ slug: s
         </div>
       </section>
 
-      {/* Recent form */}
-      <section className="card space-y-3">
+      {/* Recent form + last 3 matches (merged) */}
+      <section className="card space-y-4">
         <div className="flex items-baseline justify-between">
           <div className="text-[10px] font-medium uppercase tracking-[0.18em] text-muted">
             Forme récente
@@ -149,19 +149,10 @@ export default async function PlayerPage({ params }: { params: Promise<{ slug: s
             ))
           )}
         </div>
-        {career.lastMatchDate && (
-          <div className="text-[11px] text-muted">
-            Dernier match : {formatDate(career.lastMatchDate)}
-          </div>
-        )}
-      </section>
 
-      {/* Last 3 matches */}
-      {career.recentMatches && career.recentMatches.length > 0 && (
-        <section className="card space-y-3">
-          <div className="text-[10px] font-medium uppercase tracking-[0.18em] text-muted">
-            Derniers matchs
-          </div>
+        {/* Detailed last matches inline */}
+        {career.recentMatches && career.recentMatches.length > 0 && (<>
+          <div className="h-px bg-border" />
           <ul className="space-y-2">
             {[...career.recentMatches].reverse().map((m, i) => {
               const opSlug = playersById.get(`${player.tour}-${m.opponentId}`)?.slug;
@@ -201,8 +192,8 @@ export default async function PlayerPage({ params }: { params: Promise<{ slug: s
               );
             })}
           </ul>
-        </section>
-      )}
+        </>)}
+      </section>
 
       {/* Elo per surface */}
       <section className="card space-y-3">
