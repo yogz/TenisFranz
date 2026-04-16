@@ -91,6 +91,14 @@ export default async function PlayerPage({ params }: { params: Promise<{ slug: s
         </div>
       </section>
 
+      {/* CTA to predictor */}
+      <a
+        href={`/?a=${player.slug}`}
+        className="flex items-center justify-center gap-2 rounded-xl border border-lime/30 bg-lime/10 px-4 py-3 text-sm font-medium text-lime transition hover:bg-lime/15"
+      >
+        <span>🎯</span> Prédire un match avec {player.lastName ?? player.name}
+      </a>
+
       {/* Career headline */}
       <section className="grid grid-cols-3 gap-3">
         <HeadlineStat label="Victoires" value={career.wins.toString()} />

@@ -31,7 +31,7 @@ export function BottomNav() {
                 active ? "text-lime" : "text-muted",
               )}
             >
-              <Icon className="size-5" strokeWidth={active ? 2.4 : 1.8} />
+              <Icon className="size-5 transition-all duration-200" strokeWidth={active ? 2.4 : 1.8} />
               <span>{label}</span>
             </Link>
           );

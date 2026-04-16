@@ -22,7 +22,7 @@ export function CalibrationChart({ data }: { data: Point[] }) {
   return (
     <div className="h-56 w-full">
       <ResponsiveContainer>
-        <LineChart data={data} margin={{ top: 8, right: 8, bottom: 8, left: -24 }}>
+        <LineChart data={data} margin={{ top: 8, right: 8, bottom: 8, left: 0 }}>
           <CartesianGrid stroke="#262626" strokeDasharray="2 4" />
           <XAxis
             type="number"

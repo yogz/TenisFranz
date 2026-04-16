@@ -66,11 +66,14 @@ export function PlayerNavSearch({
   const [open, setOpen] = useState(false);
   const [players, setPlayers] = useState<SearchPlayer[]>([]);
 
+  const [loading, setLoading] = useState(true);
+
   // Fetch on mount — the module-level promise deduplicates concurrent loads.
   useEffect(() => {
-    fetchSearchPlayers().then((all) =>
-      setPlayers(all.filter((p) => p.tour === tour)),
-    );
+    fetchSearchPlayers().then((all) => {
+      setPlayers(all.filter((p) => p.tour === tour));
+      setLoading(false);
+    });
   }, [tour]);
 
   const fuse = useMemo(
@@ -106,7 +109,7 @@ export function PlayerNavSearch({
           }}
           onFocus={() => setOpen(true)}
           onBlur={() => setTimeout(() => setOpen(false), 150)}
-          placeholder="Chercher un autre joueur…"
+          placeholder={loading ? "Chargement…" : "Chercher un autre joueur…"}
           autoComplete="off"
           autoCorrect="off"
           autoCapitalize="off"

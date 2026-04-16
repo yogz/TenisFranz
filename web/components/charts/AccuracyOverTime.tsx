@@ -33,7 +33,7 @@ export function AccuracyOverTime({ data }: { data: Row[] }) {
   return (
     <div className="h-52 w-full">
       <ResponsiveContainer>
-        <BarChart data={rows} margin={{ top: 8, right: 8, bottom: 8, left: -24 }}>
+        <BarChart data={rows} margin={{ top: 8, right: 8, bottom: 8, left: 0 }}>
           <CartesianGrid stroke="#262626" strokeDasharray="2 4" vertical={false} />
           <XAxis dataKey="year" tick={{ fill: "#a1a1aa", fontSize: 11 }} stroke="#262626" />
           <YAxis

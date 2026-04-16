@@ -195,7 +195,7 @@ export function Predictor({
                 </div>
               </div>
               <div className="text-right">
-                <div className="font-display text-[56px] font-light leading-none text-lime">
+                <div className="font-mono text-[48px] font-light leading-none text-lime">
                   {(pWinner * 100).toFixed(0)}
                   <span className="text-2xl text-lime/60">%</span>
                 </div>
@@ -224,7 +224,7 @@ export function Predictor({
             </div>
 
             {/* Probability bar — with optional adjusted overlay */}
-            <div className="relative mt-4 h-2 overflow-hidden rounded-full bg-surface2">
+            <div className="relative mt-4 h-2.5 overflow-hidden rounded-full bg-surface2">
               {/* Adjusted bar (behind, wider or narrower, muted color) */}
               {pWinnerAdj != null && (
                 <div
@@ -284,7 +284,7 @@ export function Predictor({
 
           {/* ── Smart suggestion ── */}
           {showSuggestion && (
-            <div className="rounded-lg border border-lime/20 bg-lime/[0.06] px-3 py-2 text-[11px] leading-relaxed text-lime/80">
+            <div className="rounded-lg border border-lime/30 bg-lime/10 px-3 py-2 text-[11px] leading-relaxed text-lime">
               {bookieGap > 0 ? (
                 <>Les bookmakers donnent <span className="font-semibold text-lime">{winner.name.split(" ").pop()}</span> plus bas ({bookieGap}pts). Blessure ? Fatigue ?</>
               ) : (
