@@ -40,6 +40,9 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="fr" className={`${geist.variable} ${fasterOne.variable}`}>
+      <head>
+        <script defer src="https://cloud.umami.is/script.js" data-website-id="872273a6-0736-4c12-ade5-820f0916b595" />
+      </head>
       <body className="font-sans">
         <main className="mx-auto min-h-[100svh] max-w-xl px-5 pb-[calc(env(safe-area-inset-bottom)+96px)] pt-[calc(env(safe-area-inset-top)+24px)]">
           {children}
