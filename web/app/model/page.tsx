@@ -3,24 +3,19 @@ import {
   loadMeta,
   loadModel,
   loadUpcoming,
-  loadVsMarket,
 } from "@/lib/data";
 import { CalibrationChart } from "@/components/charts/CalibrationChart";
 import { AccuracyOverTime } from "@/components/charts/AccuracyOverTime";
-import { BankrollCurve } from "@/components/charts/BankrollCurve";
 import { Hint } from "@/components/Hint";
 
 export default async function ModelPage() {
-  const [backtest, meta, model, upcoming, vsMarket] = await Promise.all([
+  const [backtest, meta, model, upcoming] = await Promise.all([
     loadBacktest(),
     loadMeta(),
     loadModel(),
     loadUpcoming(),
-    loadVsMarket(),
   ]);
   const tours = Object.keys(backtest) as Array<keyof typeof backtest>;
-
-  const hasHistorical = vsMarket.picksCount > 0 && vsMarket.bankrollCurve.length > 0;
 
   return (
     <div className="space-y-8">
@@ -43,97 +38,37 @@ export default async function ModelPage() {
         </div>
       )}
 
-      {/* Simulation historique vs marché */}
-      <section className="space-y-3">
-        <h2 className="text-xs uppercase tracking-wider text-muted">
-          Simulation historique vs marché
-          <Hint
-            align="start"
-            text="On rejoue le passé : pour chaque match, on compare la prédiction du modèle aux cotes du marché et on simule un pari de valeur. Permet de voir si le modèle aurait battu les bookmakers."
-          />
-        </h2>
-        {hasHistorical ? (
-          <div className="card space-y-4">
+      {/* Performance hero */}
+      {tours.length > 0 && (() => {
+        const totalN = tours.reduce((s, t) => s + backtest[t].nTest, 0);
+        const avgAcc = tours.reduce((s, t) => s + backtest[t].accuracy * backtest[t].nTest, 0) / totalN;
+        return (
+          <section className="card space-y-4">
             <div className="grid grid-cols-3 gap-2">
               <Stat
-                label="ROI"
-                hint="Return On Investment : gain (ou perte) cumulé en pourcentage de la mise totale. +5 % signifie qu'on a gagné 5 € pour 100 € misés."
-                value={`${vsMarket.roi >= 0 ? "+" : ""}${(vsMarket.roi * 100).toFixed(1)}%`}
+                label="Précision"
+                hint="Pourcentage de matchs où le modèle a correctement désigné le vainqueur."
+                value={`${(avgAcc * 100).toFixed(1)}%`}
               />
               <Stat
-                label="Picks"
-                hint="Nombre total de paris simulés sur la période. Plus le nombre est grand, plus le ROI est statistiquement fiable."
-                value={vsMarket.picksCount.toLocaleString("fr-FR")}
+                label="Matchs testés"
+                hint="Nombre de matchs utilisés pour évaluer le modèle en walk-forward (le modèle n'a jamais vu ces matchs pendant l'entraînement)."
+                value={totalN.toLocaleString("fr-FR")}
               />
               <Stat
-                label="Favori"
-                hint="ROI si on parie systématiquement sur le favori du marché. Sert de baseline : le modèle doit faire mieux que cette stratégie naïve."
-                value={`${vsMarket.baselines.favoriteAlways >= 0 ? "+" : ""}${(vsMarket.baselines.favoriteAlways * 100).toFixed(1)}%`}
+                label="Depuis"
+                value={`${meta.yearFrom}`}
               />
             </div>
-            <BankrollCurve data={vsMarket.bankrollCurve} />
-            <div className="rounded-lg border border-border px-3 py-2 text-[11px] leading-relaxed text-muted">
-              <p>
-                <span className="text-text">La courbe</span> montre l'évolution d'un solde fictif
-                si on avait parié 1 unité sur chaque match où le modèle détectait un
-                écart avec les bookmakers. Elle descend parce que la marge des bookmakers
-                (~4-5% par match) s'accumule sur {vsMarket.picksCount.toLocaleString("fr-FR")} paris.
-                C'est comme jouer au casino : même en jouant bien, la maison prélève
-                sa part à chaque tour.
-              </p>
+            <div className="rounded-lg bg-surface2 px-3 py-2 text-[11px] leading-relaxed text-muted">
+              Le modèle identifie correctement le vainqueur dans{" "}
+              <span className="text-text">2 matchs sur 3</span>.
+              Il combine Elo par surface, stats de service/retour, face-à-face
+              et âge pour estimer une probabilité — pas un conseil de pari.
             </div>
-            <div className="space-y-3 rounded-lg bg-surface2 px-3 py-3 text-[11px] leading-relaxed text-muted">
-              <p>
-                <span className="text-text">Un ROI négatif est normal.</span>{" "}
-                Les bookmakers prélèvent une marge (~4-5%) sur chaque match,
-                ce qui rend les paris perdants à long terme pour tout le monde
-                — même avec un bon modèle. C'est la même logique que le casino :
-                la maison gagne toujours sur le volume.
-              </p>
-              <div className="grid grid-cols-3 gap-2 text-center text-[10px]">
-                <div>
-                  <div className="text-muted">Pile ou face</div>
-                  <div className="font-mono text-sm text-red-400">{(vsMarket.baselines.random * 100).toFixed(1)}%</div>
-                </div>
-                <div>
-                  <div className="text-muted">Toujours le favori</div>
-                  <div className="font-mono text-sm text-red-400">{(vsMarket.baselines.favoriteAlways * 100).toFixed(1)}%</div>
-                </div>
-                <div>
-                  <div className="text-muted">Notre modèle</div>
-                  <div className="font-mono text-sm text-lime">{(vsMarket.roi * 100).toFixed(1)}%</div>
-                </div>
-              </div>
-              <p>
-                Le modèle est <span className="text-text">moins mauvais</span> que
-                les alternatives (~{((vsMarket.roi - vsMarket.baselines.favoriteAlways) * 100).toFixed(0)} point
-                de mieux que «{"\u00A0"}toujours le favori{"\u00A0"}»), ce qui prouve
-                qu'il capte un vrai signal statistique — mais pas assez pour
-                couvrir la marge du bookmaker.
-              </p>
-              <p>
-                Ce site ne dit pas «{"\u00A0"}parie et gagne{"\u00A0"}» — il dit{" "}
-                <span className="text-text">qui va probablement gagner et pourquoi</span>,
-                ce qui est déjà utile pour un fan de tennis même sans parier.
-              </p>
-            </div>
-            <p className="text-[11px] leading-relaxed text-muted">
-              {vsMarket.methodology}
-            </p>
-            <p className="text-[10px] text-muted/70">{vsMarket.source}</p>
-          </div>
-        ) : (
-          <div className="card text-sm text-muted">
-            La simulation historique n&apos;a pas encore été calculée.
-            Lance{" "}
-            <code className="font-mono text-text">
-              uv run python -m tenisfranz.historical_roi
-            </code>{" "}
-            pour générer <code className="font-mono text-text">vs_market.json</code>.
-          </div>
-        )}
-      </section>
-
+          </section>
+        );
+      })()}
 
       {tours.map((tour) => {
         const m = backtest[tour];
@@ -209,11 +144,11 @@ export default async function ModelPage() {
             ok={upcoming.matches.some((m) => m.oddsA != null)}
           />
           <HealthRow
-            label="ROI simulation"
-            detail={vsMarket.picksCount > 0
-              ? `${vsMarket.picksCount.toLocaleString("fr-FR")} picks · ROI ${(vsMarket.roi * 100).toFixed(1)}%`
-              : "Non calculée"}
-            ok={vsMarket.picksCount > 0}
+            label="Pipeline"
+            detail={meta.trainedAt
+              ? `Données ${meta.yearFrom}-${meta.yearTo}`
+              : "Non exécuté"}
+            ok={!!meta.trainedAt}
           />
           <HealthRow
             label="Joueurs"
