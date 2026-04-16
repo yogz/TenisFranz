@@ -133,10 +133,13 @@ export function Adjustments({
 
   // Build contextual suggestions from available data.
   const suggestions: { text: string; chipId?: string }[] = [];
-  if (context?.tempMax != null && context.tempMax >= 30) {
+  if (context?.tempMax != null) {
+    const tempNote = context.tempMax >= 33
+      ? `🌡 ${Math.round(context.tempMax)}°C — chaleur extrême !`
+      : `🌡 ${Math.round(context.tempMax)}°C à ${context.tournament ?? "ce tournoi"}`;
     suggestions.push({
-      text: `🌡 ${Math.round(context.tempMax)}°C à ${context.tournament ?? "ce tournoi"}`,
-      chipId: "heat",
+      text: tempNote,
+      chipId: context.tempMax >= 30 ? "heat" : undefined,
     });
   }
   if (context?.windMax != null && context.windMax >= 25) {

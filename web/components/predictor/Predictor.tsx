@@ -262,6 +262,24 @@ export function Predictor({
                 </div>
               );
             })()}
+
+            {/* Match context: tournament + weather */}
+            {bookieMatch && (() => {
+              const w = upcomingData.weather?.[bookieMatch.tournament];
+              return (
+                <div className="mt-2 flex items-center justify-between text-[11px] text-muted">
+                  <span className="truncate">
+                    {bookieMatch.tournament} · {bookieMatch.surface} · {bookieMatch.date}
+                  </span>
+                  {w && (
+                    <span className="shrink-0 ml-2 font-mono">
+                      {Math.round(w.tempMax)}°
+                      {w.windMax >= 20 ? ` 💨${Math.round(w.windMax)}` : ""}
+                    </span>
+                  )}
+                </div>
+              );
+            })()}
           </div>
 
           {/* ── Smart suggestion ── */}
