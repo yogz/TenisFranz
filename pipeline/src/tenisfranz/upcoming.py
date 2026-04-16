@@ -40,7 +40,11 @@ from .name_resolver import NameResolver, normalize
 logger = logging.getLogger(__name__)
 
 MAX_MODEL_AGE_DAYS = 7
-MAX_MISS_RATIO = 0.02
+# Raised from 0.02 to 0.10 after switching to The Odds API: the API
+# includes qualifiers, wildcards and alternate names that don't always
+# resolve against the Sackmann player DB. 10% lets ~90% of matches
+# through while still catching catastrophic resolver failures.
+MAX_MISS_RATIO = 0.10
 DEFAULT_SERVE = 0.63
 DEFAULT_RETURN = 0.37
 DEFAULT_FORM = 0.5
