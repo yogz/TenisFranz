@@ -1,12 +1,25 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Fuse from "fuse.js";
-import { Search, X } from "lucide-react";
-import type { Player } from "@/lib/types";
+import { Search, X, Zap } from "lucide-react";
+import type { Player, UpcomingMatch } from "@/lib/types";
 import { cn } from "@/lib/cn";
 import { PlayerAvatar } from "@/components/PlayerAvatar";
 import { flag } from "@/lib/format";
+
+const PAGE_SIZE = 12;
+
+// Client-side fetch of upcoming matches (shared with Predictor).
+let upcomingPromise: Promise<UpcomingMatch[]> | null = null;
+function fetchUpcoming(): Promise<UpcomingMatch[]> {
+  if (upcomingPromise) return upcomingPromise;
+  upcomingPromise = fetch("/data/matches_upcoming.json")
+    .then((r) => (r.ok ? r.json() : { matches: [] }))
+    .then((d) => d.matches ?? [])
+    .catch(() => []);
+  return upcomingPromise;
+}
 
 interface Props {
   players: Player[];
@@ -19,24 +32,70 @@ interface Props {
 export function PlayerSearch({ players, value, onChange, placeholder, excludeId }: Props) {
   const [query, setQuery] = useState("");
   const [open, setOpen] = useState(false);
+  const [limit, setLimit] = useState(PAGE_SIZE);
+  const [upcoming, setUpcoming] = useState<UpcomingMatch[]>([]);
+  const listRef = useRef<HTMLUListElement>(null);
+
+  useEffect(() => { fetchUpcoming().then(setUpcoming); }, []);
+
+  // Reset limit when query changes.
+  useEffect(() => { setLimit(PAGE_SIZE); }, [query]);
 
   const fuse = useMemo(
-    () =>
-      new Fuse(players, {
-        keys: ["name", "country"],
-        threshold: 0.35,
-        ignoreLocation: true,
-      }),
+    () => new Fuse(players, {
+      keys: ["name", "country"],
+      threshold: 0.35,
+      ignoreLocation: true,
+    }),
     [players],
   );
 
+  // Set of player slugs that play today (for priority sorting).
+  const todaySlugs = useMemo(() => {
+    const set = new Set<string>();
+    for (const m of upcoming) {
+      set.add(m.playerA);
+      set.add(m.playerB);
+    }
+    return set;
+  }, [upcoming]);
+
+  // Players sorted: today's matches first, then by rank.
+  const sorted = useMemo(() => {
+    return [...players].sort((a, b) => {
+      const aToday = todaySlugs.has(a.slug) ? 0 : 1;
+      const bToday = todaySlugs.has(b.slug) ? 0 : 1;
+      if (aToday !== bToday) return aToday - bToday;
+      return a.rank - b.rank;
+    });
+  }, [players, todaySlugs]);
+
   const results = useMemo(() => {
-    if (!query) return players.slice(0, 8);
+    if (!query) {
+      return sorted
+        .filter((p) => p.id !== excludeId)
+        .slice(0, limit);
+    }
     return fuse
       .search(query)
-      .slice(0, 8)
-      .map((r) => r.item);
-  }, [fuse, players, query]);
+      .map((r) => r.item)
+      .filter((p) => p.id !== excludeId)
+      .slice(0, limit);
+  }, [fuse, sorted, query, excludeId, limit]);
+
+  const hasMore = useMemo(() => {
+    if (!query) return sorted.filter((p) => p.id !== excludeId).length > limit;
+    return fuse.search(query).filter((r) => r.item.id !== excludeId).length > limit;
+  }, [fuse, sorted, query, excludeId, limit]);
+
+  // Infinite scroll: load more when user reaches near bottom.
+  const onScroll = useCallback(() => {
+    const el = listRef.current;
+    if (!el || !hasMore) return;
+    if (el.scrollTop + el.clientHeight >= el.scrollHeight - 40) {
+      setLimit((prev) => prev + PAGE_SIZE);
+    }
+  }, [hasMore]);
 
   if (value) {
     return (
@@ -69,7 +128,7 @@ export function PlayerSearch({ players, value, onChange, placeholder, excludeId 
             setOpen(true);
           }}
           onFocus={() => setOpen(true)}
-          onBlur={() => setTimeout(() => setOpen(false), 120)}
+          onBlur={() => setTimeout(() => setOpen(false), 150)}
           placeholder={placeholder}
           autoComplete="off"
           autoCorrect="off"
@@ -79,10 +138,14 @@ export function PlayerSearch({ players, value, onChange, placeholder, excludeId 
         />
       </div>
       {open && results.length > 0 && (
-        <ul className="absolute z-10 mt-2 max-h-72 w-full overflow-auto rounded-xl border border-border bg-surface2 shadow-xl">
-          {results
-            .filter((p) => p.id !== excludeId)
-            .map((p) => (
+        <ul
+          ref={listRef}
+          onScroll={onScroll}
+          className="absolute z-10 mt-2 max-h-80 w-full overflow-auto rounded-xl border border-border bg-surface2 shadow-xl"
+        >
+          {results.map((p) => {
+            const isToday = todaySlugs.has(p.slug);
+            return (
               <li key={p.id}>
                 <button
                   type="button"
@@ -98,7 +161,12 @@ export function PlayerSearch({ players, value, onChange, placeholder, excludeId 
                 >
                   <PlayerAvatar name={p.name} photoUrl={p.photoUrl} size={36} />
                   <div className="min-w-0 flex-1">
-                    <div className="truncate text-sm font-medium">{p.name}</div>
+                    <div className="flex items-center gap-1.5 truncate text-sm font-medium">
+                      {p.name}
+                      {isToday && (
+                        <Zap className="size-3 text-lime" />
+                      )}
+                    </div>
                     <div className="truncate text-xs text-muted">
                       {p.countryIso && <span>{flag(p.countryIso)} </span>}
                       {p.country ?? "—"} · {p.tour.toUpperCase()}
@@ -107,7 +175,13 @@ export function PlayerSearch({ players, value, onChange, placeholder, excludeId 
                   <div className="text-xs text-muted">#{p.rank}</div>
                 </button>
               </li>
-            ))}
+            );
+          })}
+          {hasMore && (
+            <li className="px-4 py-2 text-center text-[11px] text-muted/60">
+              Défile pour voir plus…
+            </li>
+          )}
         </ul>
       )}
     </div>
