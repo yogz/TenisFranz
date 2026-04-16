@@ -72,6 +72,17 @@ export default async function ModelPage() {
               />
             </div>
             <BankrollCurve data={vsMarket.bankrollCurve} />
+            <div className="rounded-lg bg-surface2 px-3 py-2 text-[11px] leading-relaxed text-muted">
+              <p>
+                <span className="text-text">Un ROI négatif est normal.</span>{" "}
+                Les bookmakers prélèvent une marge (~4-5%) sur chaque match.
+                Le modèle perd {(vsMarket.roi * 100).toFixed(1)}% contre le marché,
+                mais la stratégie «{"\u00A0"}toujours miser le favori{"\u00A0"}» perd{" "}
+                {(vsMarket.baselines.favoriteAlways * 100).toFixed(1)}%.
+                L'écart de ~{((vsMarket.roi - vsMarket.baselines.favoriteAlways) * 100).toFixed(0)} point
+                montre que le modèle identifie mieux les favoris que le consensus.
+              </p>
+            </div>
             <p className="text-[11px] leading-relaxed text-muted">
               {vsMarket.methodology}
             </p>
@@ -165,7 +176,7 @@ function Stat({ label, value, hint }: { label: string; value: string; hint?: str
         {label}
         {hint && <Hint text={hint} />}
       </div>
-      <div className="font-display text-2xl text-text">{value}</div>
+      <div className="font-mono text-2xl text-text">{value}</div>
     </div>
   );
 }

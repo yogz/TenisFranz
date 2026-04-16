@@ -104,19 +104,19 @@ export default async function PlayerPage({ params }: { params: Promise<{ slug: s
           <div className="text-[10px] font-medium uppercase tracking-[0.18em] text-muted">
             Matchs
           </div>
-          <div className="mt-1 font-display text-xl text-text">{totalMatches}</div>
+          <div className="mt-1 font-mono text-xl text-text">{totalMatches}</div>
         </div>
         <div>
           <div className="text-[10px] font-medium uppercase tracking-[0.18em] text-muted">
             Défaites
           </div>
-          <div className="mt-1 font-display text-xl text-text">{career.losses}</div>
+          <div className="mt-1 font-mono text-xl text-text">{career.losses}</div>
         </div>
         <div>
           <div className="text-[10px] font-medium uppercase tracking-[0.18em] text-muted">
             Elo peak
           </div>
-          <div className="mt-1 font-display text-xl text-text">{Math.round(bestEloPeak)}</div>
+          <div className="mt-1 font-mono text-xl text-text">{Math.round(bestEloPeak)}</div>
           <div className="text-[10px] text-muted">actuel {Math.round(bestEloNow)}</div>
         </div>
       </section>
@@ -189,7 +189,7 @@ export default async function PlayerPage({ params }: { params: Promise<{ slug: s
                 <div className="text-[11px] uppercase tracking-wider text-muted">
                   {SURFACE_LABEL[s]}
                 </div>
-                <div className="font-display text-2xl text-text">{Math.round(current)}</div>
+                <div className="font-mono text-2xl text-text">{Math.round(current)}</div>
                 <div className="mt-1 text-[10px] text-muted">peak {Math.round(peak)}</div>
                 <div className="text-[10px] text-muted">{matches} matchs</div>
               </div>
@@ -290,7 +290,7 @@ function HeadlineStat({ label, value }: { label: string; value: string }) {
       <div className="text-[10px] font-medium uppercase tracking-[0.18em] text-muted">
         {label}
       </div>
-      <div className="mt-1 font-display text-3xl text-text">{value}</div>
+      <div className="mt-1 font-mono text-3xl text-text">{value}</div>
     </div>
   );
 }

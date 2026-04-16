@@ -241,7 +241,7 @@ export function Predictor({
                   Avec tes ajustements
                 </div>
                 <div className="flex items-baseline gap-2">
-                  <span className="font-display text-2xl text-text">
+                  <span className="font-mono text-2xl text-text">
                     {(pWinnerAdj * 100).toFixed(0)}
                     <span className="text-sm text-muted">%</span>
                   </span>
