@@ -13,17 +13,23 @@ import {
   adjustmentsFromIds,
   adjIdsFromUrlParts,
   adjIdsToUrlParts,
+  type AdjustmentContext,
 } from "./Adjustments";
 
 const SURFACES: Surface[] = ["Hard", "Clay", "Grass"];
 
-let upcomingPromise: Promise<UpcomingMatch[]> | null = null;
-function fetchUpcoming(): Promise<UpcomingMatch[]> {
+interface UpcomingData {
+  matches: UpcomingMatch[];
+  weather?: Record<string, { tempMax: number; windMax: number }>;
+}
+
+let upcomingPromise: Promise<UpcomingData> | null = null;
+function fetchUpcoming(): Promise<UpcomingData> {
   if (upcomingPromise) return upcomingPromise;
   upcomingPromise = fetch("/data/matches_upcoming.json")
     .then((r) => (r.ok ? r.json() : { matches: [] }))
-    .then((d) => d.matches ?? [])
-    .catch(() => []);
+    .then((d) => ({ matches: d.matches ?? [], weather: d.weather }))
+    .catch(() => ({ matches: [] }));
   return upcomingPromise;
 }
 
@@ -45,10 +51,12 @@ export function Predictor({
   const [b, setB] = useState<Player | null>(null);
   const [surface, setSurface] = useState<Surface>("Hard");
   const [adjIds, setAdjIds] = useState<Set<string>>(new Set());
-  const [upcoming, setUpcoming] = useState<UpcomingMatch[]>([]);
+  const [upcomingData, setUpcomingData] = useState<UpcomingData>({ matches: [] });
   const [adjOpen, setAdjOpen] = useState(false);
 
-  useEffect(() => { fetchUpcoming().then(setUpcoming); }, []);
+  useEffect(() => { fetchUpcoming().then(setUpcomingData); }, []);
+
+  const upcoming = upcomingData.matches;
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -303,16 +311,31 @@ export function Predictor({
                   Blessure, fatigue, confiance, surface… injecte ce que le modèle ne sait pas.
                 </p>
               )}
-              {adjOpen && (
-                <div className="mt-3">
-                  <Adjustments
-                    selected={adjIds}
-                    onChange={setAdjIds}
-                    playerAName={a!.name}
-                    playerBName={b!.name}
-                  />
-                </div>
-              )}
+              {adjOpen && (() => {
+                // Build context for smart suggestions inside adjustments.
+                const adjCtx: AdjustmentContext = {};
+                if (bookieMatch) {
+                  const w = upcomingData.weather?.[bookieMatch.tournament];
+                  if (w) {
+                    adjCtx.tempMax = w.tempMax;
+                    adjCtx.windMax = w.windMax;
+                    adjCtx.tournament = bookieMatch.tournament;
+                  }
+                  if (bookieMatch.signals) adjCtx.signals = bookieMatch.signals;
+                }
+                if (bookieGap !== 0) adjCtx.bookieGapPts = bookieGap;
+                return (
+                  <div className="mt-3">
+                    <Adjustments
+                      selected={adjIds}
+                      onChange={setAdjIds}
+                      playerAName={a!.name}
+                      playerBName={b!.name}
+                      context={adjCtx}
+                    />
+                  </div>
+                );
+              })()}
             </div>
           )}
 

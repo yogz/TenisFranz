@@ -101,20 +101,66 @@ export function adjustmentsFromIds(ids: Set<string>): PredictAdjustments {
   return { logitA, logitB };
 }
 
+export interface AdjustmentContext {
+  /** Temperature at tournament location (°C). */
+  tempMax?: number;
+  /** Wind speed at tournament location (km/h). */
+  windMax?: number;
+  /** Tournament name (for display). */
+  tournament?: string;
+  /** Bookie gap in percentage points (model - bookie). */
+  bookieGapPts?: number;
+  /** Signals from the signals module (odds movement etc.). */
+  signals?: string[];
+}
+
 export function Adjustments({
   selected,
   onChange,
   playerAName,
   playerBName,
+  context,
 }: {
   selected: Set<string>;
   onChange: (next: Set<string>) => void;
   playerAName: string;
   playerBName: string;
+  context?: AdjustmentContext;
 }) {
   const count = selected.size;
   const shortA = playerAName.split(" ").pop() ?? playerAName;
   const shortB = playerBName.split(" ").pop() ?? playerBName;
+
+  // Build contextual suggestions from available data.
+  const suggestions: { text: string; chipId?: string }[] = [];
+  if (context?.tempMax != null && context.tempMax >= 30) {
+    suggestions.push({
+      text: `🌡 ${Math.round(context.tempMax)}°C à ${context.tournament ?? "ce tournoi"}`,
+      chipId: "heat",
+    });
+  }
+  if (context?.windMax != null && context.windMax >= 25) {
+    suggestions.push({
+      text: `💨 Vent ${Math.round(context.windMax)} km/h`,
+      chipId: "altitude", // big servers benefit — closest chip
+    });
+  }
+  if (context?.bookieGapPts != null && Math.abs(context.bookieGapPts) >= 5) {
+    const gap = context.bookieGapPts;
+    suggestions.push({
+      text: gap > 0
+        ? `📉 Les bookmakers sont ${gap}pts plus bas — blessure ? fatigue ?`
+        : `📈 Les bookmakers sont ${Math.abs(gap)}pts plus haut — info en plus ?`,
+    });
+  }
+  if (context?.signals) {
+    for (const sig of context.signals) {
+      suggestions.push({ text: sig });
+    }
+  }
+
+  // Chip IDs that have contextual data backing them.
+  const suggestedChipBases = new Set(suggestions.map((s) => s.chipId).filter(Boolean));
 
   const toggle = (id: string) => {
     const next = new Set(selected);
@@ -127,6 +173,20 @@ export function Adjustments({
 
   return (
     <div className="space-y-4">
+      {/* Contextual suggestions box */}
+      {suggestions.length > 0 && (
+        <div className="rounded-lg border border-border bg-bg px-3 py-2.5 space-y-1.5">
+          <div className="text-[9px] font-medium uppercase tracking-[0.2em] text-muted/60">
+            💡 Contexte du match
+          </div>
+          {suggestions.slice(0, 3).map((s, i) => (
+            <div key={i} className="text-[11px] leading-relaxed text-muted">
+              {s.text}
+            </div>
+          ))}
+        </div>
+      )}
+
       {count > 0 && (
         <div className="flex justify-end">
           <button
@@ -157,20 +217,26 @@ export function Adjustments({
                       const id = `${opt.id}_${t}`;
                       const active = selected.has(id);
                       const isNeg = opt.logit < 0;
+                      const hasDot = suggestedChipBases.has(opt.id);
                       return (
                         <button
                           key={id}
                           type="button"
                           onClick={() => toggle(id)}
                           className={
-                            "rounded-full border px-2.5 py-1 text-[11px] transition " +
+                            "relative rounded-full border px-2.5 py-1 text-[11px] transition " +
                             (active
                               ? isNeg
                                 ? "border-red-400/50 bg-red-400/15 text-red-300"
                                 : "border-lime/50 bg-lime/15 text-lime"
+                              : hasDot
+                              ? "border-lime/30 bg-surface2 text-muted hover:text-text ring-1 ring-lime/20"
                               : "border-border bg-surface2 text-muted hover:text-text hover:border-border/80")
                           }
                         >
+                          {hasDot && !active && (
+                            <span className="absolute -right-0.5 -top-0.5 size-1.5 rounded-full bg-lime" />
+                          )}
                           <span className="mr-1">{opt.icon}</span>
                           {opt.label}
                         </button>

@@ -2,9 +2,9 @@ import Link from "next/link";
 import type { H2HEntry, Player, Surface } from "@/lib/types";
 
 const SURFACE_LABEL: Record<Surface, string> = {
-  Hard: "Dur",
-  Clay: "Terre",
-  Grass: "Gazon",
+  Hard: "Hard",
+  Clay: "Clay",
+  Grass: "Grass",
 };
 
 function winPct(e: H2HEntry): number {

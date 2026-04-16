@@ -4,9 +4,9 @@ import { PlayerAvatar } from "@/components/PlayerAvatar";
 import { flag } from "@/lib/format";
 
 const SURFACE_LABEL: Record<Surface, string> = {
-  Hard: "Dur",
-  Clay: "Terre",
-  Grass: "Gazon",
+  Hard: "Hard",
+  Clay: "Clay",
+  Grass: "Grass",
 };
 
 function formatDay(iso: string): string {

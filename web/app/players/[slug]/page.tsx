@@ -11,9 +11,9 @@ import { PlayerAvatar } from "@/components/PlayerAvatar";
 import { PlayerNavSearch } from "@/components/PlayerNavSearch";
 
 const SURFACE_LABEL: Record<Surface, string> = {
-  Hard: "Dur",
-  Clay: "Terre",
-  Grass: "Gazon",
+  Hard: "Hard",
+  Clay: "Clay",
+  Grass: "Grass",
 };
 
 export async function generateStaticParams() {
