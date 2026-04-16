@@ -225,8 +225,8 @@ export function Predictor({
 
             {/* Probability bar — with optional adjusted overlay */}
             <div className="relative mt-4 h-2.5 overflow-hidden rounded-full bg-surface2">
-              {/* Adjusted bar (behind, wider or narrower, muted color) */}
-              {pWinnerAdj != null && (
+              {pWinnerAdj != null && pWinnerAdj > pWinner && (
+                /* Positive adjustment: translucent extension beyond the solid bar */
                 <div
                   className="absolute inset-y-0 left-0 rounded-full bg-lime/25 transition-[width] duration-700"
                   style={{ width: `${pWinnerAdj * 100}%` }}
@@ -237,6 +237,16 @@ export function Predictor({
                 className="relative h-full rounded-full bg-lime transition-[width] duration-500"
                 style={{ width: `${pWinner * 100}%` }}
               />
+              {pWinnerAdj != null && pWinnerAdj < pWinner && (
+                /* Negative adjustment: red zone showing what's lost */
+                <div
+                  className="absolute inset-y-0 rounded-full bg-red-400/40 transition-all duration-700"
+                  style={{
+                    left: `${pWinnerAdj * 100}%`,
+                    width: `${(pWinner - pWinnerAdj) * 100}%`,
+                  }}
+                />
+              )}
             </div>
             <div className="mt-2 flex justify-between text-[11px] text-muted">
               <span>{winner.name.split(" ").pop()} {(pWinner * 100).toFixed(0)}%</span>
