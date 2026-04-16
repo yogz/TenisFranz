@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import type { EloRow, ModelBundle, Player, Surface } from "@/lib/types";
+import type { EloRow, ModelBundle, Player, Surface, UpcomingMatch } from "@/lib/types";
 import { pickModel, predict } from "@/lib/predict";
 import { PlayerSearch } from "./PlayerSearch";
 import { SurfacePicker } from "./SurfacePicker";
@@ -15,6 +15,18 @@ import {
 } from "./Adjustments";
 
 const SURFACES: Surface[] = ["Hard", "Clay", "Grass"];
+
+// Client-side fetch of upcoming matches to show bookmaker odds on the
+// prediction card when the selected pair exists in the upcoming list.
+let upcomingPromise: Promise<UpcomingMatch[]> | null = null;
+function fetchUpcoming(): Promise<UpcomingMatch[]> {
+  if (upcomingPromise) return upcomingPromise;
+  upcomingPromise = fetch("/data/matches_upcoming.json")
+    .then((r) => (r.ok ? r.json() : { matches: [] }))
+    .then((d) => d.matches ?? [])
+    .catch(() => []);
+  return upcomingPromise;
+}
 
 function findBySlug(players: Player[], slug: string | null): Player | null {
   if (!slug) return null;
@@ -34,6 +46,12 @@ export function Predictor({
   const [b, setB] = useState<Player | null>(null);
   const [surface, setSurface] = useState<Surface>("Hard");
   const [adjIds, setAdjIds] = useState<Set<string>>(new Set());
+  const [upcoming, setUpcoming] = useState<UpcomingMatch[]>([]);
+
+  // Fetch upcoming matches once on mount (for bookmaker odds display).
+  useEffect(() => {
+    fetchUpcoming().then(setUpcoming);
+  }, []);
 
   // Hydrate from URL on client mount. Lazy-read from window.location to
   // avoid the <Suspense> boundary re-render that useSearchParams would
@@ -100,6 +118,15 @@ export function Predictor({
       }
     }
   }
+
+  // Look up bookmaker odds for the selected pair in the upcoming matches.
+  const bookieMatch = (a && b)
+    ? upcoming.find(
+        (m) =>
+          (m.playerA === a.slug && m.playerB === b.slug) ||
+          (m.playerA === b.slug && m.playerB === a.slug),
+      )
+    : undefined;
 
   const aWins = result ? result.probA >= result.probB : false;
   const winner = result && a && b ? (aWins ? a : b) : null;
@@ -178,6 +205,36 @@ export function Predictor({
               <span>{winner.name.split(" ").pop()} {(pWinner * 100).toFixed(0)}%</span>
               <span>{(pLoser * 100).toFixed(0)}% {loser.name.split(" ").pop()}</span>
             </div>
+            {bookieMatch?.oddsA != null && bookieMatch?.oddsB != null && (() => {
+              // Align bookie odds to winner/loser (same order as the card).
+              const isSwapped = bookieMatch.playerA === b!.slug;
+              const oddsW = isSwapped
+                ? (aWins ? bookieMatch.oddsB : bookieMatch.oddsA)
+                : (aWins ? bookieMatch.oddsA : bookieMatch.oddsB);
+              const oddsL = isSwapped
+                ? (aWins ? bookieMatch.oddsA : bookieMatch.oddsB)
+                : (aWins ? bookieMatch.oddsB : bookieMatch.oddsA);
+              const bkWinner = Math.round((1 / oddsW) * 100);
+              const bkLoser = Math.round((1 / oddsL) * 100);
+              return (
+                <div className="mt-3 flex items-center justify-between rounded-lg bg-surface2 px-3 py-2">
+                  <div className="text-[10px] font-medium uppercase tracking-[0.18em] text-muted">
+                    Bookmakers
+                  </div>
+                  <div className="flex items-baseline gap-3 text-[11px]">
+                    <span className="text-muted">
+                      {winner.name.split(" ").pop()}{" "}
+                      <span className="font-mono text-text">{bkWinner}%</span>
+                    </span>
+                    <span className="text-muted/50">·</span>
+                    <span className="text-muted">
+                      <span className="font-mono text-text">{bkLoser}%</span>{" "}
+                      {loser.name.split(" ").pop()}
+                    </span>
+                  </div>
+                </div>
+              );
+            })()}
             {pWinnerAdj != null && deltaPts != null && (
               <div className="mt-4 flex items-center justify-between rounded-lg bg-surface2 px-3 py-2">
                 <div className="text-[10px] font-medium uppercase tracking-[0.18em] text-muted">
