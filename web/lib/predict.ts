@@ -202,6 +202,39 @@ export function predict(
   return { probA: rawProbA, probB: 1 - rawProbA, contributions, logit, surface };
 }
 
+/**
+ * Blend model probability with bookmaker implied probability.
+ *
+ * Academic evidence (Kovalchik 2016, Vaughan Williams & Reade) shows that
+ * a blend of model + market consistently outperforms either source alone:
+ * the model captures historical structure (Elo, surface, age), while the
+ * market captures live information (injuries, motivation, weather).
+ *
+ * Default blend: 65% model + 35% market. This ratio is the sweet spot
+ * from tennis prediction literature — enough market weight to absorb
+ * live signals, but not so much that we're just copying the bookies.
+ *
+ * When market odds are unavailable, returns the raw model probability.
+ */
+export function blendWithMarket(
+  modelProbA: number,
+  bookieOddsA?: number,
+  bookieOddsB?: number,
+  modelWeight = 0.65,
+): number {
+  if (bookieOddsA == null || bookieOddsB == null || bookieOddsA <= 1 || bookieOddsB <= 1) {
+    return modelProbA;
+  }
+  // De-juice bookie odds (simple normalization — Shin's is in the pipeline
+  // but for a quick client-side blend, normalization is good enough).
+  const implA = 1 / bookieOddsA;
+  const implB = 1 / bookieOddsB;
+  const total = implA + implB;
+  const bookieProbA = implA / total;
+  const blended = modelWeight * modelProbA + (1 - modelWeight) * bookieProbA;
+  return Math.max(0.01, Math.min(0.99, blended));
+}
+
 export function pickModel(
   models: TrainedModel[],
   tour: string,

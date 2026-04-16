@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { ChevronDown } from "lucide-react";
 import type { EloRow, ModelBundle, Player, Surface, UpcomingMatch } from "@/lib/types";
-import { pickModel, predict } from "@/lib/predict";
+import { blendWithMarket, pickModel, predict } from "@/lib/predict";
 import { PlayerSearch } from "./PlayerSearch";
 import { SurfacePicker } from "./SurfacePicker";
 import { WaterfallChart } from "./WaterfallChart";
@@ -98,20 +98,52 @@ export function Predictor({
         (m.playerA === b.slug && m.playerB === a.slug))
     : undefined;
 
-  const aWins = result ? result.probA >= result.probB : false;
+  // Resolve bookie odds in the A/B frame (before computing aWins so
+  // the blend can influence who is displayed as favorite).
+  let oddsForA: number | undefined;
+  let oddsForB: number | undefined;
+  if (bookieMatch?.oddsA != null && bookieMatch?.oddsB != null && a && b) {
+    const isSwapped = bookieMatch.playerA === b.slug;
+    oddsForA = isSwapped ? bookieMatch.oddsB : bookieMatch.oddsA;
+    oddsForB = isSwapped ? bookieMatch.oddsA : bookieMatch.oddsB;
+  }
+
+  // Blend model prediction with bookmaker odds (65% model + 35% market).
+  // This is the "smart" probability that combines our historical model
+  // with the market's live information edge.
+  const blendedProbA = result
+    ? blendWithMarket(result.probA, oddsForA, oddsForB)
+    : 0;
+  const hasBlend = result && oddsForA != null;
+
+  // Use blended probability for the display when market data is available.
+  const displayProbA = hasBlend ? blendedProbA : (result?.probA ?? 0);
+  const aWins = displayProbA >= 0.5;
   const winner = result && a && b ? (aWins ? a : b) : null;
   const loser = result && a && b ? (aWins ? b : a) : null;
-  const pWinner = result ? Math.max(result.probA, result.probB) : 0;
+  const pWinner = result ? Math.max(displayProbA, 1 - displayProbA) : 0;
   const pLoser = 1 - pWinner;
-  const pWinnerAdj = adjusted && result ? (aWins ? adjusted.probA : adjusted.probB) : null;
-  const deltaPts = pWinnerAdj != null ? Math.round((pWinnerAdj - pWinner) * 100) : null;
 
-  // Bookie prob on winner side.
+  // Raw model probability (before blend) for reference.
+  const pWinnerModelOnly = result ? (aWins ? result.probA : result.probB) : 0;
+
+  // Adjusted probability: blend the adjusted model output with market too.
+  let pWinnerAdj: number | null = null;
+  let deltaPts: number | null = null;
+  if (adjusted && result) {
+    const adjBlended = blendWithMarket(adjusted.probA, oddsForA, oddsForB);
+    const adjDisplay = hasBlend ? adjBlended : adjusted.probA;
+    pWinnerAdj = aWins ? adjDisplay : (1 - adjDisplay);
+    deltaPts = Math.round((pWinnerAdj - pWinner) * 100);
+  }
+
+  // Bookie prob on winner side (for display + suggestion).
   let bookieProbWinner: number | undefined;
-  if (bookieMatch?.oddsA != null && bookieMatch?.oddsB != null && winner && a && b) {
-    const isSwapped = bookieMatch.playerA === b.slug;
-    const oddsW = isSwapped ? (aWins ? bookieMatch.oddsB : bookieMatch.oddsA) : (aWins ? bookieMatch.oddsA : bookieMatch.oddsB);
-    bookieProbWinner = 1 / oddsW;
+  if (oddsForA != null && oddsForB != null) {
+    const implA = 1 / oddsForA;
+    const implB = 1 / oddsForB!;
+    const total = implA + implB;
+    bookieProbWinner = aWins ? implA / total : implB / total;
   }
 
   const bookieGap = bookieProbWinner != null ? Math.round((pWinner - bookieProbWinner) * 100) : 0;
@@ -139,7 +171,14 @@ export function Predictor({
         <div className="card card-hover space-y-5">
           {/* ── Header: favorite + score (+ adjusted score inline) ── */}
           <div>
-            <div className="text-[10px] font-medium uppercase tracking-[0.18em] text-muted">Favori</div>
+            <div className="flex items-center gap-2">
+              <span className="text-[10px] font-medium uppercase tracking-[0.18em] text-muted">Favori</span>
+              {hasBlend && (
+                <span className="rounded-full bg-lime/10 px-2 py-0.5 text-[9px] font-medium text-lime/70">
+                  modèle + marché
+                </span>
+              )}
+            </div>
             <div className="mt-2 flex items-end justify-between gap-4">
               <div className="min-w-0 flex-1">
                 <div className="truncate text-lg font-medium text-text">{winner.name}</div>
