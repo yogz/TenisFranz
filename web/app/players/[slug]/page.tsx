@@ -144,7 +144,7 @@ export default async function PlayerPage({ params }: { params: Promise<{ slug: s
                   (r === "W" ? "bg-lime text-black" : "bg-surface2 text-muted")
                 }
               >
-                {r}
+                {r === "W" ? "V" : "D"}
               </div>
             ))
           )}
