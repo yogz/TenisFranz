@@ -7,6 +7,7 @@ import { PlayerSearch } from "./PlayerSearch";
 import { SurfacePicker } from "./SurfacePicker";
 import { WaterfallChart } from "./WaterfallChart";
 import { PredictionDetails } from "./PredictionDetails";
+import { AdjustmentImpact } from "./AdjustmentImpact";
 import {
   Adjustments,
   adjustmentsFromIds,
@@ -48,14 +49,10 @@ export function Predictor({
   const [adjIds, setAdjIds] = useState<Set<string>>(new Set());
   const [upcoming, setUpcoming] = useState<UpcomingMatch[]>([]);
 
-  // Fetch upcoming matches once on mount (for bookmaker odds display).
   useEffect(() => {
     fetchUpcoming().then(setUpcoming);
   }, []);
 
-  // Hydrate from URL on client mount. Lazy-read from window.location to
-  // avoid the <Suspense> boundary re-render that useSearchParams would
-  // trigger on every navigation. Unknown slugs are silently ignored.
   useEffect(() => {
     if (typeof window === "undefined") return;
     const params = new URLSearchParams(window.location.search);
@@ -64,7 +61,6 @@ export function Predictor({
     const s = params.get("s");
     const ap = findBySlug(players, aSlug);
     const bp = findBySlug(players, bSlug);
-    // Only accept a pair if both sides resolve AND tours match.
     if (ap && bp && ap.tour === bp.tour) {
       setA(ap);
       setB(bp);
@@ -83,7 +79,6 @@ export function Predictor({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Sync selection back to the URL without triggering a router re-render.
   useEffect(() => {
     if (typeof window === "undefined") return;
     const url = new URL(window.location.href);
@@ -119,7 +114,7 @@ export function Predictor({
     }
   }
 
-  // Look up bookmaker odds for the selected pair in the upcoming matches.
+  // Bookmaker odds lookup.
   const bookieMatch = (a && b)
     ? upcoming.find(
         (m) =>
@@ -133,11 +128,25 @@ export function Predictor({
   const loser = result && a && b ? (aWins ? b : a) : null;
   const pWinner = result ? Math.max(result.probA, result.probB) : 0;
   const pLoser = 1 - pWinner;
-  // Adjusted prob is expressed for the same winner as the model picked,
-  // so the delta reads naturally ("if you add this context, the favorite drops/gains").
   const pWinnerAdj = adjusted && result ? (aWins ? adjusted.probA : adjusted.probB) : null;
   const deltaPts =
     pWinnerAdj != null ? Math.round((pWinnerAdj - pWinner) * 100) : null;
+
+  // Compute bookie prob on the winner side for the smart suggestion + edge.
+  let bookieProbWinner: number | undefined;
+  if (bookieMatch?.oddsA != null && bookieMatch?.oddsB != null && winner && a && b) {
+    const isSwapped = bookieMatch.playerA === b.slug;
+    const oddsW = isSwapped
+      ? (aWins ? bookieMatch.oddsB : bookieMatch.oddsA)
+      : (aWins ? bookieMatch.oddsA : bookieMatch.oddsB);
+    bookieProbWinner = 1 / oddsW;
+  }
+
+  // Smart suggestion: nudge when bookies diverge >8pts from model.
+  const bookieGap =
+    bookieProbWinner != null ? Math.round((pWinner - bookieProbWinner) * 100) : 0;
+  const showSuggestion =
+    canPredict && result && bookieProbWinner != null && Math.abs(bookieGap) >= 8 && adjIds.size === 0;
 
   return (
     <div className="space-y-4">
@@ -162,15 +171,6 @@ export function Predictor({
       />
       <SurfacePicker value={surface} onChange={setSurface} />
 
-      {canPredict && (
-        <Adjustments
-          selected={adjIds}
-          onChange={setAdjIds}
-          playerAName={a!.name}
-          playerBName={b!.name}
-        />
-      )}
-
       {a && b && a.tour !== b.tour && (
         <p className="text-sm text-muted">
           Les deux joueurs doivent être du même circuit (ATP ou WTA).
@@ -178,7 +178,8 @@ export function Predictor({
       )}
 
       {result && winner && loser && (
-        <div className="card card-hover space-y-6">
+        <div className="card card-hover space-y-5">
+          {/* Prediction header */}
           <div>
             <div className="text-[10px] font-medium uppercase tracking-[0.18em] text-muted">
               Favori
@@ -205,16 +206,14 @@ export function Predictor({
               <span>{winner.name.split(" ").pop()} {(pWinner * 100).toFixed(0)}%</span>
               <span>{(pLoser * 100).toFixed(0)}% {loser.name.split(" ").pop()}</span>
             </div>
-            {bookieMatch?.oddsA != null && bookieMatch?.oddsB != null && (() => {
-              // Align bookie odds to winner/loser (same order as the card).
+
+            {/* Bookmaker odds */}
+            {bookieProbWinner != null && bookieMatch?.oddsA != null && bookieMatch?.oddsB != null && (() => {
               const isSwapped = bookieMatch.playerA === b!.slug;
-              const oddsW = isSwapped
-                ? (aWins ? bookieMatch.oddsB : bookieMatch.oddsA)
-                : (aWins ? bookieMatch.oddsA : bookieMatch.oddsB);
               const oddsL = isSwapped
                 ? (aWins ? bookieMatch.oddsA : bookieMatch.oddsB)
                 : (aWins ? bookieMatch.oddsB : bookieMatch.oddsA);
-              const bkWinner = Math.round((1 / oddsW) * 100);
+              const bkWinner = Math.round(bookieProbWinner! * 100);
               const bkLoser = Math.round((1 / oddsL) * 100);
               return (
                 <div className="mt-3 flex items-center justify-between rounded-lg bg-surface2 px-3 py-2">
@@ -235,34 +234,44 @@ export function Predictor({
                 </div>
               );
             })()}
-            {pWinnerAdj != null && deltaPts != null && (
-              <div className="mt-4 flex items-center justify-between rounded-lg bg-surface2 px-3 py-2">
-                <div className="text-[10px] font-medium uppercase tracking-[0.18em] text-muted">
-                  Avec tes ajustements
-                </div>
-                <div className="flex items-baseline gap-2">
-                  <span className="font-mono text-2xl text-text">
-                    {(pWinnerAdj * 100).toFixed(0)}
-                    <span className="text-sm text-muted">%</span>
-                  </span>
-                  <span
-                    className={
-                      "font-mono text-[11px] " +
-                      (deltaPts > 0
-                        ? "text-lime"
-                        : deltaPts < 0
-                        ? "text-red-400"
-                        : "text-muted")
-                    }
-                  >
-                    {deltaPts > 0 ? "+" : ""}
-                    {deltaPts}pts
-                  </span>
-                </div>
-              </div>
-            )}
           </div>
 
+          {/* Smart suggestion */}
+          {showSuggestion && (
+            <div className="rounded-lg border border-lime/20 bg-lime/[0.06] px-3 py-2 text-[11px] leading-relaxed text-lime/80">
+              {bookieGap > 0 ? (
+                <>Les bookmakers donnent <span className="font-semibold text-lime">{winner.name.split(" ").pop()}</span> plus bas que le modèle ({bookieGap}pts d'écart). Blessure ? Fatigue ? Ajoute un ajustement.</>
+              ) : (
+                <>Les bookmakers donnent <span className="font-semibold text-lime">{winner.name.split(" ").pop()}</span> plus haut que le modèle ({Math.abs(bookieGap)}pts d'écart). Info que le modèle n'a pas ? Ajuste.</>
+              )}
+            </div>
+          )}
+
+          {/* Adjustments — always visible inside the card */}
+          {canPredict && (
+            <div className="border-t border-border pt-4">
+              <Adjustments
+                selected={adjIds}
+                onChange={setAdjIds}
+                playerAName={a!.name}
+                playerBName={b!.name}
+              />
+            </div>
+          )}
+
+          {/* Before/after impact */}
+          {pWinnerAdj != null && deltaPts != null && (
+            <AdjustmentImpact
+              pWinner={pWinner}
+              pWinnerAdj={pWinnerAdj}
+              deltaPts={deltaPts}
+              winnerName={winner.name.split(" ").pop() ?? winner.name}
+              loserName={loser.name.split(" ").pop() ?? loser.name}
+              bookieProbWinner={bookieProbWinner}
+            />
+          )}
+
+          {/* Waterfall */}
           <div className="border-t border-border pt-5">
             <div className="mb-3 text-[10px] font-medium uppercase tracking-[0.18em] text-muted">
               Pourquoi
@@ -274,6 +283,7 @@ export function Predictor({
             />
           </div>
 
+          {/* Collapsible details */}
           {trained && (
             <PredictionDetails
               result={result}

@@ -1,60 +1,49 @@
 "use client";
 
-import { ChevronDown, RotateCcw } from "lucide-react";
-import { useState } from "react";
+import { RotateCcw } from "lucide-react";
 import type { PredictAdjustments } from "@/lib/predict";
 
 export interface AdjustmentOption {
   id: string;
   label: string;
   icon: string;
+  category: string;
   target: "A" | "B";
-  /**
-   * Logit shift applied to this player's side when the chip is active.
-   * A positive value strengthens the target player. See the conversion
-   * table in predict.ts::PredictAdjustments — in the 50/50 region roughly:
-   *   ±0.40 ≈ ±10 pts of probability
-   *   ±0.20 ≈ ±5 pts
-   *   ±0.10 ≈ ±2.5 pts
-   */
   logit: number;
 }
 
-// Contextual modifiers — hand-calibrated so the UI direction always
-// matches the user's intuition. These are applied directly to the logit
-// after the model's raw prediction, so their effect is decoupled from
-// the feature coefficients (which can flip signs under collinearity).
-const OPTIONS: Omit<AdjustmentOption, "target">[] = [
-  {
-    id: "injured",
-    label: "Blessé·e / pas à 100%",
-    icon: "🏥",
-    logit: -0.40, // ≈ −10 pts
-  },
-  {
-    id: "five_setter",
-    label: "Long match la veille",
-    icon: "😴",
-    logit: -0.25, // ≈ −6 pts
-  },
-  {
-    id: "confidence",
-    label: "En pleine confiance",
-    icon: "🔥",
-    logit: +0.20, // ≈ +5 pts
-  },
-  {
-    id: "comeback",
-    label: "Retour de blessure",
-    icon: "🩹",
-    logit: -0.50, // ≈ −12 pts
-  },
-  {
-    id: "home",
-    label: "À domicile",
-    icon: "🏠",
-    logit: +0.15, // ≈ +4 pts
-  },
+interface OptionDef {
+  id: string;
+  label: string;
+  icon: string;
+  category: string;
+  logit: number;
+}
+
+const CATEGORIES = [
+  { key: "physical", label: "Physique" },
+  { key: "mental", label: "Mental" },
+  { key: "tactical", label: "Tactique" },
+  { key: "external", label: "Externe" },
+] as const;
+
+const OPTIONS: OptionDef[] = [
+  // Physique
+  { id: "injured", label: "Blessé·e", icon: "🏥", category: "physical", logit: -0.40 },
+  { id: "comeback", label: "Retour de blessure", icon: "🩹", category: "physical", logit: -0.50 },
+  { id: "five_setter", label: "Long match la veille", icon: "😴", category: "physical", logit: -0.25 },
+  // Mental
+  { id: "confidence", label: "En confiance", icon: "🔥", category: "mental", logit: +0.20 },
+  { id: "pressure", label: "Pression", icon: "😰", category: "mental", logit: -0.15 },
+  { id: "clutch", label: "Clutch", icon: "🧊", category: "mental", logit: +0.15 },
+  // Tactique
+  { id: "surface_spe", label: "Spécialiste surface", icon: "🎯", category: "tactical", logit: +0.25 },
+  { id: "surface_chg", label: "Change de surface", icon: "🔄", category: "tactical", logit: -0.20 },
+  { id: "altitude", label: "Altitude", icon: "🏔️", category: "tactical", logit: +0.10 },
+  // Externe
+  { id: "home", label: "À domicile", icon: "🏠", category: "external", logit: +0.15 },
+  { id: "travel", label: "Jet lag", icon: "✈️", category: "external", logit: -0.15 },
+  { id: "heat", label: "Chaleur extrême", icon: "🥵", category: "external", logit: -0.10 },
 ];
 
 function buildAll(): AdjustmentOption[] {
@@ -123,7 +112,6 @@ export function Adjustments({
   playerAName: string;
   playerBName: string;
 }) {
-  const [open, setOpen] = useState(false);
   const count = selected.size;
   const shortA = playerAName.split(" ").pop() ?? playerAName;
   const shortB = playerBName.split(" ").pop() ?? playerBName;
@@ -138,15 +126,11 @@ export function Adjustments({
   const reset = () => onChange(new Set());
 
   return (
-    <div className="rounded-xl border border-border bg-surface">
-      <button
-        type="button"
-        onClick={() => setOpen((v) => !v)}
-        className="flex w-full items-center justify-between gap-3 px-4 py-3 text-left"
-      >
+    <div className="space-y-4">
+      <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <span className="text-[10px] font-medium uppercase tracking-[0.18em] text-muted">
-            Ajustements
+            Ajustements contextuels
           </span>
           {count > 0 && (
             <span className="rounded-full bg-lime/15 px-2 py-0.5 text-[10px] font-semibold text-lime">
@@ -154,60 +138,61 @@ export function Adjustments({
             </span>
           )}
         </div>
-        <ChevronDown
-          className={"size-4 text-muted transition " + (open ? "rotate-180" : "")}
-        />
-      </button>
-      {open && (
-        <div className="space-y-4 border-t border-border px-4 py-4">
-          <p className="text-[11px] leading-relaxed text-muted">
-            Ajoute du contexte que le modèle ignore (blessure, fatigue, forme récente…). Le score
-            officiel reste intact — on affiche l&apos;impact à côté.
-          </p>
-          {(["A", "B"] as const).map((t) => {
-            const name = t === "A" ? shortA : shortB;
-            return (
-              <div key={t} className="space-y-2">
-                <div className="text-[10px] font-medium uppercase tracking-[0.18em] text-muted">
-                  {name}
+        {count > 0 && (
+          <button
+            type="button"
+            onClick={reset}
+            className="flex items-center gap-1 text-[10px] text-muted hover:text-text"
+          >
+            <RotateCcw className="size-3" />
+            Reset
+          </button>
+        )}
+      </div>
+
+      {(["A", "B"] as const).map((t) => {
+        const name = t === "A" ? shortA : shortB;
+        return (
+          <div key={t} className="space-y-2.5">
+            <div className="text-[11px] font-semibold text-text">{name}</div>
+            {CATEGORIES.map((cat) => {
+              const chips = OPTIONS.filter((o) => o.category === cat.key);
+              return (
+                <div key={cat.key} className="space-y-1.5">
+                  <div className="text-[9px] uppercase tracking-[0.2em] text-muted/60">
+                    {cat.label}
+                  </div>
+                  <div className="flex flex-wrap gap-1.5">
+                    {chips.map((opt) => {
+                      const id = `${opt.id}_${t}`;
+                      const active = selected.has(id);
+                      const isNeg = opt.logit < 0;
+                      return (
+                        <button
+                          key={id}
+                          type="button"
+                          onClick={() => toggle(id)}
+                          className={
+                            "rounded-full border px-2.5 py-1 text-[11px] transition " +
+                            (active
+                              ? isNeg
+                                ? "border-red-400/50 bg-red-400/15 text-red-300"
+                                : "border-lime/50 bg-lime/15 text-lime"
+                              : "border-border bg-surface2 text-muted hover:text-text hover:border-border/80")
+                          }
+                        >
+                          <span className="mr-1">{opt.icon}</span>
+                          {opt.label}
+                        </button>
+                      );
+                    })}
+                  </div>
                 </div>
-                <div className="flex flex-wrap gap-1.5">
-                  {OPTIONS.map((opt) => {
-                    const id = `${opt.id}_${t}`;
-                    const active = selected.has(id);
-                    return (
-                      <button
-                        key={id}
-                        type="button"
-                        onClick={() => toggle(id)}
-                        className={
-                          "rounded-full border px-3 py-1.5 text-xs transition " +
-                          (active
-                            ? "border-lime/60 bg-lime/15 text-lime"
-                            : "border-border bg-surface2 text-muted hover:text-text")
-                        }
-                      >
-                        <span className="mr-1">{opt.icon}</span>
-                        {opt.label}
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-            );
-          })}
-          {count > 0 && (
-            <button
-              type="button"
-              onClick={reset}
-              className="flex items-center gap-1.5 text-[11px] text-muted hover:text-text"
-            >
-              <RotateCcw className="size-3" />
-              Réinitialiser
-            </button>
-          )}
-        </div>
-      )}
+              );
+            })}
+          </div>
+        );
+      })}
     </div>
   );
 }
