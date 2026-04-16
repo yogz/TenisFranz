@@ -3,7 +3,7 @@ import {
   loadBacktest,
   loadMeta,
   loadModel,
-  loadPlayers,
+  loadPlayersIndex,
   loadUpcoming,
   loadVsMarket,
 } from "@/lib/data";
@@ -13,18 +13,18 @@ import { BankrollCurve } from "@/components/charts/BankrollCurve";
 import { Hint } from "@/components/Hint";
 
 export default async function ModelPage() {
-  const [backtest, meta, model, upcoming, players, vsMarket] = await Promise.all([
+  const [backtest, meta, model, upcoming, playersIdx, vsMarket] = await Promise.all([
     loadBacktest(),
     loadMeta(),
     loadModel(),
     loadUpcoming(),
-    loadPlayers(),
+    loadPlayersIndex(),
     loadVsMarket(),
   ]);
   const tours = Object.keys(backtest) as Array<keyof typeof backtest>;
 
   // Top 5 picks du modèle, sorted by confidence (distance from 0.5).
-  const playerBySlug = new Map(players.map((p) => [p.slug, p]));
+  const playerBySlug = playersIdx.bySlug;
   const topPicks = [...upcoming.matches]
     .map((m) => ({ m, conf: Math.abs(m.modelProbA - 0.5) }))
     .sort((a, b) => b.conf - a.conf)

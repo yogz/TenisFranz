@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import { Info } from "lucide-react";
-import { loadH2h, loadPlayers } from "@/lib/data";
+import { loadH2h, loadPlayers, loadPlayersIndex } from "@/lib/data";
 import { H2HBlock } from "@/components/profile/H2HBlock";
 import type { Surface } from "@/lib/types";
 import { flag, formatDate, formatHeight, handLabel } from "@/lib/format";
@@ -21,12 +21,13 @@ export async function generateStaticParams() {
 
 export default async function PlayerPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const [players, h2h] = await Promise.all([loadPlayers(), loadH2h()]);
-  const player = players.find((p) => p.slug === slug);
+  // Use the shared players index so the bySlug / byId Maps and the
+  // per-tour filters are built once per build, not once per page.
+  const [index, h2h] = await Promise.all([loadPlayersIndex(), loadH2h()]);
+  const player = index.bySlug.get(slug);
   if (!player) notFound();
-  // Only pass same-tour players to the nav search — keeps the list focused
-  const searchPool = players.filter((p) => p.tour === player.tour);
-  const playersById = new Map(players.map((p) => [p.id, p]));
+  const searchPool = index.byTour[player.tour];
+  const playersById = index.byId;
   const h2hEntries = h2h[player.id] ?? [];
 
   const surfaces: Surface[] = ["Hard", "Clay", "Grass"];
