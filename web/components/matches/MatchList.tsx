@@ -7,8 +7,12 @@ import { MatchCard } from "./MatchCard";
 import { TourFilter, type TourFilterValue } from "./TourFilter";
 
 function groupByDay(matches: UpcomingMatch[]): { date: string; matches: UpcomingMatch[] }[] {
+  // Sort by model confidence (most confident first) within each day.
+  const sorted = [...matches].sort(
+    (a, b) => Math.abs(b.modelProbA - 0.5) - Math.abs(a.modelProbA - 0.5),
+  );
   const map = new Map<string, UpcomingMatch[]>();
-  for (const m of matches) {
+  for (const m of sorted) {
     const arr = map.get(m.date) ?? [];
     arr.push(m);
     map.set(m.date, arr);

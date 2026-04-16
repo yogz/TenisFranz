@@ -1,9 +1,7 @@
-import Link from "next/link";
 import {
   loadBacktest,
   loadMeta,
   loadModel,
-  loadPlayersIndex,
   loadUpcoming,
   loadVsMarket,
 } from "@/lib/data";
@@ -13,22 +11,15 @@ import { BankrollCurve } from "@/components/charts/BankrollCurve";
 import { Hint } from "@/components/Hint";
 
 export default async function ModelPage() {
-  const [backtest, meta, model, upcoming, playersIdx, vsMarket] = await Promise.all([
+  const [backtest, meta, model, upcoming, vsMarket] = await Promise.all([
     loadBacktest(),
     loadMeta(),
     loadModel(),
     loadUpcoming(),
-    loadPlayersIndex(),
     loadVsMarket(),
   ]);
   const tours = Object.keys(backtest) as Array<keyof typeof backtest>;
 
-  // Top 5 picks du modèle, sorted by confidence (distance from 0.5).
-  const playerBySlug = playersIdx.bySlug;
-  const topPicks = [...upcoming.matches]
-    .map((m) => ({ m, conf: Math.abs(m.modelProbA - 0.5) }))
-    .sort((a, b) => b.conf - a.conf)
-    .slice(0, 5);
   const hasHistorical = vsMarket.picksCount > 0 && vsMarket.bankrollCurve.length > 0;
 
   return (
@@ -50,61 +41,6 @@ export default async function ModelPage() {
         <div className="card text-sm text-muted">
           Aucun backtest disponible — lance le pipeline pour générer les métriques.
         </div>
-      )}
-
-      {/* Picks du modèle — live predictions from matches_upcoming.json. */}
-      {topPicks.length > 0 && (
-        <section className="space-y-3">
-          <div className="flex items-baseline justify-between">
-            <h2 className="text-xs uppercase tracking-wider text-muted">
-              Picks du modèle
-              <Hint
-                align="start"
-                text="Les matchs à venir où le modèle est le plus sûr de lui — c'est-à-dire ceux dont la probabilité prédite est la plus éloignée de 50/50."
-              />
-            </h2>
-            <Link href="/matches" className="text-[11px] text-muted hover:text-text">
-              Voir tout →
-            </Link>
-          </div>
-          <ul className="space-y-2">
-            {topPicks.map(({ m, conf }) => {
-              const aWins = m.modelProbA >= 0.5;
-              const favSlug = aWins ? m.playerA : m.playerB;
-              const underSlug = aWins ? m.playerB : m.playerA;
-              const fav = playerBySlug.get(favSlug);
-              const under = playerBySlug.get(underSlug);
-              const favName = fav?.lastName ?? favSlug;
-              const underName = under?.lastName ?? underSlug;
-              const favPct = Math.round((aWins ? m.modelProbA : 1 - m.modelProbA) * 100);
-              return (
-                <li key={m.id}>
-                  <Link
-                    href={{ pathname: "/", query: { a: m.playerA, b: m.playerB, s: m.surface } }}
-                    className="card card-hover flex items-center justify-between gap-3"
-                  >
-                    <div className="min-w-0 flex-1">
-                      <div className="truncate text-sm font-medium text-text">
-                        {favName} <span className="text-muted">vs</span> {underName}
-                      </div>
-                      <div className="truncate text-[11px] text-muted">
-                        {m.tournament} · {m.round}
-                      </div>
-                    </div>
-                    <div className="shrink-0 font-display text-2xl text-lime">
-                      {favPct}
-                      <span className="text-sm text-lime/60">%</span>
-                    </div>
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
-          <p className="text-[11px] text-muted">
-            Les picks les plus confiants du modèle parmi {upcoming.matches.length} matchs à
-            venir. Pas un conseil de pari.
-          </p>
-        </section>
       )}
 
       {/* Simulation historique vs marché */}
