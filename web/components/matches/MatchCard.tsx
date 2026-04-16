@@ -120,7 +120,21 @@ export function MatchCard({
         </div>
       )}
 
-      {/* Row 4 — meta */}
+      {/* Row 4 — signals */}
+      {match.signals && match.signals.length > 0 && (
+        <div className="mt-2 flex flex-wrap gap-1.5">
+          {match.signals.map((sig, i) => (
+            <span
+              key={i}
+              className="rounded-full border border-amber-400/30 bg-amber-400/10 px-2 py-0.5 text-[10px] text-amber-300"
+            >
+              {sig}
+            </span>
+          ))}
+        </div>
+      )}
+
+      {/* Row 5 — meta */}
       <div className="mt-2 truncate text-[11px] text-muted">
         {match.tournament} · {SURFACE_LABEL[match.surface]} · {formatDay(match.date)}
       </div>

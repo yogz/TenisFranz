@@ -126,6 +126,14 @@ export interface UpcomingMatch {
   oddsA?: number;
   /** Average bookmaker decimal odds on player B. */
   oddsB?: number;
+  /** Contextual alert strings (odds movement, weather, etc). */
+  signals?: string[];
+}
+
+export interface UpcomingWithdrawal {
+  playerA: string;
+  playerB: string;
+  tournament: string;
 }
 
 export interface UpcomingBundle {
@@ -134,6 +142,8 @@ export interface UpcomingBundle {
   source: string;
   matches: UpcomingMatch[];
   stats: { fetched: number; resolved: number; missRatio: number };
+  withdrawals?: UpcomingWithdrawal[];
+  weather?: Record<string, { tempMax: number; windMax: number }>;
 }
 
 export interface H2HEntry {

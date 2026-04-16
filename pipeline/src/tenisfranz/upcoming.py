@@ -313,6 +313,15 @@ def run(now: datetime | None = None, data_dir: Path = DATA_OUT_DIR) -> dict[str,
     players = load_players(data_dir)
     draws = draws_fetcher.fetch_all()
     payload = build_upcoming_payload(draws, bundle, meta, elo_rows, players, now)
+
+    # Enrich with contextual signals (odds movement, withdrawals, weather).
+    from . import signals
+    sig = signals.enrich(payload)
+    logger.info(
+        "upcoming: signals — %d matches with alerts, %d withdrawals, %d weather lookups",
+        len(sig.per_match), len(sig.withdrawals), len(sig.weather_data),
+    )
+
     path = write_upcoming(payload, data_dir)
     logger.info(
         "upcoming: wrote %d matches to %s (miss ratio %.2f%%)",

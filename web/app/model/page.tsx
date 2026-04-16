@@ -171,6 +171,48 @@ export default async function ModelPage() {
         );
       })}
 
+      {/* Health dashboard */}
+      <section className="space-y-3">
+        <h2 className="text-xs uppercase tracking-wider text-muted">
+          Santé de la plateforme
+        </h2>
+        <div className="card space-y-2">
+          <HealthRow
+            label="Modèle"
+            detail={meta.trainedAt
+              ? `Entraîné le ${new Date(meta.trainedAt).toLocaleDateString("fr-FR")} · ${meta.yearFrom}-${meta.yearTo}`
+              : "Non entraîné"}
+            ok={!!meta.trainedAt && daysSince(meta.trainedAt) < 3}
+            warn={!!meta.trainedAt && daysSince(meta.trainedAt) >= 3 && daysSince(meta.trainedAt) < 7}
+          />
+          <HealthRow
+            label="Matchs upcoming"
+            detail={`${upcoming.matches.length} matchs · mis à jour ${timeAgo(upcoming.updatedAt)}`}
+            ok={upcoming.matches.length > 0 && daysSince(upcoming.updatedAt) < 2}
+            warn={daysSince(upcoming.updatedAt) >= 2 && daysSince(upcoming.updatedAt) < 4}
+          />
+          <HealthRow
+            label="Odds API"
+            detail={upcoming.matches.some((m) => m.oddsA != null)
+              ? `${upcoming.matches.filter((m) => m.oddsA != null).length} matchs avec cotes`
+              : "Pas de cotes disponibles"}
+            ok={upcoming.matches.some((m) => m.oddsA != null)}
+          />
+          <HealthRow
+            label="ROI simulation"
+            detail={vsMarket.picksCount > 0
+              ? `${vsMarket.picksCount.toLocaleString("fr-FR")} picks · ROI ${(vsMarket.roi * 100).toFixed(1)}%`
+              : "Non calculée"}
+            ok={vsMarket.picksCount > 0}
+          />
+          <HealthRow
+            label="Joueurs"
+            detail={`${model.models.length} modèles · ${model.featureNames.length} features`}
+            ok={model.models.length >= 4}
+          />
+        </div>
+      </section>
+
       {model.models.length > 0 && (
         <section className="card">
           <h2 className="mb-3 text-xs uppercase tracking-wider text-muted">
@@ -189,6 +231,45 @@ export default async function ModelPage() {
           </ul>
         </section>
       )}
+    </div>
+  );
+}
+
+function daysSince(iso: string): number {
+  try {
+    return (Date.now() - new Date(iso).getTime()) / 86_400_000;
+  } catch {
+    return Infinity;
+  }
+}
+
+function timeAgo(iso: string): string {
+  const h = Math.round(daysSince(iso) * 24);
+  if (h < 1) return "il y a moins d'1h";
+  if (h < 24) return `il y a ${h}h`;
+  const d = Math.round(h / 24);
+  return `il y a ${d}j`;
+}
+
+function HealthRow({
+  label,
+  detail,
+  ok,
+  warn,
+}: {
+  label: string;
+  detail: string;
+  ok: boolean;
+  warn?: boolean;
+}) {
+  const dot = ok ? "bg-lime" : warn ? "bg-amber-400" : "bg-red-400";
+  return (
+    <div className="flex items-center gap-3 text-[12px]">
+      <div className={`size-2 shrink-0 rounded-full ${dot}`} />
+      <div className="min-w-0 flex-1">
+        <span className="font-medium text-text">{label}</span>
+        <span className="text-muted"> · {detail}</span>
+      </div>
     </div>
   );
 }
