@@ -156,6 +156,54 @@ export default async function PlayerPage({ params }: { params: Promise<{ slug: s
         )}
       </section>
 
+      {/* Last 3 matches */}
+      {career.recentMatches && career.recentMatches.length > 0 && (
+        <section className="card space-y-3">
+          <div className="text-[10px] font-medium uppercase tracking-[0.18em] text-muted">
+            Derniers matchs
+          </div>
+          <ul className="space-y-2">
+            {[...career.recentMatches].reverse().map((m, i) => {
+              const opSlug = playersById.get(`${player.tour}-${m.opponentId}`)?.slug;
+              return (
+                <li key={i} className="flex items-center gap-3 rounded-lg bg-surface2 px-3 py-2">
+                  <div
+                    className={
+                      "flex h-6 w-6 shrink-0 items-center justify-center rounded-md text-[10px] font-bold " +
+                      (m.won ? "bg-lime text-black" : "bg-red-400/20 text-red-300")
+                    }
+                  >
+                    {m.won ? "V" : "D"}
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <div className="flex items-baseline gap-1.5">
+                      <span className="text-xs text-muted">vs</span>
+                      {opSlug ? (
+                        <a
+                          href={`/players/${opSlug}`}
+                          className="truncate text-sm font-medium text-text hover:text-lime"
+                        >
+                          {m.opponent}
+                        </a>
+                      ) : (
+                        <span className="truncate text-sm font-medium text-text">{m.opponent}</span>
+                      )}
+                    </div>
+                    <div className="truncate text-[11px] text-muted">
+                      {m.tournament} · {m.round} · {SURFACE_LABEL[m.surface as Surface] ?? m.surface}
+                    </div>
+                  </div>
+                  <div className="shrink-0 text-right">
+                    <div className="font-mono text-xs text-text">{m.score || "—"}</div>
+                    <div className="text-[10px] text-muted">{formatDate(m.date)}</div>
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      )}
+
       {/* Elo per surface */}
       <section className="card space-y-3">
         <details className="group">

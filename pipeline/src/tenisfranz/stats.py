@@ -11,6 +11,34 @@ from .config import SURFACES
 
 
 @dataclass
+class RecentMatch:
+    """One recent match for display on a player's profile card."""
+    date: str          # ISO yyyy-mm-dd
+    tournament: str
+    surface: str
+    round: str
+    opponent: str      # opponent's display name
+    opponent_id: str   # for linking to opponent profile
+    score: str
+    won: bool
+
+    def to_dict(self) -> dict:
+        return {
+            "date": self.date,
+            "tournament": self.tournament,
+            "surface": self.surface,
+            "round": self.round,
+            "opponent": self.opponent,
+            "opponentId": self.opponent_id,
+            "score": self.score,
+            "won": self.won,
+        }
+
+
+MAX_RECENT_MATCHES = 3
+
+
+@dataclass
 class PlayerCareer:
     wins: int = 0
     losses: int = 0
@@ -22,6 +50,7 @@ class PlayerCareer:
     peak_elo_surface: dict[str, float] = field(default_factory=lambda: {s: 1500.0 for s in SURFACES})
     last_match_date: str | None = None
     last_tournaments: list[str] = field(default_factory=list)
+    recent_matches: list[RecentMatch] = field(default_factory=list)
 
     def to_dict(self) -> dict:
         total = self.wins + self.losses
@@ -42,6 +71,7 @@ class PlayerCareer:
             "last10": self.last_results[-10:],
             "lastMatchDate": self.last_match_date,
             "lastTournaments": self.last_tournaments[-5:],
+            "recentMatches": [m.to_dict() for m in self.recent_matches[-MAX_RECENT_MATCHES:]],
         }
 
 
@@ -60,6 +90,9 @@ def compute_career(matches_with_features: pd.DataFrame) -> dict[str, PlayerCaree
     tourneys = matches_with_features["tourney_name"].fillna("").astype(str).to_numpy()
     w_elo = matches_with_features["w_elo_surface"].to_numpy()
     l_elo = matches_with_features["l_elo_surface"].to_numpy()
+    w_names = matches_with_features["winner_name"].fillna("").astype(str).to_numpy()
+    l_names = matches_with_features["loser_name"].fillna("").astype(str).to_numpy()
+    scores = matches_with_features["score"].fillna("").astype(str).to_numpy() if "score" in matches_with_features.columns else [""] * len(matches_with_features)
 
     for i in range(len(matches_with_features)):
         date = pd.Timestamp(dates[i]).strftime("%Y-%m-%d")
@@ -75,6 +108,21 @@ def compute_career(matches_with_features: pd.DataFrame) -> dict[str, PlayerCaree
         cl.last_results.append("L")
         cw.last_match_date = date
         cl.last_match_date = date
+
+        # Track recent matches (keep a sliding window, trim at serialization).
+        cw.recent_matches.append(RecentMatch(
+            date=date, tournament=tourneys[i], surface=s, round=rounds[i],
+            opponent=l_names[i], opponent_id=l, score=scores[i], won=True,
+        ))
+        cl.recent_matches.append(RecentMatch(
+            date=date, tournament=tourneys[i], surface=s, round=rounds[i],
+            opponent=w_names[i], opponent_id=w, score=scores[i], won=False,
+        ))
+        # Keep only the last N to bound memory.
+        if len(cw.recent_matches) > MAX_RECENT_MATCHES:
+            cw.recent_matches = cw.recent_matches[-MAX_RECENT_MATCHES:]
+        if len(cl.recent_matches) > MAX_RECENT_MATCHES:
+            cl.recent_matches = cl.recent_matches[-MAX_RECENT_MATCHES:]
 
         if rounds[i] == "F":
             cw.titles += 1

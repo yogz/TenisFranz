@@ -11,7 +11,7 @@ export default async function PlayersPage() {
   return (
     <div className="space-y-8">
       <header className="space-y-1">
-        <h1 className="font-display text-[32px] font-light leading-none tracking-tight">
+        <h1 className="font-display text-[32px] font-light leading-none tracking-tight text-lime">
           Joueurs
         </h1>
         <p className="text-sm text-muted">Top 100 par Elo — ATP & WTA</p>

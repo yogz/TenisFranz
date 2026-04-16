@@ -17,7 +17,7 @@ export default async function HomePage() {
           <span className="size-1.5 rounded-full bg-lime" />
           Modèle entraîné sur {meta.yearFrom || "2005"}–{meta.yearTo || "2025"}
         </div>
-        <h1 className="font-display text-[44px] font-light leading-[0.95] tracking-tight">
+        <h1 className="font-display text-[44px] font-light leading-[0.95] tracking-tight text-lime">
           Qui va gagner&nbsp;?
         </h1>
         <p className="max-w-sm text-[15px] leading-relaxed text-muted">

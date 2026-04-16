@@ -8,6 +8,17 @@ export interface SurfaceStat {
   winPct: number;
 }
 
+export interface RecentMatch {
+  date: string;
+  tournament: string;
+  surface: Surface;
+  round: string;
+  opponent: string;
+  opponentId: string;
+  score: string;
+  won: boolean;
+}
+
 export interface CareerStats {
   wins: number;
   losses: number;
@@ -18,6 +29,7 @@ export interface CareerStats {
   last10: ("W" | "L")[];
   lastMatchDate: string | null;
   lastTournaments: string[];
+  recentMatches?: RecentMatch[];
 }
 
 export interface Player {
