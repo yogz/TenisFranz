@@ -47,7 +47,7 @@ export default async function ModelPage() {
             <div className="grid grid-cols-3 gap-2">
               <Stat
                 label="Précision"
-                hint="Pourcentage de matchs où le modèle a correctement désigné le vainqueur."
+                hint="Le modèle désigne le bon gagnant dans ~2 matchs sur 3. Mais précision ≠ profit : les bookmakers connaissent aussi le favori et ajustent les cotes pour que parier reste perdant à long terme. Notre modèle dit qui va gagner, pas sur qui parier."
                 value={`${(avgAcc * 100).toFixed(1)}%`}
               />
               <Stat
