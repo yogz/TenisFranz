@@ -10,7 +10,7 @@ export default async function MatchesPage() {
     <div className="space-y-6">
       <header className="space-y-3">
         <div className="flex items-center justify-between gap-3">
-          <h1 className="font-display text-3xl text-lime">Matchs à venir</h1>
+          <h1 className="font-display text-3xl">Matchs à venir</h1>
           <StalenessBadge updatedAt={upcoming.updatedAt} />
         </div>
         <p className="max-w-sm text-[14px] leading-relaxed text-muted">

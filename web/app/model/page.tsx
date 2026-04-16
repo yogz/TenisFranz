@@ -25,7 +25,7 @@ export default async function ModelPage() {
   return (
     <div className="space-y-8">
       <header className="space-y-1">
-        <h1 className="font-display text-3xl text-lime">Modèle</h1>
+        <h1 className="font-display text-3xl">Modèle</h1>
         <p className="text-sm text-muted">
           Régression logistique
           <Hint
