@@ -254,7 +254,7 @@ def build_upcoming_payload(
             calibration_curve=calibration_views.get(d.tour),
         )
 
-        out_matches.append({
+        entry: dict[str, Any] = {
             "id": _slugify(d.tour, d.tournament, d.date, d.player_a_last, d.player_b_last),
             "date": d.date,
             "tournament": d.tournament,
@@ -264,7 +264,12 @@ def build_upcoming_payload(
             "playerA": pa["slug"],
             "playerB": pb["slug"],
             "modelProbA": round(prob_a, 4),
-        })
+        }
+        # Carry bookmaker odds through if the source provides them.
+        if d.odds_a is not None and d.odds_b is not None:
+            entry["oddsA"] = round(d.odds_a, 3)
+            entry["oddsB"] = round(d.odds_b, 3)
+        out_matches.append(entry)
 
     # Miss-ratio guard across both resolvers, combined.
     total_attempts = sum(r._attempts for r in resolvers.values())

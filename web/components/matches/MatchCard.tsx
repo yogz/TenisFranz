@@ -110,7 +110,17 @@ export function MatchCard({
         </div>
       </div>
 
-      {/* Row 3 — meta */}
+      {/* Row 3 — odds comparison (if available) */}
+      {match.oddsA != null && match.oddsB != null && (
+        <div className="mt-2 flex items-center justify-between rounded-lg bg-surface2 px-2.5 py-1.5 text-[11px]">
+          <span className="text-muted">Bookies</span>
+          <span className="font-mono text-muted">
+            {Math.round((1 / match.oddsA) * 100)}% — {Math.round((1 / match.oddsB) * 100)}%
+          </span>
+        </div>
+      )}
+
+      {/* Row 4 — meta */}
       <div className="mt-2 truncate text-[11px] text-muted">
         {match.tournament} · {SURFACE_LABEL[match.surface]} · {formatDay(match.date)}
       </div>

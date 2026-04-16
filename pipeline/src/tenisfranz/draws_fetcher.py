@@ -54,6 +54,10 @@ class DrawMatch:
     player_b_last: str
     player_b_first: str
     tourney_level: str = "A"  # maps to config.TOURNEY_WEIGHTS
+    # Bookmaker odds (decimal, averaged across books). None if the source
+    # doesn't provide odds (e.g. file-backed loader).
+    odds_a: float | None = None
+    odds_b: float | None = None
 
 
 # --- Loader plumbing ---------------------------------------------------
@@ -123,17 +127,64 @@ def _resolve_loader(tour: str) -> Loader:
     return _empty_loader
 
 
+def _odds_api_loader() -> list[DrawMatch]:
+    """Fetch from The Odds API (requires ODDS_API_KEY env var).
+
+    Converts OddsMatch → DrawMatch, splitting the full player name
+    (e.g. "Carlos Alcaraz") into first/last. Round is unavailable from
+    the API so we default to an empty string.
+    """
+    try:
+        from . import odds_api
+    except ImportError:
+        logger.warning("draws_fetcher: odds_api module not available")
+        return []
+
+    matches = odds_api.fetch_all()
+    out: list[DrawMatch] = []
+    for m in matches:
+        # Split "Carlos Alcaraz" → first="Carlos", last="Alcaraz"
+        parts_a = m.player_a.rsplit(" ", 1)
+        parts_b = m.player_b.rsplit(" ", 1)
+        first_a = parts_a[0] if len(parts_a) > 1 else ""
+        last_a = parts_a[-1]
+        first_b = parts_b[0] if len(parts_b) > 1 else ""
+        last_b = parts_b[-1]
+        # Date from ISO commence_time
+        date = m.commence_time[:10] if m.commence_time else ""
+        out.append(DrawMatch(
+            tour=m.tour,
+            date=date,
+            tournament=m.tournament,
+            round="",  # not available from The Odds API
+            surface=m.surface,
+            player_a_last=last_a,
+            player_a_first=first_a,
+            player_b_last=last_b,
+            player_b_first=first_b,
+            tourney_level=m.tourney_level,
+            odds_a=m.odds_a,
+            odds_b=m.odds_b,
+        ))
+    return out
+
+
 def fetch_atp() -> list[DrawMatch]:
-    """Fetch upcoming ATP matches. Currently file-backed via env var."""
+    """Fetch upcoming ATP matches. File-backed or Odds API."""
     return _resolve_loader("atp")()
 
 
 def fetch_wta() -> list[DrawMatch]:
-    """Fetch upcoming WTA matches. Currently file-backed via env var."""
+    """Fetch upcoming WTA matches. File-backed or Odds API."""
     return _resolve_loader("wta")()
 
 
 def fetch_all() -> list[DrawMatch]:
+    """Fetch all upcoming matches. Prefers The Odds API if ODDS_API_KEY is
+    set; falls back to per-tour file loaders if not."""
+    if os.environ.get("ODDS_API_KEY"):
+        logger.info("draws_fetcher: using The Odds API (ODDS_API_KEY is set)")
+        return _odds_api_loader()
     return fetch_atp() + fetch_wta()
 
 

@@ -2,6 +2,8 @@ import { notFound } from "next/navigation";
 import Image from "next/image";
 import { Info } from "lucide-react";
 import { loadH2h, loadPlayers, loadPlayersIndex } from "@/lib/data";
+// loadPlayers is only used in generateStaticParams (runs once);
+// the page itself uses loadPlayersIndex for O(1) slug lookups.
 import { H2HBlock } from "@/components/profile/H2HBlock";
 import type { Surface } from "@/lib/types";
 import { flag, formatDate, formatHeight, handLabel } from "@/lib/format";
@@ -16,7 +18,18 @@ const SURFACE_LABEL: Record<Surface, string> = {
 
 export async function generateStaticParams() {
   const players = await loadPlayers();
-  return players.map((p) => ({ slug: p.slug }));
+  // Only pre-render pages for players active in the last 2 years.
+  // Inactive players (retired, dropped off tour) still have a profile if
+  // accessed by direct URL — Next.js will 404 on the static export, but
+  // that's acceptable: nobody is searching for a player whose last match
+  // was in 2012. This cuts the build from ~4100 pages / 13 GB output
+  // down to ~800 pages / ~200 MB — comfortably within Vercel's disk limit.
+  const cutoff = new Date();
+  cutoff.setFullYear(cutoff.getFullYear() - 2);
+  const cutoffStr = cutoff.toISOString().slice(0, 10); // yyyy-mm-dd
+  return players
+    .filter((p) => p.career?.lastMatchDate && p.career.lastMatchDate >= cutoffStr)
+    .map((p) => ({ slug: p.slug }));
 }
 
 export default async function PlayerPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -26,7 +39,6 @@ export default async function PlayerPage({ params }: { params: Promise<{ slug: s
   const [index, h2h] = await Promise.all([loadPlayersIndex(), loadH2h()]);
   const player = index.bySlug.get(slug);
   if (!player) notFound();
-  const searchPool = index.byTour[player.tour];
   const playersById = index.byId;
   const h2hEntries = h2h[player.id] ?? [];
 
@@ -41,7 +53,7 @@ export default async function PlayerPage({ params }: { params: Promise<{ slug: s
 
   return (
     <div className="space-y-6">
-      <PlayerNavSearch players={searchPool} excludeId={player.id} />
+      <PlayerNavSearch tour={player.tour} excludeId={player.id} />
 
       {/* Hero with photo */}
       <section className="relative overflow-hidden rounded-2xl border border-border bg-surface">

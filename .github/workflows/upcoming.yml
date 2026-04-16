@@ -29,8 +29,10 @@ jobs:
       - name: Generate matches_upcoming.json
         working-directory: pipeline
         env:
-          # Wire these once the live endpoints are verified (see docs/data_sources.md).
-          # Until then, upcoming.py emits an empty match list and the commit step is a no-op.
+          # The Odds API: if ODDS_API_KEY is set, draws_fetcher.fetch_all()
+          # calls the API for schedule + odds. Falls back to file-based
+          # loaders via TENISFRANZ_DRAWS_ATP/WTA if the key is absent.
+          ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
           TENISFRANZ_DRAWS_ATP: ${{ vars.TENISFRANZ_DRAWS_ATP }}
           TENISFRANZ_DRAWS_WTA: ${{ vars.TENISFRANZ_DRAWS_WTA }}
         run: uv run python -m tenisfranz.upcoming
@@ -43,7 +45,7 @@ jobs:
             echo "no output file produced"
             exit 0
           fi
-          git add "$FILE"
+          git add -f "$FILE"
           if git diff --staged --quiet; then
             echo "no change"
             exit 0

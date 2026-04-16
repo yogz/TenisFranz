@@ -110,6 +110,10 @@ export interface UpcomingMatch {
   playerA: string; // slug
   playerB: string; // slug
   modelProbA: number;
+  /** Average bookmaker decimal odds on player A (from The Odds API). */
+  oddsA?: number;
+  /** Average bookmaker decimal odds on player B. */
+  oddsB?: number;
 }
 
 export interface UpcomingBundle {

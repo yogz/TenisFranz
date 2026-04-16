@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import Fuse from "fuse.js";
 import { Search } from "lucide-react";
@@ -8,16 +8,70 @@ import type { Player } from "@/lib/types";
 import { PlayerAvatar } from "@/components/PlayerAvatar";
 import { flag } from "@/lib/format";
 
+/**
+ * Lightweight player record for the search dropdown — only the fields the
+ * component actually uses, to keep the client-side fetch small.
+ *
+ * The full `Player` type carries career stats, Elo tables, last-10 arrays
+ * etc. that the nav search never touches but that inflated the per-page
+ * RSC payload to ~2 MB when passed as props (4126 pages × 2 MB = 13 GB of
+ * output → ENOSPC on Vercel). Loading the data client-side instead of
+ * receiving it as props eliminates that entirely.
+ */
+interface SearchPlayer {
+  id: string;
+  slug: string;
+  name: string;
+  country: string | null;
+  countryIso: string | null;
+  tour: string;
+  rank: number;
+  photoUrl: string | null;
+}
+
+/** Fetch the full players.json once (browser caches it), then extract the
+ * minimal fields for the search index. ~2.9 MB raw, ~400 KB gzipped. */
+let fetchPromise: Promise<SearchPlayer[]> | null = null;
+
+function fetchSearchPlayers(): Promise<SearchPlayer[]> {
+  if (fetchPromise) return fetchPromise;
+  fetchPromise = fetch("/data/players.json")
+    .then((r) => (r.ok ? r.json() : []))
+    .then((all: Player[]) =>
+      all.map((p) => ({
+        id: p.id,
+        slug: p.slug,
+        name: p.name,
+        country: p.country,
+        countryIso: p.countryIso,
+        tour: p.tour,
+        rank: p.rank,
+        photoUrl: p.photoUrl,
+      })),
+    )
+    .catch(() => []);
+  return fetchPromise;
+}
+
 export function PlayerNavSearch({
-  players,
+  tour,
   excludeId,
 }: {
-  players: Player[];
+  /** Only show players from this tour (pre-filter). */
+  tour: string;
   excludeId?: string;
 }) {
   const router = useRouter();
   const [query, setQuery] = useState("");
   const [open, setOpen] = useState(false);
+  const [players, setPlayers] = useState<SearchPlayer[]>([]);
+
+  // Fetch on mount — the module-level promise deduplicates concurrent loads.
+  useEffect(() => {
+    fetchSearchPlayers().then((all) =>
+      setPlayers(all.filter((p) => p.tour === tour)),
+    );
+  }, [tour]);
 
   const fuse = useMemo(
     () =>
@@ -34,10 +88,10 @@ export function PlayerNavSearch({
     return base.filter((p) => p.id !== excludeId).slice(0, 8);
   }, [fuse, players, query, excludeId]);
 
-  const go = (p: Player) => {
+  const go = (p: SearchPlayer) => {
     setQuery("");
     setOpen(false);
-    router.push(`/players/${p.slug}` as never);
+    router.push(`/players/${p.slug}`);
   };
 
   return (

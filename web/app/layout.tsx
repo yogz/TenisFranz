@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Fraunces, Geist } from "next/font/google";
+import { Faster_One, Geist } from "next/font/google";
 import { BottomNav } from "@/components/BottomNav";
 import "./globals.css";
 
@@ -9,11 +9,11 @@ const geist = Geist({
   display: "swap",
 });
 
-const fraunces = Fraunces({
+const fasterOne = Faster_One({
   subsets: ["latin"],
   variable: "--font-display",
   display: "swap",
-  axes: ["opsz", "SOFT"],
+  weight: "400",
 });
 
 export const metadata: Metadata = {
@@ -39,7 +39,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="fr" className={`${geist.variable} ${fraunces.variable}`}>
+    <html lang="fr" className={`${geist.variable} ${fasterOne.variable}`}>
       <body className="font-sans">
         <main className="mx-auto min-h-[100svh] max-w-xl px-5 pb-[calc(env(safe-area-inset-bottom)+96px)] pt-[calc(env(safe-area-inset-top)+24px)]">
           {children}
