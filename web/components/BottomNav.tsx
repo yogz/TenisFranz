@@ -2,11 +2,12 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { BarChart3, Target, Users } from "lucide-react";
+import { BarChart3, Calendar, Target, Users } from "lucide-react";
 import { cn } from "@/lib/cn";
 
 const links = [
   { href: "/", label: "Prédire", icon: Target },
+  { href: "/matches", label: "Matchs", icon: Calendar },
   { href: "/players", label: "Joueurs", icon: Users },
   { href: "/model", label: "Modèle", icon: BarChart3 },
 ] as const;
@@ -18,7 +19,7 @@ export function BottomNav() {
       className="fixed inset-x-0 bottom-0 z-20 border-t border-border bg-bg/80 backdrop-blur-lg"
       style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
     >
-      <div className="mx-auto grid max-w-xl grid-cols-3">
+      <div className="mx-auto grid max-w-xl grid-cols-4">
         {links.map(({ href, label, icon: Icon }) => {
           const active = href === "/" ? pathname === "/" : pathname.startsWith(href);
           return (
