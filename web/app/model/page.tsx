@@ -54,9 +54,9 @@ export default async function ModelPage() {
         </h2>
         {hasHistorical ? (
           <div className="card space-y-4">
-            <div className="grid grid-cols-3 gap-3">
+            <div className="grid grid-cols-3 gap-2">
               <Stat
-                label="ROI modèle"
+                label="ROI"
                 hint="Return On Investment : gain (ou perte) cumulé en pourcentage de la mise totale. +5 % signifie qu'on a gagné 5 € pour 100 € misés."
                 value={`${vsMarket.roi >= 0 ? "+" : ""}${(vsMarket.roi * 100).toFixed(1)}%`}
               />
@@ -66,12 +66,22 @@ export default async function ModelPage() {
                 value={vsMarket.picksCount.toLocaleString("fr-FR")}
               />
               <Stat
-                label="Favori toujours"
-                hint="Stratégie de référence : parier systématiquement sur le favori du marché. Sert de baseline pour mesurer la valeur ajoutée du modèle."
+                label="Favori"
+                hint="ROI si on parie systématiquement sur le favori du marché. Sert de baseline : le modèle doit faire mieux que cette stratégie naïve."
                 value={`${vsMarket.baselines.favoriteAlways >= 0 ? "+" : ""}${(vsMarket.baselines.favoriteAlways * 100).toFixed(1)}%`}
               />
             </div>
             <BankrollCurve data={vsMarket.bankrollCurve} />
+            <div className="rounded-lg border border-border px-3 py-2 text-[11px] leading-relaxed text-muted">
+              <p>
+                <span className="text-text">La courbe</span> montre l'évolution d'un solde fictif
+                si on avait parié 1 unité sur chaque match où le modèle détectait un
+                écart avec les bookmakers. Elle descend parce que la marge des bookmakers
+                (~4-5% par match) s'accumule sur {vsMarket.picksCount.toLocaleString("fr-FR")} paris.
+                C'est comme jouer au casino : même en jouant bien, la maison prélève
+                sa part à chaque tour.
+              </p>
+            </div>
             <div className="space-y-3 rounded-lg bg-surface2 px-3 py-3 text-[11px] leading-relaxed text-muted">
               <p>
                 <span className="text-text">Un ROI négatif est normal.</span>{" "}
@@ -276,12 +286,12 @@ function HealthRow({
 
 function Stat({ label, value, hint }: { label: string; value: string; hint?: string }) {
   return (
-    <div className="rounded-xl bg-surface2 p-3 text-center">
-      <div className="text-[11px] uppercase tracking-wider text-muted">
+    <div className="min-w-0 overflow-hidden rounded-xl bg-surface2 p-2.5 text-center">
+      <div className="truncate text-[10px] uppercase tracking-wider text-muted">
         {label}
         {hint && <Hint text={hint} />}
       </div>
-      <div className="font-mono text-2xl text-text">{value}</div>
+      <div className="truncate font-mono text-xl text-text">{value}</div>
     </div>
   );
 }
