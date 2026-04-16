@@ -72,15 +72,39 @@ export default async function ModelPage() {
               />
             </div>
             <BankrollCurve data={vsMarket.bankrollCurve} />
-            <div className="rounded-lg bg-surface2 px-3 py-2 text-[11px] leading-relaxed text-muted">
+            <div className="space-y-3 rounded-lg bg-surface2 px-3 py-3 text-[11px] leading-relaxed text-muted">
               <p>
                 <span className="text-text">Un ROI négatif est normal.</span>{" "}
-                Les bookmakers prélèvent une marge (~4-5%) sur chaque match.
-                Le modèle perd {(vsMarket.roi * 100).toFixed(1)}% contre le marché,
-                mais la stratégie «{"\u00A0"}toujours miser le favori{"\u00A0"}» perd{" "}
-                {(vsMarket.baselines.favoriteAlways * 100).toFixed(1)}%.
-                L'écart de ~{((vsMarket.roi - vsMarket.baselines.favoriteAlways) * 100).toFixed(0)} point
-                montre que le modèle identifie mieux les favoris que le consensus.
+                Les bookmakers prélèvent une marge (~4-5%) sur chaque match,
+                ce qui rend les paris perdants à long terme pour tout le monde
+                — même avec un bon modèle. C'est la même logique que le casino :
+                la maison gagne toujours sur le volume.
+              </p>
+              <div className="grid grid-cols-3 gap-2 text-center text-[10px]">
+                <div>
+                  <div className="text-muted">Pile ou face</div>
+                  <div className="font-mono text-sm text-red-400">{(vsMarket.baselines.random * 100).toFixed(1)}%</div>
+                </div>
+                <div>
+                  <div className="text-muted">Toujours le favori</div>
+                  <div className="font-mono text-sm text-red-400">{(vsMarket.baselines.favoriteAlways * 100).toFixed(1)}%</div>
+                </div>
+                <div>
+                  <div className="text-muted">Notre modèle</div>
+                  <div className="font-mono text-sm text-lime">{(vsMarket.roi * 100).toFixed(1)}%</div>
+                </div>
+              </div>
+              <p>
+                Le modèle est <span className="text-text">moins mauvais</span> que
+                les alternatives (~{((vsMarket.roi - vsMarket.baselines.favoriteAlways) * 100).toFixed(0)} point
+                de mieux que «{"\u00A0"}toujours le favori{"\u00A0"}»), ce qui prouve
+                qu'il capte un vrai signal statistique — mais pas assez pour
+                couvrir la marge du bookmaker.
+              </p>
+              <p>
+                Ce site ne dit pas «{"\u00A0"}parie et gagne{"\u00A0"}» — il dit{" "}
+                <span className="text-text">qui va probablement gagner et pourquoi</span>,
+                ce qui est déjà utile pour un fan de tennis même sans parier.
               </p>
             </div>
             <p className="text-[11px] leading-relaxed text-muted">
