@@ -176,10 +176,18 @@ export function Predictor({
               </div>
             </div>
 
-            {/* Probability bar */}
-            <div className="mt-4 h-1.5 overflow-hidden rounded-full bg-surface2">
+            {/* Probability bar — with optional adjusted overlay */}
+            <div className="relative mt-4 h-2 overflow-hidden rounded-full bg-surface2">
+              {/* Adjusted bar (behind, wider or narrower, muted color) */}
+              {pWinnerAdj != null && (
+                <div
+                  className="absolute inset-y-0 left-0 rounded-full bg-lime/25 transition-[width] duration-700"
+                  style={{ width: `${pWinnerAdj * 100}%` }}
+                />
+              )}
+              {/* Base model bar */}
               <div
-                className="h-full rounded-full bg-lime transition-[width] duration-500"
+                className="relative h-full rounded-full bg-lime transition-[width] duration-500"
                 style={{ width: `${pWinner * 100}%` }}
               />
             </div>
@@ -222,15 +230,23 @@ export function Predictor({
 
           {/* ── Adjustments — collapsible inside the card ── */}
           {canPredict && (
-            <div className="border-t border-border pt-3">
+            <div className={
+              "rounded-xl border px-4 py-3 transition " +
+              (adjOpen
+                ? "border-border bg-transparent"
+                : "border-lime/20 bg-lime/[0.04] hover:bg-lime/[0.07]")
+            }>
               <button
                 type="button"
                 onClick={() => setAdjOpen((v) => !v)}
                 className="flex w-full items-center justify-between gap-2 text-left"
               >
                 <div className="flex items-center gap-2">
-                  <span className="text-[10px] font-medium uppercase tracking-[0.18em] text-muted">
-                    Ajustements
+                  <span className={
+                    "text-[10px] font-medium uppercase tracking-[0.18em] " +
+                    (adjOpen ? "text-muted" : "text-lime/80")
+                  }>
+                    {adjOpen ? "Ajustements" : "🎯 Ajuste la prédiction"}
                   </span>
                   {adjIds.size > 0 && (
                     <span className="rounded-full bg-lime/15 px-2 py-0.5 text-[10px] font-semibold text-lime">
@@ -238,8 +254,16 @@ export function Predictor({
                     </span>
                   )}
                 </div>
-                <ChevronDown className={"size-4 text-muted transition " + (adjOpen ? "rotate-180" : "")} />
+                <ChevronDown className={
+                  "size-4 transition " +
+                  (adjOpen ? "rotate-180 text-muted" : "text-lime/60")
+                } />
               </button>
+              {!adjOpen && adjIds.size === 0 && (
+                <p className="mt-1 text-[10px] text-muted/60">
+                  Blessure, fatigue, confiance, surface… injecte ce que le modèle ne sait pas.
+                </p>
+              )}
               {adjOpen && (
                 <div className="mt-3">
                   <Adjustments
