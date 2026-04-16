@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-04-16T06:28:28.688820+00:00",
-  "modelTrainedAt": "2026-04-16T04:19:10.555972+00:00",
+  "updatedAt": "2026-04-16T07:36:50.106243+00:00",
+  "modelTrainedAt": "2026-04-16T07:23:05.679826+00:00",
   "source": "local (env-driven draws_fetcher)",
   "matches": [
     {
@@ -13,8 +13,8 @@
       "playerA": "atp-lorenzo-sonego",
       "playerB": "atp-andrey-rublev",
       "modelProbA": 0.3065,
-      "oddsA": 4.053,
-      "oddsB": 1.246
+      "oddsA": 4.057,
+      "oddsB": 1.245
     },
     {
       "id": "2026-04-16-atp-atp-barcelona-open-moutet-musetti",
@@ -26,8 +26,8 @@
       "playerA": "atp-corentin-moutet",
       "playerB": "atp-lorenzo-musetti",
       "modelProbA": 0.3663,
-      "oddsA": 3.622,
-      "oddsB": 1.293
+      "oddsA": 3.676,
+      "oddsB": 1.287
     },
     {
       "id": "2026-04-16-atp-atp-barcelona-open-fils-nakashima",
@@ -39,8 +39,8 @@
       "playerA": "atp-arthur-fils",
       "playerB": "atp-brandon-nakashima",
       "modelProbA": 0.5592,
-      "oddsA": 1.334,
-      "oddsB": 3.332
+      "oddsA": 1.32,
+      "oddsB": 3.425
     },
     {
       "id": "2026-04-16-atp-atp-munich-altmaier-molcan",
@@ -52,8 +52,8 @@
       "playerA": "atp-daniel-altmaier",
       "playerB": "atp-alex-molcan",
       "modelProbA": 0.3976,
-      "oddsA": 1.713,
-      "oddsB": 2.133
+      "oddsA": 1.737,
+      "oddsB": 2.1
     },
     {
       "id": "2026-04-16-atp-atp-munich-zverev-diallo",
@@ -65,8 +65,8 @@
       "playerA": "atp-alexander-zverev",
       "playerB": "atp-gabriel-diallo",
       "modelProbA": 0.7758,
-      "oddsA": 1.081,
-      "oddsB": 8.13
+      "oddsA": 1.078,
+      "oddsB": 8.317
     },
     {
       "id": "2026-04-16-atp-atp-munich-shapovalov-marozsan",
@@ -78,8 +78,8 @@
       "playerA": "atp-denis-shapovalov",
       "playerB": "atp-fabian-marozsan",
       "modelProbA": 0.54,
-      "oddsA": 2.156,
-      "oddsB": 1.698
+      "oddsA": 2.18,
+      "oddsB": 1.684
     },
     {
       "id": "2026-04-16-wta-wta-stuttgart-open-muchova-mertens",
@@ -91,8 +91,8 @@
       "playerA": "wta-karolina-muchova",
       "playerB": "wta-elise-mertens",
       "modelProbA": 0.7321,
-      "oddsA": 1.497,
-      "oddsB": 2.589
+      "oddsA": 1.494,
+      "oddsB": 2.597
     },
     {
       "id": "2026-04-16-wta-wta-stuttgart-open-parks-andreeva",
@@ -104,8 +104,8 @@
       "playerA": "wta-alycia-parks",
       "playerB": "wta-mirra-andreeva",
       "modelProbA": 0.2345,
-      "oddsA": 8.094,
-      "oddsB": 1.077
+      "oddsA": 7.967,
+      "oddsB": 1.081
     },
     {
       "id": "2026-04-16-wta-wta-stuttgart-open-alexandrova-noskova",
@@ -117,8 +117,8 @@
       "playerA": "wta-ekaterina-alexandrova",
       "playerB": "wta-linda-noskova",
       "modelProbA": 0.4076,
-      "oddsA": 2.157,
-      "oddsB": 1.694
+      "oddsA": 2.014,
+      "oddsB": 1.793
     },
     {
       "id": "2026-04-16-wta-wta-stuttgart-open-rybakina-shnaider",
@@ -130,8 +130,8 @@
       "playerA": "wta-elena-rybakina",
       "playerB": "wta-diana-shnaider",
       "modelProbA": 0.5953,
-      "oddsA": 1.243,
-      "oddsB": 4.022
+      "oddsA": 1.245,
+      "oddsB": 4.014
     },
     {
       "id": "2026-04-16-wta-wta-stuttgart-open-samsonova-gauff",
@@ -143,8 +143,8 @@
       "playerA": "wta-liudmila-samsonova",
       "playerB": "wta-coco-gauff",
       "modelProbA": 0.2637,
-      "oddsA": 5.145,
-      "oddsB": 1.163
+      "oddsA": 5.19,
+      "oddsB": 1.16
     },
     {
       "id": "2026-04-16-wta-wta-stuttgart-open-fernandez-sonmez",
@@ -156,8 +156,8 @@
       "playerA": "wta-leylah-fernandez",
       "playerB": "wta-zeynep-sonmez",
       "modelProbA": 0.5769,
-      "oddsA": 1.58,
-      "oddsB": 2.376
+      "oddsA": 1.601,
+      "oddsB": 2.33
     },
     {
       "id": "2026-04-17-atp-atp-barcelona-open-medjedovic-borges",
@@ -170,7 +170,7 @@
       "playerB": "atp-nuno-borges",
       "modelProbA": 0.6381,
       "oddsA": 1.42,
-      "oddsB": 2.831
+      "oddsB": 2.834
     },
     {
       "id": "2026-04-17-atp-atp-munich-fonseca-shelton",
@@ -182,8 +182,8 @@
       "playerA": "atp-joao-fonseca",
       "playerB": "atp-ben-shelton",
       "modelProbA": 0.4865,
-      "oddsA": 1.533,
-      "oddsB": 2.441
+      "oddsA": 1.531,
+      "oddsB": 2.44
     },
     {
       "id": "2026-04-17-atp-atp-munich-cobolli-kopriva",
@@ -196,7 +196,7 @@
       "playerB": "atp-vit-kopriva",
       "modelProbA": 0.8008,
       "oddsA": 1.381,
-      "oddsB": 2.905
+      "oddsB": 2.922
     }
   ],
   "stats": {
