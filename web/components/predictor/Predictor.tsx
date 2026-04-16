@@ -225,26 +225,38 @@ export function Predictor({
 
             {/* Probability bar — with optional adjusted overlay */}
             <div className="relative mt-4 h-2.5 overflow-hidden rounded-full bg-surface2">
-              {pWinnerAdj != null && pWinnerAdj > pWinner && (
-                /* Positive adjustment: translucent extension beyond the solid bar */
+              {pWinnerAdj != null && pWinnerAdj > pWinner ? (
+                <>
+                  {/* Positive: lime/25 extension to show gain */}
+                  <div
+                    className="absolute inset-y-0 left-0 rounded-full bg-lime/25 transition-[width] duration-700"
+                    style={{ width: `${pWinnerAdj * 100}%` }}
+                  />
+                  <div
+                    className="relative h-full rounded-full bg-lime transition-[width] duration-500"
+                    style={{ width: `${pWinner * 100}%` }}
+                  />
+                </>
+              ) : pWinnerAdj != null && pWinnerAdj < pWinner ? (
+                <>
+                  {/* Negative: solid lime up to adjusted, red zone for the loss */}
+                  <div
+                    className="absolute inset-y-0 left-0 h-full rounded-full bg-lime transition-[width] duration-500"
+                    style={{ width: `${pWinnerAdj * 100}%` }}
+                  />
+                  <div
+                    className="absolute inset-y-0 rounded-full bg-red-400/50 transition-all duration-700"
+                    style={{
+                      left: `${pWinnerAdj * 100}%`,
+                      width: `${(pWinner - pWinnerAdj) * 100}%`,
+                    }}
+                  />
+                </>
+              ) : (
+                /* No adjustment: plain lime bar */
                 <div
-                  className="absolute inset-y-0 left-0 rounded-full bg-lime/25 transition-[width] duration-700"
-                  style={{ width: `${pWinnerAdj * 100}%` }}
-                />
-              )}
-              {/* Base model bar */}
-              <div
-                className="relative h-full rounded-full bg-lime transition-[width] duration-500"
-                style={{ width: `${pWinner * 100}%` }}
-              />
-              {pWinnerAdj != null && pWinnerAdj < pWinner && (
-                /* Negative adjustment: red zone showing what's lost */
-                <div
-                  className="absolute inset-y-0 rounded-full bg-red-400/40 transition-all duration-700"
-                  style={{
-                    left: `${pWinnerAdj * 100}%`,
-                    width: `${(pWinner - pWinnerAdj) * 100}%`,
-                  }}
+                  className="relative h-full rounded-full bg-lime transition-[width] duration-500"
+                  style={{ width: `${pWinner * 100}%` }}
                 />
               )}
             </div>
