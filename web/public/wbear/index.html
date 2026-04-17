@@ -3483,7 +3483,7 @@
     padding-bottom: calc(100px + env(safe-area-inset-bottom, 0px));
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-auto-rows: 4px;
+    grid-auto-rows: 10px;
     grid-auto-flow: row dense;
     gap: 5px;
   }
@@ -3493,10 +3493,19 @@
     background: var(--surface-card);
     position: relative;
     box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-    /* grid-row-end is set per-item via JS from natural image dimensions.
-       Default span so items without computed span still look reasonable. */
-    grid-row-end: span 50;
+    grid-row-end: span 14; /* default */
   }
+  /* Pinterest-style staggered heights: each tile has a deterministic row-span.
+     Row-first order stays stable across view modes; heights vary per position. */
+  .masonry-item:nth-child(9n+1) { grid-row-end: span 14; }
+  .masonry-item:nth-child(9n+2) { grid-row-end: span 17; }
+  .masonry-item:nth-child(9n+3) { grid-row-end: span 12; }
+  .masonry-item:nth-child(9n+4) { grid-row-end: span 18; }
+  .masonry-item:nth-child(9n+5) { grid-row-end: span 13; }
+  .masonry-item:nth-child(9n+6) { grid-row-end: span 16; }
+  .masonry-item:nth-child(9n+7) { grid-row-end: span 15; }
+  .masonry-item:nth-child(9n+8) { grid-row-end: span 12; }
+  .masonry-item:nth-child(9n+9) { grid-row-end: span 17; }
   .masonry-item img {
     width: 100%;
     height: 100%;
@@ -3505,25 +3514,15 @@
     transition: transform 0.25s ease, filter 0.25s ease;
   }
 
-  /* ── Uniform grid (perfect 3-col, same styling as masonry) ── */
-  /* Higher specificity than .masonry.active { display: block } defined later */
+  /* ── Uniform grid (perfect 3-col: forces every tile to 4:5) ── */
   .masonry.active.uniform {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
     grid-auto-rows: auto;
     grid-auto-flow: row;
-    gap: 5px;
-    padding: 5px;
-    padding-bottom: calc(100px + env(safe-area-inset-bottom, 0px));
   }
-  .masonry.uniform .masonry-item {
-    aspect-ratio: 4 / 5;
-    grid-row-end: auto;
-  }
-  .masonry.uniform .masonry-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+  .masonry.uniform .masonry-item,
+  .masonry.uniform .masonry-item:nth-child(n) {
+    grid-row-end: auto !important;
+    aspect-ratio: 4 / 5 !important;
   }
   /* Active-uniform state on the Grid button: subtle tint */
   .view-toggle-btn.uniform {
@@ -6802,19 +6801,6 @@ function appendMasonryBatch(count = 12) {
     img.src = pool[k % pool.length];
     img.alt = `Photo by ${name}`;
     img.loading = 'lazy';
-    // Compute grid-row-end span from the image's natural aspect ratio so
-    // row-first layout gives a masonry look while keeping positions stable.
-    const setSpan = () => {
-      if (!img.naturalWidth) return;
-      const width = div.clientWidth;
-      if (!width) { requestAnimationFrame(setSpan); return; }
-      const height = width * (img.naturalHeight / img.naturalWidth);
-      // grid-auto-rows 4px + 5px gap → each row unit = 9px
-      const span = Math.max(20, Math.ceil((height + 5) / 9));
-      div.style.gridRowEnd = `span ${span}`;
-    };
-    if (img.complete) setSpan();
-    else img.addEventListener('load', setSpan, { once: true });
     div.appendChild(img);
 
     if (featured) {
