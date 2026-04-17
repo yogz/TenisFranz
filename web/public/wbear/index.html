@@ -3747,6 +3747,92 @@
     font-size: 13px; font-weight: 700;
     cursor: pointer;
     box-shadow: 0 6px 16px rgba(216,90,48,0.35);
+    position: relative;
+    overflow: visible;
+    transition: background 0.3s ease, transform 0.2s cubic-bezier(0.34,1.56,0.64,1),
+                padding 0.3s ease, box-shadow 0.3s ease;
+  }
+  .wy-hero-cta:active { transform: scale(0.96); }
+  .wy-hero-cta.joining { transform: scale(0.9); }
+  .wy-hero-cta.joined {
+    background: linear-gradient(135deg, var(--pine), var(--forest));
+    box-shadow: 0 6px 16px rgba(29,158,117,0.35);
+    padding-left: 32px;
+  }
+  .wy-hero-cta.joined::before {
+    content: '';
+    position: absolute;
+    left: 12px; top: 50%;
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+    transform: translateY(-50%);
+  }
+  .wy-hero-cta.joined::after {
+    content: '';
+    position: absolute;
+    left: 16px; top: 50%;
+    width: 6px; height: 3px;
+    border-left: 2px solid #fff;
+    border-bottom: 2px solid #fff;
+    transform: translateY(-75%) rotate(-45deg);
+    animation: wyCheckPop 0.35s cubic-bezier(0.34,1.56,0.64,1) both;
+  }
+  @keyframes wyCheckPop {
+    0%   { opacity: 0; transform: translateY(-75%) rotate(-45deg) scale(0.2); }
+    60%  { opacity: 1; transform: translateY(-75%) rotate(-45deg) scale(1.3); }
+    100% { opacity: 1; transform: translateY(-75%) rotate(-45deg) scale(1);   }
+  }
+
+  /* Confetti particle — launched from the button on tap, floats up + fades */
+  .wy-confetti {
+    position: absolute;
+    top: 0; left: 50%;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    will-change: transform, opacity;
+    animation: wyConfetti 1500ms cubic-bezier(0.2, 0.7, 0.3, 1) forwards;
+  }
+  .wy-confetti.c1 { background: var(--ember); }
+  .wy-confetti.c2 { background: var(--flame); }
+  .wy-confetti.c3 { background: var(--honey); }
+  .wy-confetti.c4 { background: var(--pine); }
+  .wy-confetti.c5 { background: var(--pride); }
+  @keyframes wyConfetti {
+    0%   { transform: translate(-50%, -50%) scale(0.4); opacity: 1; }
+    35%  { opacity: 1; }
+    100% {
+      transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1);
+      opacity: 0;
+    }
+  }
+
+  /* "You're in" floating label */
+  .wy-join-toast {
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%) translateY(6px);
+    white-space: nowrap;
+    background: rgba(26,22,18,0.92);
+    color: var(--text-primary);
+    border: 1px solid rgba(255,255,255,0.08);
+    backdrop-filter: blur(12px);
+    font-size: 12px; font-weight: 600;
+    padding: 6px 10px;
+    border-radius: 8px;
+    opacity: 0;
+    pointer-events: none;
+    animation: wyToast 2.6s cubic-bezier(0.34,1.56,0.64,1) both;
+    letter-spacing: 0.01em;
+  }
+  @keyframes wyToast {
+    0%   { opacity: 0; transform: translateX(-50%) translateY(6px) scale(0.9); }
+    12%  { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
+    85%  { opacity: 1; transform: translateX(-50%) translateY(-4px) scale(1); }
+    100% { opacity: 0; transform: translateX(-50%) translateY(-12px) scale(0.95); }
   }
 
   /* Horizontal rails (Sent to you, Tagged) */
@@ -5074,12 +5160,20 @@
     box-shadow: 0 2px 8px rgba(203,104,69,0.40);
   }
 
-  /* Filter tab actif : gradient Terracotta → Apricot, texte cream */
+  /* Filter tab actif : tint Terracotta subtil (pattern du thème dark) */
   .ember .filter-tab.active {
-    background: linear-gradient(135deg, #CB6845, #E4A55C);
-    color: var(--on-ember);
-    box-shadow: 0 4px 14px rgba(203,104,69,0.28);
+    background: rgba(203, 104, 69, 0.14);
+    color: var(--ember);
+    box-shadow: none;
   }
+
+  /* Chicago pill (live-strip-right) : même tint subtil */
+  .ember .live-strip-right {
+    background: rgba(203, 104, 69, 0.14);
+    color: var(--ember);
+    box-shadow: none;
+  }
+  .ember .live-strip-right svg { stroke: var(--ember); }
 
   /* Profile CTA primary : ombre Terracotta */
   .ember .profile-cta.primary { box-shadow: 0 4px 14px rgba(203,104,69,0.32); }
@@ -8286,6 +8380,53 @@ document.addEventListener('click', (e) => {
     if (typeof openGroupsHub === 'function') openGroupsHub();
     else document.getElementById('screenGroups')?.classList.add('show');
   }
+});
+
+// ── Happening now → Join them celebration ──
+document.addEventListener('click', (e) => {
+  const btn = e.target.closest('[data-wy-action="join-here"]');
+  if (!btn) return;
+  if (btn.dataset.state === 'joined') return; // already joined, ignore repeat tap
+
+  btn.classList.add('joining');
+  setTimeout(() => btn.classList.remove('joining'), 180);
+
+  // Confetti burst — 14 particles in 5 palette colors, radial spread upward
+  const palette = ['c1', 'c2', 'c3', 'c4', 'c5'];
+  for (let i = 0; i < 14; i++) {
+    const p = document.createElement('div');
+    p.className = 'wy-confetti ' + palette[i % palette.length];
+    const angle = (-Math.PI * 0.9) + (Math.PI * 0.8 * (i / 13)); // -162° → -18° (upper half)
+    const dist = 60 + Math.random() * 70;
+    const dx = Math.cos(angle) * dist;
+    const dy = Math.sin(angle) * dist;
+    p.style.setProperty('--dx', dx.toFixed(1) + 'px');
+    p.style.setProperty('--dy', dy.toFixed(1) + 'px');
+    p.style.animationDelay = (i * 18) + 'ms';
+    // Randomize particle sizes subtly
+    const size = 5 + Math.random() * 6;
+    p.style.width = size + 'px';
+    p.style.height = size + 'px';
+    btn.appendChild(p);
+    setTimeout(() => p.remove(), 1800);
+  }
+
+  // "You're in" toast above the button
+  const toast = document.createElement('span');
+  toast.className = 'wy-join-toast';
+  toast.textContent = "You're in 🐻";
+  btn.appendChild(toast);
+  setTimeout(() => toast.remove(), 2700);
+
+  // Settle into joined state — wait longer so the burst peaks first
+  setTimeout(() => {
+    btn.classList.add('joined');
+    btn.dataset.state = 'joined';
+    btn.textContent = "You're going";
+  }, 500);
+
+  // Haptic tickle
+  if (navigator.vibrate) navigator.vibrate([10, 40, 10, 30, 20]);
 });
 
 function renderSharedTimeline() {
