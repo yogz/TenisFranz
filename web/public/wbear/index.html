@@ -1422,15 +1422,10 @@
       linear-gradient(135deg, #E8E0D5, #F0EBE3);
   }
 
-  /* Heatmap keeps base mesh but preserves the dot overlays via map layer */
-  .light .heatmap-map {
-    opacity: 0.7;
-    filter: saturate(1.05) brightness(1.04);
-    mix-blend-mode: multiply;
-  }
-  .light .heatmap-card::after {
-    background: linear-gradient(180deg, rgba(240,235,227,0) 40%, rgba(232,224,213,0.5) 100%);
-  }
+  /* Heatmap in light: hide the dark street-map image so the Sand mesh
+     shows through. The orange/green location dots stay (separate elements). */
+  .light .heatmap-map { display: none; }
+  .light .heatmap-card::after { display: none; }
 
   /* Editorial promos pull their signature accent a little stronger */
   .light .event-card.event-promo.gold {
