@@ -8568,6 +8568,31 @@ function applyFilter(filter) {
     appendFeedBatch(feedCount);
   }
 
+  // Default view per tab
+  //   Worldwide → masonry standard
+  //   Local     → uniform grid (tight 3-col, aspect 4:5)
+  //   Following → feed (long-form posts)
+  if (!isShared) {
+    const btnGrid = document.getElementById('btnGrid');
+    const btnFeed = document.getElementById('btnFeed');
+    const wantsFeed    = filter === 'following';
+    const wantsUniform = filter === 'local';
+
+    if (wantsFeed) {
+      btnFeed.classList.add('active');
+      btnGrid.classList.remove('active', 'uniform');
+      feed.classList.add('active');
+      masonry.classList.remove('active', 'uniform');
+    } else {
+      btnGrid.classList.add('active');
+      btnFeed.classList.remove('active');
+      feed.classList.remove('active');
+      masonry.classList.add('active');
+      masonry.classList.toggle('uniform', wantsUniform);
+      btnGrid.classList.toggle('uniform', wantsUniform);
+    }
+  }
+
   // Keep sentinel at bottom for infinite scroll
   const gridScroll = document.querySelector('.grid-scroll');
   const sentinel = document.querySelector('.scroll-sentinel');
