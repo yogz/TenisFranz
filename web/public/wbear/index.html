@@ -4327,29 +4327,29 @@
     stroke-width: 2; stroke-linecap: round;
   }
 
-  /* Compose button — inherits close-btn layout but primary-tinted to
-     read as "start something new", not "close". */
+  /* Compose button — inherits close-btn layout but tinted pine to
+     read as "start something new" without the urgency of ember red. */
   .compose-btn {
     width: 44px; height: 44px;
     border-radius: var(--radius-default);
     border: none; cursor: pointer;
     display: flex; align-items: center; justify-content: center;
     transition: transform 0.15s, background 0.15s;
-    background: rgba(216, 90, 48, 0.14);
-    color: var(--ember);
+    background: rgba(29, 158, 117, 0.16);
+    color: var(--pine);
   }
   .compose-btn:active { transform: scale(0.92); }
-  .compose-btn:hover { background: rgba(216, 90, 48, 0.2); }
+  .compose-btn:hover { background: rgba(29, 158, 117, 0.22); }
   .compose-btn svg {
     width: 18px; height: 18px;
     fill: none;
-    stroke: var(--ember);
+    stroke: var(--pine);
     stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
   }
   .light .compose-btn {
-    background: rgba(138, 106, 63, 0.12);
+    background: rgba(29, 158, 117, 0.14);
   }
-  .light .compose-btn svg { stroke: #8A6A3F; }
+  .light .compose-btn svg { stroke: var(--pine); }
   .action-screen-body {
     flex: 1; display: flex; flex-direction: column;
     overflow: hidden;
