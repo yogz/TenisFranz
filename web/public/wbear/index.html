@@ -8263,13 +8263,30 @@ function renderWithYou() {
     <section class="wy-section">
       <div class="wy-section-head">
         <h2 class="wy-section-title">In your circles</h2>
-        <span class="wy-see-all">See all ›</span>
+        <span class="wy-see-all" data-see-all="circles">See all ›</span>
       </div>
       ${circleRows}
     </section>`;
 
   root.innerHTML = hero + sent + tagged + invitesSec + circlesSec;
 }
+
+// Wire "See all" links in With you → open the corresponding full screen
+document.addEventListener('click', (e) => {
+  const link = e.target.closest('[data-see-all]');
+  if (!link) return;
+  const kind = link.dataset.seeAll;
+  if (kind === 'circles') {
+    // Reuse the Groups hub, pre-selecting "Your groups"
+    const yoursTab = document.querySelector('#screenGroups .groups-tab[data-groups-tab="yours"]');
+    if (yoursTab) {
+      document.querySelectorAll('#screenGroups .groups-tab').forEach(t => t.classList.remove('active'));
+      yoursTab.classList.add('active');
+    }
+    if (typeof openGroupsHub === 'function') openGroupsHub();
+    else document.getElementById('screenGroups')?.classList.add('show');
+  }
+});
 
 function renderSharedTimeline() {
   const feed = document.getElementById('feed');
