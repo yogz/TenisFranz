@@ -3793,7 +3793,7 @@
     pointer-events: none;
     transform: translate(-50%, -50%);
     will-change: transform, opacity;
-    animation: wyConfetti 1500ms cubic-bezier(0.2, 0.7, 0.3, 1) forwards;
+    animation: wyConfetti 2000ms cubic-bezier(0.2, 0.7, 0.3, 1) forwards;
   }
   .wy-confetti.c1 { background: var(--ember); }
   .wy-confetti.c2 { background: var(--flame); }
@@ -3825,14 +3825,14 @@
     border-radius: 8px;
     opacity: 0;
     pointer-events: none;
-    animation: wyToast 2.6s cubic-bezier(0.34,1.56,0.64,1) both;
+    animation: wyToast 3.4s cubic-bezier(0.34,1.56,0.64,1) both;
     letter-spacing: 0.01em;
   }
   @keyframes wyToast {
     0%   { opacity: 0; transform: translateX(-50%) translateY(6px) scale(0.9); }
-    12%  { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
-    85%  { opacity: 1; transform: translateX(-50%) translateY(-4px) scale(1); }
-    100% { opacity: 0; transform: translateX(-50%) translateY(-12px) scale(0.95); }
+    10%  { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
+    88%  { opacity: 1; transform: translateX(-50%) translateY(-4px) scale(1); }
+    100% { opacity: 0; transform: translateX(-50%) translateY(-14px) scale(0.95); }
   }
 
   /* Horizontal rails (Sent to you, Tagged) */
@@ -8389,44 +8389,58 @@ document.addEventListener('click', (e) => {
   if (btn.dataset.state === 'joined') return; // already joined, ignore repeat tap
 
   btn.classList.add('joining');
-  setTimeout(() => btn.classList.remove('joining'), 180);
+  setTimeout(() => btn.classList.remove('joining'), 220);
 
-  // Confetti burst — 14 particles in 5 palette colors, radial spread upward
+  // Confetti burst — 16 particles in 5 palette colors, radial spread upward
   const palette = ['c1', 'c2', 'c3', 'c4', 'c5'];
-  for (let i = 0; i < 14; i++) {
+  for (let i = 0; i < 16; i++) {
     const p = document.createElement('div');
     p.className = 'wy-confetti ' + palette[i % palette.length];
-    const angle = (-Math.PI * 0.9) + (Math.PI * 0.8 * (i / 13)); // -162° → -18° (upper half)
-    const dist = 60 + Math.random() * 70;
+    const angle = (-Math.PI * 0.9) + (Math.PI * 0.8 * (i / 15)); // -162° → -18° (upper half)
+    const dist = 60 + Math.random() * 80;
     const dx = Math.cos(angle) * dist;
     const dy = Math.sin(angle) * dist;
     p.style.setProperty('--dx', dx.toFixed(1) + 'px');
     p.style.setProperty('--dy', dy.toFixed(1) + 'px');
-    p.style.animationDelay = (i * 18) + 'ms';
-    // Randomize particle sizes subtly
+    p.style.animationDelay = (i * 25) + 'ms';
     const size = 5 + Math.random() * 6;
     p.style.width = size + 'px';
     p.style.height = size + 'px';
     btn.appendChild(p);
-    setTimeout(() => p.remove(), 1800);
+    setTimeout(() => p.remove(), 2400);
   }
 
-  // "You're in" toast above the button
+  // Random emoji/phrase pair — rotating vibes for a gay community app
+  // (bear community + broader queer icons, flex/gym, fire, pride, cheers…)
+  const toasts = [
+    "On my way 🐻",
+    "Count me in 🔥",
+    "Let's go 💪",
+    "🍻 See you there",
+    "🎉 Pulling up",
+    "Showing up 🌈",
+    "With you ❤️‍🔥",
+    "🐺 Rolling deep",
+    "✨ Can't wait",
+    "😈 I'm there",
+    "🏳️‍🌈 See you bears",
+    "Pulling up 👀",
+  ];
   const toast = document.createElement('span');
   toast.className = 'wy-join-toast';
-  toast.textContent = "You're in 🐻";
+  toast.textContent = toasts[Math.floor(Math.random() * toasts.length)];
   btn.appendChild(toast);
-  setTimeout(() => toast.remove(), 2700);
+  setTimeout(() => toast.remove(), 3500);
 
   // Settle into joined state — wait longer so the burst peaks first
   setTimeout(() => {
     btn.classList.add('joined');
     btn.dataset.state = 'joined';
     btn.textContent = "You're going";
-  }, 500);
+  }, 650);
 
-  // Haptic tickle
-  if (navigator.vibrate) navigator.vibrate([10, 40, 10, 30, 20]);
+  // Haptic pattern
+  if (navigator.vibrate) navigator.vibrate([15, 50, 15, 40, 25]);
 });
 
 function renderSharedTimeline() {
