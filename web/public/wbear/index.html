@@ -32,11 +32,12 @@
     --radius-card: 22px;
     --radius-hero: 24px;
 
-    /* Typography scale — iOS HIG aligned, readable at 40-50+ */
+    /* Typography scale — iOS HIG aligned, readable at 40-50+
+       Body aligned to iOS default 16px (never go below 12 for UI copy). */
     --text-xs:  12px;   /* meta, captions, timestamps, eyebrow labels */
     --text-sm:  14px;   /* body secondary, subtitles, chat previews */
-    --text-md:  15px;   /* body default, row meta */
-    --text-lg:  17px;   /* row titles, feed names, button labels (iOS body) */
+    --text-md:  16px;   /* body default, row titles (iOS body min) */
+    --text-lg:  17px;   /* row titles emphasized, button labels */
     --text-xl:  20px;   /* section titles */
     --text-2xl: 22px;   /* screen titles (Inbox, Chat) */
     --text-3xl: 28px;   /* hero numbers */
@@ -159,8 +160,12 @@
     height: 100%;
     overflow: hidden;
     font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.4;
     background: var(--bg);
     color: var(--text-primary);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   /* ── App Shell ── */
@@ -265,7 +270,9 @@
   .filter-tab {
     flex: 1;
     text-align: center;
-    padding: 10px 0;
+    padding: 12px 0;
+    min-height: 44px;
+    display: flex; align-items: center; justify-content: center;
     font-size: var(--text-md); font-weight: 500;
     color: var(--text-tertiary);
     position: relative;
@@ -324,7 +331,7 @@
   .tab-context.shared .tab-context-icon svg { stroke: var(--pride); opacity: 1; }
   .tab-context-body { flex: 1; min-width: 0; }
   .tab-context-title {
-    font-size: 12.5px; font-weight: 700;
+    font-size: 13px; font-weight: 700;
     color: var(--text-primary);
     letter-spacing: -0.1px;
   }
@@ -366,7 +373,7 @@
   }
   .following-stat:last-child { border-right: none; }
   .following-stat-value {
-    font-size: 14.5px; font-weight: 800;
+    font-size: 15px; font-weight: 800;
     color: var(--text-primary);
     letter-spacing: -0.3px;
     font-variant-numeric: tabular-nums;
@@ -380,7 +387,7 @@
     animation: livePulse 2s infinite;
   }
   .following-stat-label {
-    font-size: 10.5px; font-weight: 600;
+    font-size: 11px; font-weight: 600;
     color: var(--text-tertiary);
     letter-spacing: 0.1px;
   }
@@ -414,7 +421,7 @@
     background: var(--bg-subtle);
     border: 1px solid var(--border-sep);
     border-radius: 8px;
-    font-size: 11.5px; font-weight: 600;
+    font-size: 12px; font-weight: 600;
     color: var(--text-secondary);
     cursor: pointer;
     letter-spacing: -0.1px;
@@ -457,7 +464,7 @@
   }
   .shared-stat:last-child { border-right: none; }
   .shared-stat-value {
-    font-size: 14.5px; font-weight: 800;
+    font-size: 15px; font-weight: 800;
     color: var(--text-primary);
     letter-spacing: -0.3px;
     font-variant-numeric: tabular-nums;
@@ -470,7 +477,7 @@
     box-shadow: 0 0 5px var(--pride);
   }
   .shared-stat-label {
-    font-size: 10.5px; font-weight: 600;
+    font-size: 11px; font-weight: 600;
     color: var(--text-tertiary);
     letter-spacing: 0.1px;
   }
@@ -492,7 +499,7 @@
     background: var(--bg-subtle);
     border: 1px solid var(--border-sep);
     border-radius: 8px;
-    font-size: 11.5px; font-weight: 600;
+    font-size: 12px; font-weight: 600;
     color: var(--text-secondary);
     cursor: pointer;
     letter-spacing: -0.1px;
@@ -552,7 +559,7 @@
     position: absolute;
     top: 8px; left: 8px;
     padding: 2px 6px;
-    font-size: 8.5px; font-weight: 800;
+    font-size: 10px; font-weight: 800;
     letter-spacing: 0.55px;
     text-transform: uppercase;
     border-radius: 4px;
@@ -569,7 +576,7 @@
     padding: 9px 11px 11px;
   }
   .editorial-card-title {
-    font-size: 12.5px; font-weight: 800;
+    font-size: 13px; font-weight: 800;
     color: var(--text-primary);
     letter-spacing: -0.2px;
     line-height: 1.2;
@@ -579,7 +586,7 @@
     overflow: hidden;
   }
   .editorial-card-sub {
-    font-size: 10.5px; font-weight: 500;
+    font-size: 11px; font-weight: 500;
     color: var(--text-tertiary);
     margin-top: 3px;
     letter-spacing: 0.1px;
@@ -640,7 +647,7 @@
   .pack-shortcut-tab .count {
     display: inline-block;
     margin-left: 5px;
-    font-size: 10.5px; font-weight: 700;
+    font-size: 11px; font-weight: 700;
     color: var(--text-tertiary);
     background: var(--bg-subtle);
     padding: 1px 6px;
@@ -781,7 +788,7 @@
     display: flex; flex-direction: column; gap: 1px;
   }
   .social-card-action {
-    font-size: 12.5px; font-weight: 500;
+    font-size: 13px; font-weight: 500;
     color: var(--text-secondary);
     letter-spacing: -0.1px;
     line-height: 1.3;
@@ -889,7 +896,7 @@
     padding: 8px 0 10px;
   }
   .social-content-event-date .mo {
-    font-size: 9.5px; font-weight: 800;
+    font-size: 10px; font-weight: 800;
     color: var(--ember);
     letter-spacing: 0.7px;
     text-transform: uppercase;
@@ -907,7 +914,7 @@
     display: flex; flex-direction: column; justify-content: center;
   }
   .social-content-event-name {
-    font-size: 14.5px; font-weight: 800;
+    font-size: 15px; font-weight: 800;
     color: var(--text-primary);
     letter-spacing: -0.3px;
     line-height: 1.2;
@@ -920,7 +927,7 @@
   .social-content-event-going {
     display: flex; align-items: center; gap: 5px;
     margin-top: 8px;
-    font-size: 11.5px; font-weight: 600;
+    font-size: 12px; font-weight: 600;
     color: var(--tag-forest-text);
   }
   .social-content-event-going-avatars {
@@ -997,7 +1004,7 @@
     padding: 2px 6px;
     background: rgba(41,201,124,0.9);
     border-radius: 6px;
-    font-size: 8.5px; font-weight: 800;
+    font-size: 10px; font-weight: 800;
     color: #fff;
     letter-spacing: 0.4px;
     text-transform: uppercase;
@@ -1028,7 +1035,7 @@
     background: linear-gradient(135deg, var(--ember), var(--honey));
     color: var(--on-ember);
     border-radius: 9px;
-    font-size: 11.5px; font-weight: 700;
+    font-size: 12px; font-weight: 700;
     letter-spacing: -0.1px;
   }
 
@@ -1095,7 +1102,7 @@
   .social-content-checkin-here {
     display: flex; align-items: center; gap: 6px;
     margin-top: 8px;
-    font-size: 11.5px; font-weight: 500;
+    font-size: 12px; font-weight: 500;
     color: var(--tag-forest-text);
   }
   .social-content-checkin-here-avatars {
@@ -1131,7 +1138,7 @@
     letter-spacing: -3px;
   }
   .social-reactions-count {
-    font-size: 11.5px; font-weight: 700;
+    font-size: 12px; font-weight: 700;
     color: var(--text-secondary);
     margin-left: 6px;
   }
@@ -1181,7 +1188,7 @@
     border: 1px solid var(--border-sep);
     border-radius: 10px;
     font-family: inherit;
-    font-size: 12.5px; font-weight: 700;
+    font-size: 13px; font-weight: 700;
     color: var(--text-primary);
     cursor: pointer;
     letter-spacing: -0.1px;
@@ -1220,7 +1227,7 @@
     top: 6px; left: 6px;
     padding: 3px 7px;
     border-radius: 6px;
-    font-size: 9.5px; font-weight: 700;
+    font-size: 10px; font-weight: 700;
     letter-spacing: 0.2px;
     display: flex; align-items: center; gap: 3px;
     backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
@@ -1292,7 +1299,7 @@
     margin-bottom: 4px;
   }
   .filter-empty-sub {
-    font-size: 12.5px;
+    font-size: 13px;
     line-height: 1.45;
     color: var(--text-tertiary);
     max-width: 260px;
@@ -1335,7 +1342,7 @@
     padding: 2px 6px;
     background: linear-gradient(135deg, var(--pride), var(--ember));
     border-radius: 5px;
-    font-size: 8.5px; font-weight: 800;
+    font-size: 10px; font-weight: 800;
     color: #fff;
     letter-spacing: 0.5px;
     z-index: 2;
@@ -1356,7 +1363,7 @@
   .collection-member.overflow {
     background: var(--bg-subtle);
     display: flex; align-items: center; justify-content: center;
-    font-size: 9.5px; font-weight: 700;
+    font-size: 10px; font-weight: 700;
     color: var(--text-secondary);
     letter-spacing: -0.3px;
   }
@@ -1378,7 +1385,7 @@
     overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
   }
   .collection-meta {
-    font-size: 10.5px; font-weight: 500;
+    font-size: 11px; font-weight: 500;
     color: var(--text-tertiary);
     margin-top: 2px;
     display: flex; align-items: center; gap: 5px;
@@ -1532,7 +1539,7 @@
     font-variant-numeric: tabular-nums;
   }
   .heatmap-stat-label {
-    font-size: 10.5px; font-weight: 600;
+    font-size: 11px; font-weight: 600;
     color: var(--text-tertiary);
     letter-spacing: 0.3px;
     text-transform: uppercase;
@@ -1780,7 +1787,7 @@
     color: var(--text-primary);
   }
   .activity-chip-time {
-    font-size: 10.5px; font-weight: 500;
+    font-size: 11px; font-weight: 500;
     color: var(--text-tertiary);
     margin-top: 1px;
     letter-spacing: 0.1px;
@@ -2122,7 +2129,7 @@
     display: flex; align-items: center; gap: 5px;
   }
   .post-header-meta {
-    font-size: 11.5px; font-weight: 500;
+    font-size: 12px; font-weight: 500;
     color: var(--text-tertiary);
     letter-spacing: 0.1px;
   }
@@ -2181,7 +2188,7 @@
   .post-action-btn.post-save { margin-left: auto; }
   .post-caption {
     padding: 12px 16px 0;
-    font-size: 13.5px; font-weight: 400;
+    font-size: 14px; font-weight: 400;
     color: var(--text-secondary);
     line-height: 1.55;
     letter-spacing: -0.05px;
@@ -2193,7 +2200,7 @@
   .post-caption-meta {
     margin-top: 8px;
     display: flex; flex-wrap: wrap; gap: 8px;
-    font-size: 11.5px; font-weight: 500;
+    font-size: 12px; font-weight: 500;
     color: var(--text-tertiary);
   }
   .post-caption-meta svg {
@@ -2242,7 +2249,7 @@
     border: 1px solid var(--border-sep);
     border-radius: 12px;
     font-family: inherit;
-    font-size: 12.5px; font-weight: 700;
+    font-size: 13px; font-weight: 700;
     color: var(--text-primary);
     cursor: pointer;
     letter-spacing: -0.1px;
@@ -2380,7 +2387,7 @@
     margin-bottom: 10px;
   }
   .post-section-title {
-    font-size: 13.5px; font-weight: 700;
+    font-size: 14px; font-weight: 700;
     color: var(--text-primary);
     letter-spacing: -0.1px;
   }
@@ -2389,7 +2396,7 @@
     color: var(--text-tertiary);
   }
   .post-section-link {
-    font-size: 11.5px; font-weight: 700;
+    font-size: 12px; font-weight: 700;
     color: var(--flame);
     cursor: pointer;
     letter-spacing: 0.1px;
@@ -2457,7 +2464,7 @@
     background: var(--bg-subtle);
     border: 1px solid var(--border-sep);
     border-radius: 10px;
-    font-size: 12.5px; font-weight: 600;
+    font-size: 13px; font-weight: 600;
     color: var(--text-tertiary);
     text-align: center;
     cursor: pointer;
@@ -2535,7 +2542,7 @@
     stroke-width: 3; stroke-linecap: round; stroke-linejoin: round;
   }
   .group-type-badge {
-    font-size: 9.5px; font-weight: 700;
+    font-size: 10px; font-weight: 700;
     letter-spacing: 0.2px;
     padding: 2px 7px;
     border-radius: 5px;
@@ -2561,7 +2568,7 @@
     border-color: rgba(99,153,34,0.28);
   }
   .group-meta {
-    font-size: 11.5px; font-weight: 500;
+    font-size: 12px; font-weight: 500;
     color: var(--text-tertiary);
     letter-spacing: 0.1px;
   }
@@ -2667,7 +2674,7 @@
   }
   .group-pill-avatar .emoji { position: relative; z-index: 1; text-shadow: 0 1px 2px rgba(0,0,0,0.4); }
   .group-pill-name {
-    font-size: 12.5px; font-weight: 700;
+    font-size: 13px; font-weight: 700;
     color: var(--text-primary);
     letter-spacing: -0.15px;
     line-height: 1.2;
@@ -2678,7 +2685,7 @@
     flex: 1; min-width: 0;
   }
   .group-pill-meta {
-    font-size: 10.5px; font-weight: 500;
+    font-size: 11px; font-weight: 500;
     color: var(--text-tertiary);
     display: flex; align-items: center; gap: 4px;
     letter-spacing: 0.1px;
@@ -2749,7 +2756,7 @@
     text-shadow: 0 2px 8px rgba(0,0,0,0.5);
   }
   .group-hero-meta {
-    font-size: 12.5px; font-weight: 600;
+    font-size: 13px; font-weight: 600;
     color: rgba(255,255,255,0.88);
     margin-top: 4px;
     letter-spacing: 0.1px;
@@ -2817,7 +2824,7 @@
     font-variant-numeric: tabular-nums;
   }
   .group-stat span {
-    font-size: 10.5px; font-weight: 600;
+    font-size: 11px; font-weight: 600;
     color: var(--text-tertiary);
     letter-spacing: 0.3px;
     text-transform: uppercase;
@@ -2836,14 +2843,14 @@
     letter-spacing: -0.2px;
   }
   .group-section-link {
-    font-size: 11.5px; font-weight: 400;
+    font-size: 12px; font-weight: 400;
     color: var(--text-tertiary);
     cursor: pointer;
     letter-spacing: 0.1px;
     white-space: nowrap;
   }
   .group-about {
-    font-size: 13.5px; font-weight: 400;
+    font-size: 14px; font-weight: 400;
     color: var(--text-secondary);
     line-height: 1.55;
     letter-spacing: -0.05px;
@@ -2854,7 +2861,7 @@
     background: rgba(29,158,117,0.08);
     border: 1px solid rgba(29,158,117,0.22);
     border-radius: var(--radius-md);
-    font-size: 12.5px; font-weight: 500;
+    font-size: 13px; font-weight: 500;
     color: var(--text-secondary);
     line-height: 1.45;
   }
@@ -2897,19 +2904,19 @@
     padding: 1px 5px;
     background: linear-gradient(135deg, var(--ember), var(--flame));
     color: var(--on-ember);
-    font-size: 7.5px; font-weight: 800;
+    font-size: 10px; font-weight: 800;
     letter-spacing: 0.3px;
     border-radius: 4px;
     box-shadow: 0 1px 3px rgba(216,90,48,0.4);
   }
   .group-member-pronouns {
-    font-size: 9.5px; font-weight: 500;
+    font-size: 10px; font-weight: 500;
     color: var(--tag-forest-text);
     letter-spacing: 0.1px;
     margin-top: -1px;
   }
   .group-member-name {
-    font-size: 10.5px; font-weight: 600;
+    font-size: 11px; font-weight: 600;
     color: var(--text-secondary);
     max-width: 52px;
     overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
@@ -2935,7 +2942,7 @@
     border-radius: 8px;
   }
   .group-event-date .mo {
-    font-size: 8.5px; font-weight: 800;
+    font-size: 10px; font-weight: 800;
     color: var(--ember);
     letter-spacing: 0.5px;
     text-transform: uppercase;
@@ -2956,7 +2963,7 @@
     line-height: 1.2;
   }
   .group-event-meta {
-    font-size: 11.5px; font-weight: 500;
+    font-size: 12px; font-weight: 500;
     color: var(--text-tertiary);
     margin-top: 2px;
   }
@@ -3077,7 +3084,7 @@
     text-shadow: 0 2px 8px rgba(0,0,0,0.5);
   }
   .event-hero-when {
-    font-size: 12.5px; font-weight: 600;
+    font-size: 13px; font-weight: 600;
     color: rgba(255,255,255,0.88);
     margin-top: 6px;
     letter-spacing: 0.1px;
@@ -3123,7 +3130,7 @@
     margin-top: 2px;
   }
   .event-venue-link {
-    font-size: 11.5px; font-weight: 700;
+    font-size: 12px; font-weight: 700;
     color: var(--flame);
     margin-top: 6px;
     letter-spacing: 0.1px;
@@ -3161,7 +3168,7 @@
   }
   .event-here-now-count {
     display: block;
-    font-size: 12.5px; font-weight: 600;
+    font-size: 13px; font-weight: 600;
     color: var(--text-primary);
     letter-spacing: -0.1px;
     line-height: 1.4;
@@ -3185,7 +3192,7 @@
     background: var(--bg-subtle);
     border: 2px solid var(--surface-card);
     display: flex; align-items: center; justify-content: center;
-    font-size: 10.5px; font-weight: 700;
+    font-size: 11px; font-weight: 700;
     color: var(--text-secondary);
     margin-left: -8px;
   }
@@ -3221,7 +3228,7 @@
   }
   .checkin-prompt-title strong { font-weight: 800; color: var(--text-primary); }
   .checkin-prompt-sub {
-    font-size: 11.5px; font-weight: 500;
+    font-size: 12px; font-weight: 500;
     color: var(--text-tertiary);
     margin-top: 1px;
     letter-spacing: 0.1px;
@@ -3234,7 +3241,7 @@
     padding: 9px 12px;
     border-radius: 10px;
     font-family: inherit;
-    font-size: 12.5px; font-weight: 700;
+    font-size: 13px; font-weight: 700;
     cursor: pointer;
     letter-spacing: -0.1px;
     transition: transform 0.15s;
@@ -3296,7 +3303,7 @@
     border: 1px solid rgba(99,153,34,0.35);
     border-radius: 9px;
     font-family: inherit;
-    font-size: 11.5px; font-weight: 700;
+    font-size: 12px; font-weight: 700;
     color: var(--tag-forest-text);
     cursor: pointer;
     letter-spacing: -0.05px;
@@ -3362,7 +3369,7 @@
     font-variant-numeric: tabular-nums;
   }
   .event-stat span {
-    font-size: 10.5px; font-weight: 600;
+    font-size: 11px; font-weight: 600;
     color: var(--text-tertiary);
     letter-spacing: 0.4px;
     text-transform: uppercase;
@@ -3381,7 +3388,7 @@
     letter-spacing: -0.2px;
   }
   .event-section-link {
-    font-size: 11.5px; font-weight: 400;
+    font-size: 12px; font-weight: 400;
     color: var(--text-tertiary);
     letter-spacing: 0.1px;
     cursor: pointer;
@@ -3415,7 +3422,7 @@
   }
   .event-attendee-note {
     margin-top: 10px;
-    font-size: 12.5px; font-weight: 500;
+    font-size: 13px; font-weight: 500;
     color: var(--text-secondary);
     line-height: 1.4;
   }
@@ -3439,7 +3446,7 @@
   }
   .event-host-body { flex: 1; min-width: 0; }
   .event-host-label {
-    font-size: 10.5px; font-weight: 600;
+    font-size: 11px; font-weight: 600;
     color: var(--text-tertiary);
     letter-spacing: 0.3px;
     text-transform: uppercase;
@@ -3504,7 +3511,7 @@
     display: inline-block;
     margin-left: 8px;
     padding: 2px 7px;
-    font-size: 9.5px; font-weight: 800;
+    font-size: 10px; font-weight: 800;
     color: #fff;
     background: linear-gradient(135deg, var(--pride), var(--ember));
     border-radius: 5px;
@@ -3569,7 +3576,7 @@
     backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
     border: 1px solid rgba(255,255,255,0.08);
     border-radius: 7px;
-    font-size: 9.5px; font-weight: 700;
+    font-size: 10px; font-weight: 700;
     color: #fff;
     letter-spacing: 0.4px;
     text-transform: uppercase;
@@ -3793,7 +3800,7 @@
     padding: 3px 7px;
     background: linear-gradient(135deg, var(--ember), var(--flame));
     border-radius: 6px;
-    font-size: 8.5px; font-weight: 800;
+    font-size: 10px; font-weight: 800;
     color: var(--on-ember);
     letter-spacing: 0.5px;
     text-transform: uppercase;
@@ -4360,7 +4367,7 @@
     position: relative;
   }
   .feed-reply-toggle {
-    font-size: 11.5px; font-weight: 600;
+    font-size: 12px; font-weight: 600;
     color: var(--text-tertiary);
     cursor: pointer;
     display: inline-flex; align-items: center; gap: 8px;
@@ -4376,7 +4383,7 @@
   .feed-reply-toggle:hover { color: var(--text-secondary); }
   .feed-reply {
     padding-top: 6px;
-    font-size: 12.5px;
+    font-size: 13px;
     color: var(--text-secondary);
     line-height: 1.4;
     display: flex;
@@ -4408,7 +4415,7 @@
     font-weight: 600;
   }
   .feed-reply-meta {
-    font-size: 10.5px;
+    font-size: 11px;
     color: var(--text-tertiary);
     display: inline-flex;
     align-items: center;
@@ -4431,7 +4438,7 @@
   }
   .feed-add-input {
     flex: 1;
-    font-size: 12.5px; font-weight: 500;
+    font-size: 13px; font-weight: 500;
     color: var(--text-tertiary);
     background: transparent;
     border: none;
@@ -4955,7 +4962,7 @@
     background: linear-gradient(135deg, var(--ember), var(--flame));
     border: 2.5px solid var(--bg-elevated);
     border-radius: 9px;
-    font-size: 9.5px; font-weight: 800;
+    font-size: 10px; font-weight: 800;
     color: var(--on-ember);
     letter-spacing: 0.6px;
     box-shadow: 0 2px 8px rgba(216,90,48,0.5);
@@ -5084,7 +5091,7 @@
   }
   .safety-banner-body { flex: 1; min-width: 0; }
   .safety-banner-title {
-    font-size: 12.5px; font-weight: 700;
+    font-size: 13px; font-weight: 700;
     color: var(--text-primary);
     letter-spacing: -0.1px;
   }
