@@ -3835,6 +3835,11 @@
   .wy-hero-sub {
     font-size: 13px; color: rgba(255,255,255,0.75);
   }
+  .wy-hero-sub.wy-hero-when {
+    font-size: 12px;
+    color: rgba(255,255,255,0.55);
+    margin-top: 2px;
+  }
   .wy-hero-cta {
     margin-top: 10px;
     align-self: flex-start;
@@ -8362,7 +8367,7 @@ function renderWithYou() {
     ? FOLLOWING_NAMES : NAME_POOL;
 
   const svgArrow = '<polyline points="9 18 15 12 9 6"/>';
-  const svgTag = '<path d="M20.59 13.41 13.42 20.58a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/>';
+  const svgTag = '<circle cx="12" cy="12" r="4"/><path d="M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-4 8"/>';
   const svgAt = '<circle cx="12" cy="12" r="4"/><path d="M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-4 8"/>';
   const svgCal = '<rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>';
   const svgAlbum = '<rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>';
@@ -8378,8 +8383,9 @@ function renderWithYou() {
         <div class="wy-hero-dot" style="top:30%; left:72%; animation-delay:.8s;"></div>
         <div class="wy-hero-body">
           <span class="wy-hero-eyebrow">Happening now</span>
-          <div class="wy-hero-title">Marcus, Jake &amp; Daniel are at Touché</div>
-          <div class="wy-hero-sub">1.2 mi · Leather Sunday · started 40m ago</div>
+          <div class="wy-hero-title">Marcus &amp; 2 others at Touché</div>
+          <div class="wy-hero-sub">1.2 mi · Leather Sunday</div>
+          <div class="wy-hero-sub wy-hero-when">Started 40m ago</div>
           <button class="wy-hero-cta" data-wy-action="join-here">Join them ›</button>
         </div>
       </div>
@@ -8520,6 +8526,7 @@ function renderWithYou() {
         <h2 class="wy-section-title">My groups</h2>
         <span class="wy-see-all" data-see-all="circles">See all ›</span>
       </div>
+      <div class="wy-section-sub">Recent activity from the groups you're in</div>
       ${circleRows}
     </section>`;
 
@@ -8571,7 +8578,7 @@ function renderSentToYouFull() {
 function renderTaggedFull() {
   const grid = document.getElementById('taggedGrid');
   if (!grid) return;
-  const svgTag = '<path d="M20.59 13.41 13.42 20.58a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/>';
+  const svgTag = '<circle cx="12" cy="12" r="4"/><path d="M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-4 8"/>';
   const taggers = ['Sam', 'Alex', 'Ryan', 'Leo', 'Jake', 'Daniel', 'Chris', 'Ben', 'Marcus', 'Tom', 'Nate', 'Owen'];
   // 24 tiles with rotating images + taggers
   const items = Array.from({ length: 24 }, (_, i) => ({
