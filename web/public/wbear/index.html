@@ -149,12 +149,14 @@
     box-shadow: 0 0 0 1px rgba(0,0,0,0.15);
   }
   .topnav-brand {
-    font-size: 19px; font-weight: 700; letter-spacing: -0.4px;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", system-ui, sans-serif;
+    font-size: 18px; font-weight: 300; font-style: italic;
+    letter-spacing: -0.02em;
     color: var(--text-primary);
     display: flex; align-items: center; gap: 2px;
     position: relative;
   }
-  .topnav-brand span { font-weight: 400; color: var(--flame); opacity: 0.55; margin: 0 4px; }
+  .topnav-brand span { font-weight: 300; font-style: normal; color: var(--ember); opacity: 0.7; margin: 0 4px; }
   .topnav-brand::after {
     content: '';
     position: absolute;
@@ -201,11 +203,11 @@
     border: 1px solid transparent;
   }
   .filter-tab.active {
-    color: var(--on-ember);
+    color: var(--ember);
     font-weight: 600;
-    background: linear-gradient(135deg, var(--ember), var(--honey));
+    background: rgba(216, 90, 48, 0.10);
     border-color: transparent;
-    box-shadow: 0 2px 10px rgba(216,90,48,0.25);
+    box-shadow: none;
   }
   .filter-tab.active::after { display: none; }
 
@@ -1460,23 +1462,23 @@
   }
   .live-strip-right {
     display: flex; align-items: center; gap: 6px;
-    font-weight: 700;
-    color: var(--on-ember);
-    background: linear-gradient(135deg, var(--ember), var(--flame));
+    font-weight: 600;
+    color: var(--ember);
+    background: rgba(216, 90, 48, 0.12);
     border: none;
     padding: 6px 10px 6px 9px;
     border-radius: 10px;
     cursor: pointer;
     position: relative; z-index: 1;
-    box-shadow: 0 2px 8px rgba(216,90,48,0.35);
-    transition: transform 0.15s, box-shadow 0.15s;
+    box-shadow: none;
+    transition: transform 0.15s, background 0.15s;
     font-family: inherit;
     font-size: 12px;
   }
   .live-strip-right:active { transform: scale(0.96); }
   .live-strip-right svg {
     width: 12px; height: 12px;
-    stroke: var(--on-ember); fill: none;
+    stroke: var(--ember); fill: none;
     stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round;
   }
   .live-strip-right .live-arrow {
@@ -1517,48 +1519,48 @@
   .activity-ring {
     width: 100%; height: 100%;
     border-radius: 18px;
-    border: 2px solid var(--surface-card);
-    padding: 2px;
-    background: var(--bg);
-  }
-  .activity-ring:not(.seen) {
     border: none;
     padding: 0;
-    background: linear-gradient(135deg, var(--ember), var(--flame), var(--honey));
-    box-shadow: 0 2px 12px rgba(216,90,48,0.3);
+    background: transparent;
+  }
+  .activity-ring:not(.seen) {
+    background: transparent;
+    box-shadow: none;
   }
   .activity-ring:not(.seen) .activity-img {
-    border: 2.5px solid var(--bg);
+    border: 1.5px solid var(--ember);
+    border-radius: 18px;
   }
   .activity-img {
     width: 100%; height: 100%;
-    border-radius: 16px;
+    border-radius: 18px;
     display: flex; align-items: center; justify-content: center;
     font-size: 14px; font-weight: 700;
     color: rgba(255,255,255,0.85);
   }
   .activity-ring.seen .activity-img {
-    border-radius: 15px;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 18px;
   }
   .activity-dot {
-    position: absolute; top: -2px; right: -2px;
-    width: 14px; height: 14px;
-    border-radius: 7px;
-    background: var(--forest);
-    border: 2.5px solid var(--bg);
-    box-shadow: 0 1px 4px rgba(99,153,34,0.4);
+    position: absolute; top: 0; right: 0;
+    width: 10px; height: 10px;
+    border-radius: 5px;
+    background: #7AA370;
+    border: 2px solid var(--bg);
+    box-shadow: none;
   }
   .activity-live {
     position: absolute;
-    top: -4px; left: 50%; transform: translateX(-50%);
-    padding: 2px 6px;
-    background: linear-gradient(135deg, #E8432A, var(--ember));
-    border: 2px solid var(--bg);
-    border-radius: 8px;
-    font-size: 8.5px; font-weight: 800;
-    color: #fff;
-    letter-spacing: 0.6px;
-    box-shadow: 0 2px 8px rgba(232,67,42,0.5);
+    top: -16px; left: 50%; transform: translateX(-50%);
+    padding: 0;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    font-size: 9px; font-weight: 600;
+    color: var(--ember);
+    letter-spacing: 0.12em;
+    box-shadow: none;
     z-index: 2;
   }
   .activity-add {
@@ -3282,8 +3284,10 @@
     padding: 14px 16px 10px;
   }
   .feed-section-title {
-    font-size: 13px; font-weight: 700;
-    letter-spacing: -0.2px;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", system-ui, sans-serif;
+    font-size: 18px; font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
     color: var(--text-primary);
   }
   .feed-new-badge {
@@ -3303,8 +3307,10 @@
     padding: 0 20px 10px;
   }
   .events-title {
-    font-size: 14px; font-weight: 700;
-    letter-spacing: -0.2px;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", system-ui, sans-serif;
+    font-size: 18px; font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
     color: var(--text-primary);
     display: flex; align-items: center; gap: 8px;
   }
@@ -3604,8 +3610,10 @@
     margin-bottom: 10px;
   }
   .wy-section-title {
-    font-size: 17px; font-weight: 700; color: var(--text-primary);
-    letter-spacing: -0.3px;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", system-ui, sans-serif;
+    font-size: 18px; font-weight: 500; color: var(--text-primary);
+    letter-spacing: -0.02em;
+    line-height: 1.25;
   }
   .wy-section-sub {
     font-size: 12px; color: var(--text-tertiary);
@@ -4276,8 +4284,10 @@
     padding-top: max(16px, env(safe-area-inset-top, 16px));
   }
   .action-screen-title {
-    font-size: 20px; font-weight: 700;
-    letter-spacing: -0.3px;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", system-ui, sans-serif;
+    font-size: 22px; font-weight: 500;
+    letter-spacing: -0.025em;
+    line-height: 1.2;
   }
   .close-btn {
     width: 44px; height: 44px;
@@ -4824,21 +4834,22 @@
   .light .topnav-brand span { color: var(--ember); opacity: 0.55; }
 
   .light .filter-tab { color: var(--text-tertiary); }
-  .light .filter-tab.active { color: #fff; background: linear-gradient(135deg, var(--ember), var(--honey)); box-shadow: 0 4px 14px rgba(216,90,48,0.30); }
+  .light .filter-tab.active { color: #8A6A3F; background: rgba(138, 106, 63, 0.12); box-shadow: none; }
 
   .light .live-strip {
     background: linear-gradient(135deg, rgba(29,158,117,0.10), rgba(99,153,34,0.05));
     border-color: rgba(29,158,117,0.25);
   }
-  .light .live-strip-right { color: var(--ember); }
+  .light .live-strip-right { color: #8A6A3F; background: rgba(138, 106, 63, 0.12); }
+  .light .live-strip-right svg { stroke: #8A6A3F; }
   .light .live-strip-right svg { stroke: var(--ember); }
   .light .live-count { color: #0E6B4E; }
 
   .light .activity-ring { border-color: var(--border-sep); background: var(--bg); }
-  .light .activity-ring:not(.seen) .activity-img { border-color: var(--bg); }
-  .light .activity-ring.seen .activity-img { background-color: var(--surface-card) !important; }
-  .light .activity-dot { border-color: var(--bg); }
-  .light .activity-live { border-color: var(--bg); }
+  .light .activity-ring:not(.seen) .activity-img { border-color: #8A6A3F; }
+  .light .activity-ring.seen .activity-img { border-color: rgba(30,26,20,0.1); background-color: var(--surface-card) !important; }
+  .light .activity-dot { border-color: var(--bg); background: #6B8266; }
+  .light .activity-live { color: #8A6A3F; }
   .light .activity-name { color: var(--text-secondary); }
   .light .activity-rail { border-bottom-color: var(--border-sep); }
   .light .activity-add { background: linear-gradient(135deg, rgba(216,90,48,0.08), rgba(239,159,39,0.04)); }
