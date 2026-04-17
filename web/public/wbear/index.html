@@ -1801,6 +1801,99 @@
     letter-spacing: 0.6px;
     text-transform: uppercase;
   }
+
+  /* ── Sent to you screen (full list) ── */
+  .sent-list {
+    display: flex; flex-direction: column;
+    padding: 4px 0 calc(100px + env(safe-area-inset-bottom, 0px));
+  }
+  .sent-row {
+    display: flex; gap: 12px; align-items: center;
+    padding: 12px 16px;
+    cursor: pointer;
+    border-bottom: 1px solid var(--hairline, rgba(255,255,255,0.05));
+    transition: background 0.15s;
+  }
+  .sent-row:active { background: var(--bg-subtle); }
+  .sent-row:last-child { border-bottom: none; }
+  .sent-thumb {
+    width: 56px; height: 56px;
+    border-radius: 10px;
+    background-size: cover; background-position: center;
+    flex-shrink: 0;
+    position: relative;
+  }
+  .sent-thumb-kind {
+    position: absolute; bottom: -2px; right: -2px;
+    width: 20px; height: 20px;
+    border-radius: 10px;
+    background: var(--bg);
+    border: 2px solid var(--bg);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .sent-thumb-kind svg {
+    width: 12px; height: 12px;
+    fill: none; stroke: var(--text-secondary);
+    stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+  }
+  .sent-body { flex: 1; min-width: 0; }
+  .sent-sender {
+    display: flex; align-items: center; gap: 6px;
+    font-size: 14px; font-weight: 600;
+    color: var(--text-primary);
+  }
+  .sent-sender-avatar {
+    width: 16px; height: 16px;
+    border-radius: 5px;
+    background-size: cover; background-position: center;
+    flex-shrink: 0;
+  }
+  .sent-desc {
+    font-size: 13px; color: var(--text-secondary);
+    margin-top: 2px;
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }
+  .sent-time {
+    font-size: 12px; color: var(--text-tertiary);
+    flex-shrink: 0;
+    align-self: flex-start;
+    margin-top: 2px;
+  }
+
+  /* ── Where you appear screen (tagged grid) ── */
+  .tagged-intro {
+    padding: 2px 16px 14px;
+    font-size: 13px; color: var(--text-tertiary);
+  }
+  .tagged-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    padding-bottom: calc(100px + env(safe-area-inset-bottom, 0px));
+  }
+  .tagged-cell {
+    aspect-ratio: 1 / 1;
+    background-size: cover; background-position: center;
+    cursor: pointer;
+    position: relative;
+    transition: opacity 0.15s;
+  }
+  .tagged-cell:active { opacity: 0.8; }
+  .tagged-cell-badge {
+    position: absolute; bottom: 6px; left: 6px;
+    font-size: 10px; font-weight: 600;
+    color: #fff;
+    background: rgba(0,0,0,0.5);
+    padding: 3px 7px;
+    border-radius: 6px;
+    display: flex; align-items: center; gap: 4px;
+    backdrop-filter: blur(6px);
+  }
+  .tagged-cell-badge svg {
+    width: 10px; height: 10px;
+    fill: none; stroke: #fff;
+    stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+  }
   .activity-list {
     display: flex; flex-direction: column;
   }
@@ -5694,6 +5787,29 @@
   </div>
 </div>
 
+<!-- Sent to you — full list (See all from With you) -->
+<div class="action-screen screen-elevated" id="screenSent">
+  <div class="action-screen-header">
+    <span class="action-screen-title">Sent to you</span>
+    <button class="close-btn" data-close><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+  </div>
+  <div class="action-screen-body" style="overflow-y:auto; -webkit-overflow-scrolling:touch;">
+    <div class="sent-list" id="sentList"></div>
+  </div>
+</div>
+
+<!-- Where you appear — full grid (See all from With you) -->
+<div class="action-screen screen-elevated" id="screenTagged">
+  <div class="action-screen-header">
+    <span class="action-screen-title">Where you appear</span>
+    <button class="close-btn" data-close><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+  </div>
+  <div class="action-screen-body" style="overflow-y:auto; -webkit-overflow-scrolling:touch;">
+    <div class="tagged-intro">Photos others posted where you're tagged</div>
+    <div class="tagged-grid" id="taggedGrid"></div>
+  </div>
+</div>
+
 <!-- Group detail -->
 <div class="action-screen screen-elevated" id="screenGroupDetail">
   <div class="group-hero" id="groupHero">
@@ -8257,7 +8373,7 @@ function renderWithYou() {
     <section class="wy-section">
       <div class="wy-section-head">
         <h2 class="wy-section-title">Sent to you</h2>
-        <span class="wy-see-all">See all ›</span>
+        <span class="wy-see-all" data-see-all="sent">See all ›</span>
       </div>
       <div class="wy-section-sub">Photos and collections shared directly with you</div>
       <div class="wy-rail">${sentCards}</div>
@@ -8278,7 +8394,7 @@ function renderWithYou() {
     <section class="wy-section">
       <div class="wy-section-head">
         <h2 class="wy-section-title">Where you appear</h2>
-        <span class="wy-see-all">See all ›</span>
+        <span class="wy-see-all" data-see-all="tagged">See all ›</span>
       </div>
       <div class="wy-section-sub">Photos others posted where you're tagged</div>
       <div class="wy-rail">${taggedCards}</div>
@@ -8362,7 +8478,63 @@ function renderWithYou() {
       ${circleRows}
     </section>`;
 
-  root.innerHTML = hero + sent + tagged + invitesSec + circlesSec;
+  // Section order: emotional journey — hype → warmth → action → vanity → belonging
+  root.innerHTML = hero + sent + invitesSec + tagged + circlesSec;
+}
+
+// ── Renderers for "See all" screens from With you ──
+
+function renderSentToYouFull() {
+  const list = document.getElementById('sentList');
+  if (!list) return;
+  const svgPhoto = '<path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/>';
+  const svgAlbum = '<rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>';
+  const svgLink  = '<path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>';
+  const items = [
+    { sender: 'Marcus', avatar: imgs[0], thumb: imgs[4],  kind: 'photo', count: 3, desc: '3 photos', time: '2h' },
+    { sender: 'Daniel', avatar: imgs[3], thumb: imgs[7],  kind: 'album', desc: 'Collection · Cabin weekend',  time: '4h' },
+    { sender: 'Jake',   avatar: imgs[1], thumb: imgs[5],  kind: 'photo', count: 2, desc: '2 photos', time: '6h' },
+    { sender: 'Chris',  avatar: imgs[5], thumb: imgs[2],  kind: 'photo', desc: 'Post from @touche_bears',   time: 'Yesterday' },
+    { sender: 'Sam',    avatar: imgs[4], thumb: imgs[9],  kind: 'link',  desc: 'Link · Bear Pride tickets', time: 'Yesterday' },
+    { sender: 'Alex',   avatar: imgs[6], thumb: imgs[1],  kind: 'album', desc: 'Collection · Montrose vibes', time: '2d' },
+    { sender: 'Daniel', avatar: imgs[3], thumb: imgs[8],  kind: 'photo', count: 5, desc: '5 photos',          time: '2d' },
+    { sender: 'Ben',    avatar: imgs[6], thumb: imgs[11], kind: 'photo', desc: 'Post from @chicagoleather',   time: '3d' },
+    { sender: 'Ryan',   avatar: imgs[7], thumb: imgs[3],  kind: 'photo', desc: 'Post from @touche_bears',    time: '4d' },
+    { sender: 'Leo',    avatar: imgs[11], thumb: imgs[0], kind: 'album', desc: 'Collection · Best of 2024',  time: '5d' },
+    { sender: 'Tom',    avatar: imgs[8], thumb: imgs[2],  kind: 'photo', count: 4, desc: '4 photos',          time: '1w' },
+    { sender: 'Nate',   avatar: imgs[5], thumb: imgs[7],  kind: 'link',  desc: 'Link · Steamworks pool party', time: '1w' },
+  ];
+  const kindIcon = { photo: svgPhoto, album: svgAlbum, link: svgLink };
+  list.innerHTML = items.map(it => `
+    <div class="sent-row">
+      <div class="sent-thumb" style="background-image:url('${it.thumb}');">
+        <div class="sent-thumb-kind"><svg viewBox="0 0 24 24">${kindIcon[it.kind] || svgPhoto}</svg></div>
+      </div>
+      <div class="sent-body">
+        <div class="sent-sender">
+          <div class="sent-sender-avatar" style="background-image:url('${it.avatar}');"></div>
+          <span>${it.sender}</span>
+        </div>
+        <div class="sent-desc">${it.desc}</div>
+      </div>
+      <span class="sent-time">${it.time}</span>
+    </div>`).join('');
+}
+
+function renderTaggedFull() {
+  const grid = document.getElementById('taggedGrid');
+  if (!grid) return;
+  const svgTag = '<path d="M20.59 13.41 13.42 20.58a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/>';
+  const taggers = ['Sam', 'Alex', 'Ryan', 'Leo', 'Jake', 'Daniel', 'Chris', 'Ben', 'Marcus', 'Tom', 'Nate', 'Owen'];
+  // 24 tiles with rotating images + taggers
+  const items = Array.from({ length: 24 }, (_, i) => ({
+    thumb: imgs[i % imgs.length],
+    by: taggers[i % taggers.length],
+  }));
+  grid.innerHTML = items.map(it => `
+    <div class="tagged-cell" style="background-image:url('${it.thumb}');">
+      <span class="tagged-cell-badge"><svg viewBox="0 0 24 24">${svgTag}</svg>${it.by}</span>
+    </div>`).join('');
 }
 
 // Wire "See all" links in With you → open the corresponding full screen
@@ -8379,6 +8551,12 @@ document.addEventListener('click', (e) => {
     }
     if (typeof openGroupsHub === 'function') openGroupsHub();
     else document.getElementById('screenGroups')?.classList.add('show');
+  } else if (kind === 'sent') {
+    renderSentToYouFull();
+    document.getElementById('screenSent')?.classList.add('show');
+  } else if (kind === 'tagged') {
+    renderTaggedFull();
+    document.getElementById('screenTagged')?.classList.add('show');
   }
 });
 
