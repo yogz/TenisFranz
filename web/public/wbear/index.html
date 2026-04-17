@@ -58,29 +58,52 @@
     --tag-flame-text: #FAC775;
   }
 
-  /* Light mode */
+  /* Light mode — Sand (Ember Soft light variant)
+     Goal: make the light theme so beautiful that users prefer it.
+     Palette: warm cream bg, terracotta/apricot accents, lichen/jade presence. */
   .light {
-    --bg: #FBF6EE;
-    --bg-elevated: #FFFDF8;
-    --surface-card: #FFFFFF;
-    --hero-base: #FDF0E4;
-    --bg-subtle: rgba(42,32,22,0.045);
-    --border-btn: rgba(42,32,22,0.10);
-    --border-sep: rgba(42,32,22,0.07);
-    --text-primary: #1F1A14;
-    --text-secondary: #5A5047;
-    --text-tertiary: #8E857A;
+    /* Surfaces */
+    --bg: #F0EBE3;                /* crème sable, jamais blanc */
+    --bg-elevated: #F4EFE7;
+    --surface-card: #F8F4EC;      /* 1 cran plus clair que bg */
+    --hero-base: #E8E0D5;
+    --bg-subtle: rgba(0,0,0,0.03);
+    --border-btn: rgba(0,0,0,0.06);
+    --border-sep: rgba(0,0,0,0.04);
+
+    /* Text */
+    --text-primary: #3E3832;
+    --text-secondary: #68605A;
+    --text-tertiary: #9A9490;
+    --text-tabs-inactive: #B5AFA8;
+
+    /* Brand remap — components using var(--ember) automatically re-skin */
+    --ember: #C06A48;             /* Terracotta Sand — primary action */
+    --flame: #D9A060;             /* Apricot — FAB gradient bottom */
+    --honey: #BA7517;             /* unchanged, fits Sand */
+    --forest: #6E9E7A;            /* Lichen — online dot, presence */
+    --pine:   #4D9E90;            /* Jade — verified, compose pencil */
+    --pride:  #B45869;            /* Rosewood — pride accent */
+    --on-ember: #FFFFFF;
+
+    /* Semantic aliases */
     --accent: var(--ember);
     --heart: var(--ember);
     --scrim: rgba(0,0,0,0.35);
-    --tag-ember-bg: rgba(216,90,48,0.10);
-    --tag-ember-text: #993C1D;
-    --tag-forest-bg: rgba(99,153,34,0.10);
-    --tag-forest-text: #3B6D11;
-    --tag-pride-bg: rgba(212,83,126,0.10);
-    --tag-pride-text: #993556;
-    --tag-flame-bg: rgba(239,159,39,0.10);
-    --tag-flame-text: #A87010;
+
+    /* Tags */
+    --tag-ember-bg:  rgba(192,106,72,0.08);
+    --tag-ember-text:#804830;
+    --tag-forest-bg: rgba(110,158,122,0.07);
+    --tag-forest-text:#3D6648;
+    --tag-pride-bg:  rgba(180,88,105,0.07);
+    --tag-pride-text:#803850;
+    --tag-flame-bg:  rgba(217,160,96,0.10);
+    --tag-flame-text:#8F5A1F;
+
+    /* On-hero text — readable on mesh blob backgrounds */
+    --on-hero-title: #352418;
+    --on-hero-sub:   #78603E;
   }
 
   /* ── Ember Soft — DARK variant (palette terracotta/apricot sur fond Night) ── */
@@ -1374,14 +1397,68 @@
     display: flex; flex-direction: column; justify-content: space-between;
     cursor: pointer;
   }
-  .light .heatmap-card {
+  /* ── Sand mesh-gradient hero: shared base for every hero card in light ── */
+  .light .wy-hero-card,
+  .light .heatmap-card,
+  .light .event-card.event-promo.gold,
+  .light .event-card.event-promo.pride {
     background:
-      radial-gradient(circle at 30% 40%, rgba(239,159,39,0.35), transparent 50%),
-      radial-gradient(circle at 72% 65%, rgba(216,90,48,0.28), transparent 48%),
-      radial-gradient(circle at 55% 25%, rgba(186,117,23,0.22), transparent 45%),
-      linear-gradient(135deg, #FDEBD6, #FDF0E4);
-    border: 1px solid rgba(216,90,48,0.28);
+      radial-gradient(circle at 28% 30%, rgba(210,155,100,0.28), transparent 55%),
+      radial-gradient(circle at 72% 65%, rgba(192,106,72,0.18), transparent 50%),
+      radial-gradient(circle at 55% 22%, rgba(180,88,105,0.10), transparent 48%),
+      radial-gradient(circle at 82% 90%, rgba(70,145,130,0.08), transparent 45%),
+      linear-gradient(135deg, #E8E0D5, #F0EBE3);
+    border: 1px solid rgba(0,0,0,0.06);
+    box-shadow: 0 2px 14px rgba(0,0,0,0.04);
   }
+
+  /* Per-card flavor: Happening now leans Lichen to echo live presence */
+  .light .wy-hero-card {
+    background:
+      radial-gradient(circle at 28% 30%, rgba(210,155,100,0.22), transparent 55%),
+      radial-gradient(circle at 72% 65%, rgba(192,106,72,0.15), transparent 50%),
+      radial-gradient(circle at 55% 22%, rgba(180,88,105,0.08), transparent 48%),
+      radial-gradient(circle at 82% 90%, rgba(70,145,130,0.14), transparent 45%),
+      linear-gradient(135deg, #E8E0D5, #F0EBE3);
+  }
+
+  /* Heatmap keeps base mesh but preserves the dot overlays via map layer */
+  .light .heatmap-map {
+    opacity: 0.7;
+    filter: saturate(1.05) brightness(1.04);
+    mix-blend-mode: multiply;
+  }
+  .light .heatmap-card::after {
+    background: linear-gradient(180deg, rgba(240,235,227,0) 40%, rgba(232,224,213,0.5) 100%);
+  }
+
+  /* Editorial promos pull their signature accent a little stronger */
+  .light .event-card.event-promo.gold {
+    background:
+      radial-gradient(circle at 28% 30%, rgba(210,155,100,0.38), transparent 55%),
+      radial-gradient(circle at 72% 65%, rgba(192,106,72,0.20), transparent 50%),
+      radial-gradient(circle at 55% 22%, rgba(180,88,105,0.08), transparent 48%),
+      linear-gradient(135deg, #E8E0D5, #F0EBE3);
+    border-color: rgba(192,106,72,0.22);
+  }
+  .light .event-card.event-promo.pride {
+    background:
+      radial-gradient(circle at 72% 30%, rgba(180,88,105,0.28), transparent 55%),
+      radial-gradient(circle at 28% 70%, rgba(210,155,100,0.18), transparent 50%),
+      radial-gradient(circle at 55% 22%, rgba(192,106,72,0.08), transparent 48%),
+      linear-gradient(135deg, #E8E0D5, #F0EBE3);
+    border-color: rgba(180,88,105,0.22);
+  }
+
+  /* On-hero text: readable warm dark tones instead of white */
+  .light .wy-hero-title,
+  .light .heatmap-title,
+  .light .event-card.event-promo .event-name { color: var(--on-hero-title); }
+  .light .wy-hero-sub,
+  .light .heatmap-stat-value,
+  .light .event-card.event-promo .event-meta { color: var(--on-hero-sub); }
+  .light .heatmap-stat-label,
+  .light .wy-hero-sub.wy-hero-when { color: var(--on-hero-sub); opacity: 0.75; }
   .heatmap-map {
     position: absolute;
     inset: 0;
@@ -3549,14 +3626,7 @@
     border: 1.5px solid rgba(212,83,126,0.5);
     box-shadow: 0 2px 14px rgba(212,83,126,0.25);
   }
-  .light .event-card.event-promo.gold {
-    background: linear-gradient(135deg, #FEEBC8, #FFF7E6);
-    border-color: rgba(216,90,48,0.3);
-  }
-  .light .event-card.event-promo.pride {
-    background: linear-gradient(135deg, #FFE8F0, #FFF0F8);
-    border-color: rgba(212,83,126,0.3);
-  }
+  /* Light promo cards use the Sand mesh defined near .heatmap-card light rules */
   .event-promo-badge {
     position: absolute;
     top: 10px; left: 10px;
@@ -3655,10 +3725,10 @@
     stroke: var(--ember);
   }
   .light .view-toggle-btn.uniform {
-    background: rgba(138, 106, 63, 0.12);
+    background: rgba(192,106,72,0.10);
   }
   .light .view-toggle-btn.uniform svg {
-    stroke: #8A6A3F;
+    stroke: var(--ember);
   }
   .masonry-item:active img { transform: scale(1.04); filter: brightness(1.1); }
   .masonry-item .grid-overlay {
@@ -3792,10 +3862,7 @@
     background: linear-gradient(135deg, rgba(29,158,117,0.12), rgba(216,90,48,0.08));
     box-shadow: 0 0 0 1px rgba(29,158,117,0.08), 0 6px 18px rgba(0,0,0,0.18);
   }
-  .light .wy-hero-card {
-    border-color: rgba(29,158,117,0.35);
-    box-shadow: 0 0 0 1px rgba(29,158,117,0.06), 0 4px 14px rgba(29,158,117,0.10);
-  }
+  /* .light .wy-hero-card styled via the Sand mesh rule (near .heatmap-card) */
   .wy-hero-map {
     position: absolute; inset: 0;
     background:
@@ -3805,6 +3872,8 @@
       linear-gradient(135deg, #1a2418, #2a1f18);
     opacity: 0.6;
   }
+  /* In light mode the Sand mesh on .wy-hero-card already provides the texture */
+  .light .wy-hero-map { display: none; }
   .wy-hero-dot {
     position: absolute; width: 10px; height: 10px; border-radius: 50%;
     background: #29C97C;
@@ -3819,6 +3888,8 @@
     background: linear-gradient(180deg, transparent 20%, rgba(0,0,0,0.55) 100%);
     min-height: 160px; justify-content: flex-end;
   }
+  /* Light mode: mesh is already warm enough, skip the darken-to-bottom */
+  .light .wy-hero-body { background: transparent; }
   .wy-hero-eyebrow {
     font-size: 10px; font-weight: 700; letter-spacing: 0.8px;
     color: #29C97C; text-transform: uppercase;
@@ -5132,9 +5203,18 @@
 
   /* ── Light mode overrides ── */
   .light body { background: var(--bg); }
-  .light .topnav { background: linear-gradient(180deg, var(--bg) 60%, transparent); }
-  .light .topnav-msg { background: var(--surface-card); border-color: var(--border-sep); box-shadow: 0 1px 3px rgba(42,32,22,0.06); }
-  .light .topnav-msg svg { stroke: var(--text-primary); }
+  /* Glass topnav: translucent Sand cream, blur captures content behind */
+  .light .topnav {
+    background: rgba(240,235,227,0.75);
+    backdrop-filter: blur(20px) saturate(1.3);
+    -webkit-backdrop-filter: blur(20px) saturate(1.3);
+    border-bottom: 0.5px solid rgba(0,0,0,0.04);
+    -webkit-mask: none; mask: none;
+  }
+  .light .topnav-msg { background: transparent; border-color: transparent; box-shadow: none; }
+  .light .topnav-msg svg { stroke: var(--text-tabs-inactive); }
+  .light .topnav-msg:hover { background: rgba(192,106,72,0.08); }
+  .light .topnav-msg:hover svg { stroke: var(--ember); }
   .light .topnav-loc { background: var(--surface-card); border-color: var(--border-sep); box-shadow: 0 1px 3px rgba(42,32,22,0.06); color: var(--text-primary); }
   .light .notif-badge { border-color: var(--bg); }
   .light .topnav-avatar { border-color: rgba(216,90,48,0.35); box-shadow: 0 0 0 1px rgba(42,32,22,0.08); }
@@ -5142,22 +5222,23 @@
   .light .topnav-brand span { color: var(--ember); opacity: 0.55; }
 
   .light .filter-tab { color: var(--text-tertiary); }
-  .light .filter-tab.active { color: #8A6A3F; background: rgba(138, 106, 63, 0.12); box-shadow: none; }
+  .light .filter-tab { color: var(--text-tabs-inactive); }
+  .light .filter-tab.active { color: var(--ember); background: rgba(192,106,72,0.08); box-shadow: none; }
 
   .light .live-strip {
     background: linear-gradient(135deg, rgba(29,158,117,0.10), rgba(99,153,34,0.05));
     border-color: rgba(29,158,117,0.25);
   }
-  .light .live-strip-right { color: #8A6A3F; background: rgba(138, 106, 63, 0.12); }
-  .light .live-strip-right svg { stroke: #8A6A3F; }
+  .light .live-strip-right { color: var(--ember); background: rgba(192,106,72,0.08); }
   .light .live-strip-right svg { stroke: var(--ember); }
-  .light .live-count { color: #0E6B4E; }
+  .light .live-strip-right svg { stroke: var(--ember); }
+  .light .live-count { color: var(--forest); }
 
   .light .activity-ring { border-color: var(--border-sep); background: var(--bg); }
-  .light .activity-ring:not(.seen) .activity-img { border-color: #8A6A3F; }
+  .light .activity-ring:not(.seen) .activity-img { border-color: var(--ember); }
   .light .activity-ring.seen .activity-img { border-color: rgba(30,26,20,0.1); background-color: var(--surface-card) !important; }
-  .light .activity-dot { border-color: var(--bg); background: #6B8266; }
-  .light .activity-live { color: #8A6A3F; }
+  .light .activity-dot { border-color: var(--bg); background: var(--forest); }
+  .light .activity-live { color: var(--ember); }
   .light .activity-name { color: var(--text-secondary); }
   .light .activity-rail { border-bottom-color: var(--border-sep); }
   .light .activity-add { background: linear-gradient(135deg, rgba(216,90,48,0.08), rgba(239,159,39,0.04)); }
@@ -5188,14 +5269,36 @@
   .light .feed-action-btn span { color: var(--text-secondary); }
 
   .light .glass-btn {
-    background: rgba(255,255,255,0.92);
+    background: rgba(248,244,236,0.92);
     border-color: var(--border-btn);
-    box-shadow: 0 4px 20px rgba(42,32,22,0.10), 0 1px 3px rgba(42,32,22,0.06);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.04);
   }
   .light .glass-btn.pressed {
-    background: rgba(216,90,48,0.14);
-    border-color: rgba(216,90,48,0.4);
+    background: rgba(192,106,72,0.12);
+    border-color: rgba(192,106,72,0.35);
   }
+  /* FAB main: Terracotta→Apricot vertical gradient + soft halo */
+  .light .fab {
+    background: linear-gradient(180deg, #C06A48, #D9A060);
+    border-color: rgba(255,255,255,0.4);
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,0.5),
+      inset 0 -1px 0 rgba(0,0,0,0.08),
+      0 3px 10px rgba(192,106,72,0.25),
+      0 10px 28px rgba(192,106,72,0.12);
+  }
+  .light .fab::before { display: none; }
+  .light .fab::after { display: none; }
+  .light .fab svg { stroke: #fff; }
+  /* Mini-action: cream glass instead of dark */
+  .light .mini-action {
+    background:
+      radial-gradient(130% 90% at 28% 18%, rgba(255,255,255,0.5), rgba(255,255,255,0) 55%),
+      rgba(248,244,236,0.92);
+    border-color: rgba(0,0,0,0.06);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+  }
+  .light .mini-action::before { display: none; }
   .light .mini-action svg { stroke: var(--text-primary); }
   .light .action-label { color: var(--text-primary); text-shadow: 0 1px 2px rgba(255,255,255,0.6); }
   .light .action-label.highlight { color: var(--ember); }
@@ -5210,8 +5313,8 @@
   .light .chat-row { border-color: var(--border-sep); }
   .light .chat-online { border-color: var(--bg-elevated); }
   .light .chat-time { color: var(--text-tertiary); }
-  .light .chat-preview.typing { color: #0E6B4E; }
-  .light .chat-preview.typing::before { background: #0E6B4E; }
+  .light .chat-preview.typing { color: var(--forest); }
+  .light .chat-preview.typing::before { background: var(--forest); }
 
   .light .more-row { border-color: var(--border-sep); }
   .light .more-icon { background: var(--bg-subtle); }
