@@ -1519,28 +1519,28 @@
   .activity-ring {
     width: 100%; height: 100%;
     border-radius: 18px;
-    border: none;
-    padding: 0;
-    background: transparent;
+    border: 2px solid var(--surface-card);
+    padding: 2px;
+    background: var(--bg);
   }
   .activity-ring:not(.seen) {
-    background: transparent;
-    box-shadow: none;
+    border: none;
+    padding: 0;
+    background: linear-gradient(135deg, var(--ember), var(--flame), var(--honey));
+    box-shadow: 0 2px 12px rgba(216,90,48,0.3);
   }
   .activity-ring:not(.seen) .activity-img {
-    border: 1.5px solid var(--ember);
-    border-radius: 18px;
+    border: 2.5px solid var(--bg);
   }
   .activity-img {
     width: 100%; height: 100%;
-    border-radius: 18px;
+    border-radius: 16px;
     display: flex; align-items: center; justify-content: center;
     font-size: 14px; font-weight: 700;
     color: rgba(255,255,255,0.85);
   }
   .activity-ring.seen .activity-img {
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 18px;
+    border-radius: 15px;
   }
   .activity-dot {
     position: absolute; top: 0; right: 0;
@@ -4846,8 +4846,8 @@
   .light .live-count { color: #0E6B4E; }
 
   .light .activity-ring { border-color: var(--border-sep); background: var(--bg); }
-  .light .activity-ring:not(.seen) .activity-img { border-color: #8A6A3F; }
-  .light .activity-ring.seen .activity-img { border-color: rgba(30,26,20,0.1); background-color: var(--surface-card) !important; }
+  .light .activity-ring:not(.seen) .activity-img { border-color: var(--bg); }
+  .light .activity-ring.seen .activity-img { background-color: var(--surface-card) !important; }
   .light .activity-dot { border-color: var(--bg); background: #6B8266; }
   .light .activity-live { color: #8A6A3F; }
   .light .activity-name { color: var(--text-secondary); }
