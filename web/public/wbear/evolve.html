@@ -149,14 +149,12 @@
     box-shadow: 0 0 0 1px rgba(0,0,0,0.15);
   }
   .topnav-brand {
-    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", system-ui, sans-serif;
-    font-size: 18px; font-weight: 300; font-style: italic;
-    letter-spacing: -0.02em;
+    font-size: 19px; font-weight: 700; letter-spacing: -0.4px;
     color: var(--text-primary);
     display: flex; align-items: center; gap: 2px;
     position: relative;
   }
-  .topnav-brand span { font-weight: 300; font-style: normal; color: var(--ember); opacity: 0.7; margin: 0 4px; }
+  .topnav-brand span { font-weight: 400; color: var(--flame); opacity: 0.55; margin: 0 4px; }
   .topnav-brand::after {
     content: '';
     position: absolute;
@@ -203,11 +201,11 @@
     border: 1px solid transparent;
   }
   .filter-tab.active {
-    color: var(--ember);
+    color: var(--on-ember);
     font-weight: 600;
-    background: rgba(216, 90, 48, 0.10);
+    background: linear-gradient(135deg, var(--ember), var(--honey));
     border-color: transparent;
-    box-shadow: none;
+    box-shadow: 0 2px 10px rgba(216,90,48,0.25);
   }
   .filter-tab.active::after { display: none; }
 
@@ -580,11 +578,10 @@
     color: var(--tag-pride-text);
   }
   .pack-shortcut-link {
-    font-size: 11px; font-weight: 400;
-    color: var(--text-tertiary);
+    font-size: 11px; font-weight: 700;
+    color: var(--flame);
     letter-spacing: 0.2px;
     cursor: pointer;
-    white-space: nowrap;
   }
   /* Higher specificity than .groups-rail / .collections-rail / .fresh-drops-rail
      (which are declared later with display:flex); :not(.active) ensures the
@@ -1463,23 +1460,23 @@
   }
   .live-strip-right {
     display: flex; align-items: center; gap: 6px;
-    font-weight: 600;
-    color: var(--ember);
-    background: rgba(216, 90, 48, 0.12);
+    font-weight: 700;
+    color: var(--on-ember);
+    background: linear-gradient(135deg, var(--ember), var(--flame));
     border: none;
     padding: 6px 10px 6px 9px;
     border-radius: 10px;
     cursor: pointer;
     position: relative; z-index: 1;
-    box-shadow: none;
-    transition: transform 0.15s, background 0.15s;
+    box-shadow: 0 2px 8px rgba(216,90,48,0.35);
+    transition: transform 0.15s, box-shadow 0.15s;
     font-family: inherit;
     font-size: 12px;
   }
   .live-strip-right:active { transform: scale(0.96); }
   .live-strip-right svg {
     width: 12px; height: 12px;
-    stroke: var(--ember); fill: none;
+    stroke: var(--on-ember); fill: none;
     stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round;
   }
   .live-strip-right .live-arrow {
@@ -1520,48 +1517,48 @@
   .activity-ring {
     width: 100%; height: 100%;
     border-radius: 18px;
-    border: none;
-    padding: 0;
-    background: transparent;
+    border: 2px solid var(--surface-card);
+    padding: 2px;
+    background: var(--bg);
   }
   .activity-ring:not(.seen) {
-    background: transparent;
-    box-shadow: none;
+    border: none;
+    padding: 0;
+    background: linear-gradient(135deg, var(--ember), var(--flame), var(--honey));
+    box-shadow: 0 2px 12px rgba(216,90,48,0.3);
   }
   .activity-ring:not(.seen) .activity-img {
-    border: 1.5px solid var(--ember);
-    border-radius: 18px;
+    border: 2.5px solid var(--bg);
   }
   .activity-img {
     width: 100%; height: 100%;
-    border-radius: 18px;
+    border-radius: 16px;
     display: flex; align-items: center; justify-content: center;
     font-size: 14px; font-weight: 700;
     color: rgba(255,255,255,0.85);
   }
   .activity-ring.seen .activity-img {
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 18px;
+    border-radius: 15px;
   }
   .activity-dot {
-    position: absolute; top: 0; right: 0;
-    width: 10px; height: 10px;
-    border-radius: 5px;
-    background: #7AA370;
-    border: 2px solid var(--bg);
-    box-shadow: none;
+    position: absolute; top: -2px; right: -2px;
+    width: 14px; height: 14px;
+    border-radius: 7px;
+    background: var(--forest);
+    border: 2.5px solid var(--bg);
+    box-shadow: 0 1px 4px rgba(99,153,34,0.4);
   }
   .activity-live {
     position: absolute;
-    top: -16px; left: 50%; transform: translateX(-50%);
-    padding: 0;
-    background: transparent;
-    border: none;
-    border-radius: 0;
-    font-size: 9px; font-weight: 600;
-    color: var(--ember);
-    letter-spacing: 0.12em;
-    box-shadow: none;
+    top: -4px; left: 50%; transform: translateX(-50%);
+    padding: 2px 6px;
+    background: linear-gradient(135deg, #E8432A, var(--ember));
+    border: 2px solid var(--bg);
+    border-radius: 8px;
+    font-size: 8.5px; font-weight: 800;
+    color: #fff;
+    letter-spacing: 0.6px;
+    box-shadow: 0 2px 8px rgba(232,67,42,0.5);
     z-index: 2;
   }
   .activity-add {
@@ -1575,7 +1572,14 @@
     font-size: 28px; font-weight: 300;
     line-height: 1;
   }
-  .activity-add-avatar { display: none; }
+  .activity-add-avatar {
+    position: absolute;
+    bottom: -4px; right: -4px;
+    width: 22px; height: 22px;
+    border-radius: 8px;
+    background-size: cover; background-position: center;
+    border: 2.5px solid var(--bg);
+  }
   .activity-name {
     font-size: 11px; font-weight: 500;
     color: var(--text-secondary);
@@ -2622,11 +2626,10 @@
     letter-spacing: -0.2px;
   }
   .group-section-link {
-    font-size: 11.5px; font-weight: 400;
-    color: var(--text-tertiary);
+    font-size: 11.5px; font-weight: 700;
+    color: var(--flame);
     cursor: pointer;
     letter-spacing: 0.1px;
-    white-space: nowrap;
   }
   .group-about {
     font-size: 13.5px; font-weight: 400;
@@ -3167,11 +3170,10 @@
     letter-spacing: -0.2px;
   }
   .event-section-link {
-    font-size: 11.5px; font-weight: 400;
-    color: var(--text-tertiary);
+    font-size: 11.5px; font-weight: 700;
+    color: var(--flame);
     letter-spacing: 0.1px;
     cursor: pointer;
-    white-space: nowrap;
   }
 
   .event-attendees {
@@ -3280,10 +3282,8 @@
     padding: 14px 16px 10px;
   }
   .feed-section-title {
-    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", system-ui, sans-serif;
-    font-size: 18px; font-weight: 500;
-    letter-spacing: -0.02em;
-    line-height: 1.25;
+    font-size: 13px; font-weight: 700;
+    letter-spacing: -0.2px;
     color: var(--text-primary);
   }
   .feed-new-badge {
@@ -3303,20 +3303,20 @@
     padding: 0 20px 10px;
   }
   .events-title {
-    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", system-ui, sans-serif;
-    font-size: 18px; font-weight: 500;
-    letter-spacing: -0.02em;
-    line-height: 1.25;
+    font-size: 14px; font-weight: 700;
+    letter-spacing: -0.2px;
     color: var(--text-primary);
     display: flex; align-items: center; gap: 8px;
   }
-  .events-title-dot { display: none; }
+  .events-title-dot {
+    width: 5px; height: 5px; border-radius: 50%;
+    background: var(--ember);
+  }
   .events-see-all {
-    font-size: 11px; font-weight: 400;
-    color: var(--text-tertiary);
+    font-size: 11px; font-weight: 600;
+    color: var(--flame);
     letter-spacing: 0.2px;
     cursor: pointer;
-    white-space: nowrap;
   }
   .events-rail {
     display: flex;
@@ -3481,51 +3481,22 @@
   .masonry {
     padding: 5px;
     padding-bottom: calc(100px + env(safe-area-inset-bottom, 0px));
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-auto-rows: 2px;
-    grid-auto-flow: row dense;
-    gap: 5px;
+    column-count: 3;
+    column-gap: 5px;
   }
   .masonry-item {
+    break-inside: avoid;
+    margin-bottom: 5px;
     border-radius: var(--radius-default);
     overflow: hidden;
     background: var(--surface-card);
     position: relative;
     box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-    /* grid-row-end is set per-tile via JS from the image's natural aspect ratio.
-       Fallback span ≈ 4:5 tile for items waiting on image load. */
-    grid-row-end: span 22;
   }
   .masonry-item img {
     width: 100%;
-    height: 100%;
     display: block;
-    object-fit: cover;
     transition: transform 0.25s ease, filter 0.25s ease;
-  }
-
-  /* ── Uniform grid (perfect 3-col: forces every tile to 4:5) ── */
-  .masonry.active.uniform {
-    grid-auto-rows: auto;
-    grid-auto-flow: row;
-  }
-  .masonry.uniform .masonry-item {
-    grid-row-end: auto !important;
-    aspect-ratio: 4 / 5 !important;
-  }
-  /* Active-uniform state on the Grid button: subtle tint */
-  .view-toggle-btn.uniform {
-    background: rgba(216, 90, 48, 0.12);
-  }
-  .view-toggle-btn.uniform svg {
-    stroke: var(--ember);
-  }
-  .light .view-toggle-btn.uniform {
-    background: rgba(138, 106, 63, 0.12);
-  }
-  .light .view-toggle-btn.uniform svg {
-    stroke: #8A6A3F;
   }
   .masonry-item:active img { transform: scale(1.04); filter: brightness(1.1); }
   .masonry-item .grid-overlay {
@@ -3633,10 +3604,8 @@
     margin-bottom: 10px;
   }
   .wy-section-title {
-    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", system-ui, sans-serif;
-    font-size: 18px; font-weight: 500; color: var(--text-primary);
-    letter-spacing: -0.02em;
-    line-height: 1.25;
+    font-size: 17px; font-weight: 700; color: var(--text-primary);
+    letter-spacing: -0.3px;
   }
   .wy-section-sub {
     font-size: 12px; color: var(--text-tertiary);
@@ -3644,9 +3613,8 @@
     letter-spacing: -0.1px;
   }
   .wy-see-all {
-    font-size: 13px; font-weight: 400; color: var(--text-tertiary);
+    font-size: 13px; font-weight: 600; color: var(--ember);
     cursor: pointer;
-    white-space: nowrap;
   }
 
   /* Hero: Happening now */
@@ -3869,7 +3837,7 @@
   /* ── Feed View ── */
   .feed { display: none; }
   .feed.active { display: block; }
-  .masonry.active { display: grid; }
+  .masonry.active { display: block; }
   .masonry:not(.active) { display: none; }
   .feed {
     padding: 0 0 calc(100px + env(safe-area-inset-bottom, 0px));
@@ -4308,10 +4276,8 @@
     padding-top: max(16px, env(safe-area-inset-top, 16px));
   }
   .action-screen-title {
-    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", system-ui, sans-serif;
-    font-size: 22px; font-weight: 500;
-    letter-spacing: -0.025em;
-    line-height: 1.2;
+    font-size: 20px; font-weight: 700;
+    letter-spacing: -0.3px;
   }
   .close-btn {
     width: 44px; height: 44px;
@@ -4326,30 +4292,6 @@
     fill: none;
     stroke-width: 2; stroke-linecap: round;
   }
-
-  /* Compose button — inherits close-btn layout but tinted pine to
-     read as "start something new" without the urgency of ember red. */
-  .compose-btn {
-    width: 44px; height: 44px;
-    border-radius: var(--radius-default);
-    border: none; cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    transition: transform 0.15s, background 0.15s;
-    background: rgba(29, 158, 117, 0.16);
-    color: var(--pine);
-  }
-  .compose-btn:active { transform: scale(0.92); }
-  .compose-btn:hover { background: rgba(29, 158, 117, 0.22); }
-  .compose-btn svg {
-    width: 18px; height: 18px;
-    fill: none;
-    stroke: var(--pine);
-    stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
-  }
-  .light .compose-btn {
-    background: rgba(29, 158, 117, 0.14);
-  }
-  .light .compose-btn svg { stroke: var(--pine); }
   .action-screen-body {
     flex: 1; display: flex; flex-direction: column;
     overflow: hidden;
@@ -4882,22 +4824,21 @@
   .light .topnav-brand span { color: var(--ember); opacity: 0.55; }
 
   .light .filter-tab { color: var(--text-tertiary); }
-  .light .filter-tab.active { color: #8A6A3F; background: rgba(138, 106, 63, 0.12); box-shadow: none; }
+  .light .filter-tab.active { color: #fff; background: linear-gradient(135deg, var(--ember), var(--honey)); box-shadow: 0 4px 14px rgba(216,90,48,0.30); }
 
   .light .live-strip {
     background: linear-gradient(135deg, rgba(29,158,117,0.10), rgba(99,153,34,0.05));
     border-color: rgba(29,158,117,0.25);
   }
-  .light .live-strip-right { color: #8A6A3F; background: rgba(138, 106, 63, 0.12); }
-  .light .live-strip-right svg { stroke: #8A6A3F; }
+  .light .live-strip-right { color: var(--ember); }
   .light .live-strip-right svg { stroke: var(--ember); }
   .light .live-count { color: #0E6B4E; }
 
   .light .activity-ring { border-color: var(--border-sep); background: var(--bg); }
-  .light .activity-ring:not(.seen) .activity-img { border-color: #8A6A3F; }
-  .light .activity-ring.seen .activity-img { border-color: rgba(30,26,20,0.1); background-color: var(--surface-card) !important; }
-  .light .activity-dot { border-color: var(--bg); background: #6B8266; }
-  .light .activity-live { color: #8A6A3F; }
+  .light .activity-ring:not(.seen) .activity-img { border-color: var(--bg); }
+  .light .activity-ring.seen .activity-img { background-color: var(--surface-card) !important; }
+  .light .activity-dot { border-color: var(--bg); }
+  .light .activity-live { border-color: var(--bg); }
   .light .activity-name { color: var(--text-secondary); }
   .light .activity-rail { border-bottom-color: var(--border-sep); }
   .light .activity-add { background: linear-gradient(135deg, rgba(216,90,48,0.08), rgba(239,159,39,0.04)); }
@@ -5249,6 +5190,482 @@
     box-shadow: 0 2px 6px rgba(216,90,48,0.3);
   }
 </style>
+
+<!-- ── Calm overrides (evolve.html) — same features + same palette, less noise ── -->
+<style id="calm-overrides">
+  :root { --display: -apple-system, BlinkMacSystemFont, "SF Pro Display", system-ui, sans-serif; }
+
+  /* 1 — Stop all the pulsing. iOS-calm: one moving thing at a time. */
+  .live-dot,
+  .activity-row.unread::before,
+  .story-live-badge,
+  .fab:not(.expanded),
+  .activity-chip.unread::before,
+  .wy-circle-dot,
+  .wy-hero-eyebrow::before,
+  .wy-hero-dot {
+    animation: none !important;
+  }
+
+  /* 2 — Demote filter tab active: subtle tint instead of loud gradient */
+  .filter-tab.active {
+    background: rgba(216, 90, 48, 0.10) !important;
+    color: var(--ember) !important;
+    box-shadow: none !important;
+  }
+  .light .filter-tab.active {
+    background: rgba(138, 106, 63, 0.12) !important;
+    color: #8A6A3F !important;
+  }
+
+  /* 3 — Drop card borders. Let surface contrast do the work. */
+  .events-card,
+  .editorial-card,
+  .collection-card,
+  .group-rail-card,
+  .social-card,
+  .feed-card,
+  .activity-chip,
+  .wy-sent-card,
+  .wy-invite,
+  .wy-circle,
+  .wy-tag-item,
+  .groups-list-card {
+    border-color: transparent !important;
+  }
+
+  /* 4 — FAB: keep the brand, ditch the halo */
+  .fab {
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,0.35),
+      inset 0 -1px 0 rgba(0,0,0,0.15),
+      0 1px 2px rgba(0,0,0,0.18),
+      0 10px 24px rgba(0,0,0,0.25) !important;
+  }
+  @keyframes fabIdle { 0%,100% { } }
+
+  /* 5 — Notif badges: solid, quiet */
+  .notif-badge {
+    box-shadow: none !important;
+    border-width: 2px !important;
+    background: var(--ember) !important;
+  }
+  .notif-badge-activity {
+    background: #CF3A30 !important;
+  }
+
+  /* 6 — Chicago pill & nearby: sober fill */
+  .live-strip-right {
+    background: rgba(216,90,48,0.12) !important;
+    color: var(--ember) !important;
+    box-shadow: none !important;
+  }
+  .light .live-strip-right {
+    background: rgba(138,106,63,0.12) !important;
+    color: #8A6A3F !important;
+  }
+
+  /* 7 — "See all ›" in muted, not ember */
+  .events-see-all,
+  .pack-shortcut-link,
+  .wy-see-all,
+  .event-section-link,
+  .group-section-link {
+    color: var(--text-tertiary) !important;
+    font-weight: 400 !important;
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
+    align-self: flex-end;
+    padding-bottom: 4px;
+  }
+
+  /* 8 — SF Pro Display, moderate scale. Hierarchy via weight + letter-spacing. */
+  .feed-section-title,
+  .events-title,
+  .wy-section-title,
+  .group-section-title,
+  .following-card-title {
+    font-family: var(--display) !important;
+    font-weight: 500 !important;
+    letter-spacing: -0.02em !important;
+    font-size: 18px !important;
+    line-height: 1.25 !important;
+  }
+  .action-screen-title {
+    font-family: var(--display) !important;
+    font-weight: 500 !important;
+    letter-spacing: -0.025em !important;
+    font-size: 22px !important;
+    line-height: 1.2 !important;
+  }
+  .events-title-dot { display: none; }
+
+  /* Light breathing */
+  .events-header,
+  .feed-header-row,
+  .wy-section-head {
+    padding-bottom: 6px;
+    margin-bottom: 10px !important;
+  }
+
+  /* 9 — Secondary CTAs lose the ember. Only primary keeps it. */
+  .activity-row-cta.secondary,
+  .wy-invite-btn.secondary {
+    background: transparent !important;
+    color: var(--text-secondary) !important;
+    border: 1px solid var(--hairline, rgba(255,255,255,0.08)) !important;
+  }
+  .activity-row-cta:not(.secondary) {
+    background: transparent !important;
+    color: var(--ember) !important;
+    border: 1px solid rgba(216,90,48,0.25) !important;
+    box-shadow: none !important;
+  }
+  .light .activity-row-cta:not(.secondary) {
+    color: #8A6A3F !important;
+    border-color: rgba(138,106,63,0.25) !important;
+  }
+
+  /* 10 — Feed-new-badge: quiet tag, not a loud gradient pill */
+  .feed-new-badge {
+    background: transparent !important;
+    color: var(--text-tertiary) !important;
+    border: 1px solid var(--hairline, rgba(255,255,255,0.1)) !important;
+    font-weight: 500 !important;
+    box-shadow: none !important;
+  }
+
+  /* 11 — Photos: slight desaturation for editorial feel */
+  .masonry-item img,
+  .feed-img,
+  .wy-sent-thumb,
+  .wy-tag-item,
+  .wy-circle-thumb,
+  .editorial-card img,
+  .events-card-img,
+  .activity-row-thumb,
+  .grid-cell img,
+  .post-main-img,
+  .collection-photo {
+    filter: saturate(0.82) contrast(0.98);
+  }
+
+  /* 12 — Hero "Happening now" card — tone down gradients */
+  .wy-hero-card {
+    background: var(--surface-card) !important;
+  }
+  .wy-hero-map { opacity: 0.35 !important; }
+  .wy-hero-body { background: linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.35) 100%) !important; }
+
+  /* 13 — Inbox segmented: softer active state */
+  .inbox-segment.active {
+    box-shadow: none !important;
+    background: var(--bg-subtle) !important;
+  }
+  .inbox-segment-count { font-weight: 500 !important; }
+  .inbox-segment.active .inbox-segment-count {
+    background: var(--ember) !important;
+  }
+
+  /* 14 — Bigger breathing room between sections */
+  .editorial-section,
+  .pack-shortcuts,
+  .events-section,
+  .feed-header-row {
+    margin-top: 14px;
+    margin-bottom: 14px;
+  }
+  .wy-section { margin-bottom: 34px !important; }
+
+  /* 15 — Softer icon strokes */
+  .activity-filter svg,
+  .following-filter svg,
+  .nav-tool svg,
+  .topnav-msg svg,
+  .theme-toggle svg,
+  .view-toggle-btn svg {
+    stroke-width: 1.4 !important;
+  }
+
+  /* 16 — Activity list text: reduce bolds */
+  .activity-row-text strong,
+  .chat-name,
+  .feed-username,
+  .post-name {
+    font-weight: 600 !important;
+  }
+  .activity-row-text {
+    font-weight: 400 !important;
+  }
+
+  /* 17 — Brand in the topnav: SF Pro Display light italic */
+  .topnav-brand {
+    font-family: var(--display) !important;
+    font-weight: 300 !important;
+    font-style: italic !important;
+    letter-spacing: -0.02em !important;
+    font-size: 18px !important;
+  }
+  .topnav-brand span {
+    color: var(--ember);
+    margin: 0 4px;
+    opacity: 0.7;
+    font-weight: 300;
+    font-style: normal;
+  }
+
+  /* 18 — Quiet "LIVE" badge on stories → static ember dot-based */
+  .story-live-badge {
+    background: var(--ember) !important;
+    box-shadow: none !important;
+    animation: none !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.05em !important;
+  }
+
+  /* 19 — "Say hi" / "Follow back" / "View" unified quiet-primary look
+     (already covered by rule 9 but re-apply on ember buttons with class primary) */
+  .event-rsvp-btn.primary,
+  .profile-cta.primary {
+    box-shadow: none !important;
+  }
+
+  /* 20 — Drop subtle inner pulse on the 'bears online' stat */
+  .live-count { font-weight: 500 !important; }
+
+  /* ─────── Card dissolution ─────── */
+
+  /* 21 — Editorial cards: no surface, just media + text below */
+  .editorial-card {
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    width: 220px !important;
+  }
+  .editorial-card-media {
+    height: 140px !important;
+    border-radius: 10px !important;
+    overflow: hidden;
+  }
+  .editorial-card-media::after {
+    display: none !important;
+  }
+  /* Hide loud labels on photos; category is carried by title */
+  .editorial-card-label {
+    display: none !important;
+  }
+  .editorial-card-body {
+    padding: 10px 0 0 !important;
+  }
+  .editorial-card-title {
+    font-weight: 500 !important;
+    font-size: 14px !important;
+    letter-spacing: -0.015em !important;
+    -webkit-line-clamp: 2 !important;
+  }
+  .editorial-card-sub {
+    font-weight: 400 !important;
+    font-size: 12px !important;
+    color: var(--text-tertiary) !important;
+    letter-spacing: 0 !important;
+    margin-top: 4px !important;
+  }
+  /* Countdown overlay (29 DAYS UNTIL): soften */
+  .editorial-countdown-num {
+    font-weight: 300 !important;
+    font-size: 42px !important;
+    letter-spacing: -0.03em !important;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.35) !important;
+  }
+  .editorial-countdown-label {
+    font-weight: 500 !important;
+    letter-spacing: 0.15em !important;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.35) !important;
+  }
+  .editorial-section {
+    border-bottom: none !important;
+  }
+
+  /* 22 — Masonry photos: pure images, no overlays */
+  .masonry-item .grid-overlay,
+  .masonry-item .grid-verified,
+  .masonry-item .grid-chip,
+  .masonry-item .grid-boost {
+    display: none !important;
+  }
+  /* Featured treatment: drop the ember glow, just a thin hairline */
+  .masonry-item.featured {
+    box-shadow: none !important;
+    border: none !important;
+  }
+  .masonry-item.featured::before,
+  .masonry-item.featured::after {
+    display: none !important;
+  }
+  /* Sharper corners too — less "card", more "photo" */
+  .masonry-item {
+    border-radius: 6px !important;
+  }
+
+  /* 23 — Community feed header row: soften */
+  .feed-header-row {
+    margin-top: 18px !important;
+  }
+
+  /* 24 — Events card (Local events rail) same treatment */
+  .events-card {
+    background: transparent !important;
+    border: none !important;
+  }
+  .events-card-img {
+    border-radius: 10px !important;
+  }
+
+  /* ─────── Stories / Presence rail ─────── */
+
+  /* 25 — Quiet stories: drop ember rings, drop LIVE pill, softer dots */
+  .activity-ring:not(.seen) {
+    background: transparent !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    border: none !important;
+  }
+  .activity-ring:not(.seen) .activity-img {
+    border: 1.5px solid var(--ember) !important;
+    border-radius: 18px !important;
+  }
+  .light .activity-ring:not(.seen) .activity-img {
+    border-color: #8A6A3F !important;
+  }
+  .activity-ring {
+    border: none !important;
+    background: transparent !important;
+  }
+  .activity-ring.seen .activity-img {
+    border: 1px solid var(--hairline-strong, rgba(255,255,255,0.08)) !important;
+    border-radius: 18px !important;
+  }
+  /* Presence dot — smaller, no glow */
+  .activity-dot {
+    width: 10px !important; height: 10px !important;
+    background: #7AA370 !important;
+    box-shadow: none !important;
+    border-width: 2px !important;
+    top: 0 !important; right: 0 !important;
+  }
+  /* LIVE badge → plain text kicker, no red pill */
+  .activity-live {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    color: var(--ember) !important;
+    font-weight: 600 !important;
+    font-size: 9px !important;
+    letter-spacing: 0.12em !important;
+    top: -16px !important;
+    padding: 0 !important;
+  }
+  .light .activity-live { color: #8A6A3F !important; }
+  /* Your story "+" — neutral, less ember */
+  .activity-add {
+    background: var(--bg-subtle) !important;
+  }
+  .activity-add::after {
+    color: var(--text-secondary) !important;
+    font-weight: 300 !important;
+  }
+  .activity-add-avatar { display: none !important; }
+  .activity-name {
+    color: var(--text-tertiary) !important;
+    font-weight: 400 !important;
+  }
+
+  /* ─────── Hairlines between sections ─────── */
+
+  /* 26 — Soft hairlines, iOS Contacts / News style */
+  .activity-rail {
+    padding-bottom: 18px !important;
+    border-bottom: 1px solid var(--hairline, rgba(255,255,255,0.06)) !important;
+    margin-bottom: 18px !important;
+  }
+  .editorial-section,
+  .pack-shortcuts,
+  .events-section {
+    border-bottom: 1px solid var(--hairline, rgba(255,255,255,0.06)) !important;
+    padding-bottom: 18px !important;
+    margin-bottom: 18px !important;
+  }
+  .light .activity-rail,
+  .light .editorial-section,
+  .light .pack-shortcuts,
+  .light .events-section {
+    border-bottom-color: rgba(30,26,20,0.08) !important;
+  }
+
+  /* 27 — With you sections: hairlines between blocks */
+  .wy-section {
+    padding-bottom: 26px !important;
+    margin-bottom: 26px !important;
+    border-bottom: 1px solid var(--hairline, rgba(255,255,255,0.06)) !important;
+  }
+  .wy-section:last-child { border-bottom: none !important; }
+  .light .wy-section { border-bottom-color: rgba(30,26,20,0.08) !important; }
+
+  /* 28 — Dissolve the wy-invite / wy-circle card surfaces too */
+  .wy-invite,
+  .wy-circle {
+    background: transparent !important;
+    padding: 10px 0 !important;
+    border-radius: 0 !important;
+    border-bottom: 1px solid var(--hairline, rgba(255,255,255,0.04)) !important;
+    margin-bottom: 0 !important;
+  }
+  .wy-invite:last-child,
+  .wy-circle:last-child {
+    border-bottom: none !important;
+  }
+  .light .wy-invite,
+  .light .wy-circle { border-bottom-color: rgba(30,26,20,0.06) !important; }
+</style>
+
+<!-- Strip leading emoji from group/circle/section names for a quieter typographic rhythm -->
+<script>
+(function stripEmojiWhenReady() {
+  const EMOJI_RX = /^\s*(?:\p{Extended_Pictographic}(?:\uFE0F)?|\p{Emoji_Presentation})\s*/u;
+  const strip = (el) => {
+    if (!el || !el.firstChild) return;
+    // Only strip if the first text node starts with an emoji
+    const walk = el.childNodes[0];
+    if (walk && walk.nodeType === 3 && EMOJI_RX.test(walk.nodeValue)) {
+      walk.nodeValue = walk.nodeValue.replace(EMOJI_RX, '');
+    } else if (walk && walk.nodeType === 1) {
+      // For nested like <strong>🎳 Name</strong>
+      strip(walk);
+    }
+  };
+  const sweep = () => {
+    document.querySelectorAll(
+      '.wy-circle-name, .group-rail-card-name, .group-card-name, ' +
+      '.chat-name, .groups-list-name, .event-title, .packages-name'
+    ).forEach(strip);
+  };
+  // Run ASAP, then after a tick, then observe DOM for any future inserts
+  const runOnce = () => { sweep(); setTimeout(sweep, 50); setTimeout(sweep, 300); };
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', runOnce);
+  } else {
+    runOnce();
+  }
+  // With-you sections (Invites, In your circles) render on tab click — watch them.
+  const mo = new MutationObserver(() => sweep());
+  document.addEventListener('DOMContentLoaded', () => {
+    mo.observe(document.body, { childList: true, subtree: true });
+  }, { once: true });
+  if (document.readyState !== 'loading') {
+    mo.observe(document.body, { childList: true, subtree: true });
+  }
+})();
+</script>
 </head>
 <body>
 
@@ -5439,7 +5856,7 @@
   <div class="action-screen-header">
     <span class="action-screen-title">Inbox</span>
     <div style="display:flex;gap:8px;align-items:center;">
-      <button class="compose-btn" id="chatComposeBtn" aria-label="New message"><svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></button>
+      <button class="close-btn" id="chatComposeBtn" aria-label="New message"><svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></button>
       <button class="close-btn" data-close><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
     </div>
   </div>
@@ -5916,34 +6333,6 @@ const imgs = [
   '/wbear/Untitled-design-2025-09-04T125911.867.png',
   '/wbear/tumblr_lx8hlaVV9J1r9xpsho1_640.jpg',
 ];
-
-// Demo-only: varied-aspect SVG placeholders to make the masonry mode
-// visibly different from the uniform mode (natural photo pool above is
-// all ~4:5 portrait, so variance is subtle without these).
-(() => {
-  const makeFake = (w, h, hue, label) => {
-    const svg =
-      `<svg xmlns='http://www.w3.org/2000/svg' width='${w}' height='${h}' viewBox='0 0 ${w} ${h}'>` +
-      `<defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'>` +
-      `<stop offset='0' stop-color='hsl(${hue}, 38%, 34%)'/>` +
-      `<stop offset='1' stop-color='hsl(${hue + 25}, 45%, 20%)'/>` +
-      `</linearGradient></defs>` +
-      `<rect width='${w}' height='${h}' fill='url(#g)'/>` +
-      `<text x='50%' y='50%' text-anchor='middle' dominant-baseline='central' ` +
-      `fill='rgba(255,255,255,0.55)' font-family='-apple-system,sans-serif' ` +
-      `font-size='${Math.min(w, h) / 6}' font-weight='300' letter-spacing='-0.02em'>${label}</text>` +
-      `</svg>`;
-    return 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
-  };
-  const fakes = [
-    makeFake(400, 600, 18,  '2:3 tall'),     // tall portrait
-    makeFake(400, 400, 200, '1:1 square'),   // square
-    makeFake(600, 400, 50,  '3:2 wide'),     // landscape
-    makeFake(400, 300, 280, '4:3 wide'),     // wider landscape
-    makeFake(300, 500, 340, '3:5 very tall'),// very tall
-  ];
-  imgs.push(...fakes);
-})();
 
 // ── Populate Activity screen (behind the bell) ──
 (() => {
@@ -6613,48 +7002,6 @@ const fmtLikes = n => n >= 1000 ? (n/1000).toFixed(1).replace(/\.0$/, '') + 'k' 
 const fmtTime = t => /^\d/.test(t) ? `${t} ago` : t;
 
 // Rotate image order each batch so the same shot never appears twice in a row.
-// ── Masonry: cache natural aspect ratios per image src ──
-const imgAspectCache = new Map();
-
-function computeSpan(ratio, tileWidth) {
-  // grid-auto-rows: 2px + 5px gap → row unit = 7px
-  const h = tileWidth * ratio;
-  return Math.max(5, Math.round((h + 5) / 7));
-}
-
-function setMasonryItemSpan(div, img) {
-  const cached = imgAspectCache.get(img.src);
-  const apply = (ratio) => {
-    const width = div.clientWidth || (div.parentElement?.clientWidth || 375) / 3 - 10;
-    div.style.gridRowEnd = `span ${computeSpan(ratio, width)}`;
-  };
-  if (cached !== undefined) {
-    apply(cached);
-    return;
-  }
-  if (img.complete && img.naturalWidth) {
-    const ratio = img.naturalHeight / img.naturalWidth;
-    imgAspectCache.set(img.src, ratio);
-    apply(ratio);
-    return;
-  }
-  img.addEventListener('load', () => {
-    const ratio = img.naturalHeight / img.naturalWidth;
-    imgAspectCache.set(img.src, ratio);
-    apply(ratio);
-  }, { once: true });
-}
-
-// Pre-warm the cache: load each image once to know its aspect before
-// tiles get rendered. Keeps the grid from jumping as images load.
-imgs.forEach(src => {
-  const p = new Image();
-  p.src = src;
-  p.addEventListener('load', () => {
-    imgAspectCache.set(src, p.naturalHeight / p.naturalWidth);
-  }, { once: true });
-});
-
 function shuffledImgs(seed) {
   const arr = [...imgs];
   // Simple seeded shuffle (Fisher-Yates with LCG)
@@ -6885,8 +7232,6 @@ function appendMasonryBatch(count = 12) {
     img.src = pool[k % pool.length];
     img.alt = `Photo by ${name}`;
     img.loading = 'lazy';
-    // Size the tile to the image's natural aspect so there's no cropping.
-    setMasonryItemSpan(div, img);
     div.appendChild(img);
 
     if (featured) {
@@ -7199,27 +7544,16 @@ feed.addEventListener('click', (e) => {
   const feed = document.getElementById('feed');
 
   btnGrid.addEventListener('click', () => {
-    if (btnGrid.classList.contains('active')) {
-      // Second tap on grid: toggle perfect uniform grid
-      const isUniform = masonry.classList.toggle('uniform');
-      btnGrid.classList.toggle('uniform', isUniform);
-    } else {
-      btnGrid.classList.add('active');
-      btnFeed.classList.remove('active');
-      masonry.classList.add('active');
-      feed.classList.remove('active');
-      // Fresh grid starts as masonry
-      masonry.classList.remove('uniform');
-      btnGrid.classList.remove('uniform');
-    }
+    btnGrid.classList.add('active');
+    btnFeed.classList.remove('active');
+    masonry.classList.add('active');
+    feed.classList.remove('active');
   });
   btnFeed.addEventListener('click', () => {
     btnFeed.classList.add('active');
     btnGrid.classList.remove('active');
-    btnGrid.classList.remove('uniform');
     feed.classList.add('active');
     masonry.classList.remove('active');
-    masonry.classList.remove('uniform');
   });
 })();
 
@@ -8659,31 +8993,6 @@ function applyFilter(filter) {
     const feedCount    = filter === 'following' ? 4 : 6;
     appendMasonryBatch(masonryCount);
     appendFeedBatch(feedCount);
-  }
-
-  // Default view per tab
-  //   Worldwide → masonry standard
-  //   Local     → uniform grid (tight 3-col, aspect 4:5)
-  //   Following → feed (long-form posts)
-  if (!isShared) {
-    const btnGrid = document.getElementById('btnGrid');
-    const btnFeed = document.getElementById('btnFeed');
-    const wantsFeed    = filter === 'following';
-    const wantsUniform = filter === 'local';
-
-    if (wantsFeed) {
-      btnFeed.classList.add('active');
-      btnGrid.classList.remove('active', 'uniform');
-      feed.classList.add('active');
-      masonry.classList.remove('active', 'uniform');
-    } else {
-      btnGrid.classList.add('active');
-      btnFeed.classList.remove('active');
-      feed.classList.remove('active');
-      masonry.classList.add('active');
-      masonry.classList.toggle('uniform', wantsUniform);
-      btnGrid.classList.toggle('uniform', wantsUniform);
-    }
   }
 
   // Keep sentinel at bottom for infinite scroll
