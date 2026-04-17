@@ -8478,8 +8478,10 @@ function renderWithYou() {
       ${circleRows}
     </section>`;
 
-  // Section order: emotional journey — hype → warmth → action → vanity → belonging
-  root.innerHTML = hero + sent + invitesSec + tagged + circlesSec;
+  // Section order: task-oriented — time-urgent / action-required items up top,
+  // browseable content below. Happening now → Invites (decisions) →
+  // Sent to you → Where you appear → In your circles.
+  root.innerHTML = hero + invitesSec + sent + tagged + circlesSec;
 }
 
 // ── Renderers for "See all" screens from With you ──
