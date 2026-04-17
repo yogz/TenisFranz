@@ -1682,6 +1682,55 @@
     margin-right: 2px;
   }
 
+  /* ── Inbox: iOS segmented control ── */
+  .inbox-segmented {
+    flex-shrink: 0;
+    display: flex;
+    margin: 4px 16px 12px;
+    padding: 3px;
+    background: var(--surface-card);
+    border: 1px solid var(--border-sep);
+    border-radius: 11px;
+    gap: 2px;
+  }
+  .inbox-segment {
+    flex: 1;
+    padding: 8px 10px;
+    border-radius: 8px;
+    font-size: 14px; font-weight: 600;
+    color: var(--text-secondary);
+    text-align: center;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+    transition: background 0.15s, color 0.15s, box-shadow 0.15s;
+    -webkit-user-select: none; user-select: none;
+  }
+  .inbox-segment.active {
+    background: var(--bg);
+    color: var(--text-primary);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.25), 0 0 0 0.5px rgba(255,255,255,0.05);
+  }
+  .light .inbox-segment.active {
+    background: var(--surface-card);
+    box-shadow: 0 1px 2px rgba(42,32,22,0.1);
+  }
+  .inbox-segment-count {
+    background: rgba(255,255,255,0.08);
+    color: var(--text-secondary);
+    font-size: 11px; font-weight: 700;
+    min-width: 18px; height: 18px;
+    border-radius: 9px;
+    padding: 0 5px;
+    display: inline-flex; align-items: center; justify-content: center;
+    line-height: 1;
+  }
+  .inbox-segment.active .inbox-segment-count {
+    background: var(--ember);
+    color: var(--on-ember);
+  }
+  .inbox-panel { display: none; flex-direction: column; flex: 1; min-height: 0; }
+  .inbox-panel.active { display: flex; }
+
   /* ── Activity screen (behind the bell) ── */
   .activity-filters {
     flex-shrink: 0;
@@ -1767,6 +1816,7 @@
   .activity-row-badge.comment { background: linear-gradient(135deg, var(--honey), var(--flame)); }
   .activity-row-badge.follow { background: linear-gradient(135deg, var(--forest), var(--pine)); }
   .activity-row-badge.match { background: linear-gradient(135deg, var(--pride), var(--ember)); }
+  .activity-row-badge.tag { background: linear-gradient(135deg, var(--honey), var(--flame)); }
 
   .activity-row-body {
     flex: 1;
@@ -3546,6 +3596,244 @@
   }
   .view-toggle-btn.active svg { stroke: var(--text-primary); }
 
+  /* ── With you view ── */
+  .with-you-view { padding: 0 0 calc(100px + env(safe-area-inset-bottom, 0px)); }
+  .wy-section { margin: 0 16px 22px; }
+  .wy-section-head {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  .wy-section-title {
+    font-size: 17px; font-weight: 700; color: var(--text-primary);
+    letter-spacing: -0.3px;
+  }
+  .wy-section-sub {
+    font-size: 12px; color: var(--text-tertiary);
+    margin: -4px 0 10px;
+    letter-spacing: -0.1px;
+  }
+  .wy-see-all {
+    font-size: 13px; font-weight: 600; color: var(--ember);
+    cursor: pointer;
+  }
+
+  /* Hero: Happening now */
+  .wy-hero-card {
+    position: relative;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 1px solid var(--border-sep);
+    min-height: 160px;
+    background: linear-gradient(135deg, rgba(29,158,117,0.12), rgba(216,90,48,0.08));
+  }
+  .wy-hero-map {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(circle at 30% 40%, rgba(29,201,124,0.25), transparent 25%),
+      radial-gradient(circle at 60% 55%, rgba(216,90,48,0.22), transparent 20%),
+      radial-gradient(circle at 75% 30%, rgba(29,201,124,0.18), transparent 18%),
+      linear-gradient(135deg, #1a2418, #2a1f18);
+    opacity: 0.6;
+  }
+  .wy-hero-dot {
+    position: absolute; width: 10px; height: 10px; border-radius: 50%;
+    background: #29C97C;
+    box-shadow: 0 0 0 0 rgba(41,201,124,0.7);
+    animation: livePulse 2s infinite;
+  }
+  .wy-hero-dot.ember { background: var(--ember); box-shadow: 0 0 0 0 rgba(216,90,48,0.6); }
+  .wy-hero-body {
+    position: relative;
+    padding: 14px 16px 14px;
+    display: flex; flex-direction: column; gap: 4px;
+    background: linear-gradient(180deg, transparent 20%, rgba(0,0,0,0.55) 100%);
+    min-height: 160px; justify-content: flex-end;
+  }
+  .wy-hero-eyebrow {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.8px;
+    color: #29C97C; text-transform: uppercase;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .wy-hero-eyebrow::before {
+    content: ''; width: 6px; height: 6px; border-radius: 50%;
+    background: #29C97C; animation: livePulse 2s infinite;
+  }
+  .wy-hero-title {
+    font-size: 18px; font-weight: 700; color: #fff;
+    letter-spacing: -0.3px;
+  }
+  .wy-hero-sub {
+    font-size: 13px; color: rgba(255,255,255,0.75);
+  }
+  .wy-hero-cta {
+    margin-top: 10px;
+    align-self: flex-start;
+    background: linear-gradient(135deg, var(--ember), var(--flame));
+    color: var(--on-ember);
+    border: none; border-radius: 10px;
+    padding: 8px 14px;
+    font-size: 13px; font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 6px 16px rgba(216,90,48,0.35);
+  }
+
+  /* Horizontal rails (Sent to you, Tagged) */
+  .wy-rail {
+    display: flex; gap: 10px;
+    overflow-x: auto; scrollbar-width: none;
+    padding-bottom: 4px;
+    margin: 0 -16px;
+    padding-left: 16px; padding-right: 16px;
+  }
+  .wy-rail::-webkit-scrollbar { display: none; }
+
+  /* Sent to you card */
+  .wy-sent-card {
+    flex-shrink: 0;
+    width: 148px;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    background: var(--surface-card);
+    border: 1px solid var(--border-sep);
+    cursor: pointer;
+  }
+  .wy-sent-thumb {
+    width: 100%; height: 148px;
+    background-size: cover; background-position: center;
+    position: relative;
+  }
+  .wy-sent-thumb-count {
+    position: absolute; top: 8px; right: 8px;
+    background: rgba(0,0,0,0.6); color: #fff;
+    font-size: 11px; font-weight: 700;
+    padding: 3px 8px; border-radius: 10px;
+    backdrop-filter: blur(6px);
+  }
+  .wy-sent-body {
+    padding: 10px;
+    display: flex; flex-direction: column; gap: 4px;
+  }
+  .wy-sent-sender {
+    display: flex; align-items: center; gap: 6px;
+    font-size: 12px; font-weight: 600;
+    color: var(--text-primary);
+  }
+  .wy-sent-avatar {
+    width: 20px; height: 20px; border-radius: 6px;
+    background-size: cover; background-position: center;
+    flex-shrink: 0;
+  }
+  .wy-sent-meta {
+    font-size: 11px; color: var(--text-tertiary);
+  }
+
+  /* Tagged thumbnails */
+  .wy-tag-item {
+    flex-shrink: 0;
+    width: 120px; height: 120px;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    background-size: cover; background-position: center;
+    border: 1px solid var(--border-sep);
+  }
+  .wy-tag-badge {
+    position: absolute; bottom: 8px; left: 8px;
+    background: rgba(0,0,0,0.6); color: #fff;
+    font-size: 10px; font-weight: 700;
+    padding: 3px 8px; border-radius: 8px;
+    display: inline-flex; align-items: center; gap: 4px;
+    backdrop-filter: blur(6px);
+  }
+  .wy-tag-badge svg { width: 10px; height: 10px; stroke: #fff; fill: none; stroke-width: 2; }
+
+  /* Invites */
+  .wy-invite {
+    display: flex; gap: 12px; align-items: center;
+    padding: 12px;
+    background: var(--surface-card);
+    border: 1px solid var(--border-sep);
+    border-radius: var(--radius-md);
+    margin-bottom: 8px;
+  }
+  .wy-invite-icon {
+    width: 40px; height: 40px; border-radius: 12px;
+    background: linear-gradient(135deg, var(--flame), var(--ember));
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .wy-invite-icon svg { width: 20px; height: 20px; stroke: #fff; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .wy-invite-body { flex: 1; min-width: 0; }
+  .wy-invite-title { font-size: 14px; font-weight: 600; color: var(--text-primary); }
+  .wy-invite-sub { font-size: 12px; color: var(--text-tertiary); margin-top: 2px; }
+  .wy-invite-actions { display: flex; gap: 6px; }
+  .wy-invite-btn {
+    border: none; border-radius: 8px; cursor: pointer;
+    padding: 7px 12px;
+    font-size: 12px; font-weight: 700;
+  }
+  .wy-invite-btn.primary {
+    background: linear-gradient(135deg, var(--ember), var(--flame));
+    color: var(--on-ember);
+  }
+  .wy-invite-btn.secondary {
+    background: var(--bg-subtle);
+    color: var(--text-secondary);
+  }
+
+  /* In your circles */
+  .wy-circle {
+    display: flex; gap: 12px; align-items: center;
+    padding: 12px;
+    background: var(--surface-card);
+    border: 1px solid var(--border-sep);
+    border-radius: var(--radius-md);
+    margin-bottom: 8px;
+    cursor: pointer;
+  }
+  .wy-circle:active { transform: scale(0.98); }
+  .wy-circle-avatar {
+    width: 44px; height: 44px; border-radius: 14px;
+    background-size: cover; background-position: center;
+    flex-shrink: 0;
+    position: relative;
+  }
+  .wy-circle-dot {
+    position: absolute; top: -2px; right: -2px;
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--ember);
+    border: 2px solid var(--bg);
+  }
+  .wy-circle-body { flex: 1; min-width: 0; }
+  .wy-circle-name {
+    font-size: 14px; font-weight: 700; color: var(--text-primary);
+    letter-spacing: -0.2px;
+  }
+  .wy-circle-meta {
+    font-size: 12px; color: var(--text-secondary);
+    margin-top: 2px;
+    display: flex; align-items: center; gap: 6px;
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }
+  .wy-circle-meta .wy-circle-time { color: var(--text-tertiary); }
+  .wy-circle-chevron {
+    color: var(--text-tertiary); font-size: 18px; flex-shrink: 0;
+  }
+  .wy-circle-thumbs {
+    display: flex; gap: 4px; flex-shrink: 0;
+  }
+  .wy-circle-thumb {
+    width: 36px; height: 36px; border-radius: 8px;
+    background-size: cover; background-position: center;
+    border: 1px solid var(--border-sep);
+  }
+  .wy-circle-thumb.more {
+    background: var(--bg-subtle);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 700; color: var(--text-secondary);
+  }
+
   /* ── Feed View ── */
   .feed { display: none; }
   .feed.active { display: block; }
@@ -4909,13 +5197,9 @@
 <div class="app-shell">
   <nav class="topnav">
     <div style="display:flex;align-items:center;gap:8px;">
-      <div class="topnav-msg" id="msgBtn" aria-label="Activity">
-        <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
-        <span class="notif-badge notif-badge-activity">3</span>
-      </div>
-      <div class="topnav-msg" id="chatBtn" aria-label="Messages">
-        <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-        <span class="notif-badge">3</span>
+      <div class="topnav-msg" id="inboxBtn" aria-label="Inbox">
+        <svg viewBox="0 0 24 24"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></svg>
+        <span class="notif-badge">6</span>
       </div>
       <div class="topnav-loc" id="locBtn" aria-label="Change location" style="display:none;">
         <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
@@ -4997,6 +5281,7 @@
     </div>
     <div class="masonry active" id="masonry"></div>
     <div class="feed" id="feed"></div>
+    <div class="with-you-view" id="withYouView" style="display:none;"></div>
   </div>
 </div>
 
@@ -5097,16 +5382,44 @@
 </div>
 
 <!-- Chat -->
-<div class="action-screen screen-elevated" id="screenChat">
+<!-- Inbox (unified: Messages + Activity) -->
+<div class="action-screen screen-elevated" id="screenInbox">
   <div class="action-screen-header">
-    <span class="action-screen-title">Chat</span>
+    <span class="action-screen-title">Inbox</span>
     <div style="display:flex;gap:8px;align-items:center;">
       <button class="close-btn" id="chatComposeBtn" aria-label="New message"><svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></button>
       <button class="close-btn" data-close><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
     </div>
   </div>
-  <div class="action-screen-body">
-    <div class="chat-list" id="chatList"></div>
+  <div class="inbox-segmented">
+    <div class="inbox-segment active" data-inbox-tab="messages">
+      Messages <span class="inbox-segment-count">3</span>
+    </div>
+    <div class="inbox-segment" data-inbox-tab="activity">
+      Activity <span class="inbox-segment-count">3</span>
+    </div>
+  </div>
+  <div class="inbox-panel active" data-panel="messages">
+    <div class="action-screen-body">
+      <div class="chat-list" id="chatList"></div>
+    </div>
+  </div>
+  <div class="inbox-panel" data-panel="activity">
+    <div class="activity-filters">
+      <div class="activity-filter active" data-kind="all">All</div>
+      <div class="activity-filter" data-kind="match">Matches</div>
+      <div class="activity-filter" data-kind="tag">Tags</div>
+      <div class="activity-filter" data-kind="like">Likes</div>
+      <div class="activity-filter" data-kind="comment">Comments</div>
+      <div class="activity-filter" data-kind="view">Views</div>
+      <div class="activity-filter" data-kind="follow">Follows</div>
+    </div>
+    <div class="action-screen-body" style="overflow-y:auto; -webkit-overflow-scrolling:touch;">
+      <div class="activity-section-label">Today</div>
+      <div class="activity-list" id="activityListToday"></div>
+      <div class="activity-section-label">This week</div>
+      <div class="activity-list" id="activityListWeek"></div>
+    </div>
   </div>
 </div>
 
@@ -5409,27 +5722,7 @@
   </div>
 </div>
 
-<!-- Activity (opened from bell in topnav) -->
-<div class="action-screen screen-elevated" id="screenActivity">
-  <div class="action-screen-header">
-    <span class="action-screen-title">Activity</span>
-    <button class="close-btn" data-close><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
-  </div>
-  <div class="activity-filters">
-    <div class="activity-filter active" data-kind="all">All</div>
-    <div class="activity-filter" data-kind="match">Matches</div>
-    <div class="activity-filter" data-kind="like">Likes</div>
-    <div class="activity-filter" data-kind="comment">Comments</div>
-    <div class="activity-filter" data-kind="view">Views</div>
-    <div class="activity-filter" data-kind="follow">Follows</div>
-  </div>
-  <div class="action-screen-body" style="overflow-y:auto; -webkit-overflow-scrolling:touch;">
-    <div class="activity-section-label">Today</div>
-    <div class="activity-list" id="activityListToday"></div>
-    <div class="activity-section-label">This week</div>
-    <div class="activity-list" id="activityListWeek"></div>
-  </div>
-</div>
+<!-- Activity is now inside #screenInbox (segmented control) -->
 
 <!-- More -->
 <div class="action-screen screen-elevated" id="screenMore">
@@ -5579,18 +5872,21 @@ const imgs = [
   const CHAT_ICON2 = '<svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>';
   const FOLLOW_ICO = '<svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>';
   const STAR_ICON  = '<svg viewBox="0 0 24 24" fill="#fff"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>';
+  const TAG_ICON   = '<svg viewBox="0 0 24 24" fill="#fff" stroke="none"><path d="M20.59 13.41 13.42 20.58a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/></svg>';
 
   const today = [
     { kind: 'match',   name: 'Daniel', img: imgs[3],                  unread: true,  time: 'just now', text: "<strong>Daniel</strong> and you are a new match" },
     { kind: 'like',    name: 'Marcus', img: imgs[0],  thumb: imgs[4],  unread: true,  time: '4m',       text: "<strong>Marcus</strong> liked your lake pic" },
     { kind: 'view',    name: 'Jake',   img: imgs[1],                  unread: true,  time: '12m',      text: "<strong>Jake</strong> viewed your profile" },
     { kind: 'comment', name: 'Chris',  img: imgs[9],  thumb: imgs[6],  unread: true,  time: '18m',      text: "<strong>Chris</strong> commented: \"cabin goals 🔥\"" },
+    { kind: 'tag',     name: 'Sam',    img: imgs[4],  thumb: imgs[2],  unread: false, time: '1h',       text: "<strong>Sam</strong> tagged you in a photo" },
     { kind: 'like',    name: 'Sam + 4 others', img: imgs[4], thumb: imgs[2], unread: false, time: '42m', text: "<strong>Sam</strong> and 4 others liked your brunch pic" },
     { kind: 'follow',  name: 'Alex',   img: imgs[5],                  unread: false, time: '1h',       text: "<strong>Alex</strong> started following you" },
   ];
 
   const thisWeek = [
     { kind: 'view',    name: 'Ben',    img: imgs[6],                  unread: false, time: 'Yesterday', text: "<strong>Ben</strong> viewed your profile" },
+    { kind: 'tag',     name: 'Alex',   img: imgs[5],  thumb: imgs[6],  unread: false, time: 'Yesterday', text: "<strong>Alex</strong> tagged you in a photo" },
     { kind: 'comment', name: 'Ryan',   img: imgs[7],  thumb: imgs[11], unread: false, time: 'Yesterday', text: "<strong>Ryan</strong> replied to your comment on Jake's post" },
     { kind: 'follow',  name: 'Leo',    img: imgs[11],                 unread: false, time: '2d',        text: "<strong>Leo</strong> started following you" },
     { kind: 'like',    name: 'Tom',    img: imgs[8],  thumb: imgs[0],  unread: false, time: '3d',        text: "<strong>Tom</strong> liked your bike pic" },
@@ -5605,6 +5901,7 @@ const imgs = [
                  : e.kind === 'view'    ? EYE_ICON
                  : e.kind === 'comment' ? CHAT_ICON2
                  : e.kind === 'follow'  ? FOLLOW_ICO
+                 : e.kind === 'tag'     ? TAG_ICON
                  : STAR_ICON;
       const row = document.createElement('div');
       row.className = 'activity-row' + (e.unread ? ' unread' : '');
@@ -5638,12 +5935,12 @@ const imgs = [
   renderList('activityListWeek',  thisWeek);
 
   // Filter chips
-  document.querySelectorAll('#screenActivity .activity-filter').forEach(f => {
+  document.querySelectorAll('#screenInbox .activity-filter').forEach(f => {
     f.addEventListener('click', () => {
-      document.querySelectorAll('#screenActivity .activity-filter').forEach(x => x.classList.remove('active'));
+      document.querySelectorAll('#screenInbox .activity-filter').forEach(x => x.classList.remove('active'));
       f.classList.add('active');
       const kind = f.dataset.kind;
-      document.querySelectorAll('#screenActivity .activity-row').forEach(row => {
+      document.querySelectorAll('#screenInbox .activity-row').forEach(row => {
         row.style.display = (kind === 'all' || row.dataset.kind === kind) ? '' : 'none';
       });
     });
@@ -6703,22 +7000,71 @@ feed.addEventListener('click', (e) => {
   sentinel.style.cssText = 'height:1px;width:100%;';
   gridScroll.appendChild(sentinel);
 
+  let loading = false;
   const io = new IntersectionObserver((entries) => {
     for (const entry of entries) {
-      if (!entry.isIntersecting) continue;
+      if (!entry.isIntersecting || loading) continue;
+      loading = true;
       // Append to whichever view is active
       if (masonry.classList.contains('active')) {
         appendMasonryBatch(12);
-        // Keep sentinel at bottom of scroll container
-        gridScroll.appendChild(sentinel);
-      }
-      if (feed.classList.contains('active') && currentFilter !== 'shared') {
+      } else if (feed.classList.contains('active') && currentFilter !== 'shared') {
         appendFeedBatch(6);
-        gridScroll.appendChild(sentinel);
       }
+      // Keep sentinel at bottom, then re-observe so we get another callback
+      // when the sentinel is still in the intersection zone after the append.
+      gridScroll.appendChild(sentinel);
+      io.unobserve(sentinel);
+      requestAnimationFrame(() => {
+        io.observe(sentinel);
+        loading = false;
+      });
     }
   }, { root: gridScroll, rootMargin: '600px 0px' });
   io.observe(sentinel);
+})();
+
+// ── Hero collapse on scroll (Worldwide only) ──
+(() => {
+  const gridScroll = document.querySelector('.grid-scroll');
+  const liveStrip = document.getElementById('liveStrip');
+  if (!gridScroll || !liveStrip) return;
+
+  liveStrip.style.transition =
+    'opacity 0.12s linear, transform 0.12s linear, ' +
+    'max-height 0.25s ease, margin-bottom 0.25s ease, ' +
+    'padding-top 0.25s ease, padding-bottom 0.25s ease, ' +
+    'border-width 0.25s ease';
+  liveStrip.style.willChange = 'opacity, transform, max-height';
+
+  let ticking = false;
+  const DISTANCE = 64;
+
+  const apply = (p) => {
+    liveStrip.style.opacity = String(1 - p);
+    liveStrip.style.transform = `translateY(${-p * 16}px)`;
+    liveStrip.style.maxHeight = p >= 1 ? '0' : '80px';
+    liveStrip.style.marginBottom = `${12 * (1 - p)}px`;
+    liveStrip.style.paddingTop = `${10 * (1 - p)}px`;
+    liveStrip.style.paddingBottom = `${10 * (1 - p)}px`;
+    liveStrip.style.borderTopWidth = p >= 1 ? '0' : '1px';
+    liveStrip.style.borderBottomWidth = p >= 1 ? '0' : '1px';
+    liveStrip.style.overflow = 'hidden';
+  };
+
+  const update = () => {
+    ticking = false;
+    if (currentFilter !== 'worldwide') { apply(0); return; }
+    const p = Math.min(1, Math.max(0, gridScroll.scrollTop / DISTANCE));
+    apply(p);
+  };
+
+  gridScroll.addEventListener('scroll', () => {
+    if (!ticking) { requestAnimationFrame(update); ticking = true; }
+  }, { passive: true });
+
+  // Reset when coming back to Worldwide
+  window.__resetHeroCollapse = () => apply(0);
 })();
 
 // ── View toggle ──
@@ -6864,11 +7210,23 @@ feed.addEventListener('click', (e) => {
 document.getElementById('avatarBtn').addEventListener('click', () => {
   document.getElementById('screenProfile').classList.add('show');
 });
-document.getElementById('msgBtn').addEventListener('click', () => {
-  document.getElementById('screenActivity').classList.add('show');
-});
-document.getElementById('chatBtn').addEventListener('click', () => {
-  document.getElementById('screenChat').classList.add('show');
+// ── Inbox (unified Messages + Activity) ──
+function openInbox(segment = 'messages') {
+  const screen = document.getElementById('screenInbox');
+  // Select segment
+  document.querySelectorAll('#screenInbox .inbox-segment').forEach(s => {
+    s.classList.toggle('active', s.dataset.inboxTab === segment);
+  });
+  document.querySelectorAll('#screenInbox .inbox-panel').forEach(p => {
+    p.classList.toggle('active', p.dataset.panel === segment);
+  });
+  // Compose button: visible only on Messages
+  document.getElementById('chatComposeBtn').style.display = segment === 'messages' ? '' : 'none';
+  screen.classList.add('show');
+}
+document.getElementById('inboxBtn').addEventListener('click', () => openInbox('messages'));
+document.querySelectorAll('#screenInbox .inbox-segment').forEach(seg => {
+  seg.addEventListener('click', () => openInbox(seg.dataset.inboxTab));
 });
 document.getElementById('openMapBtn').addEventListener('click', () => {
   document.getElementById('screenMap').classList.add('show');
@@ -7498,6 +7856,171 @@ const SHARED_TIMELINE = [
   },
 ];
 
+// ── "With you" tab renderer ──
+// Builds 5 sections: Happening now / Sent to you / Tagged / Invites / In your circles
+function renderWithYou() {
+  const root = document.getElementById('withYouView');
+  if (!root) return;
+
+  const NAMES = (typeof FOLLOWING_NAMES !== 'undefined' && FOLLOWING_NAMES.length)
+    ? FOLLOWING_NAMES : NAME_POOL;
+
+  const svgArrow = '<polyline points="9 18 15 12 9 6"/>';
+  const svgTag = '<path d="M20.59 13.41 13.42 20.58a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/>';
+  const svgAt = '<circle cx="12" cy="12" r="4"/><path d="M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-4 8"/>';
+  const svgCal = '<rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>';
+  const svgAlbum = '<rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>';
+  const svgUsers = '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>';
+
+  // — Section 1: Happening now —
+  const hero = `
+    <section class="wy-section">
+      <div class="wy-hero-card">
+        <div class="wy-hero-map"></div>
+        <div class="wy-hero-dot" style="top:38%; left:28%;"></div>
+        <div class="wy-hero-dot ember" style="top:55%; left:62%; animation-delay:.4s;"></div>
+        <div class="wy-hero-dot" style="top:30%; left:72%; animation-delay:.8s;"></div>
+        <div class="wy-hero-body">
+          <span class="wy-hero-eyebrow">Happening now</span>
+          <div class="wy-hero-title">Marcus, Jake &amp; Daniel are at Touché</div>
+          <div class="wy-hero-sub">1.2 mi · Leather Sunday · started 40m ago</div>
+          <button class="wy-hero-cta" data-wy-action="join-here">Join them ›</button>
+        </div>
+      </div>
+    </section>`;
+
+  // — Section 2: Sent to you —
+  const sentItems = [
+    { name: 'Marcus', avatar: imgs[0], thumb: imgs[4],  count: 3, meta: 'Photo · 2h' },
+    { name: 'Daniel', avatar: imgs[3], thumb: imgs[7],  meta: 'Collection · Cabin weekend · 4h' },
+    { name: 'Jake',   avatar: imgs[1], thumb: imgs[5],  count: 2, meta: 'Photo · 6h' },
+    { name: 'Chris',  avatar: imgs[5], thumb: imgs[2],  meta: 'Post · Yesterday' },
+  ];
+  const sentCards = sentItems.map(it => `
+    <div class="wy-sent-card">
+      <div class="wy-sent-thumb" style="background-image:url('${it.thumb}');">
+        ${it.count ? `<span class="wy-sent-thumb-count">${it.count}</span>` : ''}
+      </div>
+      <div class="wy-sent-body">
+        <div class="wy-sent-sender">
+          <div class="wy-sent-avatar" style="background-image:url('${it.avatar}');"></div>
+          <span>${it.name}</span>
+        </div>
+        <div class="wy-sent-meta">${it.meta}</div>
+      </div>
+    </div>`).join('');
+  const sent = `
+    <section class="wy-section">
+      <div class="wy-section-head">
+        <h2 class="wy-section-title">Sent to you</h2>
+        <span class="wy-see-all">See all ›</span>
+      </div>
+      <div class="wy-section-sub">Photos and collections shared directly with you</div>
+      <div class="wy-rail">${sentCards}</div>
+    </section>`;
+
+  // — Section 3: Tagged —
+  const taggedItems = [
+    { thumb: imgs[2], by: 'Sam' },
+    { thumb: imgs[6], by: 'Alex' },
+    { thumb: imgs[1], by: 'Ryan' },
+    { thumb: imgs[9], by: 'Leo' },
+  ];
+  const taggedCards = taggedItems.map(it => `
+    <div class="wy-tag-item" style="background-image:url('${it.thumb}');">
+      <span class="wy-tag-badge"><svg viewBox="0 0 24 24">${svgTag}</svg>${it.by}</span>
+    </div>`).join('');
+  const tagged = `
+    <section class="wy-section">
+      <div class="wy-section-head">
+        <h2 class="wy-section-title">Where you appear</h2>
+        <span class="wy-see-all">See all ›</span>
+      </div>
+      <div class="wy-section-sub">Photos others posted where you're tagged</div>
+      <div class="wy-rail">${taggedCards}</div>
+    </section>`;
+
+  // — Section 4: Invites —
+  const invites = [
+    { icon: svgCal, title: 'TGI Bears Happy Hour', sub: 'Tonight · Touché · invited by Marcus' },
+    { icon: svgUsers, title: 'Join Trans Bears Chicago', sub: 'Group invite from Daniel · 127 members' },
+  ];
+  const inviteCards = invites.map(inv => `
+    <div class="wy-invite">
+      <div class="wy-invite-icon"><svg viewBox="0 0 24 24">${inv.icon}</svg></div>
+      <div class="wy-invite-body">
+        <div class="wy-invite-title">${inv.title}</div>
+        <div class="wy-invite-sub">${inv.sub}</div>
+      </div>
+      <div class="wy-invite-actions">
+        <button class="wy-invite-btn secondary">Later</button>
+        <button class="wy-invite-btn primary">Accept</button>
+      </div>
+    </div>`).join('');
+  const invitesSec = `
+    <section class="wy-section">
+      <div class="wy-section-head">
+        <h2 class="wy-section-title">Invites</h2>
+      </div>
+      ${inviteCards}
+    </section>`;
+
+  // — Section 5: In your circles —
+  const circles = [
+    {
+      name: '🎳 Chicago Bear Bowl League',
+      avatarIdx: 0, unread: true,
+      meta: '<strong>3 new photos</strong> · 2h',
+      thumbs: [imgs[2], imgs[4], imgs[7]],
+    },
+    {
+      name: 'Sunday gym crew',
+      avatarIdx: 4, unread: true,
+      meta: 'Sam checked in at Steamworks · <span class="wy-circle-time">just now</span>',
+      thumbs: null,
+    },
+    {
+      name: 'Chicago Leather',
+      avatarIdx: 7, unread: false,
+      meta: 'New event: Leather Sunday · <span class="wy-circle-time">Apr 20</span>',
+      thumbs: null,
+    },
+    {
+      name: '🏠 Cabin weekend crew',
+      avatarIdx: 9, unread: false,
+      meta: '<strong>12 new messages</strong> · <span class="wy-circle-time">6h</span>',
+      thumbs: null,
+    },
+  ];
+  const circleRows = circles.map(c => {
+    const thumbs = c.thumbs
+      ? `<div class="wy-circle-thumbs">${c.thumbs.map(t => `<div class="wy-circle-thumb" style="background-image:url('${t}');"></div>`).join('')}</div>`
+      : '';
+    return `
+      <div class="wy-circle">
+        <div class="wy-circle-avatar" style="background-image:url('${imgs[c.avatarIdx]}');">
+          ${c.unread ? '<span class="wy-circle-dot"></span>' : ''}
+        </div>
+        <div class="wy-circle-body">
+          <div class="wy-circle-name">${c.name}</div>
+          <div class="wy-circle-meta">${c.meta}</div>
+        </div>
+        ${thumbs}
+        <span class="wy-circle-chevron">›</span>
+      </div>`;
+  }).join('');
+  const circlesSec = `
+    <section class="wy-section">
+      <div class="wy-section-head">
+        <h2 class="wy-section-title">In your circles</h2>
+        <span class="wy-see-all">See all ›</span>
+      </div>
+      ${circleRows}
+    </section>`;
+
+  root.innerHTML = hero + sent + tagged + invitesSec + circlesSec;
+}
+
 function renderSharedTimeline() {
   const feed = document.getElementById('feed');
   SHARED_TIMELINE.forEach(item => {
@@ -7916,42 +8439,17 @@ function setContext(filter) {
         f.classList.add('active');
       });
     });
-  } else if (filter === 'shared') {
-    // Hero stats card removed — vanity metrics. "8 new" surfaced as a badge on the feed header instead.
-    tabContextSlot.innerHTML = '';
-    const sharedBar = document.getElementById('sharedFilterBar');
-    sharedBar.innerHTML = `
-      <div class="shared-filters">
-        <div class="shared-filter active" data-kind="all">All</div>
-        <div class="shared-filter" data-kind="dm">
-          <svg viewBox="0 0 24 24"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
-          DMs
-        </div>
-        <div class="shared-filter" data-kind="tag">
-          <svg viewBox="0 0 24 24"><path d="M20.59 13.41 13.42 20.58a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
-          Tags
-        </div>
-        <div class="shared-filter" data-kind="chat">
-          <svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
-          Chats
-        </div>
-        <div class="shared-filter" data-kind="album">
-          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-          Albums
-        </div>
-      </div>`;
-    sharedBar.style.display = '';
-    sharedBar.querySelectorAll('.shared-filter').forEach(f => {
-      f.addEventListener('click', () => {
-        sharedBar.querySelectorAll('.shared-filter').forEach(x => x.classList.remove('active'));
-        f.classList.add('active');
-      });
-    });
   }
+  // "With you" (filter === 'shared') has no context banner or chips —
+  // sections inside #withYouView speak for themselves.
 }
 
 function applyFilter(filter) {
   currentFilter = filter;
+
+  // Tab change: reset scroll + hero collapse state
+  document.querySelector('.grid-scroll')?.scrollTo({ top: 0 });
+  window.__resetHeroCollapse?.();
 
   // Show/hide top-level sections. eventsSection visibility is decided
   // further down (only shown on Local).
@@ -7979,16 +8477,9 @@ function applyFilter(filter) {
     if (filter === 'worldwide') renderEditorialRail();
   }
 
-  // Unified Pack shortcuts (Groups/Collections/Recent): only on Shared
+  // Deprecated Pack shortcuts (Groups/Collections/Recent) — With you now has its own sections
   const packShortcuts = document.getElementById('packShortcuts');
-  if (packShortcuts) {
-    packShortcuts.style.display = (filter === 'shared') ? '' : 'none';
-    if (filter === 'shared') {
-      renderSharedGroupsRail();
-      renderCollections();
-      renderFreshDrops();
-    }
-  }
+  if (packShortcuts) packShortcuts.style.display = 'none';
 
   // Events rail swap — only shown on Local. Worldwide delegates global
   // context to the editorial rail, Following/Shared have their own surfaces,
@@ -8004,11 +8495,20 @@ function applyFilter(filter) {
     eventsSectionEl.style.display = 'none';
   }
 
-  // Feed section title
+  // With you uses its own curated view; other filters use masonry/feed
+  const withYouView = document.getElementById('withYouView');
+  const feedHeaderRow = document.querySelector('.feed-header-row');
+  const isShared = filter === 'shared';
+
+  if (feedHeaderRow) feedHeaderRow.style.display = isShared ? 'none' : '';
+  if (withYouView)   withYouView.style.display   = isShared ? '' : 'none';
+  masonry.style.display = isShared ? 'none' : '';
+  feed.style.display    = isShared ? 'none' : '';
+
+  // Feed section title (only for non-shared)
   feedSectionTitle.innerHTML =
     filter === 'local'     ? 'Local Community feed' :
     filter === 'following' ? 'Latest from who you follow' :
-    filter === 'shared'    ? 'Recently shared <span class="feed-new-badge">8 new</span>' :
                              'Community feed';
 
   // Rebuild masonry + feed
@@ -8017,15 +8517,12 @@ function applyFilter(filter) {
   masonryBatch = 0; masonryIndex = 0;
   feedBatch = 0;   feedIndex = 0;
 
-  const masonryCount = filter === 'following' ? 9 : filter === 'shared' ? 9 : 18;
-  const feedCount    = filter === 'following' ? 4 : filter === 'shared' ? 4 : 6;
-  appendMasonryBatch(masonryCount);
-  if (filter === 'shared') {
-    renderSharedTimeline();
-    // The Pack's community hub lives in the feed/timeline view — force it
-    const btnFeed = document.getElementById('btnFeed');
-    if (btnFeed && !btnFeed.classList.contains('active')) btnFeed.click();
+  if (isShared) {
+    renderWithYou();
   } else {
+    const masonryCount = filter === 'following' ? 9 : 18;
+    const feedCount    = filter === 'following' ? 4 : 6;
+    appendMasonryBatch(masonryCount);
     appendFeedBatch(feedCount);
   }
 
@@ -8056,7 +8553,7 @@ const screens = {
   Home:    null, // FAB "Worldwide" — handled specially (switches tab, no modal)
   Groups:  document.getElementById('screenGroups'),  // "Groups" → community hub
   Explore: document.getElementById('screenMap'),     // "Nearby" → Map screen
-  Chat:    document.getElementById('screenChat'),
+  Chat:    document.getElementById('screenInbox'),
   More:    document.getElementById('screenProfile'), // "Profile"
 };
 const actions = document.querySelectorAll('.mini-action');
@@ -8153,6 +8650,12 @@ function triggerAction(name) {
       const s = document.getElementById('screenGroups');
       if (s) requestAnimationFrame(() => s.classList.add('show'));
     }
+    return;
+  }
+
+  // FAB "Chat" → open unified Inbox on Messages segment
+  if (name === 'Chat') {
+    requestAnimationFrame(() => openInbox('messages'));
     return;
   }
 
