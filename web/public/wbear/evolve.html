@@ -5432,6 +5432,94 @@
 
   /* 20 — Drop subtle inner pulse on the 'bears online' stat */
   .live-count { font-weight: 500 !important; }
+
+  /* ─────── Card dissolution ─────── */
+
+  /* 21 — Editorial cards: no surface, just media + text below */
+  .editorial-card {
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    width: 220px !important;
+  }
+  .editorial-card-media {
+    height: 140px !important;
+    border-radius: 10px !important;
+    overflow: hidden;
+  }
+  .editorial-card-media::after {
+    display: none !important;
+  }
+  /* Hide loud labels on photos; category is carried by title */
+  .editorial-card-label {
+    display: none !important;
+  }
+  .editorial-card-body {
+    padding: 10px 0 0 !important;
+  }
+  .editorial-card-title {
+    font-weight: 500 !important;
+    font-size: 14px !important;
+    letter-spacing: -0.015em !important;
+    -webkit-line-clamp: 2 !important;
+  }
+  .editorial-card-sub {
+    font-weight: 400 !important;
+    font-size: 12px !important;
+    color: var(--text-tertiary) !important;
+    letter-spacing: 0 !important;
+    margin-top: 4px !important;
+  }
+  /* Countdown overlay (29 DAYS UNTIL): soften */
+  .editorial-countdown-num {
+    font-weight: 300 !important;
+    font-size: 42px !important;
+    letter-spacing: -0.03em !important;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.35) !important;
+  }
+  .editorial-countdown-label {
+    font-weight: 500 !important;
+    letter-spacing: 0.15em !important;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.35) !important;
+  }
+  .editorial-section {
+    border-bottom: none !important;
+  }
+
+  /* 22 — Masonry photos: pure images, no overlays */
+  .masonry-item .grid-overlay,
+  .masonry-item .grid-verified,
+  .masonry-item .grid-chip,
+  .masonry-item .grid-boost {
+    display: none !important;
+  }
+  /* Featured treatment: drop the ember glow, just a thin hairline */
+  .masonry-item.featured {
+    box-shadow: none !important;
+    border: none !important;
+  }
+  .masonry-item.featured::before,
+  .masonry-item.featured::after {
+    display: none !important;
+  }
+  /* Sharper corners too — less "card", more "photo" */
+  .masonry-item {
+    border-radius: 6px !important;
+  }
+
+  /* 23 — Community feed header row: soften */
+  .feed-header-row {
+    margin-top: 18px !important;
+  }
+
+  /* 24 — Events card (Local events rail) same treatment */
+  .events-card {
+    background: transparent !important;
+    border: none !important;
+  }
+  .events-card-img {
+    border-radius: 10px !important;
+  }
 </style>
 </head>
 <body>
