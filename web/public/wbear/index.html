@@ -3498,6 +3498,58 @@
     display: block;
     transition: transform 0.25s ease, filter 0.25s ease;
   }
+
+  /* ── Uniform grid (tight, Instagram-style perfect 3-col) ── */
+  /* Higher specificity than .masonry.active { display: block } defined later */
+  .masonry.active.uniform {
+    column-count: unset;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    padding: 2px;
+    padding-bottom: calc(100px + env(safe-area-inset-bottom, 0px));
+  }
+  .masonry.uniform .masonry-item {
+    margin-bottom: 0;
+    aspect-ratio: 4 / 5;
+    border-radius: 0;
+    box-shadow: none;
+    background: transparent;
+  }
+  .masonry.uniform .masonry-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .masonry.uniform .masonry-item.featured {
+    box-shadow: none;
+    background: transparent;
+    background-image: none;
+    border: none;
+  }
+  .masonry.uniform .masonry-item.featured::before,
+  .masonry.uniform .masonry-item.featured::after {
+    display: none;
+  }
+  .masonry.uniform .grid-overlay,
+  .masonry.uniform .grid-boost,
+  .masonry.uniform .grid-chip,
+  .masonry.uniform .grid-verified {
+    display: none;
+  }
+  /* Active-uniform state on the Grid button: subtle tint */
+  .view-toggle-btn.uniform {
+    background: rgba(216, 90, 48, 0.12);
+  }
+  .view-toggle-btn.uniform svg {
+    stroke: var(--ember);
+  }
+  .light .view-toggle-btn.uniform {
+    background: rgba(138, 106, 63, 0.12);
+  }
+  .light .view-toggle-btn.uniform svg {
+    stroke: #8A6A3F;
+  }
   .masonry-item:active img { transform: scale(1.04); filter: brightness(1.1); }
   .masonry-item .grid-overlay {
     position: absolute; bottom: 0; left: 0; right: 0;
@@ -7074,16 +7126,27 @@ feed.addEventListener('click', (e) => {
   const feed = document.getElementById('feed');
 
   btnGrid.addEventListener('click', () => {
-    btnGrid.classList.add('active');
-    btnFeed.classList.remove('active');
-    masonry.classList.add('active');
-    feed.classList.remove('active');
+    if (btnGrid.classList.contains('active')) {
+      // Second tap on grid: toggle perfect uniform grid
+      const isUniform = masonry.classList.toggle('uniform');
+      btnGrid.classList.toggle('uniform', isUniform);
+    } else {
+      btnGrid.classList.add('active');
+      btnFeed.classList.remove('active');
+      masonry.classList.add('active');
+      feed.classList.remove('active');
+      // Fresh grid starts as masonry
+      masonry.classList.remove('uniform');
+      btnGrid.classList.remove('uniform');
+    }
   });
   btnFeed.addEventListener('click', () => {
     btnFeed.classList.add('active');
     btnGrid.classList.remove('active');
+    btnGrid.classList.remove('uniform');
     feed.classList.add('active');
     masonry.classList.remove('active');
+    masonry.classList.remove('uniform');
   });
 })();
 
