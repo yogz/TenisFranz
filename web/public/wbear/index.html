@@ -83,6 +83,46 @@
     --tag-flame-text: #A87010;
   }
 
+  /* ── Ember Soft — DARK variant (palette terracotta/apricot sur fond Night) ── */
+  .ember {
+    /* Palette primaire */
+    --ember: #CB6845;      /* Terracotta */
+    --flame: #E4A55C;      /* Apricot */
+    --honey: #C8956E;      /* Caramel */
+    --forest: #6E9E7A;     /* Lichen */
+    --pine: #4D9E90;       /* Jade */
+    --pride: #C45F78;      /* Rosewood */
+    --on-ember: #FBF7F0;
+
+    /* Surfaces dark Ember */
+    --bg: #1C1814;              /* Night */
+    --bg-elevated: #272220;     /* surface élevée */
+    --surface-card: #302A26;    /* cards */
+    --hero-base: #2C2420;       /* hero card base */
+    --bg-subtle: rgba(255,255,255,0.04);
+    --border-btn: rgba(255,255,255,0.06);
+    --border-sep: rgba(255,255,255,0.03);
+
+    /* Texte */
+    --text-primary: #F0ECE6;    /* Cream */
+    --text-secondary: #B0A9A3;  /* Pebble */
+    --text-tertiary: #8C8580;   /* Stone */
+
+    --accent: #E4A55C;          /* Apricot en dark */
+    --heart: #E4A55C;
+    --scrim: rgba(28,24,20,0.60);
+
+    /* Tags soft dark */
+    --tag-ember-bg: rgba(203,104,69,0.10);
+    --tag-ember-text: #E8A088;
+    --tag-forest-bg: rgba(110,158,122,0.10);
+    --tag-forest-text: #98C4A4;
+    --tag-pride-bg: rgba(196,95,120,0.10);
+    --tag-pride-text: #E898AE;
+    --tag-flame-bg: rgba(228,165,92,0.12);
+    --tag-flame-text: #F0C888;
+  }
+
   html, body {
     height: 100%;
     overflow: hidden;
@@ -4992,6 +5032,65 @@
     opacity: 0.6;
   }
 
+  /* ── Ember Soft — overrides spécifiques ── */
+  /* FAB : gradient Terracotta → Apricot + shadow Terracotta */
+  .ember .fab {
+    background:
+      radial-gradient(130% 90% at 28% 18%, rgba(255,220,180,0.28), rgba(255,220,180,0) 55%),
+      linear-gradient(180deg, #CB6845, #E4A55C);
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,0.40),
+      inset 0 -1px 0 rgba(0,0,0,0.18),
+      inset 0 0 0 1px rgba(255,255,255,0.06),
+      0 1px 2px rgba(0,0,0,0.14),
+      0 4px 16px rgba(203,104,69,0.40),
+      0 18px 40px rgba(28,24,20,0.14);
+  }
+  .ember .fab:not(.expanded) { animation: fabIdleEmber 3.6s ease-in-out infinite; }
+  @keyframes fabIdleEmber {
+    0%, 100% {
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.40),
+        inset 0 -1px 0 rgba(0,0,0,0.18),
+        inset 0 0 0 1px rgba(255,255,255,0.06),
+        0 1px 2px rgba(0,0,0,0.14),
+        0 4px 16px rgba(203,104,69,0.40),
+        0 18px 40px rgba(28,24,20,0.14);
+    }
+    60% {
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.45),
+        inset 0 -1px 0 rgba(0,0,0,0.18),
+        inset 0 0 0 1px rgba(255,255,255,0.10),
+        0 1px 2px rgba(0,0,0,0.14),
+        0 6px 22px rgba(203,104,69,0.50),
+        0 22px 48px rgba(28,24,20,0.18);
+    }
+  }
+
+  /* Notif badge : Terracotta */
+  .ember .notif-badge:not(.notif-badge-activity) {
+    background: linear-gradient(135deg, #CB6845, #B85636);
+    box-shadow: 0 2px 8px rgba(203,104,69,0.40);
+  }
+
+  /* Filter tab actif : gradient Terracotta → Apricot */
+  .ember .filter-tab.active {
+    background: linear-gradient(135deg, #CB6845, #E4A55C);
+    box-shadow: 0 4px 14px rgba(203,104,69,0.28);
+  }
+
+  /* Profile CTA primary : ombre Terracotta */
+  .ember .profile-cta.primary { box-shadow: 0 4px 14px rgba(203,104,69,0.32); }
+
+  /* Map canvas : mesh blobs Ember Soft sur fond Night */
+  .ember .map-canvas {
+    background:
+      radial-gradient(ellipse at 30% 20%, rgba(228,165,92,0.16), transparent 55%),
+      radial-gradient(ellipse at 70% 80%, rgba(203,104,69,0.14), transparent 55%),
+      linear-gradient(160deg, #1C1814 0%, #272220 60%, #2C2420 100%);
+  }
+
   .profile-section-label {
     font-size: 11px; font-weight: 600; color: var(--text-tertiary);
     text-transform: uppercase; letter-spacing: 0.8px;
@@ -7426,13 +7525,34 @@ document.getElementById('tabContextSlot').addEventListener('click', (e) => {
   });
 })();
 
-// ── Theme toggle (moved to Profile → Appearance) ──
+// ── Theme cycle (Dark → Light → Ember Soft → Dark) via Profile → Appearance ──
+const THEME_ORDER = ['dark', 'light', 'ember'];
+const THEME_LABEL = { dark: 'Dark', light: 'Light', ember: 'Ember Soft' };
+function applyTheme(theme) {
+  const html = document.documentElement;
+  html.classList.remove('light', 'ember');
+  if (theme === 'light') html.classList.add('light');
+  else if (theme === 'ember') html.classList.add('ember'); // Ember Soft = dark variant
+  html.dataset.theme = theme;
+  document.querySelectorAll('#profileSettings .more-row').forEach(r => {
+    const lbl = r.querySelector('.more-label');
+    if (lbl && /^Appearance/.test(lbl.textContent)) {
+      lbl.textContent = `Appearance · ${THEME_LABEL[theme]}`;
+    }
+  });
+}
+function currentTheme() {
+  return document.documentElement.dataset.theme || 'dark';
+}
+applyTheme(currentTheme());
+
 document.addEventListener('click', (e) => {
   const row = e.target.closest('#profileSettings .more-row');
   if (!row) return;
-  const label = row.querySelector('.more-label')?.textContent;
-  if (label === 'Appearance') {
-    document.documentElement.classList.toggle('light');
+  const label = row.querySelector('.more-label')?.textContent || '';
+  if (/^Appearance/.test(label)) {
+    const idx = THEME_ORDER.indexOf(currentTheme());
+    applyTheme(THEME_ORDER[(idx + 1) % THEME_ORDER.length]);
   }
 });
 
