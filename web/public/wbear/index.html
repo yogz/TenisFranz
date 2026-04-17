@@ -3782,14 +3782,19 @@
     white-space: nowrap;
   }
 
-  /* Hero: Happening now */
+  /* Hero: Happening now — subtle pine glow border (matches live presence) */
   .wy-hero-card {
     position: relative;
     border-radius: var(--radius-hero);
     overflow: hidden;
-    border: 1px solid var(--border-sep);
+    border: 1px solid rgba(29,158,117,0.28);
     min-height: 160px;
     background: linear-gradient(135deg, rgba(29,158,117,0.12), rgba(216,90,48,0.08));
+    box-shadow: 0 0 0 1px rgba(29,158,117,0.08), 0 6px 18px rgba(0,0,0,0.18);
+  }
+  .light .wy-hero-card {
+    border-color: rgba(29,158,117,0.35);
+    box-shadow: 0 0 0 1px rgba(29,158,117,0.06), 0 4px 14px rgba(29,158,117,0.10);
   }
   .wy-hero-map {
     position: absolute; inset: 0;
