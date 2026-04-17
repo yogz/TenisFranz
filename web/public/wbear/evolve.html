@@ -5279,63 +5279,33 @@
     padding-bottom: 4px;
   }
 
-  /* 8 — SF Pro Display, dramatic scale + letter-spacing. Hierarchy via size, not fonts. */
+  /* 8 — SF Pro Display, moderate scale. Hierarchy via weight + letter-spacing. */
   .feed-section-title,
   .events-title,
   .wy-section-title,
   .group-section-title,
   .following-card-title {
     font-family: var(--display) !important;
-    font-weight: 300 !important;
-    letter-spacing: -0.035em !important;
-    font-size: 28px !important;
-    line-height: 1.1 !important;
+    font-weight: 500 !important;
+    letter-spacing: -0.02em !important;
+    font-size: 18px !important;
+    line-height: 1.25 !important;
   }
   .action-screen-title {
     font-family: var(--display) !important;
-    font-weight: 300 !important;
-    letter-spacing: -0.035em !important;
-    font-size: 32px !important;
-    line-height: 1.1 !important;
+    font-weight: 500 !important;
+    letter-spacing: -0.025em !important;
+    font-size: 22px !important;
+    line-height: 1.2 !important;
   }
   .events-title-dot { display: none; }
 
-  /* Breathing room around titles */
+  /* Light breathing */
   .events-header,
   .feed-header-row,
   .wy-section-head {
-    padding-bottom: 10px;
-    margin-bottom: 14px !important;
-  }
-
-  /* Hero number — "bears online" — goes BIG + light */
-  .live-count {
-    font-family: var(--display) !important;
-    font-weight: 300 !important;
-    font-size: 28px !important;
-    letter-spacing: -0.04em !important;
-    line-height: 1 !important;
-  }
-  .live-strip {
-    padding: 16px 14px !important;
-    align-items: center !important;
-  }
-  .live-strip-left {
-    display: flex !important; flex-direction: column !important; align-items: flex-start !important;
-    gap: 2px !important;
-  }
-  .live-strip-left > span:not(.live-dot) {
-    font-size: 12px !important;
-    color: var(--text-tertiary) !important;
-    letter-spacing: 0.02em !important;
-    text-transform: uppercase !important;
-    font-weight: 500 !important;
-  }
-  /* Keep the ".live-count bears online" wrapping: show count big, label small underneath */
-  .live-strip-left > span:not(.live-dot) { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; }
-  .live-strip-left > span:not(.live-dot) > .live-count {
-    text-transform: none !important;
-    color: var(--text-primary) !important;
+    padding-bottom: 6px;
+    margin-bottom: 10px !important;
   }
 
   /* 9 — Secondary CTAs lose the ember. Only primary keeps it. */
