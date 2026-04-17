@@ -4017,8 +4017,39 @@
   .wy-invite-icon svg { width: 20px; height: 20px; stroke: #fff; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
   .wy-invite-body { flex: 1; min-width: 0; }
   .wy-invite-title { font-size: 14px; font-weight: 600; color: var(--text-primary); }
-  .wy-invite-sub { font-size: 12px; color: var(--text-tertiary); margin-top: 2px; }
+  .wy-invite-sub { font-size: 12px; color: var(--text-secondary); margin-top: 2px; }
+  .wy-invite-meta {
+    font-size: 11px; color: var(--text-tertiary);
+    margin-top: 4px;
+    letter-spacing: 0.01em;
+  }
+  .wy-invite-meta strong {
+    color: var(--text-secondary);
+    font-weight: 600;
+  }
   .wy-invite-actions { display: flex; gap: 6px; }
+  /* Invite CTA uses the same style as Happening now → Join them, so the
+     celebration animation class/handler applies identically. */
+  .wy-invite-cta {
+    flex-shrink: 0;
+    margin-top: 0 !important;
+    align-self: center !important;
+  }
+  /* Compact "joined" state for invite CTAs: shrink to a round green check.
+     Override the hero CTA's left-aligned check pseudo-elements. */
+  .wy-invite-cta.joined {
+    width: 28px; height: 28px;
+    min-width: 28px;
+    padding: 0 !important;
+    border-radius: 50% !important;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1;
+    color: #fff;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .wy-invite-cta.joined::before,
+  .wy-invite-cta.joined::after { display: none !important; }
   .wy-invite-btn {
     border: none; border-radius: 8px; cursor: pointer;
     padding: 7px 12px;
@@ -8400,28 +8431,37 @@ function renderWithYou() {
       <div class="wy-rail">${taggedCards}</div>
     </section>`;
 
-  // — Section 4: Invites —
+  // — Section 4: Invites — event invitations coming from circles you're in
   const invites = [
-    { icon: svgCal, title: 'TGI Bears Happy Hour', sub: 'Tonight · Touché · invited by Marcus' },
-    { icon: svgUsers, title: 'Join Trans Bears Chicago', sub: 'Group invite from Daniel · 127 members' },
+    {
+      title: 'TGI Bears Happy Hour',
+      when: 'Tonight · Touché',
+      fromGroup: 'Chicago Bear Social',
+      invitedBy: 'Marcus',
+    },
+    {
+      title: 'Leather Sunday',
+      when: 'Sun Apr 19 · Touché',
+      fromGroup: 'Chicago Leather',
+      invitedBy: 'Daniel',
+    },
   ];
   const inviteCards = invites.map(inv => `
     <div class="wy-invite">
-      <div class="wy-invite-icon"><svg viewBox="0 0 24 24">${inv.icon}</svg></div>
+      <div class="wy-invite-icon"><svg viewBox="0 0 24 24">${svgCal}</svg></div>
       <div class="wy-invite-body">
         <div class="wy-invite-title">${inv.title}</div>
-        <div class="wy-invite-sub">${inv.sub}</div>
+        <div class="wy-invite-sub">${inv.when}</div>
+        <div class="wy-invite-meta">via <strong>${inv.fromGroup}</strong> · from ${inv.invitedBy}</div>
       </div>
-      <div class="wy-invite-actions">
-        <button class="wy-invite-btn secondary">Later</button>
-        <button class="wy-invite-btn primary">Accept</button>
-      </div>
+      <button class="wy-hero-cta wy-invite-cta" data-wy-action="join-here">Accept</button>
     </div>`).join('');
   const invitesSec = `
     <section class="wy-section">
       <div class="wy-section-head">
         <h2 class="wy-section-title">Invites</h2>
       </div>
+      <div class="wy-section-sub">Event invitations from your circles</div>
       ${inviteCards}
     </section>`;
 
@@ -8472,7 +8512,7 @@ function renderWithYou() {
   const circlesSec = `
     <section class="wy-section">
       <div class="wy-section-head">
-        <h2 class="wy-section-title">In your circles</h2>
+        <h2 class="wy-section-title">My groups</h2>
         <span class="wy-see-all" data-see-all="circles">See all ›</span>
       </div>
       ${circleRows}
@@ -8612,11 +8652,14 @@ document.addEventListener('click', (e) => {
   btn.appendChild(toast);
   setTimeout(() => toast.remove(), 3500);
 
-  // Settle into joined state — wait longer so the burst peaks first
+  // Settle into joined state — wait longer so the burst peaks first.
+  // Invite CTAs shrink to a round green check; the hero CTA keeps a full label.
+  const isInvite = btn.classList.contains('wy-invite-cta');
   setTimeout(() => {
     btn.classList.add('joined');
     btn.dataset.state = 'joined';
-    btn.textContent = "You're going";
+    btn.textContent = isInvite ? '✓' : "You're going";
+    if (isInvite) btn.setAttribute('aria-label', 'Accepted');
   }, 650);
 
   // Haptic pattern
