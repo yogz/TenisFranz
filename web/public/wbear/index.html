@@ -5893,6 +5893,34 @@ const imgs = [
   '/wbear/tumblr_lx8hlaVV9J1r9xpsho1_640.jpg',
 ];
 
+// Demo-only: varied-aspect SVG placeholders to make the masonry mode
+// visibly different from the uniform mode (natural photo pool above is
+// all ~4:5 portrait, so variance is subtle without these).
+(() => {
+  const makeFake = (w, h, hue, label) => {
+    const svg =
+      `<svg xmlns='http://www.w3.org/2000/svg' width='${w}' height='${h}' viewBox='0 0 ${w} ${h}'>` +
+      `<defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'>` +
+      `<stop offset='0' stop-color='hsl(${hue}, 38%, 34%)'/>` +
+      `<stop offset='1' stop-color='hsl(${hue + 25}, 45%, 20%)'/>` +
+      `</linearGradient></defs>` +
+      `<rect width='${w}' height='${h}' fill='url(#g)'/>` +
+      `<text x='50%' y='50%' text-anchor='middle' dominant-baseline='central' ` +
+      `fill='rgba(255,255,255,0.55)' font-family='-apple-system,sans-serif' ` +
+      `font-size='${Math.min(w, h) / 6}' font-weight='300' letter-spacing='-0.02em'>${label}</text>` +
+      `</svg>`;
+    return 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
+  };
+  const fakes = [
+    makeFake(400, 600, 18,  '2:3 tall'),     // tall portrait
+    makeFake(400, 400, 200, '1:1 square'),   // square
+    makeFake(600, 400, 50,  '3:2 wide'),     // landscape
+    makeFake(400, 300, 280, '4:3 wide'),     // wider landscape
+    makeFake(300, 500, 340, '3:5 very tall'),// very tall
+  ];
+  imgs.push(...fakes);
+})();
+
 // ── Populate Activity screen (behind the bell) ──
 (() => {
   const HEART_FILL = '<svg viewBox="0 0 24 24" fill="#fff"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>';
