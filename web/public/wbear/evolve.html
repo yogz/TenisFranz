@@ -5192,11 +5192,8 @@
 </style>
 
 <!-- ── Calm overrides (evolve.html) — same features + same palette, less noise ── -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300&display=swap" rel="stylesheet">
 <style id="calm-overrides">
-  :root { --serif: 'Fraunces', Georgia, serif; }
+  :root { --display: -apple-system, BlinkMacSystemFont, "SF Pro Display", system-ui, sans-serif; }
 
   /* 1 — Stop all the pulsing. iOS-calm: one moving thing at a time. */
   .live-dot,
@@ -5278,16 +5275,17 @@
     font-weight: 400 !important;
   }
 
-  /* 8 — Serif display on section titles */
+  /* 8 — Light display weight on section titles (SF Pro Display style) */
   .feed-section-title,
   .events-title,
   .wy-section-title,
   .action-screen-title,
   .following-card-title,
   .group-section-title {
-    font-family: var(--serif) !important;
+    font-family: var(--display) !important;
     font-weight: 300 !important;
-    letter-spacing: -0.01em !important;
+    letter-spacing: -0.028em !important;
+    font-size: 22px !important;
   }
   .events-title-dot { display: none; }
 
@@ -5381,17 +5379,17 @@
     font-weight: 400 !important;
   }
 
-  /* 17 — Brand in the topnav gets the serif italic kiss */
+  /* 17 — Brand in the topnav: SF Pro Display light */
   .topnav-brand {
-    font-family: var(--serif) !important;
+    font-family: var(--display) !important;
     font-weight: 300 !important;
-    letter-spacing: 0.01em !important;
+    letter-spacing: -0.015em !important;
   }
   .topnav-brand span {
-    font-style: italic;
     color: var(--ember);
     margin: 0 4px;
     opacity: 0.7;
+    font-weight: 300;
   }
 
   /* 18 — Quiet "LIVE" badge on stories → static ember dot-based */
