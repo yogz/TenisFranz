@@ -5520,7 +5520,152 @@
   .events-card-img {
     border-radius: 10px !important;
   }
+
+  /* ─────── Stories / Presence rail ─────── */
+
+  /* 25 — Quiet stories: drop ember rings, drop LIVE pill, softer dots */
+  .activity-ring:not(.seen) {
+    background: transparent !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    border: none !important;
+  }
+  .activity-ring:not(.seen) .activity-img {
+    border: 1.5px solid var(--ember) !important;
+    border-radius: 18px !important;
+  }
+  .light .activity-ring:not(.seen) .activity-img {
+    border-color: #8A6A3F !important;
+  }
+  .activity-ring {
+    border: none !important;
+    background: transparent !important;
+  }
+  .activity-ring.seen .activity-img {
+    border: 1px solid var(--hairline-strong, rgba(255,255,255,0.08)) !important;
+    border-radius: 18px !important;
+  }
+  /* Presence dot — smaller, no glow */
+  .activity-dot {
+    width: 10px !important; height: 10px !important;
+    background: #7AA370 !important;
+    box-shadow: none !important;
+    border-width: 2px !important;
+    top: 0 !important; right: 0 !important;
+  }
+  /* LIVE badge → plain text kicker, no red pill */
+  .activity-live {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    color: var(--ember) !important;
+    font-weight: 600 !important;
+    font-size: 9px !important;
+    letter-spacing: 0.12em !important;
+    top: -16px !important;
+    padding: 0 !important;
+  }
+  .light .activity-live { color: #8A6A3F !important; }
+  /* Your story "+" — neutral, less ember */
+  .activity-add {
+    background: var(--bg-subtle) !important;
+  }
+  .activity-add::after {
+    color: var(--text-secondary) !important;
+    font-weight: 300 !important;
+  }
+  .activity-add-avatar { display: none !important; }
+  .activity-name {
+    color: var(--text-tertiary) !important;
+    font-weight: 400 !important;
+  }
+
+  /* ─────── Hairlines between sections ─────── */
+
+  /* 26 — Soft hairlines, iOS Contacts / News style */
+  .activity-rail {
+    padding-bottom: 18px !important;
+    border-bottom: 1px solid var(--hairline, rgba(255,255,255,0.06)) !important;
+    margin-bottom: 18px !important;
+  }
+  .editorial-section,
+  .pack-shortcuts,
+  .events-section {
+    border-bottom: 1px solid var(--hairline, rgba(255,255,255,0.06)) !important;
+    padding-bottom: 18px !important;
+    margin-bottom: 18px !important;
+  }
+  .light .activity-rail,
+  .light .editorial-section,
+  .light .pack-shortcuts,
+  .light .events-section {
+    border-bottom-color: rgba(30,26,20,0.08) !important;
+  }
+
+  /* 27 — With you sections: hairlines between blocks */
+  .wy-section {
+    padding-bottom: 26px !important;
+    margin-bottom: 26px !important;
+    border-bottom: 1px solid var(--hairline, rgba(255,255,255,0.06)) !important;
+  }
+  .wy-section:last-child { border-bottom: none !important; }
+  .light .wy-section { border-bottom-color: rgba(30,26,20,0.08) !important; }
+
+  /* 28 — Dissolve the wy-invite / wy-circle card surfaces too */
+  .wy-invite,
+  .wy-circle {
+    background: transparent !important;
+    padding: 10px 0 !important;
+    border-radius: 0 !important;
+    border-bottom: 1px solid var(--hairline, rgba(255,255,255,0.04)) !important;
+    margin-bottom: 0 !important;
+  }
+  .wy-invite:last-child,
+  .wy-circle:last-child {
+    border-bottom: none !important;
+  }
+  .light .wy-invite,
+  .light .wy-circle { border-bottom-color: rgba(30,26,20,0.06) !important; }
 </style>
+
+<!-- Strip leading emoji from group/circle/section names for a quieter typographic rhythm -->
+<script>
+(function stripEmojiWhenReady() {
+  const EMOJI_RX = /^\s*(?:\p{Extended_Pictographic}(?:\uFE0F)?|\p{Emoji_Presentation})\s*/u;
+  const strip = (el) => {
+    if (!el || !el.firstChild) return;
+    // Only strip if the first text node starts with an emoji
+    const walk = el.childNodes[0];
+    if (walk && walk.nodeType === 3 && EMOJI_RX.test(walk.nodeValue)) {
+      walk.nodeValue = walk.nodeValue.replace(EMOJI_RX, '');
+    } else if (walk && walk.nodeType === 1) {
+      // For nested like <strong>🎳 Name</strong>
+      strip(walk);
+    }
+  };
+  const sweep = () => {
+    document.querySelectorAll(
+      '.wy-circle-name, .group-rail-card-name, .group-card-name, ' +
+      '.chat-name, .groups-list-name, .event-title, .packages-name'
+    ).forEach(strip);
+  };
+  // Run ASAP, then after a tick, then observe DOM for any future inserts
+  const runOnce = () => { sweep(); setTimeout(sweep, 50); setTimeout(sweep, 300); };
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', runOnce);
+  } else {
+    runOnce();
+  }
+  // With-you sections (Invites, In your circles) render on tab click — watch them.
+  const mo = new MutationObserver(() => sweep());
+  document.addEventListener('DOMContentLoaded', () => {
+    mo.observe(document.body, { childList: true, subtree: true });
+  }, { once: true });
+  if (document.readyState !== 'loading') {
+    mo.observe(document.body, { childList: true, subtree: true });
+  }
+})();
+</script>
 </head>
 <body>
 
