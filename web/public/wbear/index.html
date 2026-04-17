@@ -116,6 +116,71 @@
     --on-hero-sub:   #78603E;
   }
 
+  /* ── Comfort — 40+ readability theme (layered on top of Light/Sand bg) ──
+     Scales all --text-* tokens +15-20%, darker secondary/tertiary text
+     for AAA contrast, disables ambient pulses, fatter tap targets. */
+  .comfort {
+    /* Typography scale bumps (~+15-20%) */
+    --text-xs:  13px;
+    --text-sm:  15px;
+    --text-md:  17px;   /* iOS body — minimum comfortable */
+    --text-lg:  19px;
+    --text-xl:  24px;
+    --text-2xl: 28px;
+    --text-3xl: 32px;
+
+    /* Stricter contrasts (on Sand bg) */
+    --text-secondary: #3B332A;       /* was #68605A — AAA */
+    --text-tertiary:  #72695F;       /* was #9A9490 — still soft but 6:1 */
+    --text-tabs-inactive: #5A5047;   /* AAA */
+  }
+  /* Comfort also assumes the Sand light surfaces — the JS applies both
+     .light and .comfort classes together so --ember is the Sand Terracotta. */
+
+  /* Comfort: kill ambient animations (still keeps press/tap feedback) */
+  .comfort .activity-ring:not(.seen),
+  .comfort .live-dot,
+  .comfort .fab:not(.expanded),
+  .comfort .wy-hero-dot,
+  .comfort .wy-hero-eyebrow::before,
+  .comfort .chat-preview.typing::before { animation: none !important; }
+
+  /* Comfort tap targets (iOS HIG 44pt min on everything interactive) */
+  .comfort .filter-tab { min-height: 48px; padding: 14px 0; }
+  .comfort .view-toggle-btn { width: 40px; height: 36px; }
+  .comfort .inbox-segment { padding: 12px 10px; min-height: 48px; }
+  .comfort .compose-btn,
+  .comfort .close-btn { width: 48px; height: 48px; }
+  .comfort .activity-filter,
+  .comfort .shared-filter,
+  .comfort .following-filter { padding: 10px 16px; }
+  .comfort .wy-hero-cta,
+  .comfort .wy-invite-btn,
+  .comfort .profile-cta { padding: 14px 20px; min-height: 48px; }
+
+  /* Comfort spacing — more breathing */
+  .comfort .wy-section { margin-bottom: 32px !important; }
+  .comfort .activity-row { padding: 14px 16px; min-height: 56px; }
+  .comfort .chat-row { padding: 14px 16px; min-height: 60px; }
+  .comfort .more-row { padding: 16px 16px; min-height: 52px; }
+  .comfort .masonry { gap: 8px; padding: 8px; }
+
+  /* Comfort icon sizes */
+  .comfort .topnav-msg svg,
+  .comfort .view-toggle-btn svg,
+  .comfort .activity-filter svg,
+  .comfort .compose-btn svg { width: 22px; height: 22px; }
+  .comfort .more-icon { width: 44px; height: 44px; }
+  .comfort .more-icon svg { width: 22px; height: 22px; }
+
+  /* Comfort line-height — 1.5 baseline on reading surfaces */
+  .comfort .feed-caption,
+  .comfort .activity-row-text,
+  .comfort .chat-preview,
+  .comfort .wy-invite-sub,
+  .comfort .wy-invite-meta,
+  .comfort .wy-section-sub { line-height: 1.5; }
+
   /* ── Ember Soft — DARK variant (palette terracotta/apricot sur fond Night) ── */
   .ember {
     /* Palette primaire */
@@ -7886,14 +7951,19 @@ document.getElementById('tabContextSlot').addEventListener('click', (e) => {
   });
 })();
 
-// ── Theme cycle (Dark → Light → Ember Soft → Dark) via Profile → Appearance ──
-const THEME_ORDER = ['dark', 'light', 'ember'];
-const THEME_LABEL = { dark: 'Dark', light: 'Light', ember: 'Ember Soft' };
+// ── Theme cycle (Dark → Light → Ember Soft → Comfort → Dark) via Profile → Appearance ──
+const THEME_ORDER = ['dark', 'light', 'ember', 'comfort'];
+const THEME_LABEL = { dark: 'Dark', light: 'Light', ember: 'Ember Soft', comfort: 'Comfort (40+)' };
 function applyTheme(theme) {
   const html = document.documentElement;
-  html.classList.remove('light', 'ember');
+  html.classList.remove('light', 'ember', 'comfort');
   if (theme === 'light') html.classList.add('light');
   else if (theme === 'ember') html.classList.add('ember'); // Ember Soft = dark variant
+  else if (theme === 'comfort') {
+    // Comfort rides on top of the Sand (light) palette for maximum readability
+    html.classList.add('light');
+    html.classList.add('comfort');
+  }
   html.dataset.theme = theme;
   document.querySelectorAll('#profileSettings .more-row').forEach(r => {
     const lbl = r.querySelector('.more-label');
