@@ -3499,43 +3499,23 @@
     transition: transform 0.25s ease, filter 0.25s ease;
   }
 
-  /* ── Uniform grid (tight, Instagram-style perfect 3-col) ── */
+  /* ── Uniform grid (perfect 3-col, same styling as masonry) ── */
   /* Higher specificity than .masonry.active { display: block } defined later */
   .masonry.active.uniform {
     column-count: unset;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 2px;
-    padding: 2px;
+    gap: 5px;
     padding-bottom: calc(100px + env(safe-area-inset-bottom, 0px));
   }
   .masonry.uniform .masonry-item {
     margin-bottom: 0;
     aspect-ratio: 4 / 5;
-    border-radius: 0;
-    box-shadow: none;
-    background: transparent;
   }
   .masonry.uniform .masonry-item img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-  }
-  .masonry.uniform .masonry-item.featured {
-    box-shadow: none;
-    background: transparent;
-    background-image: none;
-    border: none;
-  }
-  .masonry.uniform .masonry-item.featured::before,
-  .masonry.uniform .masonry-item.featured::after {
-    display: none;
-  }
-  .masonry.uniform .grid-overlay,
-  .masonry.uniform .grid-boost,
-  .masonry.uniform .grid-chip,
-  .masonry.uniform .grid-verified {
-    display: none;
   }
   /* Active-uniform state on the Grid button: subtle tint */
   .view-toggle-btn.uniform {
