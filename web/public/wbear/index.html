@@ -121,15 +121,17 @@
      Scales all --text-* tokens +15-20%, darker secondary/tertiary text
      for AAA contrast, disables ambient pulses, fatter tap targets. */
   .comfort {
-    /* Typography scale bumps (~+15-20%) */
+    /* Typography scale — disciplined hierarchy (senior designer pass):
+       meta 15 → body 17 → card 18 → subsection 20 → H2 22 → H1 28.
+       No token exceeds 28 on Comfort — hero scale comes from weight, not size. */
     --text-2xs: 12px;   /* no text < 12px in Comfort — all badges readable */
     --text-xs:  13px;
-    --text-sm:  15px;
-    --text-md:  17px;   /* iOS body — minimum comfortable */
-    --text-lg:  19px;
-    --text-xl:  24px;
-    --text-2xl: 28px;
-    --text-3xl: 32px;
+    --text-sm:  15px;   /* meta, captions */
+    --text-md:  17px;   /* body default (iOS min) */
+    --text-lg:  18px;   /* card titles */
+    --text-xl:  20px;   /* subsection titles */
+    --text-2xl: 22px;   /* H2 section titles */
+    --text-3xl: 28px;   /* H1 screen titles / hero numbers */
 
     /* Stricter contrasts (on Sand bg) */
     --text-secondary: #3B332A;       /* was #68605A — AAA */
@@ -166,6 +168,81 @@
   .comfort .chat-row { padding: 14px 16px; min-height: 60px; }
   .comfort .more-row { padding: 16px 16px; min-height: 52px; }
   .comfort .masonry { gap: 8px; padding: 8px; }
+
+  /* Comfort — grid label readability (senior designer pass)
+     Labels always visible with a real scrim on 40% of card height,
+     white text at 15px/600. Verified checkmark re-tinted from iOS blue
+     to Sand-dark so it stops jarring the terracotta palette. */
+  .comfort .masonry-item .grid-overlay {
+    opacity: 1;
+    padding: 48px 10px 10px;
+    background: linear-gradient(
+      to top,
+      rgba(0,0,0,0.55) 0%,
+      rgba(0,0,0,0.30) 55%,
+      rgba(0,0,0,0) 100%
+    );
+  }
+  .comfort .grid-name  { font-size: 15px; font-weight: 600; }
+  .comfort .grid-likes { font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.92); }
+  .comfort .grid-likes svg { fill: #fff; filter: none; }
+  .comfort .grid-verified {
+    background: #3E3832;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.35), 0 0 0 1.5px rgba(255,255,255,0.9);
+  }
+
+  /* Comfort — FAB anchoring shadow (senior designer pass)
+     The FAB was floating without weight on the warm Sand background.
+     Adds a terracotta-tinted drop shadow + solid accent border so it
+     reads as an action, not a watermark. */
+  .comfort .fab {
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,0.5),
+      inset 0 -1px 0 rgba(0,0,0,0.08),
+      0 8px 20px rgba(138,62,35,0.28),
+      0 2px 6px rgba(138,62,35,0.14) !important;
+    border: 1px solid rgba(138,62,35,0.35) !important;
+  }
+
+  /* Comfort — unified live-strip pill (senior designer pass)
+     Merges the two halves onto a single Sand surface with a 1px divider,
+     so the "X online / Chicago nearby" stops reading as two components.
+     Tight paddings + nowrap to keep it on one line at 375px. */
+  .comfort .live-strip {
+    background: #ECE4D6 !important;
+    border: 1px solid rgba(62,56,50,0.08) !important;
+    padding: 10px 12px !important;
+    gap: 8px !important;
+  }
+  .comfort .live-strip-left,
+  .comfort .live-strip-right { white-space: nowrap; }
+  .comfort .live-strip-right {
+    background: transparent !important;
+    border-left: 1px solid rgba(62,56,50,0.12) !important;
+    border-radius: 0 !important;
+    padding: 6px 0 6px 10px !important;
+    box-shadow: none !important;
+  }
+
+  /* Comfort — stories rail right edge (senior designer pass)
+     Adds breathing room on the trailing side plus a soft fade-out mask
+     so the last avatar ("Sar...") no longer truncates at the viewport. */
+  .comfort .activity-rail,
+  .comfort .wy-rail-scroll,
+  .comfort .story-rail {
+    padding-right: 24px;
+    -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 32px), transparent 100%);
+            mask-image: linear-gradient(to right, #000 calc(100% - 32px), transparent 100%);
+  }
+
+  /* Comfort — inbox badge re-tint (senior designer pass)
+     The iOS-default red screamed inside a Sand/Terracotta palette.
+     Re-skinned on the brand accent for coherence. */
+  .comfort .notif-badge {
+    background: var(--ember) !important;
+    color: #fff !important;
+    box-shadow: 0 1px 2px rgba(138,62,35,0.25);
+  }
 
   /* Comfort icon sizes */
   .comfort .topnav-msg svg,
