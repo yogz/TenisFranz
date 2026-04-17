@@ -6994,12 +6994,6 @@ function appendMasonryBatch(count = 12) {
       boost.className = 'grid-boost';
       boost.innerHTML = '✦ Featured';
       div.appendChild(boost);
-    } else if (f === 'local') {
-      const dist = (0.2 + ((i * 37) % 98) / 10).toFixed(1);
-      const chip = document.createElement('div');
-      chip.className = 'grid-chip distance';
-      chip.textContent = `${dist} mi`;
-      div.appendChild(chip);
     } else if (f === 'shared') {
       const ctx = SHARE_CONTEXTS[i % SHARE_CONTEXTS.length];
       const icon = ctx.kind === 'chat' ? CHAT_ICON_SVG
