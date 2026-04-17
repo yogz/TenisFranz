@@ -3494,8 +3494,8 @@
     position: relative;
     box-shadow: 0 2px 8px rgba(0,0,0,0.2);
     /* grid-row-end is set per-tile via JS from the image's natural aspect ratio.
-       Fallback span for items waiting on image load. */
-    grid-row-end: span 75;
+       Fallback span ≈ 4:5 tile for items waiting on image load. */
+    grid-row-end: span 22;
   }
   .masonry-item img {
     width: 100%;
@@ -6595,7 +6595,7 @@ const imgAspectCache = new Map();
 function computeSpan(ratio, tileWidth) {
   // grid-auto-rows: 2px + 5px gap → row unit = 7px
   const h = tileWidth * ratio;
-  return Math.max(30, Math.round((h + 5) / 7));
+  return Math.max(5, Math.round((h + 5) / 7));
 }
 
 function setMasonryItemSpan(div, img) {
