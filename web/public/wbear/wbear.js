@@ -1043,17 +1043,107 @@ document.addEventListener('click', (e) => {
 (() => {
   const screen = document.getElementById('screenStory');
   if (!screen) return;
-  const SWIPE_PX = 48;
+  const mainImg = document.getElementById('storyImg');
+  const neighborImg = document.getElementById('storyImgNext');
+  const SWIPE_COMMIT_RATIO = 0.22;
+  const SWIPE_MIN_PX = 48;
   const LONG_PRESS_MS = 200;
   const MOVE_CANCEL_PX = 8;
+  const RUBBER = 0.32;
+  const SLIDE_MS = 220;
   let activePointerId = null;
   let startX = 0, startY = 0;
   let moved = false;
   let longPressTimer = null;
   let isPaused = false;
+  let dragActive = false;
+  let dragLocked = false; // true = horizontal drag; vertical moves are ignored
+  let dragDx = 0;
+  let neighborIdx = null;
 
   const clearLongPress = () => {
     if (longPressTimer) { clearTimeout(longPressTimer); longPressTimer = null; }
+  };
+
+  const setNeighborFor = (dx) => {
+    let idx = null;
+    if (dx < 0 && storyIndex + 1 < storyList.length) idx = storyIndex + 1;
+    else if (dx > 0 && storyIndex > 0) idx = storyIndex - 1;
+    if (idx !== neighborIdx) {
+      neighborIdx = idx;
+      if (idx != null) neighborImg.src = storyList[idx].img;
+    }
+  };
+
+  const applyDragTransforms = (dx) => {
+    const w = screen.clientWidth || window.innerWidth || 1;
+    // Rubber-band when dragging past a missing neighbor.
+    let effective = dx;
+    if ((dx < 0 && neighborIdx == null) || (dx > 0 && neighborIdx == null)) {
+      effective = dx * RUBBER;
+    }
+    dragDx = effective;
+    mainImg.style.transform = `translate3d(${effective}px, 0, 0)`;
+    if (neighborIdx != null) {
+      const offset = dx < 0 ? w : -w;
+      neighborImg.style.transform = `translate3d(${effective + offset}px, 0, 0)`;
+    } else {
+      neighborImg.style.transform = `translate3d(100%, 0, 0)`;
+    }
+  };
+
+  const beginDrag = () => {
+    if (dragActive) return;
+    dragActive = true;
+    pauseStoryTimer();
+    mainImg.style.transition = 'none';
+    neighborImg.style.transition = 'none';
+  };
+
+  const settleDrag = (commit) => {
+    const w = screen.clientWidth || window.innerWidth || 1;
+    mainImg.style.transition = `transform ${SLIDE_MS}ms ease-out`;
+    neighborImg.style.transition = `transform ${SLIDE_MS}ms ease-out`;
+    const cleanup = (nextIdx) => {
+      mainImg.style.transition = 'none';
+      neighborImg.style.transition = 'none';
+      // Render the new story BEFORE resetting transforms — the old frame is
+      // still off-screen, so swapping src here avoids a visible flash.
+      if (nextIdx != null) renderStoryAt(nextIdx);
+      mainImg.style.transform = '';
+      neighborImg.style.transform = '';
+      dragActive = false;
+      dragLocked = false;
+      dragDx = 0;
+      neighborIdx = null;
+      if (nextIdx == null) resumeStoryTimer();
+    };
+    const onEnd = (target) => {
+      let fired = false;
+      const handler = () => {
+        if (fired) return;
+        fired = true;
+        mainImg.removeEventListener('transitionend', handler);
+        target();
+      };
+      mainImg.addEventListener('transitionend', handler);
+      // Fallback: if the transform doesn't actually change, transitionend won't fire.
+      setTimeout(handler, SLIDE_MS + 60);
+    };
+    if (commit && neighborIdx != null) {
+      const targetIdx = neighborIdx;
+      const direction = dragDx < 0 ? -1 : 1;
+      mainImg.style.transform = `translate3d(${direction * w}px, 0, 0)`;
+      neighborImg.style.transform = `translate3d(0, 0, 0)`;
+      onEnd(() => cleanup(targetIdx));
+    } else {
+      mainImg.style.transform = `translate3d(0, 0, 0)`;
+      if (neighborIdx != null) {
+        const offset = dragDx < 0 ? w : -w;
+        neighborImg.style.transform = `translate3d(${offset}px, 0, 0)`;
+      }
+      onEnd(() => cleanup(null));
+    }
   };
 
   const onDown = (e) => {
@@ -1061,11 +1151,17 @@ document.addEventListener('click', (e) => {
     // Skip when starting on interactive chrome — let native handlers run.
     if (e.target.closest('button, input, .story-close, .story-react, .story-reactions')) return;
     if (activePointerId !== null) return;
+    // Interrupt any settling animation.
+    if (dragActive) {
+      mainImg.style.transition = 'none';
+      neighborImg.style.transition = 'none';
+    }
     activePointerId = e.pointerId;
     startX = e.clientX;
     startY = e.clientY;
     moved = false;
     isPaused = false;
+    dragLocked = false;
     clearLongPress();
     longPressTimer = setTimeout(() => {
       longPressTimer = null;
@@ -1080,24 +1176,30 @@ document.addEventListener('click', (e) => {
     if (!moved && (Math.abs(dx) > MOVE_CANCEL_PX || Math.abs(dy) > MOVE_CANCEL_PX)) {
       moved = true;
       clearLongPress();
+      // Lock direction on first meaningful move: horizontal drag vs. vertical scroll.
+      dragLocked = Math.abs(dx) > Math.abs(dy);
     }
+    if (!moved || !dragLocked || isPaused) return;
+    if (!dragActive) beginDrag();
+    setNeighborFor(dx);
+    applyDragTransforms(dx);
   };
 
   const onUp = (e, cancelled) => {
     if (e.pointerId !== activePointerId) return;
     clearLongPress();
-    const dx = e.clientX - startX;
-    const dy = e.clientY - startY;
     const wasPaused = isPaused;
     if (isPaused) { resumeStoryTimer(); isPaused = false; }
+    const wasDragging = dragActive;
     activePointerId = null;
-    if (cancelled) return;
+    if (cancelled && !wasDragging) return;
     // Long-press release: no navigation, just resume.
-    if (wasPaused) { storySuppressClickUntil = performance.now() + 300; return; }
-    // Horizontal swipe beats tap handling.
-    if (Math.abs(dx) > SWIPE_PX && Math.abs(dx) > Math.abs(dy)) {
+    if (wasPaused && !wasDragging) { storySuppressClickUntil = performance.now() + 300; return; }
+    if (wasDragging) {
       storySuppressClickUntil = performance.now() + 300;
-      if (dx < 0) nextStory(); else prevStory();
+      const w = screen.clientWidth || window.innerWidth || 1;
+      const commit = !cancelled && Math.abs(dragDx) > Math.max(SWIPE_MIN_PX, w * SWIPE_COMMIT_RATIO);
+      settleDrag(commit);
     }
   };
 
