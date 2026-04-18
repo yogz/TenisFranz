@@ -726,16 +726,39 @@
     color: var(--text-tertiary);
     letter-spacing: 0.1px;
   }
+  /* Zero-height sentinel right above the filter bar. An IntersectionObserver
+     uses it to detect when the bar becomes stuck so we can switch to the
+     compact full-bleed style below. */
+  .following-filter-sentinel,
+  .shared-filter-sentinel { height: 0; width: 100%; }
+
   /* Filter bar sticks right under the main .filter-tabs (54px tall in
-     Comfort). Its containing block is .tab-context which ends right
-     above the feed, so the first feed image naturally pushes the
-     filter bar up and out of view. */
+     Comfort). Its containing block is .grid-scroll — it stays pinned
+     throughout the feed scroll. */
   .following-filter-bar {
     position: sticky;
     top: 54px;
     z-index: 4;
     margin: 0 16px 10px;
     padding: 7px 8px;
+    transition:
+      margin 0.18s ease,
+      padding 0.18s ease,
+      border-radius 0.18s ease,
+      box-shadow 0.18s ease;
+  }
+  /* Stuck state — full-bleed, tighter vertical, no rounded corners,
+     slight shadow under to separate from the feed content. */
+  .following-filter-bar.stuck {
+    margin: 0 0 0;
+    padding: 5px 16px;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+    box-shadow:
+      0 4px 12px rgba(42, 32, 22, 0.10),
+      0 1px 0 rgba(42, 32, 22, 0.06);
+  }
     background:
       linear-gradient(135deg, rgba(29,158,117,0.10), rgba(99,153,34,0.05)),
       var(--bg);
@@ -2043,7 +2066,7 @@
 
   /* ── Local heatmap banner (replaces Events when tab=local) ── */
   .heatmap-card {
-    margin: 0 3px 8px;     /* Align edges with the masonry (padding: 3px), tighter bottom gap */
+    margin: 6px 3px 20px;  /* Rythme: 12px avec les tabs au-dessus (pad 6px), 20px avec le rail en dessous */
     padding: 14px;
     border-radius: var(--radius-md);
     background:
@@ -2108,11 +2131,11 @@
   /* Pills: light glass — now sit on the dark bottom scrim, so white
      glass reads clearly. */
   .light .heatmap-stat {
-    background: rgba(255, 253, 248, 0.55);
+    background: rgba(253, 249, 243, 0.92);
     backdrop-filter: blur(14px) saturate(1.4);
     -webkit-backdrop-filter: blur(14px) saturate(1.4);
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    box-shadow: 0 1px 2px rgba(42, 32, 22, 0.1);
+    border: none;
+    box-shadow: 0 1px 2px rgba(42, 32, 22, 0.08);
   }
   /* "Chicago · tonight" — plain text, no pill. Cream color with
      a solid dark halo so it pops against both dark streets and
@@ -2233,7 +2256,7 @@
     background: rgba(62, 56, 50, 0.08);
     font-family: inherit;
     font-size: 12px; font-weight: 600;
-    color: #1A1612;
+    color: #1a1410;
     letter-spacing: -0.05px;
     line-height: 1;
     white-space: nowrap;
@@ -2242,15 +2265,15 @@
     font-weight: 800;
     font-variant-numeric: tabular-nums;
     letter-spacing: -0.1px;
-    color: #1A1612;
+    color: #1a1410;
   }
   .heatmap-stat-label {
     font-weight: 600;
-    color: #3E3832;
+    color: #1a1410;
   }
   .heatmap-stat-icon {
     width: 14px; height: 14px;
-    stroke: #1A1612; fill: none;
+    stroke: #1a1410; fill: none;
     stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round;
     flex-shrink: 0;
   }
@@ -4261,9 +4284,11 @@
     white-space: nowrap;
   }
   /* Events section — no container anymore. Just the horizontal rail
-     sitting in the page flow. Tight vertical rhythm between sections. */
+     sitting in the page flow. Horizontal padding matches the masonry
+     grid (3px) so event cards line up with the feed tiles below.
+     22px bottom margin → ~28px gap with the feed title (its 6px top pad). */
   .events-section {
-    margin: 0 0 8px;
+    margin: 0 0 22px;
     padding: 0;
     background: transparent;
     border: none;
@@ -4273,12 +4298,12 @@
     display: flex;
     align-items: center;
     gap: 10px;
-    padding: 0 16px;
+    padding: 0 3px;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     scroll-snap-type: x mandatory;
-    scroll-padding-inline-start: 16px;
+    scroll-padding-inline-start: 3px;
   }
   .events-rail::-webkit-scrollbar { display: none; }
 
@@ -6530,22 +6555,22 @@
   <div class="activity-rail" id="activityRail"></div>
 
   <div class="grid-scroll">
-    <!-- Events rail — on Local, sits BEFORE the heatmap hero now -->
+    <div id="tabContextSlot"></div>
+
+    <!-- Events rail — on Local, sits BELOW the heatmap hero -->
     <div class="events-section" id="eventsSection">
       <div class="events-rail" id="eventsRail"></div>
       <div class="collections-rail" id="collectionsRail" style="display:none;"></div>
     </div>
-
-    <!-- Wrapper around the tab-specific hero + filter bar so the filter bar
-         can be position:sticky inside a scoped containing block. That way the
-         first feed image naturally pushes the filter bar away when scrolling.
-         (Named .hero-wrap to avoid clashing with the legacy .tab-context
-         class used for filter-specific context banners elsewhere.) */ -->
-    <div class="hero-wrap">
-      <div id="tabContextSlot"></div>
-      <div id="followingFilterBar" class="following-filter-bar" style="display:none;"></div>
-      <div id="sharedFilterBar" class="shared-filter-bar" style="display:none;"></div>
-    </div>
+    <!-- Filter bars sit directly inside .grid-scroll so position:sticky has
+         the whole feed as its containing block — they stay pinned under the
+         main tabs throughout the feed scroll. The zero-height sentinel just
+         above each bar lets an IntersectionObserver detect when the bar has
+         become "stuck" so we can shift its styling (full-bleed, compact). -->
+    <div class="following-filter-sentinel" aria-hidden="true"></div>
+    <div id="followingFilterBar" class="following-filter-bar" style="display:none;"></div>
+    <div class="shared-filter-sentinel" aria-hidden="true"></div>
+    <div id="sharedFilterBar" class="shared-filter-bar" style="display:none;"></div>
 
     <!-- Unified shortcuts for The Pack (replaces 3 separate rails) -->
     <div class="pack-shortcuts" id="packShortcuts" style="display:none;">
@@ -8400,6 +8425,30 @@ feed.addEventListener('click', (e) => {
   }
 });
 
+// ── Sticky filter bar "stuck" state — toggle a class when the zero-height
+//    sentinel just above the filter bar scrolls past the sticky top offset.
+//    That's the trick to detect sticky-pinned state in pure CSS+IO. ──
+(() => {
+  const pairs = [
+    { sentinel: '.following-filter-sentinel', bar: '#followingFilterBar' },
+    { sentinel: '.shared-filter-sentinel',    bar: '#sharedFilterBar' },
+  ];
+  pairs.forEach(({ sentinel: selS, bar: selB }) => {
+    const sEl = document.querySelector(selS);
+    const bEl = document.querySelector(selB);
+    if (!sEl || !bEl) return;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        // When the sentinel is below the sticky threshold (not intersecting),
+        // the bar is stuck — switch to the compact full-bleed style.
+        bEl.classList.toggle('stuck', entry.intersectionRatio < 1);
+      },
+      { root: document.querySelector('.app-shell'), rootMargin: '-55px 0px 0px 0px', threshold: [1] }
+    );
+    io.observe(sEl);
+  });
+})();
+
 // ── Infinite scroll observer ──
 (() => {
   const scrollRoot = document.querySelector('.app-shell');
@@ -10027,7 +10076,7 @@ function setContext(filter) {
         <div class="heatmap-dot" style="top:72%;left:72%;animation-delay:.3s;"></div>
         <div class="heatmap-dot" style="top:34%;left:82%;animation-delay:1.4s;"></div>
         <div class="heatmap-head">
-          <span class="heatmap-title">Chicago · tonight</span>
+          <span class="heatmap-title">Chicago · Now</span>
           <button class="heatmap-cta">Open map</button>
         </div>
         <div class="heatmap-stats">
