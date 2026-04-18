@@ -992,13 +992,12 @@
   /* Mini rail — the remaining items, compact 160×160 */
   .editorial-rail {
     display: flex; gap: 8px;
-    padding: 2px 16px 10px;
+    margin: 0 16px;
+    padding: 2px 0 10px;
     overflow-x: auto;
     scrollbar-width: none;
     scroll-snap-type: x mandatory;
-    /* Without this, scroll-snap auto-aligns the first card to the rail's
-       left edge — eating the 16px left padding visually. */
-    scroll-padding-inline-start: 16px;
+    scroll-padding-inline-start: 0;
   }
   .editorial-rail::-webkit-scrollbar { display: none; }
   /* Split-card layout — vertical stack:
@@ -2089,7 +2088,7 @@
 
   /* ── Local heatmap banner (replaces Events when tab=local) ── */
   .heatmap-card {
-    margin: 6px 3px 20px;  /* Rythme: 12px avec les tabs au-dessus (pad 6px), 20px avec le rail en dessous */
+    margin: 6px 16px 20px;  /* Rythme: 12px avec les tabs au-dessus (pad 6px), 20px avec le rail en dessous */
     padding: 14px;
     border-radius: var(--radius-md);
     background:
@@ -4321,12 +4320,13 @@
     display: flex;
     align-items: center;
     gap: 10px;
-    padding: 4px 16px 12px;
+    margin: 0 16px;
+    padding: 4px 0 12px;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     scroll-snap-type: x mandatory;
-    scroll-padding-inline-start: 16px;
+    scroll-padding-inline-start: 0;
   }
   .events-rail::-webkit-scrollbar { display: none; }
 
