@@ -2268,8 +2268,7 @@ function renderWithYou() {
       <div class="wy-invite-icon"><svg viewBox="0 0 24 24">${svgCal}</svg></div>
       <div class="wy-invite-body">
         <div class="wy-invite-title">${inv.title}</div>
-        <div class="wy-invite-sub">${inv.when}</div>
-        <div class="wy-invite-meta">via <strong>${inv.fromGroup}</strong> · from ${inv.invitedBy}</div>
+        <div class="wy-invite-sub">${inv.when} · <strong>${inv.fromGroup}</strong> · from ${inv.invitedBy}</div>
       </div>
       <button class="wy-hero-cta wy-invite-cta" data-wy-action="join-here">Accept</button>
     </div>`).join('');
@@ -2282,64 +2281,87 @@ function renderWithYou() {
       ${inviteCards}
     </section>`;
 
-  // — Section 5: In your circles —
-  const circles = [
+  // — Section 5: What's new in your circles — AI-synthesized digest per group
+  // Mock: in prod the `brief` + `actions` come from a server-side pre-compute
+  // (1×/hour or on-login) using an LLM over the group's new activity. The
+  // UI stays a plain render — no live inference, no cost in the hot path.
+  const circleDigests = [
     {
-      name: '🎳 Chicago Bear Bowl League',
-      avatarIdx: 0, unread: true,
-      meta: '<strong>3 new photos</strong> · 2h',
-      thumbs: [imgs[2], imgs[4], imgs[7]],
-    },
-    {
-      name: 'Sunday gym crew',
-      avatarIdx: 4, unread: true,
-      meta: 'Sam checked in at Steamworks · <span class="wy-circle-time">just now</span>',
-      thumbs: null,
+      name: 'Chicago Bear Social',
+      emoji: '🐻',
+      avatarIdx: 0,
+      newCount: 12, forYou: 2,
+      brief: `<strong>Marcus</strong> checked in at <strong>Touché</strong> tonight with 3 of your gym crew, <strong>Jake</strong> just joined, and you haven't RSVP'd to <strong>TGI Bears Happy Hour</strong>.`,
+      actions: [
+        { label: 'Join at Touché', kind: 'primary' },
+        { label: 'RSVP Happy Hour', kind: 'secondary' },
+      ],
     },
     {
       name: 'Chicago Leather',
-      avatarIdx: 7, unread: false,
-      meta: 'New event: Leather Sunday · <span class="wy-circle-time">Apr 20</span>',
-      thumbs: null,
+      emoji: '🖤',
+      avatarIdx: 7,
+      newCount: 4, forYou: 1,
+      brief: `<strong>Daniel</strong> is asking who has a spare harness for <strong>Leather Sunday</strong> — 12 going, including 4 from your circles.`,
+      actions: [
+        { label: 'Reply to Daniel', kind: 'primary' },
+        { label: 'RSVP Leather Sunday', kind: 'secondary' },
+      ],
     },
     {
-      name: '🏠 Cabin weekend crew',
-      avatarIdx: 9, unread: false,
-      meta: '<strong>12 new messages</strong> · <span class="wy-circle-time">6h</span>',
-      thumbs: null,
+      name: 'Sunday gym crew',
+      emoji: '🏋️',
+      avatarIdx: 4,
+      newCount: 7, forYou: 1,
+      brief: `The crew is split 4–2 on Saturday's spot — <strong>Steamworks</strong> leading, but <strong>Sam</strong> and <strong>Chris</strong> (who you train with) picked <strong>Cheetah</strong>.`,
+      actions: [
+        { label: 'Vote', kind: 'primary' },
+        { label: 'See thread', kind: 'secondary' },
+      ],
     },
   ];
-  const circleRows = circles.map(c => {
-    const thumbs = c.thumbs
-      ? `<div class="wy-circle-thumbs">${c.thumbs.map(t => `<div class="wy-circle-thumb" style="background-image:url('${t}');"></div>`).join('')}</div>`
+
+  const digestCards = circleDigests.map(c => {
+    const forYouPill = c.forYou
+      ? ` · <span class="wy-digest-foryou">${c.forYou} for you</span>`
       : '';
+    const actions = c.actions.map(a =>
+      `<button class="wy-digest-action wy-digest-action-${a.kind}">${a.label}</button>`
+    ).join('');
     return `
-      <div class="wy-circle">
-        <div class="wy-circle-avatar" style="background-image:url('${imgs[c.avatarIdx]}');">
-          ${c.unread ? '<span class="wy-circle-dot"></span>' : ''}
+      <article class="wy-digest">
+        <header class="wy-digest-head">
+          <div class="wy-digest-cover" style="background-image:url('${imgs[c.avatarIdx]}');">
+            <span class="wy-digest-emoji">${c.emoji}</span>
+          </div>
+          <div class="wy-digest-info">
+            <div class="wy-digest-name">${c.name}</div>
+            <div class="wy-digest-count"><span class="wy-digest-dot"></span>${c.newCount} new${forYouPill}</div>
+          </div>
+          <span class="wy-digest-chevron">›</span>
+        </header>
+        <div class="wy-digest-brief">
+          <span class="wy-digest-ai" aria-label="AI-generated"><svg viewBox="0 0 24 24"><path d="M12 2 L14 9 L21 12 L14 15 L12 22 L10 15 L3 12 L10 9 Z"/></svg></span>
+          <p>${c.brief}</p>
         </div>
-        <div class="wy-circle-body">
-          <div class="wy-circle-name">${c.name}</div>
-          <div class="wy-circle-meta">${c.meta}</div>
-        </div>
-        ${thumbs}
-        <span class="wy-circle-chevron">›</span>
-      </div>`;
+        <div class="wy-digest-actions">${actions}</div>
+      </article>`;
   }).join('');
+
   const circlesSec = `
     <section class="wy-section">
       <div class="wy-section-head">
-        <h2 class="wy-section-title">My groups</h2>
+        <h2 class="wy-section-title">What's new in your circles</h2>
         <span class="wy-see-all" data-see-all="circles">See all ›</span>
       </div>
-      <div class="wy-section-sub">Recent activity from the groups you're in</div>
-      ${circleRows}
+      <div class="wy-section-sub">Latest activity from the groups you're in</div>
+      ${digestCards}
     </section>`;
 
   // Section order: task-oriented — time-urgent / action-required items up top,
   // browseable content below. Happening now → Invites (decisions) →
   // Sent to you → Where you appear → In your circles.
-  root.innerHTML = hero + invitesSec + sent + tagged + circlesSec;
+  root.innerHTML = hero + invitesSec + sent + tagged;
 }
 
 // ── Renderers for "See all" screens from With you ──
@@ -2882,7 +2904,7 @@ function setContext(filter) {
         <div class="heatmap-map"></div>
         <div class="heatmap-body">
           <div class="heatmap-text">
-            <span class="heatmap-eyebrow">Chicago · Live</span>
+            <span class="heatmap-eyebrow">Chicago · Now</span>
             <div class="heatmap-stat-big">
               <strong class="heatmap-big-num">42</strong>
               <span class="heatmap-big-label">bears nearby</span>
