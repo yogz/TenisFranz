@@ -5932,6 +5932,10 @@
     background: #000;
     display: flex; flex-direction: column;
     padding: 0;
+    touch-action: none;
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
   }
   .story-progress {
     position: absolute;
