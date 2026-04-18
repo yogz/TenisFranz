@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>wbear — refonte v1</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    background: #F0EBE3;
+    color: #3E3832;
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    padding: 48px 24px 80px;
+  }
+
+  main { max-width: 640px; margin: 0 auto; }
+
+  header.meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    color: #9A9490;
+    border-bottom: 1px solid rgba(62,56,50,0.1);
+    padding-bottom: 14px;
+    margin-bottom: 32px;
+  }
+  header.meta strong { color: #3E3832; font-weight: 600; }
+
+  h1 {
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 6px;
+  }
+
+  .sub {
+    font-size: 15px;
+    color: #68605A;
+    margin-bottom: 36px;
+  }
+
+  h2 {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #9A9490;
+    margin: 32px 0 12px;
+  }
+
+  .rule {
+    font-size: 18px;
+    font-weight: 600;
+    color: #C06A48;
+    margin-bottom: 8px;
+    letter-spacing: -0.01em;
+  }
+
+  ul { list-style: none; }
+  li {
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(62,56,50,0.06);
+    font-size: 16px;
+  }
+  li:last-child { border-bottom: none; }
+  li strong { font-weight: 600; color: #3E3832; }
+  li em { font-style: normal; color: #68605A; }
+
+  .badge {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 3px 7px;
+    border-radius: 4px;
+    background: rgba(192,106,72,0.1);
+    color: #C06A48;
+    border: 1px solid rgba(192,106,72,0.25);
+    vertical-align: 2px;
+    margin-left: 6px;
+  }
+
+  .shot {
+    margin-top: 10px;
+    border: 1px solid rgba(62,56,50,0.08);
+    border-radius: 10px;
+    overflow: hidden;
+    background: #F8F4EC;
+    max-width: 240px;
+  }
+  .shot img { display: block; width: 100%; height: auto; }
+  .shot-cap {
+    display: block;
+    font-size: 12px;
+    color: #9A9490;
+    margin-top: 6px;
+    font-style: italic;
+  }
+
+  .link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 36px;
+    padding: 10px 14px;
+    background: #C06A48;
+    color: #FFF8F0;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+  }
+  .link:hover { background: #A85A3C; }
+
+  .wy-list {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 15px;
+    color: #68605A;
+    padding-left: 14px;
+    border-left: 2px solid rgba(192,106,72,0.22);
+  }
+  .wy-list span { line-height: 1.5; }
+</style>
+</head>
+<body>
+
+<main>
+
+  <header class="meta">
+    <strong>wbear · refonte v1</strong>
+    <span>doc interne · 2026-04-18</span>
+  </header>
+
+  <h1>Refonte v1</h1>
+  <p class="sub">Ce qui change, ce qui évolue, ce qu'il reste à trancher.</p>
+
+  <h2>Fil rouge</h2>
+  <p class="rule">Community over hookup.</p>
+
+  <h2>Nouveautés</h2>
+  <ul>
+    <li>
+      <strong>FAB repensé</strong> — tap pour snap, hold pour ouvrir la navigation.
+      <span class="badge">À valider équipe</span>
+    </li>
+    <li>
+      <strong>Carte feature éditoriale</strong> en tête du Worldwide feed — events, articles, promos, spotlights. <em>Même principe dans Local, localisé (events du coin, spots, bears à suivre localement).</em>
+    </li>
+    <li>
+      <strong>Onglet "With you"</strong> — hub communauté :
+      <div class="wy-list">
+        <span><strong>Happening now</strong> · activité live + où sont tes amis en ce moment <em>(ex : "Marcus &amp; 2 autres à Touché")</em></span>
+        <span><strong>Sent to you</strong> · contenus qu'on t'a envoyés</span>
+        <span><strong>Where you appear</strong> · où tu es tagué / identifié</span>
+        <span><strong>Invites</strong> · events &amp; groupes</span>
+        <span><strong>My groups</strong> · tes groupes d'activité sociale <em>(ex : Chicago Bear Bowl League, Sunday Gym Crew, Bear Book Club)</em></span>
+      </div>
+    </li>
+  </ul>
+
+  <h2>Évolutions</h2>
+  <ul>
+    <li>
+      <strong>Worldwide feed</strong> — photos + stories mixés. 3 vues : masonry (défaut), grille, feed.
+    </li>
+    <li>
+      <strong>Following</strong> — filtres simples au lieu de vues séparées (Video, NSFW…).
+    </li>
+  </ul>
+
+  <h2>Repositionnement</h2>
+  <ul>
+    <li>
+      <strong>"42 nearby"</strong> <em>(proximité Grindr-like)</em> — reste, mais passe à 2 taps.
+    </li>
+  </ul>
+
+  <a class="link" href="index.html">Ouvrir le prototype →</a>
+
+</main>
+
+</body>
+</html>
