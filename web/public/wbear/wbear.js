@@ -2187,10 +2187,11 @@ function renderWithYou() {
         <div class="wy-hero-dot ember" style="top:55%; left:62%; animation-delay:.4s;"></div>
         <div class="wy-hero-dot" style="top:30%; left:72%; animation-delay:.8s;"></div>
         <div class="wy-hero-body">
-          <span class="wy-hero-eyebrow">Happening now</span>
-          <div class="wy-hero-title">Marcus &amp; 2 others at Touché</div>
-          <div class="wy-hero-sub">1.2 mi · Leather Sunday</div>
-          <div class="wy-hero-sub wy-hero-when">Started 40m ago</div>
+          <div class="wy-hero-text">
+            <span class="wy-hero-eyebrow">Happening now</span>
+            <div class="wy-hero-title">Marcus &amp; 2 others at Touché</div>
+            <div class="wy-hero-sub">1.2 mi · Leather Sunday · 40m in</div>
+          </div>
           <button class="wy-hero-cta" data-wy-action="join-here">Join them ›</button>
         </div>
       </div>
@@ -2879,26 +2880,16 @@ function setContext(filter) {
     tabContextSlot.innerHTML = `
       <div class="heatmap-card" id="heatmapCard">
         <div class="heatmap-map"></div>
-        <div class="heatmap-dot" style="top:28%;left:22%;animation-delay:.1s;"></div>
-        <div class="heatmap-dot" style="top:42%;left:58%;animation-delay:.6s;"></div>
-        <div class="heatmap-dot" style="top:60%;left:35%;animation-delay:1.1s;"></div>
-        <div class="heatmap-dot" style="top:72%;left:72%;animation-delay:.3s;"></div>
-        <div class="heatmap-dot" style="top:34%;left:82%;animation-delay:1.4s;"></div>
-        <div class="heatmap-head">
-          <span class="heatmap-title">Chicago · Now</span>
-          <button class="heatmap-cta">Open map</button>
-        </div>
-        <div class="heatmap-stats">
-          <span class="heatmap-stat">
-            <svg class="heatmap-stat-icon" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            <span class="heatmap-stat-value">42</span>
-            <span class="heatmap-stat-label">nearby</span>
-          </span>
-          <span class="heatmap-stat">
-            <svg class="heatmap-stat-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7 v5 l3 2"/></svg>
-            <span class="heatmap-stat-value">8</span>
-            <span class="heatmap-stat-label">under 1 mi</span>
-          </span>
+        <div class="heatmap-body">
+          <div class="heatmap-text">
+            <span class="heatmap-eyebrow">Chicago · Live</span>
+            <div class="heatmap-stat-big">
+              <strong class="heatmap-big-num">42</strong>
+              <span class="heatmap-big-label">bears nearby</span>
+            </div>
+            <div class="heatmap-sub">8 under 1 mi</div>
+          </div>
+          <button class="heatmap-cta-btn">Explore ›</button>
         </div>
       </div>`;
   } else if (filter === 'following') {
