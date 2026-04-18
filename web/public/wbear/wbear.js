@@ -3349,9 +3349,40 @@ function dismissFabOnboarding() {
   fabOnboardingEl?.classList.remove('show');
 }
 
+// ── Scroll-to-top mode: when the hero has scrolled away (only sticky bars
+//    remain), the FAB morphs into an up-arrow. Tap = jump to top. ──
+(() => {
+  const scrollRoot = document.querySelector('.app-shell');
+  if (!scrollRoot || !fab) return;
+  const THRESHOLD = 220;
+  const update = () => fab.classList.toggle('scroll-top', scrollRoot.scrollTop > THRESHOLD);
+  scrollRoot.addEventListener('scroll', update, { passive: true });
+  update();
+})();
+function isScrollTopMode() { return fab.classList.contains('scroll-top'); }
+function scrollToTop() {
+  const scrollRoot = document.querySelector('.app-shell');
+  if (!scrollRoot) return;
+  if (navigator.vibrate) navigator.vibrate(8);
+  const start = scrollRoot.scrollTop;
+  if (start <= 0) return;
+  // Duration scales with distance but capped — far scrolls feel snappy
+  // (1000px → 280ms, 5000px → 480ms, 10000px → 600ms cap).
+  const duration = Math.min(600, 180 + Math.sqrt(start) * 4);
+  const t0 = performance.now();
+  const ease = (t) => 1 - Math.pow(1 - t, 3); // easeOutCubic
+  const step = (now) => {
+    const t = Math.min(1, (now - t0) / duration);
+    scrollRoot.scrollTop = start * (1 - ease(t));
+    if (t < 1) requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
+
 // ── Touch: press-and-drag ──
 fab.addEventListener('touchstart', (e) => {
   e.preventDefault();
+  if (isScrollTopMode()) { scrollToTop(); return; }
   const showedOnboarding = maybeShowFabOnboarding();
   isDragging = true;
   expand();
@@ -3389,6 +3420,7 @@ document.addEventListener('touchcancel', () => {
 // ── Mouse: same gesture for desktop ──
 fab.addEventListener('mousedown', (e) => {
   e.preventDefault();
+  if (isScrollTopMode()) { scrollToTop(); return; }
   const showedOnboarding = maybeShowFabOnboarding();
   isDragging = true;
   expand();

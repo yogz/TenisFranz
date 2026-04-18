@@ -776,6 +776,13 @@
   .light .following-filter-bar {
     box-shadow: 0 4px 16px rgba(42, 32, 22, 0.08);
   }
+  /* Light theme contrast bumps for the green hero (Sand bg) */
+  .light .following-stat-label,
+  .light .shared-stat-label { color: #5A4F44; font-weight: 700; }
+  .light .following-stat-value,
+  .light .shared-stat-value { color: #2A2018; }
+  .light .following-filter,
+  .light .shared-filter { color: #3B332A; background: rgba(255,255,255,0.55); border-color: rgba(42,32,22,0.10); }
   .following-filters {
     display: flex; gap: 5px;
   }
@@ -4823,7 +4830,7 @@
     transform: translateX(-50%) translateY(6px);
     white-space: nowrap;
     background: rgba(26,22,18,0.92);
-    color: var(--text-primary);
+    color: #FFFFFF;
     border: 1px solid rgba(255,255,255,0.08);
     backdrop-filter: blur(12px);
     font-size: var(--text-xs); font-weight: 600;
@@ -4922,19 +4929,26 @@
     margin-bottom: 8px;
   }
   .wy-invite-icon {
-    width: 40px; height: 40px; border-radius: 12px;
+    width: 36px; height: 36px; border-radius: 10px;
     background: linear-gradient(135deg, var(--flame), var(--ember));
     display: flex; align-items: center; justify-content: center;
     flex-shrink: 0;
   }
-  .wy-invite-icon svg { width: 20px; height: 20px; stroke: #fff; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-  .wy-invite-body { flex: 1; min-width: 0; }
-  .wy-invite-title { font-size: var(--text-md); font-weight: 600; color: var(--text-primary); }
-  .wy-invite-sub { font-size: var(--text-sm); color: var(--text-secondary); margin-top: 2px; }
+  .wy-invite-icon svg { width: 18px; height: 18px; stroke: #fff; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .wy-invite-body { flex: 1; min-width: 0; overflow: hidden; }
+  .wy-invite-title {
+    font-size: var(--text-md); font-weight: 600; color: var(--text-primary);
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }
+  .wy-invite-sub {
+    font-size: var(--text-sm); color: var(--text-secondary); margin-top: 2px;
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }
   .wy-invite-meta {
     font-size: var(--text-xs); color: var(--text-tertiary);
     margin-top: 4px;
     letter-spacing: 0.01em;
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
   }
   .wy-invite-meta strong {
     color: var(--text-secondary);
@@ -4947,19 +4961,27 @@
     flex-shrink: 0;
     margin-top: 0 !important;
     align-self: center !important;
+    padding: 8px 14px !important;
+    font-size: var(--text-sm) !important;
   }
   /* Compact "joined" state for invite CTAs: shrink to a round green check.
      Override the hero CTA's left-aligned check pseudo-elements. */
   .wy-invite-cta.joined {
-    width: 28px; height: 28px;
-    min-width: 28px;
+    width: 32px !important;
+    height: 32px !important;
+    min-width: 32px;
+    max-width: 32px;
     padding: 0 !important;
     border-radius: 50% !important;
-    font-size: var(--text-sm);
+    font-size: 15px;
     font-weight: 700;
     line-height: 1;
     color: #fff;
-    display: flex; align-items: center; justify-content: center;
+    display: inline-flex !important;
+    align-items: center; justify-content: center;
+    background: linear-gradient(135deg, #1DAE69, #29C97C) !important;
+    box-shadow: 0 4px 10px rgba(29,201,124,0.32) !important;
+    flex: 0 0 32px;
   }
   .wy-invite-cta.joined::before,
   .wy-invite-cta.joined::after { display: none !important; }
@@ -5393,6 +5415,13 @@
     filter: drop-shadow(0 1px 2px rgba(0,0,0,0.2));
   }
   .fab.expanded svg { transform: rotate(90deg); }
+
+  /* Scroll-to-top mode: when user scrolled past the hero, FAB morphs into
+     an up-arrow. Tap = scroll back to top. */
+  .fab.scroll-top svg { transform: none !important; }
+  .fab.scroll-top .icon-camera,
+  .fab.scroll-top .icon-x { opacity: 0 !important; }
+  .fab.scroll-top .icon-up { opacity: 1 !important; }
 
   /* Mini Action — Liquid Glass (clear) */
   .mini-action {
@@ -6132,8 +6161,9 @@
   }
   .light .mini-action::before { display: none; }
   .light .mini-action svg { stroke: var(--text-primary); }
-  .light .action-label { color: var(--text-primary); text-shadow: 0 1px 2px rgba(255,255,255,0.6); }
-  .light .action-label.highlight { color: var(--ember); }
+  /* FAB-open scrim is dark even in light theme — labels stay white for AA */
+  .light .action-label { color: #FFFFFF; text-shadow: 0 1px 4px rgba(0,0,0,0.55); }
+  .light .action-label.highlight { color: var(--flame); text-shadow: 0 1px 4px rgba(0,0,0,0.6); }
 
   .light .viewfinder { background: var(--bg-subtle); border-color: var(--border-sep); }
   .light .viewfinder-corners::before, .light .viewfinder-corners::after,
