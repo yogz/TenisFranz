@@ -130,6 +130,62 @@
     border-left: 2px solid rgba(192,106,72,0.22);
   }
   .wy-list span { line-height: 1.5; }
+
+  .charter {
+    margin-top: 56px;
+    padding-top: 28px;
+    border-top: 1px solid rgba(62,56,50,0.1);
+  }
+  .charter-intro {
+    font-size: 14px;
+    color: #68605A;
+    line-height: 1.5;
+    margin: 0 0 4px;
+  }
+  .charter-group {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #9A9490;
+    margin: 22px 0 10px;
+  }
+  .swatch-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(142px, 1fr));
+    gap: 10px;
+  }
+  .swatch {
+    border: 1px solid rgba(62,56,50,0.08);
+    border-radius: 10px;
+    overflow: hidden;
+    background: #F8F4EC;
+  }
+  .swatch-chip {
+    height: 52px;
+    box-shadow: inset 0 0 0 1px rgba(62,56,50,0.06);
+  }
+  .swatch-meta {
+    padding: 8px 10px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .swatch-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: #3E3832;
+  }
+  .swatch-hex {
+    font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+    font-size: 11.5px;
+    color: #68605A;
+  }
+  .swatch-role {
+    font-size: 11px;
+    color: #9A9490;
+    margin-top: 2px;
+  }
 </style>
 </head>
 <body>
@@ -188,6 +244,127 @@
   </ul>
 
   <a class="link" href="index.html">Ouvrir le prototype →</a>
+
+  <section class="charter">
+    <h2>Charte graphique · Comfort</h2>
+    <p class="charter-intro">Thème <em>light Sand + Comfort</em> — contrastes AAA, référence lisibilité 40+.</p>
+
+    <div class="charter-group">Surfaces</div>
+    <div class="swatch-grid">
+      <div class="swatch">
+        <div class="swatch-chip" style="background:#F0EBE3;"></div>
+        <div class="swatch-meta">
+          <span class="swatch-name">Sand</span>
+          <span class="swatch-hex">#F0EBE3</span>
+          <span class="swatch-role">fond</span>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-chip" style="background:#F4EFE7;"></div>
+        <div class="swatch-meta">
+          <span class="swatch-name">Sand élevé</span>
+          <span class="swatch-hex">#F4EFE7</span>
+          <span class="swatch-role">surfaces élevées</span>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-chip" style="background:#F8F4EC;"></div>
+        <div class="swatch-meta">
+          <span class="swatch-name">Carte</span>
+          <span class="swatch-hex">#F8F4EC</span>
+          <span class="swatch-role">cartes / blocs</span>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-chip" style="background:#E8E0D5;"></div>
+        <div class="swatch-meta">
+          <span class="swatch-name">Sand profond</span>
+          <span class="swatch-hex">#E8E0D5</span>
+          <span class="swatch-role">héros / CTA</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="charter-group">Brand</div>
+    <div class="swatch-grid">
+      <div class="swatch">
+        <div class="swatch-chip" style="background:#C06A48;"></div>
+        <div class="swatch-meta">
+          <span class="swatch-name">Terracotta</span>
+          <span class="swatch-hex">#C06A48</span>
+          <span class="swatch-role">action primaire</span>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-chip" style="background:#D9A060;"></div>
+        <div class="swatch-meta">
+          <span class="swatch-name">Apricot</span>
+          <span class="swatch-hex">#D9A060</span>
+          <span class="swatch-role">FAB / gradient</span>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-chip" style="background:#BA7517;"></div>
+        <div class="swatch-meta">
+          <span class="swatch-name">Honey</span>
+          <span class="swatch-hex">#BA7517</span>
+          <span class="swatch-role">accent chaud</span>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-chip" style="background:#6E9E7A;"></div>
+        <div class="swatch-meta">
+          <span class="swatch-name">Lichen</span>
+          <span class="swatch-hex">#6E9E7A</span>
+          <span class="swatch-role">présence / online</span>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-chip" style="background:#4D9E90;"></div>
+        <div class="swatch-meta">
+          <span class="swatch-name">Jade</span>
+          <span class="swatch-hex">#4D9E90</span>
+          <span class="swatch-role">vérification</span>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-chip" style="background:#B45869;"></div>
+        <div class="swatch-meta">
+          <span class="swatch-name">Rosewood</span>
+          <span class="swatch-hex">#B45869</span>
+          <span class="swatch-role">pride</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="charter-group">Texte</div>
+    <div class="swatch-grid">
+      <div class="swatch">
+        <div class="swatch-chip" style="background:#3E3832;"></div>
+        <div class="swatch-meta">
+          <span class="swatch-name">Primary</span>
+          <span class="swatch-hex">#3E3832</span>
+          <span class="swatch-role">texte principal</span>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-chip" style="background:#3B332A;"></div>
+        <div class="swatch-meta">
+          <span class="swatch-name">Secondary</span>
+          <span class="swatch-hex">#3B332A</span>
+          <span class="swatch-role">secondaire · AAA</span>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-chip" style="background:#72695F;"></div>
+        <div class="swatch-meta">
+          <span class="swatch-name">Tertiary</span>
+          <span class="swatch-hex">#72695F</span>
+          <span class="swatch-role">tertiaire · 6:1</span>
+        </div>
+      </div>
+    </div>
+  </section>
 
 </main>
 
