@@ -3610,12 +3610,12 @@ function highlightAction(actionName) {
 
 // ── Scrim tap = cancel (fix #3) ──
 scrim.addEventListener('click', () => {
-  if (isOnboarding) { dismissFabOnboarding(); return; }
+  if (isOnboarding) { dismissFabOnboarding(); if (expanded) collapse(); return; }
   if (expanded) collapse();
 });
 scrim.addEventListener('touchend', (e) => {
   e.preventDefault();
-  if (isOnboarding) { dismissFabOnboarding(); return; }
+  if (isOnboarding) { dismissFabOnboarding(); if (expanded) collapse(); return; }
   if (expanded) collapse();
 }, { passive: false });
 
@@ -3705,6 +3705,13 @@ document.addEventListener('touchend', () => {
   if (!isDragging) return;
   isDragging = false;
   if (!expanded) return;
+  // First FAB press of the session reveals the onboarding and is "dry":
+  // release dismisses the overlay without triggering any action.
+  if (isOnboarding) {
+    collapse();
+    dismissFabOnboarding();
+    return;
+  }
   // If user dragged to an action, trigger it. Otherwise just collapse (cancel).
   if (activeAction) {
     triggerAction(activeAction);
@@ -3742,6 +3749,13 @@ document.addEventListener('mouseup', () => {
   if (!isDragging) return;
   isDragging = false;
   if (!expanded) return;
+  // First FAB press of the session reveals the onboarding and is "dry":
+  // release dismisses the overlay without triggering any action.
+  if (isOnboarding) {
+    collapse();
+    dismissFabOnboarding();
+    return;
+  }
   if (activeAction) {
     triggerAction(activeAction);
   } else if (!hasDragged) {
