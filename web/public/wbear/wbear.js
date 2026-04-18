@@ -927,6 +927,51 @@ function openPost(data) {
   document.querySelector('#screenPost .post-body').scrollTop = 0;
 }
 
+// ── Story viewer ──
+let storyAutoCloseTimer = null;
+function openStory({ name, img }) {
+  const screen = document.getElementById('screenStory');
+  if (!screen) return;
+  document.getElementById('storyAvatar').style.backgroundImage = `url('${img}')`;
+  document.getElementById('storyName').textContent = name;
+  document.getElementById('storyImg').src = img;
+  // Reset progress animation (force reflow)
+  const fill = document.getElementById('storyProgressFill');
+  fill.style.animation = 'none';
+  // eslint-disable-next-line no-unused-expressions
+  fill.offsetHeight;
+  fill.style.animation = '';
+  // Reset reaction states
+  screen.querySelectorAll('.story-react.reacted').forEach(b => b.classList.remove('reacted'));
+  screen.classList.add('show');
+  clearTimeout(storyAutoCloseTimer);
+  storyAutoCloseTimer = setTimeout(closeStory, 5000);
+}
+function closeStory() {
+  const screen = document.getElementById('screenStory');
+  if (!screen) return;
+  clearTimeout(storyAutoCloseTimer);
+  storyAutoCloseTimer = null;
+  screen.classList.remove('show');
+}
+// Tap-to-advance — single story for now, so next = close.
+document.addEventListener('click', (e) => {
+  if (e.target.closest('#screenStory .story-tap-next')) { closeStory(); }
+  if (e.target.closest('#screenStory .story-tap-prev')) {
+    // Restart current story
+    const fill = document.getElementById('storyProgressFill');
+    if (fill) { fill.style.animation = 'none'; fill.offsetHeight; fill.style.animation = ''; }
+    clearTimeout(storyAutoCloseTimer);
+    storyAutoCloseTimer = setTimeout(closeStory, 5000);
+  }
+  const react = e.target.closest('#screenStory .story-react');
+  if (react) {
+    react.classList.toggle('reacted');
+    if (navigator.vibrate) navigator.vibrate(8);
+  }
+  if (e.target.closest('#screenStory .story-close')) { closeStory(); }
+});
+
 // Click handlers on grid + feed
 function wirePostClicks() {
   const masonry = document.getElementById('masonry');
@@ -935,6 +980,15 @@ function wirePostClicks() {
     masonry.addEventListener('click', (e) => {
       const item = e.target.closest('.masonry-item');
       if (!item) return;
+      // Story tiles open the dedicated story viewer, not the post detail.
+      if (item.classList.contains('masonry-story') && !item.classList.contains('masonry-story-add')) {
+        openStory({
+          name: item.dataset.storyName || 'Story',
+          img: (item.querySelector('.story-tile-img')?.style.backgroundImage.match(/url\(["']?([^"')]+)["']?\)/) || [])[1] || '',
+        });
+        return;
+      }
+      if (item.classList.contains('masonry-story-add')) return; // "Your story" tile: no-op
       openPost(item.dataset);
     });
     masonry.dataset.wired = '1';
@@ -1499,8 +1553,8 @@ function openInbox(segment = 'messages') {
   document.querySelectorAll('#screenInbox .inbox-panel').forEach(p => {
     p.classList.toggle('active', p.dataset.panel === segment);
   });
-  // Compose button: visible only on Messages
-  document.getElementById('chatComposeBtn').style.display = segment === 'messages' ? '' : 'none';
+  // Compose stays visible on both tabs — same entry point to start a conversation.
+  document.getElementById('chatComposeBtn').style.display = '';
   screen.classList.add('show');
 }
 document.getElementById('inboxBtn').addEventListener('click', () => openInbox('messages'));
@@ -2950,9 +3004,9 @@ function setContext(filter) {
           <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
           Private
         </div>
-        <div class="following-filter" data-kind="live">
-          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07M8.46 15.54a5 5 0 0 1 0-7.07M4.93 19.07a10 10 0 0 1 0-14.14"/></svg>
-          Live
+        <div class="following-filter" data-kind="embers">
+          <svg viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
+          Embers
         </div>
       </div>`;
     filterBar.style.display = '';

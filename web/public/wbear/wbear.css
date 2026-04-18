@@ -4983,7 +4983,9 @@
     100% { opacity: 1; transform: translateY(-75%) rotate(-45deg) scale(1);   }
   }
 
-  /* Confetti particle — launched from the button on tap, floats up + fades */
+  /* Confetti particle — launched from the button on tap, floats up + fades.
+     z-index: 5 lifts it above .wy-hero-text (z-index:1 in light) so the
+     bubbles visibly cross over text instead of being hidden behind it. */
   .wy-confetti {
     position: absolute;
     top: 0; left: 50%;
@@ -4993,6 +4995,7 @@
     transform: translate(-50%, -50%);
     will-change: transform, opacity;
     animation: wyConfetti 2000ms cubic-bezier(0.2, 0.7, 0.3, 1) forwards;
+    z-index: 5;
   }
   .wy-confetti.c1 { background: var(--ember); }
   .wy-confetti.c2 { background: var(--flame); }
@@ -5924,6 +5927,120 @@
     padding-bottom: calc(120px + env(safe-area-inset-bottom, 0px));
   }
 
+  /* ── Story viewer (opened from Worldwide story tiles) ── */
+  #screenStory {
+    background: #000;
+    display: flex; flex-direction: column;
+    padding: 0;
+  }
+  .story-progress {
+    position: absolute;
+    top: calc(env(safe-area-inset-top, 0px) + 10px);
+    left: 12px; right: 12px;
+    height: 3px;
+    background: rgba(255,255,255,0.22);
+    border-radius: 2px;
+    overflow: hidden;
+    z-index: 3;
+  }
+  .story-progress-fill {
+    width: 0%;
+    height: 100%;
+    background: #fff;
+    border-radius: 2px;
+  }
+  #screenStory.show .story-progress-fill {
+    animation: storyProgress 5s linear forwards;
+  }
+  @keyframes storyProgress {
+    from { width: 0%; }
+    to   { width: 100%; }
+  }
+  .story-head {
+    position: absolute;
+    top: calc(env(safe-area-inset-top, 0px) + 20px);
+    left: 12px; right: 12px;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 10px;
+    z-index: 3;
+  }
+  .story-head-user { display: flex; align-items: center; gap: 8px; min-width: 0; }
+  .story-head-avatar {
+    width: 32px; height: 32px; border-radius: 50%;
+    background-size: cover; background-position: center;
+    border: 2px solid rgba(255,255,255,0.6);
+  }
+  .story-head-body { display: flex; flex-direction: column; min-width: 0; }
+  .story-head-name {
+    font-size: 14px; font-weight: 700; color: #fff;
+    letter-spacing: -0.1px;
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.6);
+  }
+  .story-head-meta {
+    font-size: 11px; font-weight: 500;
+    color: rgba(255,255,255,0.72);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+  }
+  #screenStory .story-close {
+    position: static;
+    background: rgba(0,0,0,0.3);
+    border: 1px solid rgba(255,255,255,0.15);
+  }
+  #screenStory .story-close svg { stroke: #fff; opacity: 0.95; }
+  .story-tap {
+    position: absolute;
+    top: 0; bottom: 80px;
+    width: 35%;
+    z-index: 2;
+    cursor: pointer;
+  }
+  .story-tap-prev { left: 0; }
+  .story-tap-next { right: 0; }
+  .story-img {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    z-index: 1;
+  }
+  .story-reactions {
+    position: absolute;
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 14px);
+    left: 12px; right: 12px;
+    display: flex; align-items: center; gap: 8px;
+    z-index: 3;
+  }
+  .story-reply {
+    flex: 1; min-width: 0;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.22);
+    color: #fff;
+    border-radius: 22px;
+    padding: 9px 14px;
+    font-size: 14px;
+    outline: none;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+  .story-reply::placeholder { color: rgba(255,255,255,0.6); }
+  .story-react {
+    flex-shrink: 0;
+    width: 40px; height: 40px; border-radius: 50%;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.22);
+    color: #fff;
+    font-size: 18px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    transition: transform 0.15s ease;
+  }
+  .story-react:active { transform: scale(0.88); }
+  .story-react.reacted { background: rgba(216,90,48,0.8); border-color: rgba(216,90,48,0.9); }
+  .story-react svg { width: 18px; height: 18px; stroke: #fff; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .story-react.reacted svg { fill: #fff; }
+
   /* ── Dark screens (Camera) ── */
   .screen-dark {
     background: var(--bg);
@@ -6561,7 +6678,15 @@
   .light .profile-avatar { border-color: var(--bg-elevated); }
   .light .profile-badge { border-color: var(--bg-elevated); }
   .light .profile-cta { background: var(--surface-card); border-color: var(--border-sep); box-shadow: 0 1px 3px rgba(42,32,22,0.06); }
-  .light .profile-cta.primary { box-shadow: 0 4px 14px rgba(216,90,48,0.30); }
+  /* Re-assert primary gradient after the .light override — same specificity
+     means source order wins, and without this "Edit profile" collapsed to
+     cream background while keeping the white --on-ember text → unreadable. */
+  .light .profile-cta.primary {
+    background: linear-gradient(135deg, var(--ember), var(--flame));
+    color: var(--on-ember);
+    border-color: transparent;
+    box-shadow: 0 4px 14px rgba(216,90,48,0.30);
+  }
   .light .profile-plus-banner {
     background: linear-gradient(135deg, rgba(216,90,48,0.10), rgba(239,159,39,0.05));
     border-color: rgba(216,90,48,0.25);

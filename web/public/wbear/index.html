@@ -597,6 +597,30 @@
   </div>
 </div>
 
+<!-- Story viewer (opened from masonry story tiles) -->
+<div class="action-screen screen-dark" id="screenStory">
+  <div class="story-progress" id="storyProgress"><div class="story-progress-fill" id="storyProgressFill"></div></div>
+  <div class="story-head">
+    <div class="story-head-user">
+      <div class="story-head-avatar" id="storyAvatar"></div>
+      <div class="story-head-body">
+        <div class="story-head-name" id="storyName"></div>
+        <div class="story-head-meta" id="storyMeta">just now</div>
+      </div>
+    </div>
+    <button class="close-btn story-close" data-close aria-label="Close"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+  </div>
+  <div class="story-tap story-tap-prev" id="storyTapPrev" aria-label="Previous"></div>
+  <div class="story-tap story-tap-next" id="storyTapNext" aria-label="Next"></div>
+  <img class="story-img" id="storyImg" alt="">
+  <div class="story-reactions">
+    <input class="story-reply" placeholder="Reply to this story…" readonly>
+    <button class="story-react" data-react="heart" aria-label="Heart"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+    <button class="story-react" data-react="fire" aria-label="Fire">🔥</button>
+    <button class="story-react" data-react="clap" aria-label="Clap">👏</button>
+  </div>
+</div>
+
 <!-- Map / Nearby (opened from 42 nearby pill) -->
 <div class="action-screen screen-dark" id="screenMap">
   <div class="action-screen-header">
