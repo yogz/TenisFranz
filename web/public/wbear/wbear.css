@@ -172,19 +172,25 @@
     border-radius: 10px;
     /* Liquid-glass contrast — frosted translucent white + soft drop
        shadow so the cards lift clearly off the Sand background and
-       read as editorial objects, not just tinted rectangles. */
+       read as editorial objects, not just tinted rectangles.
+       Cream-tinted border acts as a very subtle "mat" frame so both
+       card types (bi-partite + full-bleed) read as framed floating
+       photos against the Sand bg. */
     background: rgba(255, 253, 248, 0.72);
     backdrop-filter: blur(22px) saturate(1.5);
     -webkit-backdrop-filter: blur(22px) saturate(1.5);
-    border: 1px solid rgba(255, 255, 255, 0.55);
+    border: 2px solid rgba(255, 253, 248, 0.85);
     box-shadow:
       0 1px 2px rgba(62, 56, 50, 0.05),
-      0 8px 20px rgba(62, 56, 50, 0.08);
+      0 10px 22px rgba(62, 56, 50, 0.10);
   }
-  /* Event card keeps its full-bleed image — only the lift (shadow + border)
-     and radius are shared, not the frosted-white background. */
+  /* Event card keeps its full-bleed image — only the lift (shadow + frame)
+     and radius are shared, not the frosted-white background.
+     background-clip: padding-box so the image stops at the border edge
+     and the cream frame actually shows through. */
   .comfort .event-card {
-    background: var(--surface-card);
+    background-color: var(--surface-card);
+    background-clip: padding-box;
   }
   /* Countdown card keeps its terracotta gradient fill on the media
      side but the body (Sand glass) still benefits from the lift. */
@@ -4315,12 +4321,12 @@
     display: flex;
     align-items: center;
     gap: 10px;
-    padding: 0 3px;
+    padding: 4px 16px 12px;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     scroll-snap-type: x mandatory;
-    scroll-padding-inline-start: 3px;
+    scroll-padding-inline-start: 16px;
   }
   .events-rail::-webkit-scrollbar { display: none; }
 
@@ -4365,7 +4371,7 @@
   }
   .event-card {
     flex-shrink: 0;
-    width: 176px;
+    width: 200px;
     height: 140px;
     border-radius: var(--radius-card);
     position: relative;
@@ -6120,7 +6126,8 @@
 
   .light .events-section { border-bottom-color: var(--border-sep); }
   .light .events-title { color: var(--text-primary); }
-  .light .event-card { box-shadow: none; border-color: var(--border-sep); }
+  /* Light/Comfort frame + lift handled by .comfort .event-card rule earlier;
+     don't override border-color or box-shadow here. */
 
   .light .masonry-item {
     background: var(--surface-card);
