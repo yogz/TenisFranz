@@ -928,42 +928,109 @@ function openPost(data) {
 }
 
 // ── Story viewer ──
+const STORY_DURATION_MS = 5000;
 let storyAutoCloseTimer = null;
-function openStory({ name, img }) {
+let storyList = [];
+let storyIndex = 0;
+let storyTimerStart = 0;
+let storyTimerRemaining = 0;
+let storySuppressClickUntil = 0;
+
+function getViewableStories() {
+  // STORIES_TILES is defined further down; guard for load order.
+  return (typeof STORIES_TILES !== 'undefined' ? STORIES_TILES : []).filter(p => !p.add);
+}
+
+function renderStoryAt(index) {
+  storyList = getViewableStories();
+  if (!storyList.length) { closeStory(); return; }
+  if (index >= storyList.length) { closeStory(); return; }
+  if (index < 0) index = 0;
+  storyIndex = index;
+  const p = storyList[index];
   const screen = document.getElementById('screenStory');
   if (!screen) return;
-  document.getElementById('storyAvatar').style.backgroundImage = `url('${img}')`;
-  document.getElementById('storyName').textContent = name;
-  document.getElementById('storyImg').src = img;
+  document.getElementById('storyAvatar').style.backgroundImage = `url('${p.img}')`;
+  document.getElementById('storyName').textContent = p.name;
+  document.getElementById('storyImg').src = p.img;
   // Reset progress animation (force reflow)
   const fill = document.getElementById('storyProgressFill');
   fill.style.animation = 'none';
+  fill.style.animationPlayState = '';
   // eslint-disable-next-line no-unused-expressions
   fill.offsetHeight;
   fill.style.animation = '';
   // Reset reaction states
   screen.querySelectorAll('.story-react.reacted').forEach(b => b.classList.remove('reacted'));
   screen.classList.add('show');
-  clearTimeout(storyAutoCloseTimer);
-  storyAutoCloseTimer = setTimeout(closeStory, 5000);
+  startStoryTimer(STORY_DURATION_MS);
 }
+
+function openStory({ name, img }) {
+  const list = getViewableStories();
+  let idx = list.findIndex(p => p.name === name);
+  if (idx < 0) idx = 0;
+  renderStoryAt(idx);
+}
+
+function startStoryTimer(duration) {
+  clearTimeout(storyAutoCloseTimer);
+  storyTimerStart = performance.now();
+  storyTimerRemaining = duration;
+  storyAutoCloseTimer = setTimeout(() => {
+    storyAutoCloseTimer = null;
+    nextStory();
+  }, duration);
+}
+
+function pauseStoryTimer() {
+  if (!storyAutoCloseTimer) return;
+  clearTimeout(storyAutoCloseTimer);
+  storyAutoCloseTimer = null;
+  const elapsed = performance.now() - storyTimerStart;
+  storyTimerRemaining = Math.max(0, storyTimerRemaining - elapsed);
+  const fill = document.getElementById('storyProgressFill');
+  if (fill) fill.style.animationPlayState = 'paused';
+}
+
+function resumeStoryTimer() {
+  if (storyAutoCloseTimer) return;
+  const fill = document.getElementById('storyProgressFill');
+  if (fill) fill.style.animationPlayState = 'running';
+  storyTimerStart = performance.now();
+  storyAutoCloseTimer = setTimeout(() => {
+    storyAutoCloseTimer = null;
+    nextStory();
+  }, storyTimerRemaining);
+}
+
+function nextStory() {
+  if (storyIndex + 1 < storyList.length) renderStoryAt(storyIndex + 1);
+  else closeStory();
+}
+
+function prevStory() {
+  if (storyIndex > 0) renderStoryAt(storyIndex - 1);
+  else renderStoryAt(0);
+}
+
 function closeStory() {
   const screen = document.getElementById('screenStory');
   if (!screen) return;
   clearTimeout(storyAutoCloseTimer);
   storyAutoCloseTimer = null;
+  const fill = document.getElementById('storyProgressFill');
+  if (fill) fill.style.animationPlayState = '';
   screen.classList.remove('show');
 }
-// Tap-to-advance — single story for now, so next = close.
+
+// Tap zones + reactions + close
 document.addEventListener('click', (e) => {
-  if (e.target.closest('#screenStory .story-tap-next')) { closeStory(); }
-  if (e.target.closest('#screenStory .story-tap-prev')) {
-    // Restart current story
-    const fill = document.getElementById('storyProgressFill');
-    if (fill) { fill.style.animation = 'none'; fill.offsetHeight; fill.style.animation = ''; }
-    clearTimeout(storyAutoCloseTimer);
-    storyAutoCloseTimer = setTimeout(closeStory, 5000);
-  }
+  if (!e.target.closest('#screenStory')) return;
+  // Suppress synthetic clicks that follow a swipe/long-press release.
+  if (performance.now() < storySuppressClickUntil) { return; }
+  if (e.target.closest('#screenStory .story-tap-next')) { nextStory(); return; }
+  if (e.target.closest('#screenStory .story-tap-prev')) { prevStory(); return; }
   const react = e.target.closest('#screenStory .story-react');
   if (react) {
     react.classList.toggle('reacted');
@@ -971,6 +1038,75 @@ document.addEventListener('click', (e) => {
   }
   if (e.target.closest('#screenStory .story-close')) { closeStory(); }
 });
+
+// Swipe + press-and-hold gestures
+(() => {
+  const screen = document.getElementById('screenStory');
+  if (!screen) return;
+  const SWIPE_PX = 48;
+  const LONG_PRESS_MS = 200;
+  const MOVE_CANCEL_PX = 8;
+  let activePointerId = null;
+  let startX = 0, startY = 0;
+  let moved = false;
+  let longPressTimer = null;
+  let isPaused = false;
+
+  const clearLongPress = () => {
+    if (longPressTimer) { clearTimeout(longPressTimer); longPressTimer = null; }
+  };
+
+  const onDown = (e) => {
+    if (!screen.classList.contains('show')) return;
+    // Skip when starting on interactive chrome — let native handlers run.
+    if (e.target.closest('button, input, .story-close, .story-react, .story-reactions')) return;
+    if (activePointerId !== null) return;
+    activePointerId = e.pointerId;
+    startX = e.clientX;
+    startY = e.clientY;
+    moved = false;
+    isPaused = false;
+    clearLongPress();
+    longPressTimer = setTimeout(() => {
+      longPressTimer = null;
+      if (!moved) { pauseStoryTimer(); isPaused = true; }
+    }, LONG_PRESS_MS);
+  };
+
+  const onMove = (e) => {
+    if (e.pointerId !== activePointerId) return;
+    const dx = e.clientX - startX;
+    const dy = e.clientY - startY;
+    if (!moved && (Math.abs(dx) > MOVE_CANCEL_PX || Math.abs(dy) > MOVE_CANCEL_PX)) {
+      moved = true;
+      clearLongPress();
+    }
+  };
+
+  const onUp = (e, cancelled) => {
+    if (e.pointerId !== activePointerId) return;
+    clearLongPress();
+    const dx = e.clientX - startX;
+    const dy = e.clientY - startY;
+    const wasPaused = isPaused;
+    if (isPaused) { resumeStoryTimer(); isPaused = false; }
+    activePointerId = null;
+    if (cancelled) return;
+    // Long-press release: no navigation, just resume.
+    if (wasPaused) { storySuppressClickUntil = performance.now() + 300; return; }
+    // Horizontal swipe beats tap handling.
+    if (Math.abs(dx) > SWIPE_PX && Math.abs(dx) > Math.abs(dy)) {
+      storySuppressClickUntil = performance.now() + 300;
+      if (dx < 0) nextStory(); else prevStory();
+    }
+  };
+
+  screen.addEventListener('pointerdown', onDown);
+  screen.addEventListener('pointermove', onMove);
+  screen.addEventListener('pointerup', (e) => onUp(e, false));
+  screen.addEventListener('pointercancel', (e) => onUp(e, true));
+  screen.addEventListener('pointerleave', (e) => onUp(e, true));
+})();
 
 // Click handlers on grid + feed
 function wirePostClicks() {
