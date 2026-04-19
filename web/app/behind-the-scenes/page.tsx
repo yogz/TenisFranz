@@ -27,18 +27,19 @@ const projects = [
     name: "Colist",
     href: "https://www.colist.fr",
     blurb:
-      "Listes partagées, simples, qui ne deviennent pas une to-do app de plus.",
+      "Des listes partagées, simples, qui vivent vraiment — pas une énième app de tâches qu'on remplit une fois puis qu'on abandonne.",
   },
   {
     name: "Maurice",
-    href: "https://maurice.app",
-    blurb: "Produit à (re)brancher — description à compléter.",
+    href: "https://www.ecrireavecmaurice.fr",
+    blurb:
+      "Un compagnon d'écriture. Il aide à démarrer une page, relancer une phrase, trouver le mot juste — sans écrire à ta place.",
   },
   {
     name: "Milou",
     href: "https://www.milou.studio",
     blurb:
-      "Studio de petits produits digitaux. Design, code, publication — tout au même endroit.",
+      "Le studio qui abrite les projets. Design, code, publication — tout au même endroit, à échelle humaine.",
   },
 ];
 
