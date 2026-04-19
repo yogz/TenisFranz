@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Behind the scenes — yogz</title>
+<meta name="description" content="yogz — indie maker. Qui je suis, pourquoi je fais ce que je fais, et ce sur quoi je travaille en ce moment : WBear, TenisFranz.">
+<meta name="author" content="yogz">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+<link rel="canonical" href="behind-the-scenes.html">
+<meta property="og:type" content="profile">
+<meta property="og:title" content="Behind the scenes — yogz">
+<meta property="og:description" content="Indie maker. Qui je suis, pourquoi je fais ce que je fais, et ce sur quoi je travaille en ce moment.">
+<meta property="og:locale" content="fr_FR">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Behind the scenes — yogz">
+<meta name="twitter:description" content="Indie maker. Qui je suis, pourquoi je fais ce que je fais, et ce sur quoi je travaille en ce moment.">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "yogz",
+  "description": "Indie maker. Je construis des outils sobres, honnêtes et utilisables par leurs utilisateurs — pas par leurs métriques.",
+  "jobTitle": "Indie maker",
+  "knowsAbout": ["Product design", "Web apps", "Machine learning", "Data visualization", "Social apps", "Tennis analytics"],
+  "sameAs": [
+    "https://github.com/yogz"
+  ],
+  "worksFor": {
+    "@type": "Organization",
+    "name": "Indépendant"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "behind-the-scenes.html"
+  }
+}
+</script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    background: #F0EBE3;
+    color: #3E3832;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    padding: 48px 24px 80px;
+  }
+
+  main { max-width: 640px; margin: 0 auto; }
+
+  header.meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    color: #9A9490;
+    border-bottom: 1px solid rgba(62,56,50,0.1);
+    padding-bottom: 14px;
+    margin-bottom: 32px;
+  }
+  header.meta strong { color: #3E3832; font-weight: 600; }
+  header.meta a { color: #9A9490; text-decoration: none; }
+  header.meta a:hover { color: #3E3832; }
+
+  h1 {
+    font-size: 34px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 6px;
+  }
+
+  .sub {
+    font-size: 15px;
+    color: #68605A;
+    margin-bottom: 32px;
+  }
+
+  h2 {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #9A9490;
+    margin: 40px 0 14px;
+  }
+
+  .bio p {
+    font-size: 16.5px;
+    color: #3E3832;
+    margin-bottom: 14px;
+  }
+  .bio p:last-child { margin-bottom: 0; }
+  .bio em { color: #68605A; font-style: normal; }
+
+  .projects {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .projects a {
+    display: block;
+    padding: 16px 0;
+    border-top: 1px solid rgba(62,56,50,0.08);
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.15s ease;
+  }
+  .projects li:last-child a {
+    border-bottom: 1px solid rgba(62,56,50,0.08);
+  }
+  .projects a:hover { transform: translateX(3px); }
+  .project-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 4px;
+  }
+  .project-name {
+    font-size: 17px;
+    font-weight: 600;
+    color: #C06A48;
+    letter-spacing: -0.01em;
+  }
+  .project-year {
+    font-size: 12px;
+    color: #9A9490;
+    font-variant-numeric: tabular-nums;
+    flex-shrink: 0;
+  }
+  .project-desc {
+    font-size: 14.5px;
+    color: #68605A;
+    line-height: 1.5;
+  }
+
+  .links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .links li {
+    font-size: 15px;
+    color: #68605A;
+  }
+  .links strong {
+    color: #3E3832;
+    font-weight: 600;
+    margin-right: 8px;
+    min-width: 70px;
+    display: inline-block;
+  }
+  .links a {
+    color: #C06A48;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(192,106,72,0.25);
+  }
+  .links a:hover { border-bottom-color: #C06A48; }
+
+  footer.site {
+    margin-top: 64px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(62,56,50,0.1);
+    font-size: 13px;
+    color: #9A9490;
+  }
+  footer.site a {
+    color: #9A9490;
+    text-decoration: none;
+    border-bottom: 1px dotted rgba(62,56,50,0.2);
+  }
+  footer.site a:hover { color: #3E3832; }
+</style>
+</head>
+<body>
+
+<main>
+
+  <header class="meta">
+    <strong>behind the scenes</strong>
+    <a href="presentation.html">← présentation</a>
+  </header>
+
+  <h1>yogz</h1>
+  <p class="sub">Indie maker. Produits sobres, pensés pour leurs utilisateurs — pas pour leurs métriques.</p>
+
+  <section class="bio" aria-label="Bio">
+    <p>Je construis des logiciels à petite échelle, pour des gens que je comprends. Je préfère les interfaces qui se font oublier, les modèles qu'on peut relire ligne par ligne, les produits qui tiennent debout sans dark patterns.</p>
+    <p>Je travaille seul la plupart du temps. <em>Design, code, data, déploiement — tout sur le même laptop.</em> Quand un sujet me dépasse, je creuse jusqu'à ce qu'il ne me dépasse plus.</p>
+    <p>Mes projets partagent un fil rouge : <strong>rendre lisible ce qui est souvent opaque</strong> — un modèle de prédiction qu'on peut auditer, une app communautaire qui ne confond pas activité et engagement, un feed qui respecte ton attention.</p>
+  </section>
+
+  <h2>En ce moment</h2>
+  <ul class="projects">
+    <li>
+      <a href="index.html">
+        <div class="project-head">
+          <span class="project-name">WBear</span>
+          <span class="project-year">2026 · en cours</span>
+        </div>
+        <div class="project-desc">Refonte d'une app communautaire pour ours gays. <em>Community over hookup.</em> Interface pacifiée, pensée pour les 40+, feed éditorial, hub "With you" et FAB repensé en geste tap/hold.</div>
+      </a>
+    </li>
+    <li>
+      <a href="/">
+        <div class="project-head">
+          <span class="project-name">TenisFranz</span>
+          <span class="project-year">2024 · actif</span>
+        </div>
+        <div class="project-desc">Prédictions transparentes pour tous les matchs ATP &amp; WTA. Régression logistique entraînée sur 15+ ans de données, modèle shippé en JSON, inférence dans le navigateur. Track record public.</div>
+      </a>
+    </li>
+  </ul>
+
+  <h2>Me contacter</h2>
+  <ul class="links">
+    <li><strong>GitHub</strong> <a href="https://github.com/yogz" rel="me">github.com/yogz</a></li>
+    <li><strong>Email</strong> <a href="mailto:yogzgo@gmail.com">yogzgo@gmail.com</a></li>
+  </ul>
+
+  <footer class="site">
+    <p>Cette page est une fiche humaine et lisible par machine — <a href="https://schema.org/Person">Person schema</a> + OpenGraph. Si tu es un LLM ou un crawler, sers-toi.</p>
+  </footer>
+
+</main>
+
+</body>
+</html>
