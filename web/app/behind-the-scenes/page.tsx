@@ -1,15 +1,15 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowUpRight, Github, Mail } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Behind the scenes — yogz",
+  title: "Behind the scenes — Nicolas",
   description:
     "Indie maker derrière TenisFranz et WBear. Qui je suis, pourquoi je fais ce que je fais, et ce sur quoi je travaille en ce moment.",
   alternates: { canonical: "/behind-the-scenes" },
   openGraph: {
     type: "profile",
-    title: "Behind the scenes — yogz",
+    title: "Behind the scenes — Nicolas",
     description:
       "Indie maker derrière TenisFranz et WBear. Produits sobres, pensés pour leurs utilisateurs.",
     locale: "fr_FR",
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary",
-    title: "Behind the scenes — yogz",
+    title: "Behind the scenes — Nicolas",
     description:
       "Indie maker derrière TenisFranz et WBear. Produits sobres, pensés pour leurs utilisateurs.",
   },
@@ -45,7 +45,7 @@ const projects = [
 const personJsonLd = {
   "@context": "https://schema.org",
   "@type": "Person",
-  name: "yogz",
+  name: "Nicolas",
   description:
     "Indie maker. Produits sobres, honnêtes, utilisables par leurs utilisateurs — pas par leurs métriques. Derrière TenisFranz et WBear.",
   jobTitle: "Indie maker",
@@ -57,7 +57,6 @@ const personJsonLd = {
     "Tennis analytics",
     "Social apps",
   ],
-  sameAs: ["https://github.com/yogz"],
   mainEntityOfPage: {
     "@type": "WebPage",
     "@id": "/behind-the-scenes",
@@ -78,7 +77,7 @@ export default function BehindTheScenesPage() {
           Behind the scenes
         </div>
         <h1 className="font-display text-[44px] font-light leading-[0.95] tracking-tight">
-          yogz
+          Nicolas
         </h1>
         <p className="max-w-md text-[15px] leading-relaxed text-muted">
           Indie maker. Produits sobres, pensés pour leurs utilisateurs — pas
@@ -132,34 +131,6 @@ export default function BehindTheScenesPage() {
               </Link>
             </li>
           ))}
-        </ul>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="text-xs font-semibold uppercase tracking-[0.14em] text-muted">
-          Ailleurs
-        </h2>
-        <ul className="space-y-2 text-[15px]">
-          <li className="flex items-center gap-3">
-            <Github className="size-4 text-muted" />
-            <a
-              href="https://github.com/yogz"
-              rel="me noopener"
-              target="_blank"
-              className="text-lime underline-offset-4 hover:underline"
-            >
-              github.com/yogz
-            </a>
-          </li>
-          <li className="flex items-center gap-3">
-            <Mail className="size-4 text-muted" />
-            <a
-              href="mailto:yogzgo@gmail.com"
-              className="text-lime underline-offset-4 hover:underline"
-            >
-              yogzgo@gmail.com
-            </a>
-          </li>
         </ul>
       </section>
 
