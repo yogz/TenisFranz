@@ -4,7 +4,7 @@
 // inject the real canonical host. Default stays in sync with the French
 // project identity; override on Vercel if the domain differs.
 
-const rawUrl = process.env.NEXT_PUBLIC_SITE_URL?.trim() || "https://tenisfranz.fr";
+const rawUrl = process.env.NEXT_PUBLIC_SITE_URL?.trim() || "https://tenis-franz.vercel.app";
 export const SITE_URL = rawUrl.replace(/\/+$/, "");
 
 export const SITE_NAME = "TenisFranz";

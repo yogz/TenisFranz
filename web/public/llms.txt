@@ -8,11 +8,11 @@ Le site est en français, mobile-first, 100 % statique (Next.js 15 + données JS
 
 ## Pages principales
 
-- [Prédicteur](https://tenisfranz.fr/): choisis deux joueurs, une surface, obtiens la probabilité et les features qui tirent dans un sens ou dans l'autre.
-- [Matchs à venir](https://tenisfranz.fr/matches): tous les matchs des prochains jours avec la prédiction du modèle, date de mise à jour visible.
-- [Joueurs](https://tenisfranz.fr/players): top 100 ATP et WTA par Elo, avec fiche détaillée (historique, Elo par surface, forme, confrontations) sur chaque profil.
-- [Modèle](https://tenisfranz.fr/model): précision, log loss, Brier, calibration, courbe accuracy-par-année. Le backtest est walk-forward.
-- [Behind the scenes](https://tenisfranz.fr/behind-the-scenes): qui est derrière le projet.
+- [Prédicteur](https://tenis-franz.vercel.app/): choisis deux joueurs, une surface, obtiens la probabilité et les features qui tirent dans un sens ou dans l'autre.
+- [Matchs à venir](https://tenis-franz.vercel.app/matches): tous les matchs des prochains jours avec la prédiction du modèle, date de mise à jour visible.
+- [Joueurs](https://tenis-franz.vercel.app/players): top 100 ATP et WTA par Elo, avec fiche détaillée (historique, Elo par surface, forme, confrontations) sur chaque profil.
+- [Modèle](https://tenis-franz.vercel.app/model): précision, log loss, Brier, calibration, courbe accuracy-par-année. Le backtest est walk-forward.
+- [Behind the scenes](https://tenis-franz.vercel.app/behind-the-scenes): qui est derrière le projet.
 
 ## Données & reproductibilité
 
