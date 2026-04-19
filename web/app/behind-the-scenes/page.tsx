@@ -27,19 +27,19 @@ const projects = [
     name: "Colist",
     href: "https://www.colist.fr",
     blurb:
-      "Des listes partagées, simples, qui vivent vraiment — pas une énième app de tâches qu'on remplit une fois puis qu'on abandonne.",
+      "Hub personnel des projets : une page qui réunit ce que je construis, avec les bonnes entrées pour chacun.",
   },
   {
     name: "Maurice",
     href: "https://www.ecrireavecmaurice.fr",
     blurb:
-      "Un compagnon d'écriture. Il aide à démarrer une page, relancer une phrase, trouver le mot juste — sans écrire à ta place.",
+      "Assistant d'écriture en ligne pour accompagner et structurer vos projets rédactionnels.",
   },
   {
     name: "Milou",
     href: "https://www.milou.studio",
     blurb:
-      "Le studio qui abrite les projets. Design, code, publication — tout au même endroit, à échelle humaine.",
+      "Application mobile gratuite pour coachs sportifs indépendants : gestion des réservations, plannings et forfaits clients.",
   },
 ];
 
