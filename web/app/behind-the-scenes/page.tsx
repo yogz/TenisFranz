@@ -136,12 +136,6 @@ export default function BehindTheScenesPage() {
           ))}
         </ul>
       </section>
-
-      <footer className="pt-6 text-xs text-muted/80">
-        Page pensée pour être lisible par humains comme par crawlers et LLM —
-        structure sémantique, <code className="text-muted">Person</code> schema,
-        OpenGraph. Sers-toi.
-      </footer>
     </article>
   );
 }
