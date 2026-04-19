@@ -24,22 +24,25 @@ export const metadata: Metadata = {
 
 const projects = [
   {
-    name: "Colist",
-    href: "https://www.colist.fr",
+    name: "CoList",
+    emoji: "🍽️",
+    href: "https://www.colist.fr/",
     blurb:
-      "Hub personnel des projets : une page qui réunit ce que je construis, avec les bonnes entrées pour chacun.",
-  },
-  {
-    name: "Maurice",
-    href: "https://www.ecrireavecmaurice.fr",
-    blurb:
-      "Assistant d'écriture en ligne pour accompagner et structurer vos projets rédactionnels.",
+      "Web app gratuite pour coordonner repas de fêtes et événements conviviaux : qui apporte quoi, listes de courses partagées, zéro doublon.",
   },
   {
     name: "Milou",
-    href: "https://www.milou.studio",
+    emoji: "💪",
+    href: "https://www.milou.studio/",
     blurb:
       "Application mobile gratuite pour coachs sportifs indépendants : gestion des réservations, plannings et forfaits clients.",
+  },
+  {
+    name: "Maurice",
+    emoji: "✍️",
+    href: "https://www.ecrireavecmaurice.fr/",
+    blurb:
+      "Assistant d'écriture en ligne pour accompagner et structurer vos projets rédactionnels.",
   },
 ];
 
@@ -116,15 +119,18 @@ export default function BehindTheScenesPage() {
                 href={p.href}
                 target="_blank"
                 rel="noopener"
-                className="card card-hover group block space-y-2"
+                className="card card-hover group block space-y-3"
               >
-                <div className="text-[17px] font-semibold text-lime">
+                <div className="flex items-start justify-between gap-3">
+                  <div className="text-3xl leading-none" aria-hidden>
+                    {p.emoji}
+                  </div>
+                  <ArrowUpRight className="size-4 text-muted transition group-hover:text-lime" />
+                </div>
+                <div className="text-[18px] font-semibold text-lime">
                   {p.name}
                 </div>
                 <p className="text-sm leading-relaxed text-muted">{p.blurb}</p>
-                <span className="inline-flex items-center gap-1 text-xs text-muted transition group-hover:text-text">
-                  Ouvrir <ArrowUpRight className="size-3.5" />
-                </span>
               </a>
             </li>
           ))}
