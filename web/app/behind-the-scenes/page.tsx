@@ -4,13 +4,13 @@ import { ArrowUpRight } from "lucide-react";
 export const metadata: Metadata = {
   title: "Behind the scenes — Nicolas",
   description:
-    "Indie maker derrière TenisFranz et WBear. Qui je suis, pourquoi je fais ce que je fais, et ce sur quoi je travaille en ce moment.",
+    "Indie maker derrière Colist, Maurice et Milou. Qui je suis, pourquoi je fais ce que je fais, et ce sur quoi je travaille en ce moment.",
   alternates: { canonical: "/behind-the-scenes" },
   openGraph: {
     type: "profile",
     title: "Behind the scenes — Nicolas",
     description:
-      "Indie maker derrière TenisFranz et WBear. Produits sobres, pensés pour leurs utilisateurs.",
+      "Indie maker derrière Colist, Maurice et Milou. Produits sobres, pensés pour leurs utilisateurs.",
     locale: "fr_FR",
     url: "/behind-the-scenes",
   },
@@ -18,26 +18,27 @@ export const metadata: Metadata = {
     card: "summary",
     title: "Behind the scenes — Nicolas",
     description:
-      "Indie maker derrière TenisFranz et WBear. Produits sobres, pensés pour leurs utilisateurs.",
+      "Indie maker derrière Colist, Maurice et Milou. Produits sobres, pensés pour leurs utilisateurs.",
   },
 };
 
 const projects = [
   {
-    name: "TenisFranz",
-    status: "2024 · actif",
-    href: "/",
-    external: false,
+    name: "Colist",
+    href: "https://www.colist.fr",
     blurb:
-      "Prédictions transparentes pour tous les matchs ATP & WTA. Régression logistique entraînée sur 15+ ans de données, modèle shippé en JSON, inférence dans le navigateur. Track record public.",
+      "Listes partagées, simples, qui ne deviennent pas une to-do app de plus.",
   },
   {
-    name: "WBear",
-    status: "2026 · en cours",
-    href: "/wbear/presentation.html",
-    external: false,
+    name: "Maurice",
+    href: "https://maurice.app",
+    blurb: "Produit à (re)brancher — description à compléter.",
+  },
+  {
+    name: "Milou",
+    href: "https://www.milou.studio",
     blurb:
-      "Refonte d'une app communautaire — community over hookup. Interface pacifiée pour les 40+, feed éditorial, FAB en geste tap/hold.",
+      "Studio de petits produits digitaux. Design, code, publication — tout au même endroit.",
   },
 ];
 
@@ -46,15 +47,14 @@ const personJsonLd = {
   "@type": "Person",
   name: "Nicolas",
   description:
-    "Indie maker. Produits sobres, honnêtes, utilisables par leurs utilisateurs — pas par leurs métriques. Derrière TenisFranz et WBear.",
+    "Indie maker. Produits sobres, honnêtes, utilisables par leurs utilisateurs — pas par leurs métriques. Derrière Colist, Maurice et Milou.",
   jobTitle: "Indie maker",
   knowsAbout: [
     "Product design",
     "Web apps",
-    "Machine learning",
-    "Data visualization",
-    "Tennis analytics",
-    "Social apps",
+    "Indie making",
+    "Bootstrapping",
+    "Interface design",
   ],
   mainEntityOfPage: {
     "@type": "WebPage",
@@ -113,15 +113,12 @@ export default function BehindTheScenesPage() {
             <li key={p.name}>
               <a
                 href={p.href}
+                target="_blank"
+                rel="noopener"
                 className="card card-hover group block space-y-2"
               >
-                <div className="flex items-baseline justify-between gap-3">
-                  <span className="text-[17px] font-semibold text-lime">
-                    {p.name}
-                  </span>
-                  <span className="shrink-0 text-xs tabular-nums text-muted">
-                    {p.status}
-                  </span>
+                <div className="text-[17px] font-semibold text-lime">
+                  {p.name}
                 </div>
                 <p className="text-sm leading-relaxed text-muted">{p.blurb}</p>
                 <span className="inline-flex items-center gap-1 text-xs text-muted transition group-hover:text-text">
