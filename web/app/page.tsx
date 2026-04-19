@@ -1,6 +1,21 @@
+import type { Metadata } from "next";
 import { Suspense } from "react";
 import { Predictor } from "@/components/predictor/Predictor";
 import { loadElo, loadMeta, loadModel, loadPlayers } from "@/lib/data";
+import { SITE_URL, absoluteUrl, jsonLdScript, organizationJsonLd } from "@/lib/seo";
+
+export const metadata: Metadata = {
+  title: { absolute: "TenisFranz — Qui va gagner ?" },
+  description:
+    "Prédis n'importe quel match ATP ou WTA en 10 secondes. Modèle de régression logistique entraîné sur 15+ ans de données — probabilités transparentes, features auditables, inférence côté navigateur.",
+  alternates: { canonical: "/" },
+  openGraph: {
+    url: "/",
+    title: "TenisFranz — Qui va gagner ?",
+    description:
+      "Prédis n'importe quel match ATP ou WTA. Modèle transparent, inférence dans le navigateur.",
+  },
+};
 
 export default async function HomePage() {
   const [players, elo, model, meta] = await Promise.all([
@@ -10,8 +25,47 @@ export default async function HomePage() {
     loadMeta(),
   ]);
 
+  const webPageJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": `${SITE_URL}/#webpage`,
+    url: absoluteUrl("/"),
+    name: "TenisFranz — Qui va gagner ?",
+    description:
+      "Prédicteur de matchs ATP & WTA. Sélectionne deux joueurs et une surface, obtiens la probabilité et les features qui la portent.",
+    inLanguage: "fr",
+    isPartOf: { "@id": `${SITE_URL}#website` },
+    about: {
+      "@type": "Thing",
+      name: "Prédictions de matchs de tennis",
+    },
+    primaryImageOfPage: absoluteUrl("/opengraph-image"),
+    mainEntity: {
+      "@type": "SoftwareApplication",
+      name: "TenisFranz Predictor",
+      applicationCategory: "SportsApplication",
+      operatingSystem: "Web",
+      offers: { "@type": "Offer", price: "0", priceCurrency: "EUR" },
+      author: { "@id": `${SITE_URL}#publisher` },
+      featureList: [
+        "Prédiction probabiliste de matchs ATP",
+        "Prédiction probabiliste de matchs WTA",
+        "Sélection par joueur et par surface",
+        "Explication des features qui portent la prédiction",
+      ],
+    },
+  };
+
   return (
     <div className="space-y-8">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={jsonLdScript(webPageJsonLd)}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={jsonLdScript(organizationJsonLd)}
+      />
       <header className="space-y-3">
         <div className="chip">
           <span className="size-1.5 rounded-full bg-lime" />

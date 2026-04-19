@@ -1,15 +1,56 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { loadPlayers } from "@/lib/data";
 import { PlayerAvatar } from "@/components/PlayerAvatar";
 import { flag } from "@/lib/format";
+import { SITE_URL, absoluteUrl, jsonLdScript } from "@/lib/seo";
+
+export const metadata: Metadata = {
+  title: "Top 100 joueurs ATP & WTA",
+  description:
+    "Les 100 meilleurs joueurs ATP et les 100 meilleures joueuses WTA, classés par Elo. Rang, pays, âge, Elo courant — accès direct à chaque fiche joueur.",
+  alternates: { canonical: "/players" },
+  openGraph: {
+    url: "/players",
+    title: "Top 100 joueurs ATP & WTA — TenisFranz",
+    description:
+      "Top 100 ATP et WTA classés par Elo. Rang, pays, âge, Elo courant.",
+  },
+};
 
 export default async function PlayersPage() {
   const players = await loadPlayers();
   const atp = players.filter((p) => p.tour === "atp").slice(0, 100);
   const wta = players.filter((p) => p.tour === "wta").slice(0, 100);
 
+  const buildList = (list: typeof players, tourLabel: string) => ({
+    "@type": "ItemList" as const,
+    name: `Top 100 ${tourLabel}`,
+    numberOfItems: list.length,
+    itemListElement: list.map((p, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      url: absoluteUrl(`/players/${p.slug}`),
+      name: p.name,
+    })),
+  });
+
+  const directoryJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "@id": `${SITE_URL}/players#collection`,
+    url: absoluteUrl("/players"),
+    name: "Top 100 joueurs ATP & WTA",
+    inLanguage: "fr",
+    hasPart: [buildList(atp, "ATP"), buildList(wta, "WTA")],
+  };
+
   return (
     <div className="space-y-8">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={jsonLdScript(directoryJsonLd)}
+      />
       <header className="space-y-1">
         <h1 className="font-display text-[32px] font-light leading-none tracking-tight">
           Joueurs

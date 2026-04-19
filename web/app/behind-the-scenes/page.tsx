@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -112,7 +111,7 @@ export default function BehindTheScenesPage() {
         <ul className="space-y-3">
           {projects.map((p) => (
             <li key={p.name}>
-              <Link
+              <a
                 href={p.href}
                 className="card card-hover group block space-y-2"
               >
@@ -128,7 +127,7 @@ export default function BehindTheScenesPage() {
                 <span className="inline-flex items-center gap-1 text-xs text-muted transition group-hover:text-text">
                   Ouvrir <ArrowUpRight className="size-3.5" />
                 </span>
-              </Link>
+              </a>
             </li>
           ))}
         </ul>
