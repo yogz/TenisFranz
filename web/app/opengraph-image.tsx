@@ -74,7 +74,7 @@ export default function OpengraphImage() {
             color: "#a1a1aa",
           }}
         >
-          <span>tenisfranz.fr</span>
+          <span>tenis-franz.vercel.app</span>
           <span style={{ color: "#ccff00" }}>ATP · WTA · daily</span>
         </div>
       </div>
