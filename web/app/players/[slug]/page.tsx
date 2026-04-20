@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import { Info } from "lucide-react";
@@ -9,12 +10,51 @@ import type { Surface } from "@/lib/types";
 import { flag, formatDate, formatHeight, handLabel } from "@/lib/format";
 import { PlayerAvatar } from "@/components/PlayerAvatar";
 import { PlayerNavSearch } from "@/components/PlayerNavSearch";
+import { SITE_URL, absoluteUrl, jsonLdScript } from "@/lib/seo";
 
 const SURFACE_LABEL: Record<Surface, string> = {
   Hard: "Hard",
   Clay: "Clay",
   Grass: "Grass",
 };
+
+export async function generateMetadata(
+  { params }: { params: Promise<{ slug: string }> },
+): Promise<Metadata> {
+  const { slug } = await params;
+  const index = await loadPlayersIndex();
+  const player = index.bySlug.get(slug);
+  if (!player) return { title: "Joueur introuvable" };
+
+  const rank = player.rank ? `#${player.rank} ${player.tour.toUpperCase()}` : player.tour.toUpperCase();
+  const country = player.country ? ` · ${player.country}` : "";
+  const age = player.age != null ? ` · ${player.age.toFixed(0)} ans` : "";
+  const wins = player.career?.wins ?? 0;
+  const losses = player.career?.losses ?? 0;
+  const titles = player.career?.titles ?? 0;
+
+  const title = `${player.name} — ${rank}`;
+  const description = `${player.name} (${rank}${country}${age}). ${wins}V–${losses}D, ${titles} titre${titles > 1 ? "s" : ""} en carrière. Elo par surface, forme récente, confrontations directes et prédictions du modèle TenisFranz.`;
+
+  return {
+    title,
+    description,
+    alternates: { canonical: `/players/${slug}` },
+    openGraph: {
+      type: "profile",
+      url: `/players/${slug}`,
+      title,
+      description,
+      images: player.photoUrl ? [player.photoUrl] : undefined,
+    },
+    twitter: {
+      card: "summary",
+      title,
+      description,
+      images: player.photoUrl ? [player.photoUrl] : undefined,
+    },
+  };
+}
 
 export async function generateStaticParams() {
   const players = await loadPlayers();
@@ -51,8 +91,58 @@ export default async function PlayerPage({ params }: { params: Promise<{ slug: s
   const bestEloNow = Math.max(...surfaces.map((s) => player.currentEloSurface[s]));
   const bestEloPeak = Math.max(...surfaces.map((s) => career.peakEloSurface[s]));
 
+  const athleteJsonLd: Record<string, unknown> = {
+    "@context": "https://schema.org",
+    "@type": ["Person", "Athlete"],
+    "@id": `${SITE_URL}/players/${player.slug}#athlete`,
+    name: player.name,
+    givenName: player.firstName ?? undefined,
+    familyName: player.lastName ?? undefined,
+    url: absoluteUrl(`/players/${player.slug}`),
+    image: player.photoUrl ?? undefined,
+    nationality: player.country ?? undefined,
+    birthDate: player.dob ?? undefined,
+    height: player.heightCm ? `${player.heightCm} cm` : undefined,
+    gender: player.tour === "wta" ? "Female" : "Male",
+    jobTitle: player.tour === "atp" ? "Tennis player (ATP)" : "Tennis player (WTA)",
+    sport: "Tennis",
+    memberOf: {
+      "@type": "SportsOrganization",
+      name: player.tour === "atp" ? "ATP Tour" : "WTA Tour",
+    },
+    affiliation: {
+      "@type": "SportsOrganization",
+      name: player.tour === "atp" ? "ATP Tour" : "WTA Tour",
+    },
+    athleteOf: {
+      "@type": "SportsTeam",
+      name: player.country ?? `Équipe ${player.tour.toUpperCase()}`,
+    },
+    sameAs: player.wikidataId
+      ? [`https://www.wikidata.org/wiki/${player.wikidataId}`]
+      : undefined,
+  };
+
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Accueil", item: absoluteUrl("/") },
+      { "@type": "ListItem", position: 2, name: "Joueurs", item: absoluteUrl("/players") },
+      { "@type": "ListItem", position: 3, name: player.name, item: absoluteUrl(`/players/${player.slug}`) },
+    ],
+  };
+
   return (
     <div className="space-y-6">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={jsonLdScript(athleteJsonLd)}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={jsonLdScript(breadcrumbJsonLd)}
+      />
       <PlayerNavSearch tour={player.tour} excludeId={player.id} />
 
       {/* Hero with photo */}

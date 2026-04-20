@@ -928,42 +928,109 @@ function openPost(data) {
 }
 
 // ── Story viewer ──
+const STORY_DURATION_MS = 5000;
 let storyAutoCloseTimer = null;
-function openStory({ name, img }) {
+let storyList = [];
+let storyIndex = 0;
+let storyTimerStart = 0;
+let storyTimerRemaining = 0;
+let storySuppressClickUntil = 0;
+
+function getViewableStories() {
+  // STORIES_TILES is defined further down; guard for load order.
+  return (typeof STORIES_TILES !== 'undefined' ? STORIES_TILES : []).filter(p => !p.add);
+}
+
+function renderStoryAt(index) {
+  storyList = getViewableStories();
+  if (!storyList.length) { closeStory(); return; }
+  if (index >= storyList.length) { closeStory(); return; }
+  if (index < 0) index = 0;
+  storyIndex = index;
+  const p = storyList[index];
   const screen = document.getElementById('screenStory');
   if (!screen) return;
-  document.getElementById('storyAvatar').style.backgroundImage = `url('${img}')`;
-  document.getElementById('storyName').textContent = name;
-  document.getElementById('storyImg').src = img;
+  document.getElementById('storyAvatar').style.backgroundImage = `url('${p.img}')`;
+  document.getElementById('storyName').textContent = p.name;
+  document.getElementById('storyImg').src = p.img;
   // Reset progress animation (force reflow)
   const fill = document.getElementById('storyProgressFill');
   fill.style.animation = 'none';
+  fill.style.animationPlayState = '';
   // eslint-disable-next-line no-unused-expressions
   fill.offsetHeight;
   fill.style.animation = '';
   // Reset reaction states
   screen.querySelectorAll('.story-react.reacted').forEach(b => b.classList.remove('reacted'));
   screen.classList.add('show');
-  clearTimeout(storyAutoCloseTimer);
-  storyAutoCloseTimer = setTimeout(closeStory, 5000);
+  startStoryTimer(STORY_DURATION_MS);
 }
+
+function openStory({ name, img }) {
+  const list = getViewableStories();
+  let idx = list.findIndex(p => p.name === name);
+  if (idx < 0) idx = 0;
+  renderStoryAt(idx);
+}
+
+function startStoryTimer(duration) {
+  clearTimeout(storyAutoCloseTimer);
+  storyTimerStart = performance.now();
+  storyTimerRemaining = duration;
+  storyAutoCloseTimer = setTimeout(() => {
+    storyAutoCloseTimer = null;
+    nextStory();
+  }, duration);
+}
+
+function pauseStoryTimer() {
+  if (!storyAutoCloseTimer) return;
+  clearTimeout(storyAutoCloseTimer);
+  storyAutoCloseTimer = null;
+  const elapsed = performance.now() - storyTimerStart;
+  storyTimerRemaining = Math.max(0, storyTimerRemaining - elapsed);
+  const fill = document.getElementById('storyProgressFill');
+  if (fill) fill.style.animationPlayState = 'paused';
+}
+
+function resumeStoryTimer() {
+  if (storyAutoCloseTimer) return;
+  const fill = document.getElementById('storyProgressFill');
+  if (fill) fill.style.animationPlayState = 'running';
+  storyTimerStart = performance.now();
+  storyAutoCloseTimer = setTimeout(() => {
+    storyAutoCloseTimer = null;
+    nextStory();
+  }, storyTimerRemaining);
+}
+
+function nextStory() {
+  if (storyIndex + 1 < storyList.length) renderStoryAt(storyIndex + 1);
+  else closeStory();
+}
+
+function prevStory() {
+  if (storyIndex > 0) renderStoryAt(storyIndex - 1);
+  else renderStoryAt(0);
+}
+
 function closeStory() {
   const screen = document.getElementById('screenStory');
   if (!screen) return;
   clearTimeout(storyAutoCloseTimer);
   storyAutoCloseTimer = null;
+  const fill = document.getElementById('storyProgressFill');
+  if (fill) fill.style.animationPlayState = '';
   screen.classList.remove('show');
 }
-// Tap-to-advance — single story for now, so next = close.
+
+// Tap zones + reactions + close
 document.addEventListener('click', (e) => {
-  if (e.target.closest('#screenStory .story-tap-next')) { closeStory(); }
-  if (e.target.closest('#screenStory .story-tap-prev')) {
-    // Restart current story
-    const fill = document.getElementById('storyProgressFill');
-    if (fill) { fill.style.animation = 'none'; fill.offsetHeight; fill.style.animation = ''; }
-    clearTimeout(storyAutoCloseTimer);
-    storyAutoCloseTimer = setTimeout(closeStory, 5000);
-  }
+  if (!e.target.closest('#screenStory')) return;
+  // Suppress synthetic clicks that follow a swipe/long-press release.
+  if (performance.now() < storySuppressClickUntil) { return; }
+  if (e.target.closest('#screenStory .story-tap-next')) { nextStory(); return; }
+  if (e.target.closest('#screenStory .story-tap-prev')) { prevStory(); return; }
   const react = e.target.closest('#screenStory .story-react');
   if (react) {
     react.classList.toggle('reacted');
@@ -971,6 +1038,177 @@ document.addEventListener('click', (e) => {
   }
   if (e.target.closest('#screenStory .story-close')) { closeStory(); }
 });
+
+// Swipe + press-and-hold gestures
+(() => {
+  const screen = document.getElementById('screenStory');
+  if (!screen) return;
+  const mainImg = document.getElementById('storyImg');
+  const neighborImg = document.getElementById('storyImgNext');
+  const SWIPE_COMMIT_RATIO = 0.22;
+  const SWIPE_MIN_PX = 48;
+  const LONG_PRESS_MS = 200;
+  const MOVE_CANCEL_PX = 8;
+  const RUBBER = 0.32;
+  const SLIDE_MS = 220;
+  let activePointerId = null;
+  let startX = 0, startY = 0;
+  let moved = false;
+  let longPressTimer = null;
+  let isPaused = false;
+  let dragActive = false;
+  let dragLocked = false; // true = horizontal drag; vertical moves are ignored
+  let dragDx = 0;
+  let neighborIdx = null;
+
+  const clearLongPress = () => {
+    if (longPressTimer) { clearTimeout(longPressTimer); longPressTimer = null; }
+  };
+
+  const setNeighborFor = (dx) => {
+    let idx = null;
+    if (dx < 0 && storyIndex + 1 < storyList.length) idx = storyIndex + 1;
+    else if (dx > 0 && storyIndex > 0) idx = storyIndex - 1;
+    if (idx !== neighborIdx) {
+      neighborIdx = idx;
+      if (idx != null) neighborImg.src = storyList[idx].img;
+    }
+  };
+
+  const applyDragTransforms = (dx) => {
+    const w = screen.clientWidth || window.innerWidth || 1;
+    // Rubber-band when dragging past a missing neighbor.
+    let effective = dx;
+    if ((dx < 0 && neighborIdx == null) || (dx > 0 && neighborIdx == null)) {
+      effective = dx * RUBBER;
+    }
+    dragDx = effective;
+    mainImg.style.transform = `translate3d(${effective}px, 0, 0)`;
+    if (neighborIdx != null) {
+      const offset = dx < 0 ? w : -w;
+      neighborImg.style.transform = `translate3d(${effective + offset}px, 0, 0)`;
+    } else {
+      neighborImg.style.transform = `translate3d(100%, 0, 0)`;
+    }
+  };
+
+  const beginDrag = () => {
+    if (dragActive) return;
+    dragActive = true;
+    pauseStoryTimer();
+    mainImg.style.transition = 'none';
+    neighborImg.style.transition = 'none';
+  };
+
+  const settleDrag = (commit) => {
+    const w = screen.clientWidth || window.innerWidth || 1;
+    mainImg.style.transition = `transform ${SLIDE_MS}ms ease-out`;
+    neighborImg.style.transition = `transform ${SLIDE_MS}ms ease-out`;
+    const cleanup = (nextIdx) => {
+      mainImg.style.transition = 'none';
+      neighborImg.style.transition = 'none';
+      // Render the new story BEFORE resetting transforms — the old frame is
+      // still off-screen, so swapping src here avoids a visible flash.
+      if (nextIdx != null) renderStoryAt(nextIdx);
+      mainImg.style.transform = '';
+      neighborImg.style.transform = '';
+      dragActive = false;
+      dragLocked = false;
+      dragDx = 0;
+      neighborIdx = null;
+      if (nextIdx == null) resumeStoryTimer();
+    };
+    const onEnd = (target) => {
+      let fired = false;
+      const handler = () => {
+        if (fired) return;
+        fired = true;
+        mainImg.removeEventListener('transitionend', handler);
+        target();
+      };
+      mainImg.addEventListener('transitionend', handler);
+      // Fallback: if the transform doesn't actually change, transitionend won't fire.
+      setTimeout(handler, SLIDE_MS + 60);
+    };
+    if (commit && neighborIdx != null) {
+      const targetIdx = neighborIdx;
+      const direction = dragDx < 0 ? -1 : 1;
+      mainImg.style.transform = `translate3d(${direction * w}px, 0, 0)`;
+      neighborImg.style.transform = `translate3d(0, 0, 0)`;
+      onEnd(() => cleanup(targetIdx));
+    } else {
+      mainImg.style.transform = `translate3d(0, 0, 0)`;
+      if (neighborIdx != null) {
+        const offset = dragDx < 0 ? w : -w;
+        neighborImg.style.transform = `translate3d(${offset}px, 0, 0)`;
+      }
+      onEnd(() => cleanup(null));
+    }
+  };
+
+  const onDown = (e) => {
+    if (!screen.classList.contains('show')) return;
+    // Skip when starting on interactive chrome — let native handlers run.
+    if (e.target.closest('button, input, .story-close, .story-react, .story-reactions')) return;
+    if (activePointerId !== null) return;
+    // Interrupt any settling animation.
+    if (dragActive) {
+      mainImg.style.transition = 'none';
+      neighborImg.style.transition = 'none';
+    }
+    activePointerId = e.pointerId;
+    startX = e.clientX;
+    startY = e.clientY;
+    moved = false;
+    isPaused = false;
+    dragLocked = false;
+    clearLongPress();
+    longPressTimer = setTimeout(() => {
+      longPressTimer = null;
+      if (!moved) { pauseStoryTimer(); isPaused = true; }
+    }, LONG_PRESS_MS);
+  };
+
+  const onMove = (e) => {
+    if (e.pointerId !== activePointerId) return;
+    const dx = e.clientX - startX;
+    const dy = e.clientY - startY;
+    if (!moved && (Math.abs(dx) > MOVE_CANCEL_PX || Math.abs(dy) > MOVE_CANCEL_PX)) {
+      moved = true;
+      clearLongPress();
+      // Lock direction on first meaningful move: horizontal drag vs. vertical scroll.
+      dragLocked = Math.abs(dx) > Math.abs(dy);
+    }
+    if (!moved || !dragLocked || isPaused) return;
+    if (!dragActive) beginDrag();
+    setNeighborFor(dx);
+    applyDragTransforms(dx);
+  };
+
+  const onUp = (e, cancelled) => {
+    if (e.pointerId !== activePointerId) return;
+    clearLongPress();
+    const wasPaused = isPaused;
+    if (isPaused) { resumeStoryTimer(); isPaused = false; }
+    const wasDragging = dragActive;
+    activePointerId = null;
+    if (cancelled && !wasDragging) return;
+    // Long-press release: no navigation, just resume.
+    if (wasPaused && !wasDragging) { storySuppressClickUntil = performance.now() + 300; return; }
+    if (wasDragging) {
+      storySuppressClickUntil = performance.now() + 300;
+      const w = screen.clientWidth || window.innerWidth || 1;
+      const commit = !cancelled && Math.abs(dragDx) > Math.max(SWIPE_MIN_PX, w * SWIPE_COMMIT_RATIO);
+      settleDrag(commit);
+    }
+  };
+
+  screen.addEventListener('pointerdown', onDown);
+  screen.addEventListener('pointermove', onMove);
+  screen.addEventListener('pointerup', (e) => onUp(e, false));
+  screen.addEventListener('pointercancel', (e) => onUp(e, true));
+  screen.addEventListener('pointerleave', (e) => onUp(e, true));
+})();
 
 // Click handlers on grid + feed
 function wirePostClicks() {
@@ -3372,12 +3610,12 @@ function highlightAction(actionName) {
 
 // ── Scrim tap = cancel (fix #3) ──
 scrim.addEventListener('click', () => {
-  if (isOnboarding) { dismissFabOnboarding(); return; }
+  if (isOnboarding) { dismissFabOnboarding(); if (expanded) collapse(); return; }
   if (expanded) collapse();
 });
 scrim.addEventListener('touchend', (e) => {
   e.preventDefault();
-  if (isOnboarding) { dismissFabOnboarding(); return; }
+  if (isOnboarding) { dismissFabOnboarding(); if (expanded) collapse(); return; }
   if (expanded) collapse();
 }, { passive: false });
 
@@ -3467,6 +3705,13 @@ document.addEventListener('touchend', () => {
   if (!isDragging) return;
   isDragging = false;
   if (!expanded) return;
+  // First FAB press of the session reveals the onboarding and is "dry":
+  // release dismisses the overlay without triggering any action.
+  if (isOnboarding) {
+    collapse();
+    dismissFabOnboarding();
+    return;
+  }
   // If user dragged to an action, trigger it. Otherwise just collapse (cancel).
   if (activeAction) {
     triggerAction(activeAction);
@@ -3504,6 +3749,13 @@ document.addEventListener('mouseup', () => {
   if (!isDragging) return;
   isDragging = false;
   if (!expanded) return;
+  // First FAB press of the session reveals the onboarding and is "dry":
+  // release dismisses the overlay without triggering any action.
+  if (isOnboarding) {
+    collapse();
+    dismissFabOnboarding();
+    return;
+  }
   if (activeAction) {
     triggerAction(activeAction);
   } else if (!hasDragged) {

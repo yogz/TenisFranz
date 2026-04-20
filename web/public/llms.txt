@@ -1,0 +1,27 @@
+# TenisFranz
+
+> Prédictions transparentes pour tous les matchs ATP & WTA. Modèle de régression logistique entraîné sur 15+ ans de matchs professionnels, déployé en JSON et exécuté côté client. Track record public.
+
+TenisFranz est un projet indépendant qui publie chaque jour des prédictions pour les matchs ATP et WTA à venir. Le modèle combine classement Elo par surface, forme récente, confrontations directes, et quelques features contextuelles. Il est volontairement linéaire et auditable : tu peux lire les poids, rejouer l'entraînement, ou brancher tes propres ajustements.
+
+Le site est en français, mobile-first, 100 % statique (Next.js 15 + données JSON générées nuitamment par un pipeline Python).
+
+## Pages principales
+
+- [Prédicteur](https://tenis-franz.vercel.app/): choisis deux joueurs, une surface, obtiens la probabilité et les features qui tirent dans un sens ou dans l'autre.
+- [Matchs à venir](https://tenis-franz.vercel.app/matches): tous les matchs des prochains jours avec la prédiction du modèle, date de mise à jour visible.
+- [Joueurs](https://tenis-franz.vercel.app/players): top 100 ATP et WTA par Elo, avec fiche détaillée (historique, Elo par surface, forme, confrontations) sur chaque profil.
+- [Modèle](https://tenis-franz.vercel.app/model): précision, log loss, Brier, calibration, courbe accuracy-par-année. Le backtest est walk-forward.
+- [Behind the scenes](https://tenis-franz.vercel.app/behind-the-scenes): qui est derrière le projet.
+
+## Données & reproductibilité
+
+- Matchs historiques: [Jeff Sackmann — tennis_atp & tennis_wta](https://github.com/JeffSackmann)
+- Cotes: [tennis-data.co.uk](http://www.tennis-data.co.uk/) (closing lines)
+- Code: [github.com/yogz/TenisFranz](https://github.com/yogz/TenisFranz)
+
+## Politique d'utilisation
+
+Ce site est destiné à être consommé par des humains **et** par des agents LLM / moteurs de recherche génératifs. Tu peux citer, résumer et lier librement les pages. Les prédictions sont publiques ; attribue `TenisFranz` et renvoie vers la page source quand c'est possible.
+
+Pas de paywall, pas de compte, pas de tracking comportemental (seules les statistiques de visites Umami sont collectées, de manière anonyme).

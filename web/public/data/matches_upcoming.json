@@ -1,91 +1,65 @@
 {
-  "updatedAt": "2026-04-18T07:29:51.394798+00:00",
-  "modelTrainedAt": "2026-04-18T03:59:30.491786+00:00",
+  "updatedAt": "2026-04-19T07:34:25.331660+00:00",
+  "modelTrainedAt": "2026-04-19T04:06:52.766839+00:00",
   "source": "local (env-driven draws_fetcher)",
   "matches": [
     {
-      "id": "2026-04-18-atp-atp-barcelona-open-rublev-medjedovic",
-      "date": "2026-04-18",
+      "id": "2026-04-19-atp-atp-barcelona-open-rublev-fils",
+      "date": "2026-04-19",
       "tournament": "ATP Barcelona Open",
       "round": "",
       "surface": "Hard",
       "tour": "atp",
       "playerA": "atp-andrey-rublev",
-      "playerB": "atp-hamad-medjedovic",
-      "modelProbA": 0.5383,
-      "oddsA": 1.559,
-      "oddsB": 2.453
+      "playerB": "atp-arthur-fils",
+      "modelProbA": 0.5315,
+      "oddsA": 3.021,
+      "oddsB": 1.391
     },
     {
-      "id": "2026-04-18-atp-atp-munich-zverev-cobolli",
-      "date": "2026-04-18",
+      "id": "2026-04-19-atp-atp-munich-cobolli-shelton",
+      "date": "2026-04-19",
       "tournament": "ATP Munich",
       "round": "",
       "surface": "Hard",
       "tour": "atp",
-      "playerA": "atp-alexander-zverev",
-      "playerB": "atp-flavio-cobolli",
-      "modelProbA": 0.6503,
-      "oddsA": 1.184,
-      "oddsB": 4.886
-    },
-    {
-      "id": "2026-04-18-atp-atp-munich-molcan-shelton",
-      "date": "2026-04-18",
-      "tournament": "ATP Munich",
-      "round": "",
-      "surface": "Hard",
-      "tour": "atp",
-      "playerA": "atp-alex-molcan",
+      "playerA": "atp-flavio-cobolli",
       "playerB": "atp-ben-shelton",
-      "modelProbA": 0.3317,
-      "oddsA": 3.12,
-      "oddsB": 1.37
+      "modelProbA": 0.47,
+      "oddsA": 1.988,
+      "oddsB": 1.826
     },
     {
-      "id": "2026-04-18-wta-wta-stuttgart-open-svitolina-muchova",
-      "date": "2026-04-18",
-      "tournament": "WTA Stuttgart Open",
-      "round": "",
-      "surface": "Hard",
-      "tour": "wta",
-      "playerA": "wta-elina-svitolina",
-      "playerB": "wta-karolina-muchova",
-      "modelProbA": 0.335,
-      "oddsA": 1.723,
-      "oddsB": 2.125
-    },
-    {
-      "id": "2026-04-18-wta-wta-stuttgart-open-rybakina-andreeva",
-      "date": "2026-04-18",
+      "id": "2026-04-19-wta-wta-stuttgart-open-rybakina-muchova",
+      "date": "2026-04-19",
       "tournament": "WTA Stuttgart Open",
       "round": "",
       "surface": "Hard",
       "tour": "wta",
       "playerA": "wta-elena-rybakina",
-      "playerB": "wta-mirra-andreeva",
-      "modelProbA": 0.6001,
-      "oddsA": 1.745,
-      "oddsB": 2.082
+      "playerB": "wta-karolina-muchova",
+      "modelProbA": 0.4695,
+      "oddsA": 1.408,
+      "oddsB": 2.942
     }
   ],
   "stats": {
-    "fetched": 6,
-    "resolved": 5,
-    "missRatio": 0.0833
+    "fetched": 3,
+    "resolved": 3,
+    "missRatio": 0.0
   },
   "weather": {
     "ATP Barcelona Open": {
-      "tempMax": 22.5,
-      "windMax": 11.9
+      "tempMax": 22.4,
+      "windMax": 13.7
     },
     "ATP Munich": {
-      "tempMax": 20.4,
-      "windMax": 7.4
+      "tempMax": 17.6,
+      "windMax": 21.0
     },
     "WTA Stuttgart Open": {
-      "tempMax": 21.3,
-      "windMax": 9.7
+      "tempMax": 16.2,
+      "windMax": 19.6
     }
   }
 }

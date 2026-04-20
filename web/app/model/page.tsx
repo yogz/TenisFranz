@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import {
   loadBacktest,
   loadMeta,
@@ -7,6 +8,20 @@ import {
 import { CalibrationChart } from "@/components/charts/CalibrationChart";
 import { AccuracyOverTime } from "@/components/charts/AccuracyOverTime";
 import { Hint } from "@/components/Hint";
+import { SITE_URL, absoluteUrl, jsonLdScript } from "@/lib/seo";
+
+export const metadata: Metadata = {
+  title: "Modèle — précision, Brier, calibration",
+  description:
+    "Régression logistique ATP/WTA de TenisFranz : précision, log loss, Brier, calibration, accuracy par année. Backtest walk-forward entièrement public.",
+  alternates: { canonical: "/model" },
+  openGraph: {
+    url: "/model",
+    title: "Modèle TenisFranz — métriques de performance",
+    description:
+      "Backtest walk-forward public : précision, log loss, Brier, calibration isotonique.",
+  },
+};
 
 export default async function ModelPage() {
   const [backtest, meta, model, upcoming] = await Promise.all([
@@ -17,8 +32,92 @@ export default async function ModelPage() {
   ]);
   const tours = Object.keys(backtest) as Array<keyof typeof backtest>;
 
+  const totalN = tours.reduce((s, t) => s + (backtest[t]?.nTest ?? 0), 0);
+  const avgAcc = totalN > 0
+    ? tours.reduce((s, t) => s + backtest[t].accuracy * backtest[t].nTest, 0) / totalN
+    : null;
+
+  const datasetJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Dataset",
+    "@id": `${SITE_URL}/model#dataset`,
+    name: "TenisFranz — modèle de prédiction ATP & WTA",
+    description: `Régression logistique entraînée sur les matchs ATP et WTA de ${meta.yearFrom} à ${meta.yearTo}. Backtest walk-forward sur ${totalN.toLocaleString("fr-FR")} matchs${avgAcc != null ? `, précision moyenne ${(avgAcc * 100).toFixed(1)}%.` : "."}`,
+    url: absoluteUrl("/model"),
+    temporalCoverage: `${meta.yearFrom}/${meta.yearTo}`,
+    dateModified: meta.trainedAt ?? undefined,
+    creator: { "@id": `${SITE_URL}#publisher` },
+    inLanguage: "fr",
+    keywords: [
+      "ATP",
+      "WTA",
+      "tennis",
+      "prédiction",
+      "régression logistique",
+      "Elo",
+      "calibration",
+      "backtest walk-forward",
+    ],
+    license: "https://opensource.org/licenses/MIT",
+    isAccessibleForFree: true,
+    measurementTechnique: "Logistic regression over Elo/form/H2H features, per-tour calibration",
+    variableMeasured: tours.map((t) => {
+      const b = backtest[t];
+      return {
+        "@type": "PropertyValue",
+        name: `Accuracy ${t.toUpperCase()}`,
+        value: (b.accuracy * 100).toFixed(2),
+        unitText: "%",
+        description: `Brier ${b.brier.toFixed(3)} · log loss ${b.logLoss.toFixed(3)} · n=${b.nTest}`,
+      };
+    }),
+  };
+
+  const howToJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "@id": `${SITE_URL}/model#how-it-predicts`,
+    name: "Comment TenisFranz prédit un match",
+    description:
+      "Les étapes que le modèle exécute pour transformer deux joueurs et une surface en probabilité de victoire.",
+    step: [
+      {
+        "@type": "HowToStep",
+        position: 1,
+        name: "Extraire l'Elo par surface",
+        text: "Elo spécifique à la surface (Hard, Clay, Grass) calculé sur l'historique complet depuis 1968.",
+      },
+      {
+        "@type": "HowToStep",
+        position: 2,
+        name: "Calculer les features contextuelles",
+        text: "Forme récente, win % sur la surface, matchs joués, H2H direct, différence d'âge, avantage domicile.",
+      },
+      {
+        "@type": "HowToStep",
+        position: 3,
+        name: "Appliquer la régression logistique",
+        text: "Modèle linéaire par tour (ATP/WTA), entraîné sur 15+ ans de matchs avec cross-validation walk-forward.",
+      },
+      {
+        "@type": "HowToStep",
+        position: 4,
+        name: "Calibrer la probabilité",
+        text: "Calibration isotonique sur les bins de probabilité pour que 70% prédit = 70% observé.",
+      },
+    ],
+  };
+
   return (
     <div className="space-y-8">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={jsonLdScript(datasetJsonLd)}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={jsonLdScript(howToJsonLd)}
+      />
       <header className="space-y-1">
         <h1 className="font-display text-3xl">Modèle</h1>
         <p className="text-sm text-muted">
