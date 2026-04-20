@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
-import Link from "next/link";
 import { Faster_One, Geist } from "next/font/google";
 import { BottomNav } from "@/components/BottomNav";
+import { SiteFooter } from "@/components/SiteFooter";
 import {
   SITE_DESCRIPTION,
   SITE_LOCALE,
@@ -93,14 +93,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="font-sans">
         <main className="mx-auto flex min-h-[100svh] max-w-xl flex-col px-5 pb-[calc(env(safe-area-inset-bottom)+96px)] pt-[calc(env(safe-area-inset-top)+24px)]">
           <div className="flex-1">{children}</div>
-          <footer className="mt-16 border-t border-border/60 pt-5 text-center">
-            <Link
-              href="/behind-the-scenes"
-              className="text-xs text-muted transition hover:text-text"
-            >
-              Behind the scenes →
-            </Link>
-          </footer>
+          <SiteFooter />
         </main>
         <BottomNav />
       </body>
