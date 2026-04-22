@@ -1,1 +1,1 @@
-{"yearFrom":2005,"yearTo":2025,"trainedAt":"2026-04-21T04:05:29.811132+00:00","featureNames":["elo_surface_diff","serve_pts_won_diff","return_pts_won_diff","h2h_diff","age_diff","age_sq_diff","tourney_weight"]}
+{"yearFrom":2005,"yearTo":2025,"trainedAt":"2026-04-22T04:04:17.648362+00:00","featureNames":["elo_surface_diff","serve_pts_won_diff","return_pts_won_diff","h2h_diff","age_diff","age_sq_diff","tourney_weight"]}
