@@ -1,202 +1,33 @@
 {
-  "updatedAt": "2026-04-26T07:34:56.436706+00:00",
-  "modelTrainedAt": "2026-04-26T04:12:38.855702+00:00",
+  "updatedAt": "2026-04-27T07:50:32.400604+00:00",
+  "modelTrainedAt": "2026-04-27T04:17:01.389064+00:00",
   "source": "local (env-driven draws_fetcher)",
   "matches": [
     {
-      "id": "2026-04-26-atp-atp-madrid-open-lehecka-michelsen",
-      "date": "2026-04-26",
+      "id": "2026-04-27-atp-atp-madrid-open-cerundolo-darderi",
+      "date": "2026-04-27",
       "tournament": "ATP Madrid Open",
       "round": "",
       "surface": "Clay",
       "tour": "atp",
-      "playerA": "atp-jiri-lehecka",
-      "playerB": "atp-alex-michelsen",
-      "modelProbA": 0.7384,
-      "oddsA": 1.371,
-      "oddsB": 3.171
+      "playerA": "atp-francisco-cerundolo",
+      "playerB": "atp-luciano-darderi",
+      "modelProbA": 0.5898,
+      "oddsA": 1.473,
+      "oddsB": 2.722
     },
     {
-      "id": "2026-04-26-atp-atp-madrid-open-prizmic-etcheverry",
-      "date": "2026-04-26",
+      "id": "2026-04-27-atp-atp-madrid-open-blockx-auger-aliassime",
+      "date": "2026-04-27",
       "tournament": "ATP Madrid Open",
       "round": "",
       "surface": "Clay",
       "tour": "atp",
-      "playerA": "atp-dino-prizmic",
-      "playerB": "atp-tomas-martin-etcheverry",
-      "modelProbA": 0.2745,
-      "oddsA": 2.057,
-      "oddsB": 1.783
-    },
-    {
-      "id": "2026-04-26-atp-atp-madrid-open-griekspoor-musetti",
-      "date": "2026-04-26",
-      "tournament": "ATP Madrid Open",
-      "round": "",
-      "surface": "Clay",
-      "tour": "atp",
-      "playerA": "atp-tallon-griekspoor",
-      "playerB": "atp-lorenzo-musetti",
-      "modelProbA": 0.2803,
-      "oddsA": 4.328,
-      "oddsB": 1.228
-    },
-    {
-      "id": "2026-04-26-atp-atp-madrid-open-fils-nava",
-      "date": "2026-04-26",
-      "tournament": "ATP Madrid Open",
-      "round": "",
-      "surface": "Clay",
-      "tour": "atp",
-      "playerA": "atp-arthur-fils",
-      "playerB": "atp-emilio-nava",
-      "modelProbA": 0.7772,
-      "oddsA": 1.144,
-      "oddsB": 5.799
-    },
-    {
-      "id": "2026-04-26-atp-atp-madrid-open-sinner-moller",
-      "date": "2026-04-26",
-      "tournament": "ATP Madrid Open",
-      "round": "",
-      "surface": "Clay",
-      "tour": "atp",
-      "playerA": "atp-jannik-sinner",
-      "playerB": "atp-elmer-moller",
-      "modelProbA": 0.8213,
-      "oddsA": 1.012,
-      "oddsB": 23.726
-    },
-    {
-      "id": "2026-04-26-atp-atp-madrid-open-norrie-tirante",
-      "date": "2026-04-26",
-      "tournament": "ATP Madrid Open",
-      "round": "",
-      "surface": "Clay",
-      "tour": "atp",
-      "playerA": "atp-cameron-norrie",
-      "playerB": "atp-thiago-agustin-tirante",
-      "modelProbA": 0.5851,
-      "oddsA": 1.701,
-      "oddsB": 2.16
-    },
-    {
-      "id": "2026-04-26-atp-atp-madrid-open-kopriva-rinderknech",
-      "date": "2026-04-26",
-      "tournament": "ATP Madrid Open",
-      "round": "",
-      "surface": "Clay",
-      "tour": "atp",
-      "playerA": "atp-vit-kopriva",
-      "playerB": "atp-arthur-rinderknech",
-      "modelProbA": 0.4044,
-      "oddsA": 2.24,
-      "oddsB": 1.672
-    },
-    {
-      "id": "2026-04-26-wta-wta-madrid-open-siniakova-mcnally",
-      "date": "2026-04-26",
-      "tournament": "WTA Madrid Open",
-      "round": "",
-      "surface": "Clay",
-      "tour": "wta",
-      "playerA": "wta-katerina-siniakova",
-      "playerB": "wta-caty-mcnally",
-      "modelProbA": 0.5756,
-      "oddsA": 2.196,
-      "oddsB": 1.694
-    },
-    {
-      "id": "2026-04-26-wta-wta-madrid-open-cirstea-gauff",
-      "date": "2026-04-26",
-      "tournament": "WTA Madrid Open",
-      "round": "",
-      "surface": "Clay",
-      "tour": "wta",
-      "playerA": "wta-sorana-cirstea",
-      "playerB": "wta-coco-gauff",
-      "modelProbA": 0.1975,
-      "oddsA": 4.144,
-      "oddsB": 1.244
-    },
-    {
-      "id": "2026-04-26-wta-wta-madrid-open-sierra-sonmez",
-      "date": "2026-04-26",
-      "tournament": "WTA Madrid Open",
-      "round": "",
-      "surface": "Clay",
-      "tour": "wta",
-      "playerA": "wta-solana-sierra",
-      "playerB": "wta-zeynep-sonmez",
-      "modelProbA": 0.461,
-      "oddsA": 2.409,
-      "oddsB": 1.586
-    },
-    {
-      "id": "2026-04-26-wta-wta-madrid-open-noskova-samsonova",
-      "date": "2026-04-26",
-      "tournament": "WTA Madrid Open",
-      "round": "",
-      "surface": "Clay",
-      "tour": "wta",
-      "playerA": "wta-linda-noskova",
-      "playerB": "wta-liudmila-samsonova",
-      "modelProbA": 0.4045,
-      "oddsA": 1.562,
-      "oddsB": 2.469
-    },
-    {
-      "id": "2026-04-26-wta-wta-madrid-open-mertens-pliskova",
-      "date": "2026-04-26",
-      "tournament": "WTA Madrid Open",
-      "round": "",
-      "surface": "Clay",
-      "tour": "wta",
-      "playerA": "wta-elise-mertens",
-      "playerB": "wta-karolina-pliskova",
-      "modelProbA": 0.5963,
-      "oddsA": 1.398,
-      "oddsB": 3.031
-    },
-    {
-      "id": "2026-04-26-wta-wta-madrid-open-pegula-kostyuk",
-      "date": "2026-04-26",
-      "tournament": "WTA Madrid Open",
-      "round": "",
-      "surface": "Clay",
-      "tour": "wta",
-      "playerA": "wta-jessica-pegula",
-      "playerB": "wta-marta-kostyuk",
-      "modelProbA": 0.5594,
-      "oddsA": 1.685,
-      "oddsB": 2.213
-    },
-    {
-      "id": "2026-04-26-wta-wta-madrid-open-zheng-rybakina",
-      "date": "2026-04-26",
-      "tournament": "WTA Madrid Open",
-      "round": "",
-      "surface": "Clay",
-      "tour": "wta",
-      "playerA": "wta-qinwen-zheng",
-      "playerB": "wta-elena-rybakina",
-      "modelProbA": 0.558,
-      "oddsA": 4.254,
-      "oddsB": 1.234
-    },
-    {
-      "id": "2026-04-26-wta-wta-madrid-open-potapova-ostapenko",
-      "date": "2026-04-26",
-      "tournament": "WTA Madrid Open",
-      "round": "",
-      "surface": "Clay",
-      "tour": "wta",
-      "playerA": "wta-anastasia-potapova",
-      "playerB": "wta-jelena-ostapenko",
-      "modelProbA": 0.5537,
-      "oddsA": 2.017,
-      "oddsB": 1.814
+      "playerA": "atp-alexander-blockx",
+      "playerB": "atp-felix-auger-aliassime",
+      "modelProbA": 0.1893,
+      "oddsA": 3.093,
+      "oddsB": 1.383
     },
     {
       "id": "2026-04-27-atp-atp-madrid-open-vallejo-cobolli",
@@ -208,21 +39,8 @@
       "playerA": "atp-adolfo-daniel-vallejo",
       "playerB": "atp-flavio-cobolli",
       "modelProbA": 0.2757,
-      "oddsA": 2.324,
-      "oddsB": 1.506
-    },
-    {
-      "id": "2026-04-27-atp-atp-madrid-open-blockx-auger-aliassime",
-      "date": "2026-04-27",
-      "tournament": "ATP Madrid Open",
-      "round": "",
-      "surface": "Clay",
-      "tour": "atp",
-      "playerA": "atp-alexander-blockx",
-      "playerB": "atp-felix-auger-aliassime",
-      "modelProbA": 0.1887,
-      "oddsA": 2.904,
-      "oddsB": 1.411
+      "oddsA": 2.555,
+      "oddsB": 1.527
     },
     {
       "id": "2026-04-27-atp-atp-madrid-open-atmane-zverev",
@@ -234,21 +52,8 @@
       "playerA": "atp-terence-atmane",
       "playerB": "atp-alexander-zverev",
       "modelProbA": 0.1484,
-      "oddsA": 5.612,
-      "oddsB": 1.141
-    },
-    {
-      "id": "2026-04-27-atp-atp-madrid-open-cerundolo-darderi",
-      "date": "2026-04-27",
-      "tournament": "ATP Madrid Open",
-      "round": "",
-      "surface": "Clay",
-      "tour": "atp",
-      "playerA": "atp-francisco-cerundolo",
-      "playerB": "atp-luciano-darderi",
-      "modelProbA": 0.5898,
-      "oddsA": 1.466,
-      "oddsB": 2.704
+      "oddsA": 5.478,
+      "oddsB": 1.155
     },
     {
       "id": "2026-04-27-atp-atp-madrid-open-khachanov-mensik",
@@ -259,9 +64,9 @@
       "tour": "atp",
       "playerA": "atp-karen-khachanov",
       "playerB": "atp-jakub-mensik",
-      "modelProbA": 0.6179,
-      "oddsA": 2.194,
-      "oddsB": 1.675
+      "modelProbA": 0.6167,
+      "oddsA": 2.278,
+      "oddsB": 1.65
     },
     {
       "id": "2026-04-27-wta-wta-madrid-open-li-fernandez",
@@ -273,34 +78,8 @@
       "playerA": "wta-ann-li",
       "playerB": "wta-leylah-fernandez",
       "modelProbA": 0.3994,
-      "oddsA": 2.364,
-      "oddsB": 1.549
-    },
-    {
-      "id": "2026-04-27-wta-wta-madrid-open-andreeva-bondar",
-      "date": "2026-04-27",
-      "tournament": "WTA Madrid Open",
-      "round": "",
-      "surface": "Clay",
-      "tour": "wta",
-      "playerA": "wta-mirra-andreeva",
-      "playerB": "wta-anna-bondar",
-      "modelProbA": 0.6867,
-      "oddsA": 1.2,
-      "oddsB": 4.554
-    },
-    {
-      "id": "2026-04-27-wta-wta-madrid-open-sabalenka-osaka",
-      "date": "2026-04-27",
-      "tournament": "WTA Madrid Open",
-      "round": "",
-      "surface": "Clay",
-      "tour": "wta",
-      "playerA": "wta-aryna-sabalenka",
-      "playerB": "wta-naomi-osaka",
-      "modelProbA": 0.7356,
-      "oddsA": 1.155,
-      "oddsB": 5.174
+      "oddsA": 2.394,
+      "oddsB": 1.594
     },
     {
       "id": "2026-04-27-wta-wta-madrid-open-bencic-baptiste",
@@ -312,23 +91,140 @@
       "playerA": "wta-belinda-bencic",
       "playerB": "wta-hailey-baptiste",
       "modelProbA": 0.6771,
-      "oddsA": 1.298,
-      "oddsB": 3.376
+      "oddsA": 1.368,
+      "oddsB": 3.18
+    },
+    {
+      "id": "2026-04-27-wta-wta-madrid-open-sabalenka-osaka",
+      "date": "2026-04-27",
+      "tournament": "WTA Madrid Open",
+      "round": "",
+      "surface": "Clay",
+      "tour": "wta",
+      "playerA": "wta-aryna-sabalenka",
+      "playerB": "wta-naomi-osaka",
+      "modelProbA": 0.7356,
+      "oddsA": 1.126,
+      "oddsB": 6.281
+    },
+    {
+      "id": "2026-04-27-wta-wta-madrid-open-sierra-pliskova",
+      "date": "2026-04-27",
+      "tournament": "WTA Madrid Open",
+      "round": "",
+      "surface": "Clay",
+      "tour": "wta",
+      "playerA": "wta-solana-sierra",
+      "playerB": "wta-karolina-pliskova",
+      "modelProbA": 0.3697,
+      "oddsA": 2.357,
+      "oddsB": 1.608
+    },
+    {
+      "id": "2026-04-27-wta-wta-madrid-open-andreeva-bondar",
+      "date": "2026-04-27",
+      "tournament": "WTA Madrid Open",
+      "round": "",
+      "surface": "Clay",
+      "tour": "wta",
+      "playerA": "wta-mirra-andreeva",
+      "playerB": "wta-anna-bondar",
+      "modelProbA": 0.6867,
+      "oddsA": 1.211,
+      "oddsB": 4.531
+    },
+    {
+      "id": "2026-04-27-wta-wta-madrid-open-noskova-gauff",
+      "date": "2026-04-27",
+      "tournament": "WTA Madrid Open",
+      "round": "",
+      "surface": "Clay",
+      "tour": "wta",
+      "playerA": "wta-linda-noskova",
+      "playerB": "wta-coco-gauff",
+      "modelProbA": 0.2675,
+      "oddsA": 2.431,
+      "oddsB": 1.574
+    },
+    {
+      "id": "2026-04-27-wta-wta-madrid-open-kostyuk-mcnally",
+      "date": "2026-04-27",
+      "tournament": "WTA Madrid Open",
+      "round": "",
+      "surface": "Clay",
+      "tour": "wta",
+      "playerA": "wta-marta-kostyuk",
+      "playerB": "wta-caty-mcnally",
+      "modelProbA": 0.6372,
+      "oddsA": 1.163,
+      "oddsB": 5.351
+    },
+    {
+      "id": "2026-04-27-wta-wta-madrid-open-potapova-rybakina",
+      "date": "2026-04-27",
+      "tournament": "WTA Madrid Open",
+      "round": "",
+      "surface": "Clay",
+      "tour": "wta",
+      "playerA": "wta-anastasia-potapova",
+      "playerB": "wta-elena-rybakina",
+      "modelProbA": 0.3747,
+      "oddsA": 6.154,
+      "oddsB": 1.13
+    },
+    {
+      "id": "2026-04-28-atp-atp-madrid-open-sinner-norrie",
+      "date": "2026-04-28",
+      "tournament": "ATP Madrid Open",
+      "round": "",
+      "surface": "Clay",
+      "tour": "atp",
+      "playerA": "atp-jannik-sinner",
+      "playerB": "atp-cameron-norrie",
+      "modelProbA": 0.6725,
+      "oddsA": 1.014,
+      "oddsB": 16.376
+    },
+    {
+      "id": "2026-04-28-atp-atp-madrid-open-etcheverry-fils",
+      "date": "2026-04-28",
+      "tournament": "ATP Madrid Open",
+      "round": "",
+      "surface": "Clay",
+      "tour": "atp",
+      "playerA": "atp-tomas-martin-etcheverry",
+      "playerB": "atp-arthur-fils",
+      "modelProbA": 0.4878,
+      "oddsA": 3.379,
+      "oddsB": 1.299
+    },
+    {
+      "id": "2026-04-28-atp-atp-madrid-open-lehecka-musetti",
+      "date": "2026-04-28",
+      "tournament": "ATP Madrid Open",
+      "round": "",
+      "surface": "Clay",
+      "tour": "atp",
+      "playerA": "atp-jiri-lehecka",
+      "playerB": "atp-lorenzo-musetti",
+      "modelProbA": 0.4026,
+      "oddsA": 2.325,
+      "oddsB": 1.574
     }
   ],
   "stats": {
-    "fetched": 28,
-    "resolved": 24,
-    "missRatio": 0.0714
+    "fetched": 20,
+    "resolved": 16,
+    "missRatio": 0.1
   },
   "weather": {
-    "WTA Madrid Open": {
-      "tempMax": 25.5,
-      "windMax": 9.4
-    },
     "ATP Madrid Open": {
-      "tempMax": 25.5,
-      "windMax": 9.4
+      "tempMax": 26.1,
+      "windMax": 9.5
+    },
+    "WTA Madrid Open": {
+      "tempMax": 26.1,
+      "windMax": 9.5
     }
   }
 }
