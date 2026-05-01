@@ -1,60 +1,8 @@
 {
-  "updatedAt": "2026-04-30T07:48:41.127568+00:00",
-  "modelTrainedAt": "2026-04-30T04:18:29.484368+00:00",
+  "updatedAt": "2026-05-01T07:47:56.534339+00:00",
+  "modelTrainedAt": "2026-05-01T04:26:40.217011+00:00",
   "source": "local (env-driven draws_fetcher)",
   "matches": [
-    {
-      "id": "2026-04-30-atp-atp-madrid-open-ruud-blockx",
-      "date": "2026-04-30",
-      "tournament": "ATP Madrid Open",
-      "round": "",
-      "surface": "Clay",
-      "tour": "atp",
-      "playerA": "atp-casper-ruud",
-      "playerB": "atp-alexander-blockx",
-      "modelProbA": 0.8808,
-      "oddsA": 1.324,
-      "oddsB": 3.485
-    },
-    {
-      "id": "2026-04-30-atp-atp-madrid-open-cobolli-zverev",
-      "date": "2026-04-30",
-      "tournament": "ATP Madrid Open",
-      "round": "",
-      "surface": "Clay",
-      "tour": "atp",
-      "playerA": "atp-flavio-cobolli",
-      "playerB": "atp-alexander-zverev",
-      "modelProbA": 0.2579,
-      "oddsA": 3.313,
-      "oddsB": 1.349
-    },
-    {
-      "id": "2026-04-30-wta-wta-madrid-open-baptiste-andreeva",
-      "date": "2026-04-30",
-      "tournament": "WTA Madrid Open",
-      "round": "",
-      "surface": "Clay",
-      "tour": "wta",
-      "playerA": "wta-hailey-baptiste",
-      "playerB": "wta-mirra-andreeva",
-      "modelProbA": 0.2586,
-      "oddsA": 2.942,
-      "oddsB": 1.416
-    },
-    {
-      "id": "2026-04-30-wta-wta-madrid-open-kostyuk-potapova",
-      "date": "2026-04-30",
-      "tournament": "WTA Madrid Open",
-      "round": "",
-      "surface": "Clay",
-      "tour": "wta",
-      "playerA": "wta-marta-kostyuk",
-      "playerB": "wta-anastasia-potapova",
-      "modelProbA": 0.4267,
-      "oddsA": 1.365,
-      "oddsB": 3.188
-    },
     {
       "id": "2026-05-01-atp-atp-madrid-open-sinner-fils",
       "date": "2026-05-01",
@@ -65,23 +13,49 @@
       "playerA": "atp-jannik-sinner",
       "playerB": "atp-arthur-fils",
       "modelProbA": 0.6485,
-      "oddsA": 1.164,
-      "oddsB": 5.332
+      "oddsA": 1.157,
+      "oddsB": 5.631
+    },
+    {
+      "id": "2026-05-01-atp-atp-madrid-open-blockx-zverev",
+      "date": "2026-05-01",
+      "tournament": "ATP Madrid Open",
+      "round": "",
+      "surface": "Clay",
+      "tour": "atp",
+      "playerA": "atp-alexander-blockx",
+      "playerB": "atp-alexander-zverev",
+      "modelProbA": 0.107,
+      "oddsA": 3.944,
+      "oddsB": 1.266
+    },
+    {
+      "id": "2026-05-02-wta-wta-madrid-open-andreeva-kostyuk",
+      "date": "2026-05-02",
+      "tournament": "WTA Madrid Open",
+      "round": "",
+      "surface": "Clay",
+      "tour": "wta",
+      "playerA": "wta-mirra-andreeva",
+      "playerB": "wta-marta-kostyuk",
+      "modelProbA": 0.6147,
+      "oddsA": 1.687,
+      "oddsB": 2.183
     }
   ],
   "stats": {
-    "fetched": 5,
-    "resolved": 5,
+    "fetched": 3,
+    "resolved": 3,
     "missRatio": 0.0
   },
   "weather": {
     "WTA Madrid Open": {
-      "tempMax": 21.8,
-      "windMax": 6.0
+      "tempMax": 24.7,
+      "windMax": 16.5
     },
     "ATP Madrid Open": {
-      "tempMax": 21.8,
-      "windMax": 6.0
+      "tempMax": 24.7,
+      "windMax": 16.5
     }
   }
 }
