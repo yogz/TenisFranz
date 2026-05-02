@@ -1,34 +1,8 @@
 {
-  "updatedAt": "2026-05-01T07:47:56.534339+00:00",
-  "modelTrainedAt": "2026-05-01T04:26:40.217011+00:00",
+  "updatedAt": "2026-05-02T07:36:00.277380+00:00",
+  "modelTrainedAt": "2026-05-02T04:09:05.563198+00:00",
   "source": "local (env-driven draws_fetcher)",
   "matches": [
-    {
-      "id": "2026-05-01-atp-atp-madrid-open-sinner-fils",
-      "date": "2026-05-01",
-      "tournament": "ATP Madrid Open",
-      "round": "",
-      "surface": "Clay",
-      "tour": "atp",
-      "playerA": "atp-jannik-sinner",
-      "playerB": "atp-arthur-fils",
-      "modelProbA": 0.6485,
-      "oddsA": 1.157,
-      "oddsB": 5.631
-    },
-    {
-      "id": "2026-05-01-atp-atp-madrid-open-blockx-zverev",
-      "date": "2026-05-01",
-      "tournament": "ATP Madrid Open",
-      "round": "",
-      "surface": "Clay",
-      "tour": "atp",
-      "playerA": "atp-alexander-blockx",
-      "playerB": "atp-alexander-zverev",
-      "modelProbA": 0.107,
-      "oddsA": 3.944,
-      "oddsB": 1.266
-    },
     {
       "id": "2026-05-02-wta-wta-madrid-open-andreeva-kostyuk",
       "date": "2026-05-02",
@@ -39,23 +13,36 @@
       "playerA": "wta-mirra-andreeva",
       "playerB": "wta-marta-kostyuk",
       "modelProbA": 0.6147,
-      "oddsA": 1.687,
-      "oddsB": 2.183
+      "oddsA": 1.65,
+      "oddsB": 2.289
+    },
+    {
+      "id": "2026-05-03-atp-atp-madrid-open-sinner-zverev",
+      "date": "2026-05-03",
+      "tournament": "ATP Madrid Open",
+      "round": "",
+      "surface": "Clay",
+      "tour": "atp",
+      "playerA": "atp-jannik-sinner",
+      "playerB": "atp-alexander-zverev",
+      "modelProbA": 0.4527,
+      "oddsA": 1.177,
+      "oddsB": 5.056
     }
   ],
   "stats": {
-    "fetched": 3,
-    "resolved": 3,
+    "fetched": 2,
+    "resolved": 2,
     "missRatio": 0.0
   },
   "weather": {
     "WTA Madrid Open": {
-      "tempMax": 24.7,
-      "windMax": 16.5
+      "tempMax": 18.8,
+      "windMax": 16.1
     },
     "ATP Madrid Open": {
-      "tempMax": 24.7,
-      "windMax": 16.5
+      "tempMax": 18.8,
+      "windMax": 16.1
     }
   }
 }
