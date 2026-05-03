@@ -1,21 +1,8 @@
 {
-  "updatedAt": "2026-05-02T07:36:00.277380+00:00",
-  "modelTrainedAt": "2026-05-02T04:09:05.563198+00:00",
+  "updatedAt": "2026-05-03T07:38:57.882319+00:00",
+  "modelTrainedAt": "2026-05-03T04:22:03.422136+00:00",
   "source": "local (env-driven draws_fetcher)",
   "matches": [
-    {
-      "id": "2026-05-02-wta-wta-madrid-open-andreeva-kostyuk",
-      "date": "2026-05-02",
-      "tournament": "WTA Madrid Open",
-      "round": "",
-      "surface": "Clay",
-      "tour": "wta",
-      "playerA": "wta-mirra-andreeva",
-      "playerB": "wta-marta-kostyuk",
-      "modelProbA": 0.6147,
-      "oddsA": 1.65,
-      "oddsB": 2.289
-    },
     {
       "id": "2026-05-03-atp-atp-madrid-open-sinner-zverev",
       "date": "2026-05-03",
@@ -26,23 +13,19 @@
       "playerA": "atp-jannik-sinner",
       "playerB": "atp-alexander-zverev",
       "modelProbA": 0.4527,
-      "oddsA": 1.177,
-      "oddsB": 5.056
+      "oddsA": 1.179,
+      "oddsB": 5.111
     }
   ],
   "stats": {
-    "fetched": 2,
-    "resolved": 2,
+    "fetched": 1,
+    "resolved": 1,
     "missRatio": 0.0
   },
   "weather": {
-    "WTA Madrid Open": {
-      "tempMax": 18.8,
-      "windMax": 16.1
-    },
     "ATP Madrid Open": {
-      "tempMax": 18.8,
-      "windMax": 16.1
+      "tempMax": 20.0,
+      "windMax": 15.8
     }
   }
 }
