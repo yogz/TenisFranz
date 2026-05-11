@@ -1,8 +1,8 @@
 {
-  "methodology": "walk-forward annual retrain 2005-2024, Shin's de-juicing, flat 1u stake, edge ≥ 3pts, 38,187 joined matches",
+  "methodology": "walk-forward annual retrain 2005-2024, Shin's de-juicing, flat 1u stake, edge ≥ 3pts, 38,016 joined matches",
   "source": "Historical odds © tennis-data.co.uk (aggregated statistics only)",
-  "picksCount": 28803,
-  "roi": -0.03857,
+  "picksCount": 28663,
+  "roi": -0.0384,
   "bankrollCurve": [
     {
       "date": "2012-12-30",
@@ -16,283 +16,288 @@
     },
     {
       "date": "2013-01-02",
-      "balance": -2.98,
-      "picks": 59
+      "balance": -3.17,
+      "picks": 58
     },
     {
-      "date": "2013-01-10",
-      "balance": -2.89,
-      "picks": 117
+      "date": "2013-01-09",
+      "balance": -4.61,
+      "picks": 115
     },
     {
       "date": "2013-01-15",
-      "balance": -1.55,
-      "picks": 175
+      "balance": -0.63,
+      "picks": 172
     },
     {
-      "date": "2013-01-19",
-      "balance": -1.09,
-      "picks": 233
+      "date": "2013-01-18",
+      "balance": -0.44,
+      "picks": 229
     },
     {
       "date": "2013-02-06",
-      "balance": -0.25,
-      "picks": 291
+      "balance": -0.69,
+      "picks": 286
     },
     {
       "date": "2013-02-13",
-      "balance": -11.84,
-      "picks": 349
+      "balance": -10.98,
+      "picks": 343
     },
     {
       "date": "2013-02-19",
-      "balance": -11.47,
-      "picks": 407
+      "balance": -8.75,
+      "picks": 400
     },
     {
-      "date": "2013-02-26",
-      "balance": -7.2,
-      "picks": 465
+      "date": "2013-02-24",
+      "balance": -4.98,
+      "picks": 457
     },
     {
-      "date": "2013-02-28",
-      "balance": -12.06,
-      "picks": 523
+      "date": "2013-02-27",
+      "balance": -11.69,
+      "picks": 514
     },
     {
-      "date": "2013-03-08",
-      "balance": -11.83,
-      "picks": 581
+      "date": "2013-03-07",
+      "balance": -14.93,
+      "picks": 571
     },
     {
-      "date": "2013-03-13",
-      "balance": -8.27,
-      "picks": 639
+      "date": "2013-03-11",
+      "balance": -10.67,
+      "picks": 628
     },
     {
-      "date": "2013-03-22",
-      "balance": -10.18,
-      "picks": 697
+      "date": "2013-03-21",
+      "balance": -4.73,
+      "picks": 685
     },
     {
-      "date": "2013-04-03",
-      "balance": -8.81,
-      "picks": 755
+      "date": "2013-04-02",
+      "balance": -6.71,
+      "picks": 742
     },
     {
-      "date": "2013-04-15",
-      "balance": -22.73,
-      "picks": 813
+      "date": "2013-04-11",
+      "balance": -15.12,
+      "picks": 799
     },
     {
-      "date": "2013-04-24",
-      "balance": -25.05,
-      "picks": 871
+      "date": "2013-04-23",
+      "balance": -27.51,
+      "picks": 856
     },
     {
-      "date": "2013-05-01",
-      "balance": -24.06,
-      "picks": 929
+      "date": "2013-04-29",
+      "balance": -25.22,
+      "picks": 913
     },
     {
-      "date": "2013-05-07",
-      "balance": -28.09,
-      "picks": 987
+      "date": "2013-05-05",
+      "balance": -30.85,
+      "picks": 970
     },
     {
-      "date": "2013-05-14",
-      "balance": -35.78,
-      "picks": 1045
+      "date": "2013-05-13",
+      "balance": -38.15,
+      "picks": 1027
     },
     {
-      "date": "2013-05-21",
-      "balance": -41.37,
-      "picks": 1103
+      "date": "2013-05-20",
+      "balance": -35.7,
+      "picks": 1084
     },
     {
-      "date": "2013-05-26",
-      "balance": -45.79,
-      "picks": 1161
+      "date": "2013-05-25",
+      "balance": -45.3,
+      "picks": 1141
     },
     {
-      "date": "2013-05-29",
-      "balance": -46.45,
-      "picks": 1219
+      "date": "2013-05-28",
+      "balance": -49.31,
+      "picks": 1198
     },
     {
-      "date": "2013-06-08",
-      "balance": -42.13,
-      "picks": 1277
+      "date": "2013-06-01",
+      "balance": -42.63,
+      "picks": 1255
     },
     {
-      "date": "2013-06-13",
-      "balance": -51.38,
-      "picks": 1335
+      "date": "2013-06-11",
+      "balance": -52.23,
+      "picks": 1312
     },
     {
-      "date": "2013-06-19",
-      "balance": -50.84,
-      "picks": 1393
+      "date": "2013-06-18",
+      "balance": -46.55,
+      "picks": 1369
     },
     {
       "date": "2013-06-24",
-      "balance": -58.44,
-      "picks": 1451
+      "balance": -59.5,
+      "picks": 1426
     },
     {
-      "date": "2013-06-27",
-      "balance": -60.13,
-      "picks": 1509
+      "date": "2013-06-25",
+      "balance": -54.93,
+      "picks": 1483
     },
     {
-      "date": "2013-07-09",
-      "balance": -57.09,
-      "picks": 1567
+      "date": "2013-07-01",
+      "balance": -58.83,
+      "picks": 1540
     },
     {
-      "date": "2013-07-12",
-      "balance": -58.66,
-      "picks": 1625
+      "date": "2013-07-10",
+      "balance": -54.95,
+      "picks": 1597
     },
     {
-      "date": "2013-07-18",
-      "balance": -61.91,
-      "picks": 1683
+      "date": "2013-07-16",
+      "balance": -65.75,
+      "picks": 1654
     },
     {
-      "date": "2013-07-25",
-      "balance": -64.88,
-      "picks": 1741
+      "date": "2013-07-23",
+      "balance": -62.64,
+      "picks": 1711
     },
     {
-      "date": "2013-07-31",
-      "balance": -73.21,
-      "picks": 1799
+      "date": "2013-07-29",
+      "balance": -67.38,
+      "picks": 1768
     },
     {
-      "date": "2013-08-07",
-      "balance": -83.36,
-      "picks": 1857
+      "date": "2013-08-03",
+      "balance": -74.32,
+      "picks": 1825
     },
     {
-      "date": "2013-08-15",
-      "balance": -79.95,
-      "picks": 1915
+      "date": "2013-08-12",
+      "balance": -82.07,
+      "picks": 1882
     },
     {
-      "date": "2013-08-26",
-      "balance": -77.75,
-      "picks": 1973
+      "date": "2013-08-20",
+      "balance": -79.94,
+      "picks": 1939
     },
     {
-      "date": "2013-08-29",
-      "balance": -77.75,
-      "picks": 2031
+      "date": "2013-08-27",
+      "balance": -78.59,
+      "picks": 1996
     },
     {
-      "date": "2013-09-09",
-      "balance": -84.48,
-      "picks": 2089
+      "date": "2013-08-30",
+      "balance": -74.38,
+      "picks": 2053
     },
     {
-      "date": "2013-09-17",
-      "balance": -86.97,
-      "picks": 2147
+      "date": "2013-09-11",
+      "balance": -88.55,
+      "picks": 2110
     },
     {
-      "date": "2013-09-24",
-      "balance": -94.99,
-      "picks": 2205
+      "date": "2013-09-19",
+      "balance": -87.49,
+      "picks": 2167
     },
     {
-      "date": "2013-10-02",
-      "balance": -101.42,
-      "picks": 2263
+      "date": "2013-09-26",
+      "balance": -94.17,
+      "picks": 2224
     },
     {
-      "date": "2013-10-10",
-      "balance": -106.27,
-      "picks": 2321
+      "date": "2013-10-06",
+      "balance": -98.97,
+      "picks": 2281
     },
     {
-      "date": "2013-10-17",
-      "balance": -104.25,
-      "picks": 2379
+      "date": "2013-10-14",
+      "balance": -109.16,
+      "picks": 2338
     },
     {
-      "date": "2013-10-25",
-      "balance": -103.98,
-      "picks": 2437
+      "date": "2013-10-19",
+      "balance": -101.72,
+      "picks": 2395
+    },
+    {
+      "date": "2013-10-29",
+      "balance": -103.02,
+      "picks": 2452
     },
     {
       "date": "2013-12-30",
-      "balance": -102.95,
-      "picks": 2495
+      "balance": -102.31,
+      "picks": 2509
     },
     {
-      "date": "2014-01-03",
-      "balance": -107.75,
-      "picks": 2553
+      "date": "2014-01-06",
+      "balance": -107.14,
+      "picks": 2566
     },
     {
-      "date": "2014-01-11",
-      "balance": -113.2,
-      "picks": 2611
+      "date": "2014-01-13",
+      "balance": -111.84,
+      "picks": 2623
     },
     {
-      "date": "2014-01-15",
-      "balance": -114.96,
-      "picks": 2669
+      "date": "2014-01-16",
+      "balance": -113.02,
+      "picks": 2680
     },
     {
-      "date": "2014-01-29",
-      "balance": -116.64,
-      "picks": 2727
+      "date": "2014-02-04",
+      "balance": -121.68,
+      "picks": 2737
     },
     {
       "date": "2014-02-11",
-      "balance": -119.66,
-      "picks": 2785
+      "balance": -116.35,
+      "picks": 2794
     },
     {
-      "date": "2014-02-17",
-      "balance": -117.73,
-      "picks": 2843
+      "date": "2014-02-18",
+      "balance": -114.88,
+      "picks": 2851
     },
     {
       "date": "2014-02-25",
-      "balance": -121.91,
-      "picks": 2901
+      "balance": -125.24,
+      "picks": 2908
     },
     {
-      "date": "2014-03-05",
-      "balance": -124.64,
-      "picks": 2959
+      "date": "2014-03-06",
+      "balance": -124.14,
+      "picks": 2965
     },
     {
-      "date": "2014-03-11",
-      "balance": -136.34,
-      "picks": 3017
+      "date": "2014-03-13",
+      "balance": -137.41,
+      "picks": 3022
     },
     {
       "date": "2014-03-22",
-      "balance": -138.41,
-      "picks": 3075
+      "balance": -136.72,
+      "picks": 3079
     },
     {
       "date": "2014-04-03",
-      "balance": -146.1,
-      "picks": 3133
+      "balance": -147.96,
+      "picks": 3136
     },
     {
-      "date": "2014-04-11",
-      "balance": -142.26,
-      "picks": 3191
+      "date": "2014-04-12",
+      "balance": -142.56,
+      "picks": 3193
     },
     {
       "date": "2014-04-21",
-      "balance": -151.56,
-      "picks": 3249
+      "balance": -152.56,
+      "picks": 3250
     },
     {
       "date": "2014-04-27",
@@ -301,2213 +306,2208 @@
     },
     {
       "date": "2014-05-03",
-      "balance": -163.34,
-      "picks": 3365
+      "balance": -163.85,
+      "picks": 3364
     },
     {
       "date": "2014-05-11",
-      "balance": -155.26,
-      "picks": 3423
+      "balance": -155.0,
+      "picks": 3421
     },
     {
-      "date": "2014-05-19",
-      "balance": -171.85,
-      "picks": 3481
+      "date": "2014-05-18",
+      "balance": -170.28,
+      "picks": 3478
     },
     {
       "date": "2014-05-25",
-      "balance": -165.49,
-      "picks": 3539
+      "balance": -164.78,
+      "picks": 3535
     },
     {
       "date": "2014-05-27",
-      "balance": -175.09,
-      "picks": 3597
+      "balance": -172.58,
+      "picks": 3592
     },
     {
-      "date": "2014-06-03",
-      "balance": -184.44,
-      "picks": 3655
+      "date": "2014-06-01",
+      "balance": -183.64,
+      "picks": 3649
     },
     {
-      "date": "2014-06-12",
-      "balance": -191.33,
-      "picks": 3713
+      "date": "2014-06-11",
+      "balance": -192.01,
+      "picks": 3706
     },
     {
-      "date": "2014-06-19",
-      "balance": -195.45,
-      "picks": 3771
+      "date": "2014-06-18",
+      "balance": -197.69,
+      "picks": 3763
     },
     {
       "date": "2014-06-24",
-      "balance": -198.34,
-      "picks": 3829
+      "balance": -199.57,
+      "picks": 3820
     },
     {
-      "date": "2014-06-30",
-      "balance": -201.9,
-      "picks": 3887
+      "date": "2014-06-27",
+      "balance": -198.91,
+      "picks": 3877
     },
     {
-      "date": "2014-07-09",
-      "balance": -203.11,
-      "picks": 3945
+      "date": "2014-07-08",
+      "balance": -202.89,
+      "picks": 3934
     },
     {
-      "date": "2014-07-15",
-      "balance": -205.46,
-      "picks": 4003
+      "date": "2014-07-14",
+      "balance": -206.62,
+      "picks": 3991
     },
     {
-      "date": "2014-07-21",
-      "balance": -214.87,
-      "picks": 4061
+      "date": "2014-07-18",
+      "balance": -211.17,
+      "picks": 4048
     },
     {
-      "date": "2014-07-26",
-      "balance": -220.12,
-      "picks": 4119
+      "date": "2014-07-24",
+      "balance": -219.89,
+      "picks": 4105
     },
     {
-      "date": "2014-08-03",
-      "balance": -219.7,
-      "picks": 4177
+      "date": "2014-07-31",
+      "balance": -223.01,
+      "picks": 4162
     },
     {
-      "date": "2014-08-12",
-      "balance": -215.73,
-      "picks": 4235
+      "date": "2014-08-11",
+      "balance": -219.45,
+      "picks": 4219
     },
     {
-      "date": "2014-08-21",
-      "balance": -218.8,
-      "picks": 4293
+      "date": "2014-08-18",
+      "balance": -218.93,
+      "picks": 4276
     },
     {
-      "date": "2014-08-27",
-      "balance": -230.92,
-      "picks": 4351
+      "date": "2014-08-26",
+      "balance": -228.55,
+      "picks": 4333
     },
     {
-      "date": "2014-09-06",
-      "balance": -236.02,
-      "picks": 4409
+      "date": "2014-08-30",
+      "balance": -233.51,
+      "picks": 4390
     },
     {
-      "date": "2014-09-16",
-      "balance": -246.24,
-      "picks": 4467
+      "date": "2014-09-11",
+      "balance": -241.84,
+      "picks": 4447
     },
     {
-      "date": "2014-09-22",
-      "balance": -241.02,
-      "picks": 4525
+      "date": "2014-09-19",
+      "balance": -243.78,
+      "picks": 4504
     },
     {
-      "date": "2014-09-30",
-      "balance": -246.79,
-      "picks": 4583
+      "date": "2014-09-27",
+      "balance": -245.79,
+      "picks": 4561
     },
     {
-      "date": "2014-10-08",
-      "balance": -255.49,
-      "picks": 4641
+      "date": "2014-10-07",
+      "balance": -251.12,
+      "picks": 4618
     },
     {
-      "date": "2014-10-14",
-      "balance": -269.61,
-      "picks": 4699
+      "date": "2014-10-13",
+      "balance": -262.51,
+      "picks": 4675
     },
     {
-      "date": "2014-10-23",
-      "balance": -274.59,
-      "picks": 4757
+      "date": "2014-10-20",
+      "balance": -271.62,
+      "picks": 4732
     },
     {
-      "date": "2015-01-05",
-      "balance": -265.66,
-      "picks": 4815
+      "date": "2014-10-31",
+      "balance": -265.59,
+      "picks": 4789
     },
     {
-      "date": "2015-01-09",
-      "balance": -264.33,
-      "picks": 4873
+      "date": "2015-01-07",
+      "balance": -262.26,
+      "picks": 4846
     },
     {
-      "date": "2015-01-19",
-      "balance": -270.52,
-      "picks": 4931
+      "date": "2015-01-14",
+      "balance": -268.72,
+      "picks": 4903
     },
     {
       "date": "2015-01-20",
-      "balance": -276.6,
-      "picks": 4989
+      "balance": -276.11,
+      "picks": 4960
     },
     {
-      "date": "2015-01-27",
-      "balance": -280.48,
-      "picks": 5047
+      "date": "2015-01-22",
+      "balance": -277.86,
+      "picks": 5017
     },
     {
-      "date": "2015-02-10",
-      "balance": -279.17,
-      "picks": 5105
+      "date": "2015-02-05",
+      "balance": -272.11,
+      "picks": 5074
     },
     {
-      "date": "2015-02-15",
-      "balance": -283.97,
-      "picks": 5163
+      "date": "2015-02-12",
+      "balance": -273.09,
+      "picks": 5131
     },
     {
-      "date": "2015-02-18",
-      "balance": -280.88,
-      "picks": 5221
+      "date": "2015-02-17",
+      "balance": -279.5,
+      "picks": 5188
     },
     {
-      "date": "2015-02-25",
-      "balance": -282.15,
-      "picks": 5279
+      "date": "2015-02-24",
+      "balance": -282.48,
+      "picks": 5245
     },
     {
-      "date": "2015-03-06",
-      "balance": -279.43,
-      "picks": 5337
+      "date": "2015-02-28",
+      "balance": -277.3,
+      "picks": 5302
     },
     {
-      "date": "2015-03-16",
-      "balance": -286.86,
-      "picks": 5395
+      "date": "2015-03-13",
+      "balance": -285.57,
+      "picks": 5359
     },
     {
-      "date": "2015-03-27",
-      "balance": -296.93,
-      "picks": 5453
+      "date": "2015-03-25",
+      "balance": -288.33,
+      "picks": 5416
     },
     {
-      "date": "2015-04-07",
-      "balance": -295.61,
-      "picks": 5511
+      "date": "2015-04-01",
+      "balance": -297.65,
+      "picks": 5473
     },
     {
-      "date": "2015-04-13",
-      "balance": -295.74,
-      "picks": 5569
+      "date": "2015-04-09",
+      "balance": -294.07,
+      "picks": 5530
     },
     {
-      "date": "2015-04-21",
-      "balance": -296.79,
-      "picks": 5627
+      "date": "2015-04-17",
+      "balance": -292.68,
+      "picks": 5587
     },
     {
-      "date": "2015-04-28",
-      "balance": -309.7,
-      "picks": 5685
+      "date": "2015-04-24",
+      "balance": -298.97,
+      "picks": 5644
     },
     {
-      "date": "2015-05-02",
-      "balance": -320.47,
-      "picks": 5743
+      "date": "2015-04-29",
+      "balance": -308.89,
+      "picks": 5701
     },
     {
-      "date": "2015-05-07",
-      "balance": -323.3,
-      "picks": 5801
+      "date": "2015-05-04",
+      "balance": -322.87,
+      "picks": 5758
     },
     {
-      "date": "2015-05-16",
-      "balance": -319.86,
-      "picks": 5859
+      "date": "2015-05-12",
+      "balance": -317.27,
+      "picks": 5815
     },
     {
-      "date": "2015-05-21",
-      "balance": -319.57,
-      "picks": 5917
+      "date": "2015-05-18",
+      "balance": -317.83,
+      "picks": 5872
     },
     {
-      "date": "2015-05-25",
-      "balance": -317.99,
-      "picks": 5975
+      "date": "2015-05-24",
+      "balance": -314.91,
+      "picks": 5929
     },
     {
-      "date": "2015-05-28",
-      "balance": -334.04,
-      "picks": 6033
+      "date": "2015-05-26",
+      "balance": -318.35,
+      "picks": 5986
     },
     {
-      "date": "2015-06-09",
-      "balance": -343.21,
-      "picks": 6091
+      "date": "2015-05-30",
+      "balance": -332.24,
+      "picks": 6043
     },
     {
-      "date": "2015-06-16",
-      "balance": -352.41,
-      "picks": 6149
+      "date": "2015-06-11",
+      "balance": -347.07,
+      "picks": 6100
     },
     {
-      "date": "2015-06-24",
-      "balance": -353.39,
-      "picks": 6207
+      "date": "2015-06-18",
+      "balance": -345.11,
+      "picks": 6157
     },
     {
-      "date": "2015-06-30",
-      "balance": -368.22,
-      "picks": 6265
+      "date": "2015-06-29",
+      "balance": -355.07,
+      "picks": 6214
     },
     {
-      "date": "2015-07-04",
-      "balance": -369.44,
-      "picks": 6323
+      "date": "2015-07-01",
+      "balance": -366.25,
+      "picks": 6271
     },
     {
-      "date": "2015-07-16",
-      "balance": -372.36,
-      "picks": 6381
+      "date": "2015-07-13",
+      "balance": -369.69,
+      "picks": 6328
     },
     {
-      "date": "2015-07-22",
-      "balance": -364.37,
-      "picks": 6439
+      "date": "2015-07-20",
+      "balance": -364.27,
+      "picks": 6385
+    },
+    {
+      "date": "2015-07-23",
+      "balance": -363.76,
+      "picks": 6442
     },
     {
       "date": "2015-07-28",
-      "balance": -363.65,
-      "picks": 6497
+      "balance": -358.09,
+      "picks": 6499
     },
     {
-      "date": "2015-08-02",
-      "balance": -356.08,
-      "picks": 6555
+      "date": "2015-08-04",
+      "balance": -359.51,
+      "picks": 6556
     },
     {
-      "date": "2015-08-10",
-      "balance": -371.53,
+      "date": "2015-08-11",
+      "balance": -371.8,
       "picks": 6613
     },
     {
-      "date": "2015-08-18",
-      "balance": -385.21,
-      "picks": 6671
+      "date": "2015-08-19",
+      "balance": -377.4,
+      "picks": 6670
     },
     {
-      "date": "2015-08-28",
-      "balance": -387.82,
-      "picks": 6729
+      "date": "2015-08-31",
+      "balance": -380.77,
+      "picks": 6727
     },
     {
-      "date": "2015-09-01",
-      "balance": -392.82,
-      "picks": 6787
+      "date": "2015-09-02",
+      "balance": -386.1,
+      "picks": 6784
     },
     {
-      "date": "2015-09-07",
-      "balance": -392.76,
-      "picks": 6845
+      "date": "2015-09-12",
+      "balance": -386.38,
+      "picks": 6841
     },
     {
       "date": "2015-09-22",
-      "balance": -384.78,
-      "picks": 6903
+      "balance": -377.32,
+      "picks": 6898
     },
     {
-      "date": "2015-09-27",
-      "balance": -384.29,
-      "picks": 6961
+      "date": "2015-09-28",
+      "balance": -381.96,
+      "picks": 6955
     },
     {
       "date": "2015-10-04",
-      "balance": -390.37,
-      "picks": 7019
+      "balance": -387.83,
+      "picks": 7012
     },
     {
-      "date": "2015-10-12",
-      "balance": -393.76,
-      "picks": 7077
+      "date": "2015-10-13",
+      "balance": -387.94,
+      "picks": 7069
     },
     {
       "date": "2015-10-19",
-      "balance": -401.77,
-      "picks": 7135
+      "balance": -396.02,
+      "picks": 7126
     },
     {
-      "date": "2015-10-22",
-      "balance": -399.37,
-      "picks": 7193
+      "date": "2015-10-23",
+      "balance": -391.93,
+      "picks": 7183
     },
     {
-      "date": "2015-11-03",
-      "balance": -411.16,
-      "picks": 7251
+      "date": "2015-11-04",
+      "balance": -405.62,
+      "picks": 7240
     },
     {
       "date": "2016-01-05",
-      "balance": -407.09,
-      "picks": 7309
+      "balance": -403.13,
+      "picks": 7297
     },
     {
       "date": "2016-01-11",
-      "balance": -413.54,
-      "picks": 7367
+      "balance": -408.58,
+      "picks": 7354
     },
     {
       "date": "2016-01-18",
-      "balance": -419.41,
-      "picks": 7425
+      "balance": -413.45,
+      "picks": 7411
     },
     {
       "date": "2016-01-21",
-      "balance": -419.56,
-      "picks": 7483
+      "balance": -413.83,
+      "picks": 7468
     },
     {
       "date": "2016-02-02",
-      "balance": -420.8,
-      "picks": 7541
+      "balance": -414.07,
+      "picks": 7525
     },
     {
       "date": "2016-02-10",
-      "balance": -420.12,
-      "picks": 7599
+      "balance": -415.25,
+      "picks": 7582
     },
     {
-      "date": "2016-02-17",
-      "balance": -422.86,
-      "picks": 7657
+      "date": "2016-02-16",
+      "balance": -415.67,
+      "picks": 7639
     },
     {
-      "date": "2016-02-22",
-      "balance": -427.63,
-      "picks": 7715
+      "date": "2016-02-21",
+      "balance": -422.9,
+      "picks": 7696
     },
     {
       "date": "2016-02-25",
-      "balance": -427.25,
-      "picks": 7773
+      "balance": -419.55,
+      "picks": 7753
     },
     {
-      "date": "2016-03-12",
-      "balance": -419.61,
-      "picks": 7831
+      "date": "2016-03-11",
+      "balance": -416.86,
+      "picks": 7810
     },
     {
       "date": "2016-03-22",
-      "balance": -416.94,
-      "picks": 7889
+      "balance": -419.36,
+      "picks": 7867
     },
     {
-      "date": "2016-03-28",
-      "balance": -426.31,
-      "picks": 7947
+      "date": "2016-03-27",
+      "balance": -424.45,
+      "picks": 7924
     },
     {
-      "date": "2016-04-07",
-      "balance": -423.19,
-      "picks": 8005
+      "date": "2016-04-06",
+      "balance": -425.24,
+      "picks": 7981
     },
     {
-      "date": "2016-04-14",
-      "balance": -422.2,
-      "picks": 8063
+      "date": "2016-04-13",
+      "balance": -423.16,
+      "picks": 8038
     },
     {
-      "date": "2016-04-20",
-      "balance": -428.31,
-      "picks": 8121
+      "date": "2016-04-19",
+      "balance": -424.65,
+      "picks": 8095
     },
     {
-      "date": "2016-04-26",
-      "balance": -431.6,
-      "picks": 8179
+      "date": "2016-04-25",
+      "balance": -427.52,
+      "picks": 8152
     },
     {
-      "date": "2016-05-01",
-      "balance": -437.05,
-      "picks": 8237
+      "date": "2016-04-30",
+      "balance": -434.8,
+      "picks": 8209
     },
     {
-      "date": "2016-05-06",
-      "balance": -435.1,
-      "picks": 8295
+      "date": "2016-05-04",
+      "balance": -433.72,
+      "picks": 8266
     },
     {
-      "date": "2016-05-13",
-      "balance": -444.16,
-      "picks": 8353
+      "date": "2016-05-12",
+      "balance": -445.5,
+      "picks": 8323
     },
     {
-      "date": "2016-05-22",
-      "balance": -439.44,
-      "picks": 8411
+      "date": "2016-05-19",
+      "balance": -440.9,
+      "picks": 8380
     },
     {
       "date": "2016-05-24",
-      "balance": -440.21,
-      "picks": 8469
+      "balance": -439.4,
+      "picks": 8437
     },
     {
-      "date": "2016-06-02",
-      "balance": -439.5,
-      "picks": 8527
+      "date": "2016-05-28",
+      "balance": -435.29,
+      "picks": 8494
     },
     {
-      "date": "2016-06-12",
-      "balance": -454.71,
-      "picks": 8585
+      "date": "2016-06-09",
+      "balance": -448.44,
+      "picks": 8551
     },
     {
-      "date": "2016-06-20",
-      "balance": -465.25,
-      "picks": 8643
+      "date": "2016-06-16",
+      "balance": -458.16,
+      "picks": 8608
     },
     {
       "date": "2016-06-27",
-      "balance": -464.62,
-      "picks": 8701
+      "balance": -465.09,
+      "picks": 8665
     },
     {
       "date": "2016-06-30",
-      "balance": -460.05,
-      "picks": 8759
+      "balance": -459.48,
+      "picks": 8722
     },
     {
-      "date": "2016-07-12",
-      "balance": -462.15,
-      "picks": 8817
+      "date": "2016-07-11",
+      "balance": -463.2,
+      "picks": 8779
     },
     {
-      "date": "2016-07-18",
-      "balance": -456.57,
-      "picks": 8875
+      "date": "2016-07-15",
+      "balance": -455.14,
+      "picks": 8836
     },
     {
-      "date": "2016-07-20",
-      "balance": -475.29,
-      "picks": 8933
+      "date": "2016-07-19",
+      "balance": -465.75,
+      "picks": 8893
     },
     {
-      "date": "2016-07-26",
-      "balance": -487.23,
-      "picks": 8991
+      "date": "2016-07-22",
+      "balance": -486.7,
+      "picks": 8950
     },
     {
-      "date": "2016-08-07",
-      "balance": -491.02,
-      "picks": 9049
+      "date": "2016-08-01",
+      "balance": -490.3,
+      "picks": 9007
     },
     {
-      "date": "2016-08-20",
-      "balance": -496.25,
-      "picks": 9107
+      "date": "2016-08-17",
+      "balance": -492.88,
+      "picks": 9064
     },
     {
-      "date": "2016-08-30",
-      "balance": -499.76,
-      "picks": 9165
+      "date": "2016-08-29",
+      "balance": -497.82,
+      "picks": 9121
     },
     {
-      "date": "2016-09-02",
-      "balance": -504.32,
-      "picks": 9223
+      "date": "2016-08-31",
+      "balance": -496.42,
+      "picks": 9178
     },
     {
-      "date": "2016-09-15",
-      "balance": -505.25,
-      "picks": 9281
+      "date": "2016-09-11",
+      "balance": -501.02,
+      "picks": 9235
     },
     {
-      "date": "2016-09-22",
-      "balance": -510.09,
-      "picks": 9339
+      "date": "2016-09-20",
+      "balance": -511.73,
+      "picks": 9292
     },
     {
-      "date": "2016-09-28",
-      "balance": -516.42,
-      "picks": 9397
+      "date": "2016-09-26",
+      "balance": -515.94,
+      "picks": 9349
     },
     {
-      "date": "2016-10-06",
-      "balance": -520.39,
-      "picks": 9455
+      "date": "2016-10-03",
+      "balance": -519.65,
+      "picks": 9406
     },
     {
-      "date": "2016-10-14",
-      "balance": -526.64,
-      "picks": 9513
+      "date": "2016-10-10",
+      "balance": -526.46,
+      "picks": 9463
     },
     {
-      "date": "2016-10-20",
-      "balance": -530.23,
-      "picks": 9571
+      "date": "2016-10-18",
+      "balance": -524.59,
+      "picks": 9520
     },
     {
-      "date": "2016-11-02",
-      "balance": -527.36,
-      "picks": 9629
+      "date": "2016-10-25",
+      "balance": -529.73,
+      "picks": 9577
     },
     {
-      "date": "2017-01-04",
-      "balance": -522.86,
-      "picks": 9687
+      "date": "2017-01-02",
+      "balance": -521.35,
+      "picks": 9634
     },
     {
-      "date": "2017-01-12",
-      "balance": -527.21,
-      "picks": 9745
+      "date": "2017-01-09",
+      "balance": -526.5,
+      "picks": 9691
     },
     {
-      "date": "2017-01-17",
-      "balance": -521.37,
-      "picks": 9803
+      "date": "2017-01-16",
+      "balance": -525.36,
+      "picks": 9748
     },
     {
-      "date": "2017-01-30",
-      "balance": -528.68,
-      "picks": 9861
+      "date": "2017-01-19",
+      "balance": -526.05,
+      "picks": 9805
     },
     {
-      "date": "2017-02-10",
-      "balance": -535.29,
+      "date": "2017-02-06",
+      "balance": -535.98,
+      "picks": 9862
+    },
+    {
+      "date": "2017-02-16",
+      "balance": -535.68,
       "picks": 9919
     },
     {
-      "date": "2017-02-20",
-      "balance": -536.89,
-      "picks": 9977
+      "date": "2017-02-22",
+      "balance": -539.72,
+      "picks": 9976
     },
     {
-      "date": "2017-02-25",
-      "balance": -540.97,
-      "picks": 10035
+      "date": "2017-02-28",
+      "balance": -537.42,
+      "picks": 10033
     },
     {
-      "date": "2017-03-02",
-      "balance": -542.69,
-      "picks": 10093
+      "date": "2017-03-09",
+      "balance": -540.32,
+      "picks": 10090
     },
     {
-      "date": "2017-03-12",
-      "balance": -545.17,
-      "picks": 10151
+      "date": "2017-03-15",
+      "balance": -547.79,
+      "picks": 10147
     },
     {
-      "date": "2017-03-23",
-      "balance": -545.4,
-      "picks": 10209
+      "date": "2017-03-26",
+      "balance": -542.72,
+      "picks": 10204
     },
     {
-      "date": "2017-04-01",
-      "balance": -543.81,
-      "picks": 10267
+      "date": "2017-04-06",
+      "balance": -536.73,
+      "picks": 10261
     },
     {
-      "date": "2017-04-11",
-      "balance": -541.91,
-      "picks": 10325
+      "date": "2017-04-13",
+      "balance": -531.7,
+      "picks": 10318
     },
     {
-      "date": "2017-04-19",
-      "balance": -539.28,
-      "picks": 10383
+      "date": "2017-04-25",
+      "balance": -535.37,
+      "picks": 10375
     },
     {
-      "date": "2017-04-27",
-      "balance": -550.02,
-      "picks": 10441
+      "date": "2017-05-01",
+      "balance": -545.93,
+      "picks": 10432
     },
     {
-      "date": "2017-05-02",
-      "balance": -557.35,
-      "picks": 10499
+      "date": "2017-05-05",
+      "balance": -556.14,
+      "picks": 10489
     },
     {
-      "date": "2017-05-09",
-      "balance": -559.18,
-      "picks": 10557
+      "date": "2017-05-11",
+      "balance": -552.4,
+      "picks": 10546
     },
     {
-      "date": "2017-05-17",
-      "balance": -556.86,
-      "picks": 10615
+      "date": "2017-05-20",
+      "balance": -550.78,
+      "picks": 10603
     },
     {
-      "date": "2017-05-24",
-      "balance": -555.08,
-      "picks": 10673
+      "date": "2017-05-28",
+      "balance": -549.91,
+      "picks": 10660
     },
     {
-      "date": "2017-05-29",
-      "balance": -547.89,
-      "picks": 10731
+      "date": "2017-05-30",
+      "balance": -544.99,
+      "picks": 10717
     },
     {
-      "date": "2017-06-03",
-      "balance": -544.3,
-      "picks": 10789
+      "date": "2017-06-09",
+      "balance": -537.31,
+      "picks": 10774
     },
     {
-      "date": "2017-06-15",
-      "balance": -545.49,
-      "picks": 10847
+      "date": "2017-06-17",
+      "balance": -547.68,
+      "picks": 10831
     },
     {
-      "date": "2017-06-21",
-      "balance": -551.03,
-      "picks": 10905
+      "date": "2017-06-23",
+      "balance": -548.76,
+      "picks": 10888
     },
     {
-      "date": "2017-06-29",
-      "balance": -551.05,
-      "picks": 10963
+      "date": "2017-07-01",
+      "balance": -550.25,
+      "picks": 10945
     },
     {
       "date": "2017-07-04",
-      "balance": -554.16,
-      "picks": 11021
+      "balance": -548.32,
+      "picks": 11002
     },
     {
-      "date": "2017-07-08",
-      "balance": -556.04,
-      "picks": 11079
+      "date": "2017-07-11",
+      "balance": -551.8,
+      "picks": 11059
     },
     {
-      "date": "2017-07-18",
-      "balance": -557.97,
-      "picks": 11137
+      "date": "2017-07-19",
+      "balance": -552.45,
+      "picks": 11116
     },
     {
       "date": "2017-07-25",
-      "balance": -548.93,
-      "picks": 11195
+      "balance": -542.69,
+      "picks": 11173
     },
     {
-      "date": "2017-08-01",
-      "balance": -541.59,
-      "picks": 11253
+      "date": "2017-08-02",
+      "balance": -531.87,
+      "picks": 11230
     },
     {
-      "date": "2017-08-07",
-      "balance": -542.8,
-      "picks": 11311
+      "date": "2017-08-08",
+      "balance": -533.88,
+      "picks": 11287
     },
     {
       "date": "2017-08-15",
-      "balance": -545.16,
-      "picks": 11369
+      "balance": -545.2,
+      "picks": 11344
     },
     {
-      "date": "2017-08-22",
-      "balance": -552.59,
-      "picks": 11427
+      "date": "2017-08-23",
+      "balance": -548.33,
+      "picks": 11401
     },
     {
       "date": "2017-08-30",
-      "balance": -557.39,
-      "picks": 11485
+      "balance": -552.54,
+      "picks": 11458
     },
     {
-      "date": "2017-09-01",
-      "balance": -553.7,
-      "picks": 11543
+      "date": "2017-09-02",
+      "balance": -546.22,
+      "picks": 11515
     },
     {
-      "date": "2017-09-18",
-      "balance": -559.35,
-      "picks": 11601
+      "date": "2017-09-19",
+      "balance": -555.24,
+      "picks": 11572
     },
     {
-      "date": "2017-09-23",
-      "balance": -556.58,
-      "picks": 11659
+      "date": "2017-09-24",
+      "balance": -551.92,
+      "picks": 11629
     },
     {
-      "date": "2017-09-29",
-      "balance": -557.24,
-      "picks": 11717
+      "date": "2017-09-30",
+      "balance": -554.13,
+      "picks": 11686
     },
     {
-      "date": "2017-10-09",
-      "balance": -561.55,
-      "picks": 11775
+      "date": "2017-10-10",
+      "balance": -555.2,
+      "picks": 11743
     },
     {
       "date": "2017-10-16",
-      "balance": -556.78,
-      "picks": 11833
+      "balance": -554.79,
+      "picks": 11800
     },
     {
       "date": "2017-10-19",
-      "balance": -570.19,
-      "picks": 11891
+      "balance": -560.87,
+      "picks": 11857
     },
     {
-      "date": "2017-10-30",
-      "balance": -558.92,
-      "picks": 11949
+      "date": "2017-10-31",
+      "balance": -559.26,
+      "picks": 11914
     },
     {
-      "date": "2018-01-01",
-      "balance": -572.09,
-      "picks": 12007
+      "date": "2018-01-02",
+      "balance": -568.67,
+      "picks": 11971
     },
     {
-      "date": "2018-01-05",
-      "balance": -574.52,
-      "picks": 12065
+      "date": "2018-01-06",
+      "balance": -571.77,
+      "picks": 12028
     },
     {
       "date": "2018-01-15",
-      "balance": -583.12,
-      "picks": 12123
+      "balance": -575.81,
+      "picks": 12085
     },
     {
       "date": "2018-01-16",
-      "balance": -588.09,
-      "picks": 12181
+      "balance": -582.07,
+      "picks": 12142
     },
     {
       "date": "2018-01-21",
-      "balance": -594.2,
-      "picks": 12239
+      "balance": -587.56,
+      "picks": 12199
     },
     {
       "date": "2018-02-07",
-      "balance": -585.13,
-      "picks": 12297
+      "balance": -579.63,
+      "picks": 12256
     },
     {
       "date": "2018-02-13",
-      "balance": -576.69,
-      "picks": 12355
+      "balance": -569.57,
+      "picks": 12313
     },
     {
       "date": "2018-02-19",
-      "balance": -583.39,
-      "picks": 12413
+      "balance": -578.22,
+      "picks": 12370
     },
     {
       "date": "2018-02-23",
-      "balance": -586.69,
-      "picks": 12471
+      "balance": -580.52,
+      "picks": 12427
     },
     {
       "date": "2018-03-01",
-      "balance": -586.08,
-      "picks": 12529
+      "balance": -580.36,
+      "picks": 12484
     },
     {
       "date": "2018-03-10",
-      "balance": -592.99,
-      "picks": 12587
+      "balance": -586.16,
+      "picks": 12541
     },
     {
       "date": "2018-03-21",
-      "balance": -602.21,
-      "picks": 12645
+      "balance": -595.33,
+      "picks": 12598
     },
     {
       "date": "2018-03-25",
-      "balance": -601.51,
-      "picks": 12703
+      "balance": -595.82,
+      "picks": 12655
     },
     {
-      "date": "2018-04-06",
-      "balance": -587.15,
-      "picks": 12761
+      "date": "2018-04-05",
+      "balance": -581.78,
+      "picks": 12712
     },
     {
       "date": "2018-04-13",
-      "balance": -590.14,
-      "picks": 12819
+      "balance": -587.56,
+      "picks": 12769
     },
     {
-      "date": "2018-04-23",
-      "balance": -592.83,
-      "picks": 12877
+      "date": "2018-04-20",
+      "balance": -585.36,
+      "picks": 12826
     },
     {
-      "date": "2018-04-27",
-      "balance": -600.95,
-      "picks": 12935
+      "date": "2018-04-26",
+      "balance": -594.34,
+      "picks": 12883
     },
     {
-      "date": "2018-05-02",
-      "balance": -616.1,
-      "picks": 12993
+      "date": "2018-05-01",
+      "balance": -611.12,
+      "picks": 12940
     },
     {
-      "date": "2018-05-07",
-      "balance": -625.86,
-      "picks": 13051
+      "date": "2018-05-06",
+      "balance": -619.23,
+      "picks": 12997
     },
     {
       "date": "2018-05-14",
-      "balance": -635.45,
-      "picks": 13109
+      "balance": -623.61,
+      "picks": 13054
     },
     {
-      "date": "2018-05-21",
-      "balance": -636.91,
-      "picks": 13167
+      "date": "2018-05-20",
+      "balance": -629.68,
+      "picks": 13111
     },
     {
-      "date": "2018-05-28",
-      "balance": -628.55,
-      "picks": 13225
+      "date": "2018-05-27",
+      "balance": -625.67,
+      "picks": 13168
     },
     {
       "date": "2018-05-30",
-      "balance": -627.04,
-      "picks": 13283
+      "balance": -621.92,
+      "picks": 13225
     },
     {
-      "date": "2018-06-11",
-      "balance": -621.28,
-      "picks": 13341
+      "date": "2018-06-04",
+      "balance": -622.64,
+      "picks": 13282
     },
     {
-      "date": "2018-06-15",
-      "balance": -620.83,
-      "picks": 13399
+      "date": "2018-06-14",
+      "balance": -617.29,
+      "picks": 13339
     },
     {
-      "date": "2018-06-21",
-      "balance": -621.2,
-      "picks": 13457
+      "date": "2018-06-20",
+      "balance": -611.13,
+      "picks": 13396
     },
     {
-      "date": "2018-06-27",
-      "balance": -627.03,
-      "picks": 13515
+      "date": "2018-06-26",
+      "balance": -615.06,
+      "picks": 13453
     },
     {
-      "date": "2018-07-03",
-      "balance": -634.13,
-      "picks": 13573
+      "date": "2018-07-02",
+      "balance": -626.19,
+      "picks": 13510
     },
     {
-      "date": "2018-07-06",
-      "balance": -634.57,
-      "picks": 13631
+      "date": "2018-07-05",
+      "balance": -630.25,
+      "picks": 13567
     },
     {
-      "date": "2018-07-17",
-      "balance": -632.05,
-      "picks": 13689
+      "date": "2018-07-16",
+      "balance": -632.39,
+      "picks": 13624
     },
     {
-      "date": "2018-07-23",
-      "balance": -638.51,
-      "picks": 13747
+      "date": "2018-07-20",
+      "balance": -629.46,
+      "picks": 13681
     },
     {
-      "date": "2018-07-28",
-      "balance": -658.34,
-      "picks": 13805
+      "date": "2018-07-26",
+      "balance": -649.07,
+      "picks": 13738
     },
     {
-      "date": "2018-08-02",
-      "balance": -657.32,
-      "picks": 13863
+      "date": "2018-08-01",
+      "balance": -653.67,
+      "picks": 13795
     },
     {
-      "date": "2018-08-07",
-      "balance": -658.37,
-      "picks": 13921
+      "date": "2018-08-06",
+      "balance": -655.16,
+      "picks": 13852
     },
     {
-      "date": "2018-08-14",
-      "balance": -668.54,
-      "picks": 13979
+      "date": "2018-08-12",
+      "balance": -655.23,
+      "picks": 13909
     },
     {
-      "date": "2018-08-22",
-      "balance": -675.56,
-      "picks": 14037
+      "date": "2018-08-19",
+      "balance": -666.12,
+      "picks": 13966
     },
     {
-      "date": "2018-08-28",
-      "balance": -673.64,
-      "picks": 14095
+      "date": "2018-08-27",
+      "balance": -674.08,
+      "picks": 14023
     },
     {
-      "date": "2018-09-01",
-      "balance": -670.16,
-      "picks": 14153
+      "date": "2018-08-30",
+      "balance": -670.51,
+      "picks": 14080
     },
     {
-      "date": "2018-09-17",
-      "balance": -664.29,
-      "picks": 14211
+      "date": "2018-09-11",
+      "balance": -663.15,
+      "picks": 14137
     },
     {
-      "date": "2018-09-21",
-      "balance": -668.98,
-      "picks": 14269
+      "date": "2018-09-19",
+      "balance": -663.7,
+      "picks": 14194
     },
     {
-      "date": "2018-09-27",
-      "balance": -671.55,
-      "picks": 14327
+      "date": "2018-09-25",
+      "balance": -663.26,
+      "picks": 14251
     },
     {
-      "date": "2018-10-04",
-      "balance": -664.93,
-      "picks": 14385
+      "date": "2018-10-01",
+      "balance": -660.8,
+      "picks": 14308
     },
     {
-      "date": "2018-10-10",
-      "balance": -670.93,
-      "picks": 14443
+      "date": "2018-10-08",
+      "balance": -665.05,
+      "picks": 14365
     },
     {
-      "date": "2018-10-17",
-      "balance": -674.27,
-      "picks": 14501
+      "date": "2018-10-15",
+      "balance": -669.63,
+      "picks": 14422
     },
     {
-      "date": "2018-10-24",
-      "balance": -673.94,
-      "picks": 14559
+      "date": "2018-10-19",
+      "balance": -673.33,
+      "picks": 14479
     },
     {
-      "date": "2018-12-31",
-      "balance": -673.45,
-      "picks": 14617
+      "date": "2018-10-31",
+      "balance": -662.12,
+      "picks": 14536
     },
     {
-      "date": "2019-01-04",
-      "balance": -679.57,
-      "picks": 14675
+      "date": "2019-01-01",
+      "balance": -674.63,
+      "picks": 14593
     },
     {
-      "date": "2019-01-10",
-      "balance": -686.88,
-      "picks": 14733
+      "date": "2019-01-08",
+      "balance": -678.49,
+      "picks": 14650
     },
     {
-      "date": "2019-01-15",
-      "balance": -684.43,
-      "picks": 14791
+      "date": "2019-01-14",
+      "balance": -681.38,
+      "picks": 14707
     },
     {
-      "date": "2019-01-18",
-      "balance": -681.74,
-      "picks": 14849
+      "date": "2019-01-16",
+      "balance": -679.03,
+      "picks": 14764
     },
     {
-      "date": "2019-02-01",
-      "balance": -674.94,
-      "picks": 14907
+      "date": "2019-01-22",
+      "balance": -675.09,
+      "picks": 14821
     },
     {
-      "date": "2019-02-11",
-      "balance": -681.85,
-      "picks": 14965
+      "date": "2019-02-05",
+      "balance": -671.19,
+      "picks": 14878
     },
     {
-      "date": "2019-02-17",
-      "balance": -675.12,
-      "picks": 15023
+      "date": "2019-02-12",
+      "balance": -677.44,
+      "picks": 14935
     },
     {
-      "date": "2019-02-20",
-      "balance": -688.27,
-      "picks": 15081
+      "date": "2019-02-19",
+      "balance": -676.75,
+      "picks": 14992
     },
     {
-      "date": "2019-02-27",
-      "balance": -686.97,
-      "picks": 15139
+      "date": "2019-02-22",
+      "balance": -685.62,
+      "picks": 15049
     },
     {
-      "date": "2019-03-08",
-      "balance": -684.52,
-      "picks": 15197
+      "date": "2019-03-01",
+      "balance": -674.95,
+      "picks": 15106
     },
     {
-      "date": "2019-03-20",
-      "balance": -688.73,
-      "picks": 15255
+      "date": "2019-03-10",
+      "balance": -684.82,
+      "picks": 15163
     },
     {
-      "date": "2019-03-24",
-      "balance": -681.25,
-      "picks": 15313
+      "date": "2019-03-21",
+      "balance": -679.78,
+      "picks": 15220
     },
     {
-      "date": "2019-04-05",
-      "balance": -679.76,
-      "picks": 15371
+      "date": "2019-03-28",
+      "balance": -678.52,
+      "picks": 15277
     },
     {
-      "date": "2019-04-12",
-      "balance": -680.96,
-      "picks": 15429
+      "date": "2019-04-09",
+      "balance": -669.49,
+      "picks": 15334
     },
     {
-      "date": "2019-04-22",
-      "balance": -675.12,
-      "picks": 15487
+      "date": "2019-04-14",
+      "balance": -674.26,
+      "picks": 15391
     },
     {
-      "date": "2019-04-26",
-      "balance": -674.16,
-      "picks": 15545
+      "date": "2019-04-23",
+      "balance": -667.34,
+      "picks": 15448
     },
     {
-      "date": "2019-05-01",
-      "balance": -677.03,
-      "picks": 15603
+      "date": "2019-04-29",
+      "balance": -668.97,
+      "picks": 15505
     },
     {
-      "date": "2019-05-07",
-      "balance": -684.58,
-      "picks": 15661
+      "date": "2019-05-02",
+      "balance": -677.22,
+      "picks": 15562
     },
     {
-      "date": "2019-05-14",
-      "balance": -691.46,
-      "picks": 15719
+      "date": "2019-05-08",
+      "balance": -682.49,
+      "picks": 15619
     },
     {
-      "date": "2019-05-22",
-      "balance": -694.84,
-      "picks": 15777
+      "date": "2019-05-16",
+      "balance": -682.95,
+      "picks": 15676
+    },
+    {
+      "date": "2019-05-23",
+      "balance": -690.53,
+      "picks": 15733
     },
     {
       "date": "2019-05-27",
-      "balance": -703.02,
-      "picks": 15835
+      "balance": -694.68,
+      "picks": 15790
     },
     {
-      "date": "2019-05-29",
-      "balance": -706.09,
-      "picks": 15893
+      "date": "2019-05-30",
+      "balance": -700.93,
+      "picks": 15847
     },
     {
-      "date": "2019-06-07",
-      "balance": -708.97,
-      "picks": 15951
+      "date": "2019-06-10",
+      "balance": -700.63,
+      "picks": 15904
     },
     {
-      "date": "2019-06-15",
-      "balance": -713.15,
-      "picks": 16009
+      "date": "2019-06-17",
+      "balance": -707.96,
+      "picks": 15961
     },
     {
-      "date": "2019-06-22",
-      "balance": -706.71,
-      "picks": 16067
+      "date": "2019-06-24",
+      "balance": -700.54,
+      "picks": 16018
     },
     {
       "date": "2019-07-01",
-      "balance": -719.05,
-      "picks": 16125
+      "balance": -711.38,
+      "picks": 16075
     },
     {
       "date": "2019-07-02",
-      "balance": -717.34,
-      "picks": 16183
+      "balance": -710.51,
+      "picks": 16132
     },
     {
-      "date": "2019-07-06",
-      "balance": -726.48,
-      "picks": 16241
+      "date": "2019-07-08",
+      "balance": -717.84,
+      "picks": 16189
     },
     {
-      "date": "2019-07-16",
-      "balance": -727.26,
-      "picks": 16299
+      "date": "2019-07-17",
+      "balance": -721.94,
+      "picks": 16246
     },
     {
       "date": "2019-07-23",
-      "balance": -736.26,
-      "picks": 16357
+      "balance": -728.79,
+      "picks": 16303
     },
     {
       "date": "2019-07-26",
-      "balance": -741.51,
-      "picks": 16415
+      "balance": -739.4,
+      "picks": 16360
     },
     {
       "date": "2019-07-31",
-      "balance": -748.56,
-      "picks": 16473
+      "balance": -743.42,
+      "picks": 16417
     },
     {
       "date": "2019-08-06",
-      "balance": -758.56,
+      "balance": -756.6,
+      "picks": 16474
+    },
+    {
+      "date": "2019-08-13",
+      "balance": -755.3,
       "picks": 16531
     },
     {
-      "date": "2019-08-12",
-      "balance": -758.5,
-      "picks": 16589
-    },
-    {
       "date": "2019-08-19",
-      "balance": -767.41,
-      "picks": 16647
+      "balance": -761.33,
+      "picks": 16588
     },
     {
       "date": "2019-08-26",
-      "balance": -773.63,
-      "picks": 16705
+      "balance": -766.15,
+      "picks": 16645
     },
     {
       "date": "2019-08-29",
-      "balance": -778.18,
-      "picks": 16763
+      "balance": -772.14,
+      "picks": 16702
     },
     {
       "date": "2019-09-09",
-      "balance": -783.29,
-      "picks": 16821
+      "balance": -776.44,
+      "picks": 16759
     },
     {
       "date": "2019-09-17",
-      "balance": -788.62,
-      "picks": 16879
+      "balance": -781.91,
+      "picks": 16816
     },
     {
       "date": "2019-09-20",
-      "balance": -796.76,
-      "picks": 16937
+      "balance": -789.21,
+      "picks": 16873
     },
     {
       "date": "2019-09-26",
-      "balance": -790.37,
-      "picks": 16995
+      "balance": -784.71,
+      "picks": 16930
     },
     {
-      "date": "2019-10-06",
-      "balance": -787.98,
-      "picks": 17053
+      "date": "2019-10-07",
+      "balance": -783.57,
+      "picks": 16987
     },
     {
       "date": "2019-10-15",
-      "balance": -793.11,
-      "picks": 17111
+      "balance": -789.6,
+      "picks": 17044
     },
     {
-      "date": "2019-10-19",
-      "balance": -800.93,
-      "picks": 17169
+      "date": "2019-10-20",
+      "balance": -796.29,
+      "picks": 17101
     },
     {
       "date": "2019-10-28",
-      "balance": -792.04,
-      "picks": 17227
+      "balance": -787.93,
+      "picks": 17158
     },
     {
       "date": "2020-01-07",
-      "balance": -799.69,
-      "picks": 17285
+      "balance": -796.46,
+      "picks": 17215
     },
     {
       "date": "2020-01-14",
-      "balance": -805.91,
-      "picks": 17343
+      "balance": -803.01,
+      "picks": 17272
     },
     {
       "date": "2020-01-21",
-      "balance": -806.66,
-      "picks": 17401
+      "balance": -801.43,
+      "picks": 17329
     },
     {
       "date": "2020-01-23",
-      "balance": -813.77,
-      "picks": 17459
+      "balance": -809.9,
+      "picks": 17386
     },
     {
       "date": "2020-02-04",
-      "balance": -820.72,
-      "picks": 17517
+      "balance": -814.88,
+      "picks": 17443
     },
     {
       "date": "2020-02-11",
-      "balance": -824.65,
-      "picks": 17575
+      "balance": -818.98,
+      "picks": 17500
     },
     {
-      "date": "2020-02-18",
-      "balance": -831.26,
-      "picks": 17633
+      "date": "2020-02-17",
+      "balance": -826.15,
+      "picks": 17557
     },
     {
       "date": "2020-02-24",
-      "balance": -832.69,
-      "picks": 17691
+      "balance": -826.97,
+      "picks": 17614
     },
     {
       "date": "2020-02-27",
-      "balance": -834.29,
-      "picks": 17749
+      "balance": -826.85,
+      "picks": 17671
     },
     {
-      "date": "2020-08-07",
-      "balance": -835.39,
-      "picks": 17807
+      "date": "2020-08-04",
+      "balance": -828.82,
+      "picks": 17728
     },
     {
       "date": "2020-08-23",
-      "balance": -830.12,
-      "picks": 17865
+      "balance": -825.8,
+      "picks": 17785
     },
     {
       "date": "2020-08-31",
-      "balance": -831.35,
-      "picks": 17923
+      "balance": -828.09,
+      "picks": 17842
     },
     {
       "date": "2020-09-02",
-      "balance": -836.49,
-      "picks": 17981
+      "balance": -829.79,
+      "picks": 17899
     },
     {
       "date": "2020-09-08",
-      "balance": -839.28,
-      "picks": 18039
+      "balance": -836.72,
+      "picks": 17956
     },
     {
       "date": "2020-09-15",
-      "balance": -854.71,
-      "picks": 18097
+      "balance": -843.39,
+      "picks": 18013
     },
     {
-      "date": "2020-09-24",
-      "balance": -837.87,
-      "picks": 18155
+      "date": "2020-09-22",
+      "balance": -831.26,
+      "picks": 18070
     },
     {
       "date": "2020-09-28",
-      "balance": -835.2,
-      "picks": 18213
+      "balance": -828.44,
+      "picks": 18127
     },
     {
-      "date": "2020-10-02",
-      "balance": -831.3,
-      "picks": 18271
+      "date": "2020-10-01",
+      "balance": -826.31,
+      "picks": 18184
     },
     {
-      "date": "2020-10-14",
-      "balance": -832.74,
-      "picks": 18329
+      "date": "2020-10-13",
+      "balance": -831.49,
+      "picks": 18241
     },
     {
-      "date": "2020-10-24",
-      "balance": -827.86,
-      "picks": 18387
+      "date": "2020-10-21",
+      "balance": -823.71,
+      "picks": 18298
     },
     {
-      "date": "2020-11-09",
-      "balance": -826.33,
-      "picks": 18445
+      "date": "2020-11-04",
+      "balance": -820.5,
+      "picks": 18355
     },
     {
-      "date": "2021-01-09",
-      "balance": -831.52,
-      "picks": 18503
+      "date": "2021-01-07",
+      "balance": -823.06,
+      "picks": 18412
     },
     {
-      "date": "2021-02-01",
-      "balance": -832.4,
-      "picks": 18561
+      "date": "2021-01-31",
+      "balance": -827.7,
+      "picks": 18469
     },
     {
-      "date": "2021-02-04",
-      "balance": -830.31,
-      "picks": 18619
+      "date": "2021-02-03",
+      "balance": -824.48,
+      "picks": 18526
     },
     {
       "date": "2021-02-08",
-      "balance": -833.81,
-      "picks": 18677
+      "balance": -828.61,
+      "picks": 18583
     },
     {
-      "date": "2021-02-11",
-      "balance": -840.83,
-      "picks": 18735
+      "date": "2021-02-09",
+      "balance": -832.14,
+      "picks": 18640
     },
     {
-      "date": "2021-02-15",
-      "balance": -844.47,
-      "picks": 18793
+      "date": "2021-02-13",
+      "balance": -833.31,
+      "picks": 18697
     },
     {
-      "date": "2021-02-24",
-      "balance": -848.51,
-      "picks": 18851
+      "date": "2021-02-23",
+      "balance": -837.29,
+      "picks": 18754
     },
     {
-      "date": "2021-03-03",
-      "balance": -857.32,
-      "picks": 18909
+      "date": "2021-03-01",
+      "balance": -844.35,
+      "picks": 18811
     },
     {
-      "date": "2021-03-08",
-      "balance": -860.68,
-      "picks": 18967
+      "date": "2021-03-06",
+      "balance": -854.54,
+      "picks": 18868
     },
     {
-      "date": "2021-03-11",
-      "balance": -863.61,
-      "picks": 19025
+      "date": "2021-03-10",
+      "balance": -859.47,
+      "picks": 18925
     },
     {
-      "date": "2021-03-17",
-      "balance": -855.68,
-      "picks": 19083
+      "date": "2021-03-16",
+      "balance": -853.93,
+      "picks": 18982
     },
     {
-      "date": "2021-03-26",
-      "balance": -852.82,
-      "picks": 19141
+      "date": "2021-03-24",
+      "balance": -850.02,
+      "picks": 19039
     },
     {
-      "date": "2021-04-05",
-      "balance": -854.96,
-      "picks": 19199
+      "date": "2021-03-29",
+      "balance": -845.96,
+      "picks": 19096
     },
     {
-      "date": "2021-04-09",
-      "balance": -859.15,
-      "picks": 19257
+      "date": "2021-04-07",
+      "balance": -850.54,
+      "picks": 19153
     },
     {
-      "date": "2021-04-19",
-      "balance": -860.28,
-      "picks": 19315
+      "date": "2021-04-14",
+      "balance": -854.26,
+      "picks": 19210
     },
     {
-      "date": "2021-04-23",
-      "balance": -860.55,
-      "picks": 19373
+      "date": "2021-04-21",
+      "balance": -856.61,
+      "picks": 19267
     },
     {
-      "date": "2021-05-02",
-      "balance": -862.76,
-      "picks": 19431
+      "date": "2021-04-29",
+      "balance": -854.3,
+      "picks": 19324
     },
     {
-      "date": "2021-05-10",
-      "balance": -864.88,
-      "picks": 19489
+      "date": "2021-05-05",
+      "balance": -859.53,
+      "picks": 19381
     },
     {
-      "date": "2021-05-18",
-      "balance": -865.54,
-      "picks": 19547
+      "date": "2021-05-13",
+      "balance": -864.2,
+      "picks": 19438
     },
     {
-      "date": "2021-05-25",
-      "balance": -868.55,
-      "picks": 19605
+      "date": "2021-05-20",
+      "balance": -862.29,
+      "picks": 19495
     },
     {
-      "date": "2021-05-31",
-      "balance": -861.55,
-      "picks": 19663
+      "date": "2021-05-30",
+      "balance": -862.24,
+      "picks": 19552
     },
     {
-      "date": "2021-06-02",
-      "balance": -865.2,
-      "picks": 19721
+      "date": "2021-06-01",
+      "balance": -859.35,
+      "picks": 19609
     },
     {
-      "date": "2021-06-07",
-      "balance": -871.99,
-      "picks": 19779
+      "date": "2021-06-04",
+      "balance": -861.27,
+      "picks": 19666
     },
     {
-      "date": "2021-06-15",
-      "balance": -874.72,
+      "date": "2021-06-10",
+      "balance": -864.22,
+      "picks": 19723
+    },
+    {
+      "date": "2021-06-17",
+      "balance": -864.0,
+      "picks": 19780
+    },
+    {
+      "date": "2021-06-23",
+      "balance": -861.38,
       "picks": 19837
     },
     {
-      "date": "2021-06-22",
-      "balance": -869.32,
-      "picks": 19895
+      "date": "2021-06-30",
+      "balance": -852.49,
+      "picks": 19894
     },
     {
-      "date": "2021-06-29",
-      "balance": -861.53,
-      "picks": 19953
+      "date": "2021-07-02",
+      "balance": -859.81,
+      "picks": 19951
     },
     {
-      "date": "2021-07-01",
-      "balance": -863.86,
-      "picks": 20011
+      "date": "2021-07-13",
+      "balance": -867.01,
+      "picks": 20008
     },
     {
-      "date": "2021-07-08",
-      "balance": -868.43,
-      "picks": 20069
+      "date": "2021-07-16",
+      "balance": -863.1,
+      "picks": 20065
     },
     {
-      "date": "2021-07-14",
-      "balance": -862.6,
-      "picks": 20127
+      "date": "2021-07-21",
+      "balance": -872.68,
+      "picks": 20122
     },
     {
-      "date": "2021-07-20",
-      "balance": -873.21,
-      "picks": 20185
+      "date": "2021-08-02",
+      "balance": -881.06,
+      "picks": 20179
     },
     {
-      "date": "2021-07-27",
-      "balance": -880.12,
-      "picks": 20243
+      "date": "2021-08-12",
+      "balance": -886.31,
+      "picks": 20236
     },
     {
-      "date": "2021-08-11",
-      "balance": -888.41,
-      "picks": 20301
+      "date": "2021-08-20",
+      "balance": -889.62,
+      "picks": 20293
     },
     {
-      "date": "2021-08-18",
-      "balance": -890.68,
-      "picks": 20359
-    },
-    {
-      "date": "2021-08-25",
-      "balance": -898.17,
-      "picks": 20417
+      "date": "2021-08-27",
+      "balance": -900.88,
+      "picks": 20350
     },
     {
       "date": "2021-08-31",
-      "balance": -910.1,
-      "picks": 20475
+      "balance": -906.07,
+      "picks": 20407
     },
     {
-      "date": "2021-09-03",
-      "balance": -906.09,
-      "picks": 20533
+      "date": "2021-09-04",
+      "balance": -899.99,
+      "picks": 20464
     },
     {
-      "date": "2021-09-16",
-      "balance": -906.61,
-      "picks": 20591
+      "date": "2021-09-19",
+      "balance": -903.39,
+      "picks": 20521
     },
     {
-      "date": "2021-09-27",
-      "balance": -900.1,
-      "picks": 20649
+      "date": "2021-09-28",
+      "balance": -895.28,
+      "picks": 20578
     },
     {
-      "date": "2021-10-02",
-      "balance": -898.47,
-      "picks": 20707
+      "date": "2021-10-04",
+      "balance": -890.83,
+      "picks": 20635
     },
     {
-      "date": "2021-10-10",
-      "balance": -902.95,
-      "picks": 20765
+      "date": "2021-10-11",
+      "balance": -897.01,
+      "picks": 20692
     },
     {
-      "date": "2021-10-21",
-      "balance": -901.65,
-      "picks": 20823
+      "date": "2021-10-24",
+      "balance": -896.49,
+      "picks": 20749
     },
     {
-      "date": "2021-11-01",
-      "balance": -901.46,
-      "picks": 20881
+      "date": "2021-11-03",
+      "balance": -895.81,
+      "picks": 20806
     },
     {
-      "date": "2021-11-20",
-      "balance": -892.7,
-      "picks": 20939
+      "date": "2022-01-04",
+      "balance": -888.1,
+      "picks": 20863
     },
     {
-      "date": "2022-01-07",
-      "balance": -905.66,
-      "picks": 20997
+      "date": "2022-01-08",
+      "balance": -900.68,
+      "picks": 20920
     },
     {
       "date": "2022-01-17",
-      "balance": -902.39,
-      "picks": 21055
+      "balance": -897.74,
+      "picks": 20977
     },
     {
       "date": "2022-01-18",
-      "balance": -900.06,
-      "picks": 21113
+      "balance": -894.59,
+      "picks": 21034
     },
     {
       "date": "2022-01-23",
-      "balance": -897.42,
-      "picks": 21171
+      "balance": -895.2,
+      "picks": 21091
     },
     {
-      "date": "2022-02-04",
-      "balance": -906.92,
-      "picks": 21229
+      "date": "2022-02-05",
+      "balance": -902.15,
+      "picks": 21148
     },
     {
       "date": "2022-02-12",
-      "balance": -906.12,
-      "picks": 21287
+      "balance": -901.48,
+      "picks": 21205
     },
     {
       "date": "2022-02-17",
-      "balance": -905.0,
-      "picks": 21345
+      "balance": -900.99,
+      "picks": 21262
     },
     {
       "date": "2022-02-22",
-      "balance": -914.3,
-      "picks": 21403
+      "balance": -910.78,
+      "picks": 21319
     },
     {
       "date": "2022-03-01",
-      "balance": -909.83,
-      "picks": 21461
+      "balance": -905.6,
+      "picks": 21376
     },
     {
       "date": "2022-03-12",
-      "balance": -917.12,
-      "picks": 21519
+      "balance": -914.49,
+      "picks": 21433
     },
     {
-      "date": "2022-03-24",
-      "balance": -913.96,
-      "picks": 21577
+      "date": "2022-03-23",
+      "balance": -911.48,
+      "picks": 21490
     },
     {
-      "date": "2022-04-02",
-      "balance": -912.14,
-      "picks": 21635
+      "date": "2022-03-31",
+      "balance": -909.63,
+      "picks": 21547
     },
     {
       "date": "2022-04-07",
-      "balance": -915.86,
-      "picks": 21693
+      "balance": -912.72,
+      "picks": 21604
     },
     {
-      "date": "2022-04-19",
-      "balance": -752.44,
-      "picks": 21751
+      "date": "2022-04-18",
+      "balance": -746.66,
+      "picks": 21661
     },
     {
-      "date": "2022-04-22",
-      "balance": -748.42,
-      "picks": 21809
+      "date": "2022-04-21",
+      "balance": -747.68,
+      "picks": 21718
     },
     {
       "date": "2022-04-29",
-      "balance": -753.09,
-      "picks": 21867
+      "balance": -746.97,
+      "picks": 21775
     },
     {
-      "date": "2022-05-06",
-      "balance": -759.62,
-      "picks": 21925
+      "date": "2022-05-04",
+      "balance": -755.2,
+      "picks": 21832
     },
     {
-      "date": "2022-05-13",
-      "balance": -768.11,
-      "picks": 21983
+      "date": "2022-05-12",
+      "balance": -763.15,
+      "picks": 21889
     },
     {
       "date": "2022-05-18",
-      "balance": -774.08,
-      "picks": 22041
+      "balance": -765.39,
+      "picks": 21946
     },
     {
       "date": "2022-05-23",
-      "balance": -781.96,
-      "picks": 22099
+      "balance": -775.93,
+      "picks": 22003
     },
     {
-      "date": "2022-05-26",
-      "balance": -777.18,
-      "picks": 22157
+      "date": "2022-05-25",
+      "balance": -776.21,
+      "picks": 22060
     },
     {
-      "date": "2022-06-07",
-      "balance": -779.49,
-      "picks": 22215
+      "date": "2022-06-02",
+      "balance": -772.25,
+      "picks": 22117
     },
     {
-      "date": "2022-06-13",
-      "balance": -783.44,
-      "picks": 22273
+      "date": "2022-06-11",
+      "balance": -778.12,
+      "picks": 22174
     },
     {
-      "date": "2022-06-19",
-      "balance": -791.68,
-      "picks": 22331
+      "date": "2022-06-17",
+      "balance": -787.92,
+      "picks": 22231
     },
     {
-      "date": "2022-06-23",
-      "balance": -785.82,
-      "picks": 22389
+      "date": "2022-06-22",
+      "balance": -781.19,
+      "picks": 22288
     },
     {
-      "date": "2022-06-28",
-      "balance": -786.28,
-      "picks": 22447
+      "date": "2022-06-27",
+      "balance": -782.35,
+      "picks": 22345
     },
     {
-      "date": "2022-07-01",
-      "balance": -783.08,
-      "picks": 22505
+      "date": "2022-06-29",
+      "balance": -779.58,
+      "picks": 22402
     },
     {
-      "date": "2022-07-12",
-      "balance": -788.94,
-      "picks": 22563
+      "date": "2022-07-11",
+      "balance": -788.76,
+      "picks": 22459
     },
     {
-      "date": "2022-07-18",
-      "balance": -785.31,
-      "picks": 22621
+      "date": "2022-07-16",
+      "balance": -784.61,
+      "picks": 22516
     },
     {
-      "date": "2022-07-23",
-      "balance": -783.39,
-      "picks": 22679
+      "date": "2022-07-21",
+      "balance": -776.04,
+      "picks": 22573
     },
     {
-      "date": "2022-07-27",
-      "balance": -786.92,
-      "picks": 22737
+      "date": "2022-07-26",
+      "balance": -786.34,
+      "picks": 22630
     },
     {
-      "date": "2022-08-04",
-      "balance": -788.13,
-      "picks": 22795
+      "date": "2022-08-02",
+      "balance": -788.97,
+      "picks": 22687
     },
     {
-      "date": "2022-08-11",
-      "balance": -788.73,
-      "picks": 22853
+      "date": "2022-08-09",
+      "balance": -788.05,
+      "picks": 22744
     },
     {
-      "date": "2022-08-21",
-      "balance": -796.82,
-      "picks": 22911
+      "date": "2022-08-17",
+      "balance": -783.63,
+      "picks": 22801
     },
     {
-      "date": "2022-08-29",
-      "balance": -806.13,
-      "picks": 22969
+      "date": "2022-08-24",
+      "balance": -799.26,
+      "picks": 22858
     },
     {
-      "date": "2022-08-31",
-      "balance": -816.74,
-      "picks": 23027
+      "date": "2022-08-30",
+      "balance": -808.25,
+      "picks": 22915
     },
     {
-      "date": "2022-09-12",
-      "balance": -817.61,
-      "picks": 23085
+      "date": "2022-09-03",
+      "balance": -814.77,
+      "picks": 22972
     },
     {
-      "date": "2022-09-21",
-      "balance": -813.97,
+      "date": "2022-09-16",
+      "balance": -813.46,
+      "picks": 23029
+    },
+    {
+      "date": "2022-09-26",
+      "balance": -816.64,
+      "picks": 23086
+    },
+    {
+      "date": "2022-09-30",
+      "balance": -813.91,
       "picks": 23143
     },
     {
-      "date": "2022-09-27",
-      "balance": -822.68,
-      "picks": 23201
+      "date": "2022-10-07",
+      "balance": -826.2,
+      "picks": 23200
     },
     {
-      "date": "2022-10-03",
-      "balance": -825.68,
-      "picks": 23259
+      "date": "2022-10-16",
+      "balance": -825.3,
+      "picks": 23257
     },
     {
-      "date": "2022-10-11",
-      "balance": -832.45,
-      "picks": 23317
+      "date": "2022-10-21",
+      "balance": -816.2,
+      "picks": 23314
     },
     {
-      "date": "2022-10-18",
-      "balance": -825.7,
-      "picks": 23375
+      "date": "2022-11-01",
+      "balance": -817.86,
+      "picks": 23371
     },
     {
-      "date": "2022-10-25",
-      "balance": -825.93,
-      "picks": 23433
+      "date": "2023-01-03",
+      "balance": -827.94,
+      "picks": 23428
     },
     {
-      "date": "2022-11-14",
-      "balance": -829.35,
-      "picks": 23491
+      "date": "2023-01-10",
+      "balance": -841.5,
+      "picks": 23485
     },
     {
-      "date": "2023-01-06",
-      "balance": -841.97,
-      "picks": 23549
+      "date": "2023-01-16",
+      "balance": -845.79,
+      "picks": 23542
     },
     {
-      "date": "2023-01-12",
-      "balance": -851.05,
-      "picks": 23607
+      "date": "2023-01-18",
+      "balance": -848.64,
+      "picks": 23599
     },
     {
-      "date": "2023-01-17",
-      "balance": -844.88,
-      "picks": 23665
+      "date": "2023-01-30",
+      "balance": -852.03,
+      "picks": 23656
     },
     {
-      "date": "2023-01-20",
-      "balance": -854.41,
-      "picks": 23723
+      "date": "2023-02-08",
+      "balance": -854.4,
+      "picks": 23713
     },
     {
-      "date": "2023-02-06",
-      "balance": -859.94,
-      "picks": 23781
+      "date": "2023-02-14",
+      "balance": -861.6,
+      "picks": 23770
     },
     {
-      "date": "2023-02-10",
-      "balance": -862.26,
-      "picks": 23839
+      "date": "2023-02-20",
+      "balance": -858.73,
+      "picks": 23827
     },
     {
-      "date": "2023-02-16",
-      "balance": -869.86,
-      "picks": 23897
+      "date": "2023-02-23",
+      "balance": -851.41,
+      "picks": 23884
     },
     {
-      "date": "2023-02-21",
-      "balance": -859.39,
-      "picks": 23955
+      "date": "2023-03-01",
+      "balance": -857.73,
+      "picks": 23941
     },
     {
-      "date": "2023-02-27",
-      "balance": -862.16,
-      "picks": 24013
+      "date": "2023-03-10",
+      "balance": -855.48,
+      "picks": 23998
     },
     {
-      "date": "2023-03-03",
-      "balance": -862.08,
-      "picks": 24071
+      "date": "2023-03-15",
+      "balance": -861.73,
+      "picks": 24055
     },
     {
-      "date": "2023-03-11",
-      "balance": -871.3,
-      "picks": 24129
+      "date": "2023-03-24",
+      "balance": -863.11,
+      "picks": 24112
     },
     {
-      "date": "2023-03-22",
-      "balance": -876.18,
-      "picks": 24187
+      "date": "2023-04-03",
+      "balance": -866.85,
+      "picks": 24169
     },
     {
-      "date": "2023-03-27",
-      "balance": -871.79,
-      "picks": 24245
+      "date": "2023-04-06",
+      "balance": -876.13,
+      "picks": 24226
     },
     {
-      "date": "2023-04-04",
-      "balance": -879.75,
-      "picks": 24303
+      "date": "2023-04-12",
+      "balance": -878.06,
+      "picks": 24283
     },
     {
-      "date": "2023-04-09",
-      "balance": -884.06,
-      "picks": 24361
+      "date": "2023-04-20",
+      "balance": -891.89,
+      "picks": 24340
     },
     {
-      "date": "2023-04-18",
-      "balance": -893.02,
-      "picks": 24419
+      "date": "2023-04-27",
+      "balance": -891.02,
+      "picks": 24397
     },
     {
-      "date": "2023-04-25",
-      "balance": -896.3,
-      "picks": 24477
+      "date": "2023-05-01",
+      "balance": -893.14,
+      "picks": 24454
     },
     {
-      "date": "2023-04-28",
-      "balance": -899.86,
-      "picks": 24535
+      "date": "2023-05-11",
+      "balance": -890.94,
+      "picks": 24511
     },
     {
-      "date": "2023-05-10",
-      "balance": -906.35,
-      "picks": 24593
+      "date": "2023-05-15",
+      "balance": -896.11,
+      "picks": 24568
     },
     {
-      "date": "2023-05-12",
-      "balance": -905.05,
-      "picks": 24651
+      "date": "2023-05-24",
+      "balance": -893.47,
+      "picks": 24625
     },
     {
-      "date": "2023-05-22",
-      "balance": -906.99,
-      "picks": 24709
+      "date": "2023-05-29",
+      "balance": -895.82,
+      "picks": 24682
     },
     {
-      "date": "2023-05-28",
-      "balance": -900.4,
-      "picks": 24767
+      "date": "2023-06-01",
+      "balance": -885.79,
+      "picks": 24739
     },
     {
-      "date": "2023-05-30",
-      "balance": -899.81,
-      "picks": 24825
+      "date": "2023-06-07",
+      "balance": -883.73,
+      "picks": 24796
     },
     {
-      "date": "2023-06-03",
-      "balance": -893.21,
-      "picks": 24883
+      "date": "2023-06-16",
+      "balance": -899.8,
+      "picks": 24853
     },
     {
-      "date": "2023-06-13",
-      "balance": -900.48,
-      "picks": 24941
+      "date": "2023-06-22",
+      "balance": -897.64,
+      "picks": 24910
     },
     {
-      "date": "2023-06-21",
-      "balance": -910.54,
-      "picks": 24999
+      "date": "2023-06-28",
+      "balance": -901.7,
+      "picks": 24967
     },
     {
-      "date": "2023-06-26",
-      "balance": -911.14,
-      "picks": 25057
+      "date": "2023-07-05",
+      "balance": -911.76,
+      "picks": 25024
     },
     {
-      "date": "2023-07-03",
-      "balance": -921.37,
-      "picks": 25115
+      "date": "2023-07-07",
+      "balance": -916.44,
+      "picks": 25081
     },
     {
-      "date": "2023-07-06",
-      "balance": -922.47,
-      "picks": 25173
+      "date": "2023-07-16",
+      "balance": -920.31,
+      "picks": 25138
     },
     {
-      "date": "2023-07-09",
-      "balance": -923.32,
-      "picks": 25231
+      "date": "2023-07-20",
+      "balance": -908.29,
+      "picks": 25195
     },
     {
-      "date": "2023-07-18",
-      "balance": -927.8,
-      "picks": 25289
+      "date": "2023-07-25",
+      "balance": -903.35,
+      "picks": 25252
     },
     {
-      "date": "2023-07-24",
-      "balance": -916.14,
-      "picks": 25347
+      "date": "2023-07-28",
+      "balance": -915.34,
+      "picks": 25309
     },
     {
-      "date": "2023-07-27",
-      "balance": -917.71,
-      "picks": 25405
+      "date": "2023-08-02",
+      "balance": -917.89,
+      "picks": 25366
     },
     {
-      "date": "2023-08-01",
-      "balance": -933.88,
-      "picks": 25463
+      "date": "2023-08-08",
+      "balance": -917.39,
+      "picks": 25423
     },
     {
-      "date": "2023-08-07",
-      "balance": -927.76,
-      "picks": 25521
+      "date": "2023-08-17",
+      "balance": -921.25,
+      "picks": 25480
     },
     {
-      "date": "2023-08-15",
-      "balance": -928.2,
-      "picks": 25579
+      "date": "2023-08-28",
+      "balance": -934.57,
+      "picks": 25537
     },
     {
-      "date": "2023-08-24",
-      "balance": -936.79,
-      "picks": 25637
+      "date": "2023-08-30",
+      "balance": -938.34,
+      "picks": 25594
     },
     {
-      "date": "2023-08-29",
-      "balance": -947.15,
-      "picks": 25695
+      "date": "2023-09-12",
+      "balance": -941.45,
+      "picks": 25651
     },
     {
-      "date": "2023-09-04",
-      "balance": -953.35,
-      "picks": 25753
+      "date": "2023-09-22",
+      "balance": -939.87,
+      "picks": 25708
     },
     {
-      "date": "2023-09-20",
-      "balance": -947.04,
-      "picks": 25811
+      "date": "2023-09-30",
+      "balance": -948.87,
+      "picks": 25765
     },
     {
-      "date": "2023-09-28",
-      "balance": -956.53,
-      "picks": 25869
+      "date": "2023-10-06",
+      "balance": -957.58,
+      "picks": 25822
     },
     {
-      "date": "2023-10-04",
-      "balance": -970.48,
-      "picks": 25927
-    },
-    {
-      "date": "2023-10-10",
-      "balance": -979.39,
-      "picks": 25985
+      "date": "2023-10-12",
+      "balance": -966.72,
+      "picks": 25879
     },
     {
       "date": "2023-10-17",
-      "balance": -984.14,
-      "picks": 26043
+      "balance": -969.49,
+      "picks": 25936
     },
     {
-      "date": "2023-10-20",
-      "balance": -981.28,
-      "picks": 26101
+      "date": "2023-10-21",
+      "balance": -972.39,
+      "picks": 25993
     },
     {
-      "date": "2023-10-28",
-      "balance": -982.91,
-      "picks": 26159
+      "date": "2023-10-31",
+      "balance": -970.71,
+      "picks": 26050
     },
     {
-      "date": "2023-11-07",
-      "balance": -986.6,
-      "picks": 26217
+      "date": "2023-11-10",
+      "balance": -974.28,
+      "picks": 26107
     },
     {
-      "date": "2024-01-03",
-      "balance": -981.55,
-      "picks": 26275
+      "date": "2024-01-05",
+      "balance": -965.35,
+      "picks": 26164
     },
     {
-      "date": "2024-01-10",
-      "balance": -980.46,
-      "picks": 26333
+      "date": "2024-01-13",
+      "balance": -969.92,
+      "picks": 26221
     },
     {
-      "date": "2024-01-15",
-      "balance": -983.89,
-      "picks": 26391
+      "date": "2024-01-16",
+      "balance": -973.46,
+      "picks": 26278
     },
     {
-      "date": "2024-01-21",
-      "balance": -993.96,
+      "date": "2024-01-25",
+      "balance": -979.2,
+      "picks": 26335
+    },
+    {
+      "date": "2024-02-05",
+      "balance": -974.51,
+      "picks": 26392
+    },
+    {
+      "date": "2024-02-09",
+      "balance": -985.14,
       "picks": 26449
     },
     {
-      "date": "2024-02-01",
-      "balance": -990.03,
-      "picks": 26507
+      "date": "2024-02-14",
+      "balance": -1001.2,
+      "picks": 26506
     },
     {
-      "date": "2024-02-08",
-      "balance": -991.23,
-      "picks": 26565
+      "date": "2024-02-21",
+      "balance": -1003.93,
+      "picks": 26563
     },
     {
-      "date": "2024-02-13",
-      "balance": -1007.1,
-      "picks": 26623
-    },
-    {
-      "date": "2024-02-20",
-      "balance": -1016.38,
-      "picks": 26681
-    },
-    {
-      "date": "2024-02-27",
-      "balance": -1021.93,
-      "picks": 26739
+      "date": "2024-02-28",
+      "balance": -1009.86,
+      "picks": 26620
     },
     {
       "date": "2024-03-08",
-      "balance": -1015.51,
-      "picks": 26797
+      "balance": -1003.13,
+      "picks": 26677
     },
     {
-      "date": "2024-03-15",
-      "balance": -1013.03,
-      "picks": 26855
+      "date": "2024-03-20",
+      "balance": -1005.63,
+      "picks": 26734
     },
     {
       "date": "2024-03-24",
-      "balance": -1022.13,
-      "picks": 26913
+      "balance": -1009.9,
+      "picks": 26791
     },
     {
-      "date": "2024-04-02",
-      "balance": -1023.59,
-      "picks": 26971
+      "date": "2024-04-03",
+      "balance": -1012.62,
+      "picks": 26848
     },
     {
-      "date": "2024-04-08",
-      "balance": -1021.87,
-      "picks": 27029
+      "date": "2024-04-09",
+      "balance": -1015.85,
+      "picks": 26905
     },
     {
       "date": "2024-04-16",
-      "balance": -1023.47,
-      "picks": 27087
+      "balance": -1011.15,
+      "picks": 26962
     },
     {
-      "date": "2024-04-23",
-      "balance": -1024.31,
-      "picks": 27145
+      "date": "2024-04-24",
+      "balance": -1011.41,
+      "picks": 27019
     },
     {
-      "date": "2024-04-26",
-      "balance": -1028.45,
-      "picks": 27203
+      "date": "2024-04-27",
+      "balance": -1017.73,
+      "picks": 27076
     },
     {
       "date": "2024-05-08",
-      "balance": -1021.51,
-      "picks": 27261
+      "balance": -1014.82,
+      "picks": 27133
     },
     {
-      "date": "2024-05-11",
-      "balance": -1026.67,
-      "picks": 27319
+      "date": "2024-05-12",
+      "balance": -1017.93,
+      "picks": 27190
     },
     {
-      "date": "2024-05-22",
-      "balance": -1018.01,
-      "picks": 27377
+      "date": "2024-05-23",
+      "balance": -1009.07,
+      "picks": 27247
     },
     {
       "date": "2024-05-27",
-      "balance": -1022.01,
-      "picks": 27435
+      "balance": -1011.57,
+      "picks": 27304
     },
     {
       "date": "2024-05-30",
-      "balance": -1018.9,
-      "picks": 27493
+      "balance": -1007.63,
+      "picks": 27361
     },
     {
       "date": "2024-06-10",
-      "balance": -1017.44,
-      "picks": 27551
+      "balance": -1008.97,
+      "picks": 27418
     },
     {
       "date": "2024-06-16",
-      "balance": -1020.39,
-      "picks": 27609
+      "balance": -1009.9,
+      "picks": 27475
     },
     {
       "date": "2024-06-22",
-      "balance": -1024.68,
-      "picks": 27667
+      "balance": -1016.81,
+      "picks": 27532
     },
     {
       "date": "2024-06-27",
-      "balance": -1042.1,
-      "picks": 27725
+      "balance": -1030.91,
+      "picks": 27589
     },
     {
       "date": "2024-07-02",
-      "balance": -1046.4,
-      "picks": 27783
+      "balance": -1036.53,
+      "picks": 27646
     },
     {
       "date": "2024-07-05",
-      "balance": -1049.12,
-      "picks": 27841
+      "balance": -1038.25,
+      "picks": 27703
     },
     {
       "date": "2024-07-16",
-      "balance": -1046.27,
-      "picks": 27899
+      "balance": -1035.77,
+      "picks": 27760
     },
     {
       "date": "2024-07-20",
-      "balance": -1053.83,
-      "picks": 27957
+      "balance": -1040.96,
+      "picks": 27817
     },
     {
       "date": "2024-07-23",
-      "balance": -1061.23,
-      "picks": 28015
+      "balance": -1049.86,
+      "picks": 27874
     },
     {
-      "date": "2024-08-06",
-      "balance": -1065.41,
-      "picks": 28073
+      "date": "2024-08-05",
+      "balance": -1055.02,
+      "picks": 27931
     },
     {
-      "date": "2024-08-14",
-      "balance": -1070.78,
-      "picks": 28131
+      "date": "2024-08-13",
+      "balance": -1059.19,
+      "picks": 27988
     },
     {
       "date": "2024-08-19",
-      "balance": -1080.15,
-      "picks": 28189
+      "balance": -1068.88,
+      "picks": 28045
     },
     {
       "date": "2024-08-26",
-      "balance": -1084.72,
-      "picks": 28247
+      "balance": -1073.93,
+      "picks": 28102
     },
     {
-      "date": "2024-08-29",
-      "balance": -1094.59,
-      "picks": 28305
+      "date": "2024-08-28",
+      "balance": -1084.45,
+      "picks": 28159
     },
     {
-      "date": "2024-09-11",
-      "balance": -1098.97,
-      "picks": 28363
+      "date": "2024-09-10",
+      "balance": -1085.28,
+      "picks": 28216
     },
     {
-      "date": "2024-09-25",
-      "balance": -1086.57,
-      "picks": 28421
-    },
-    {
-      "date": "2024-09-30",
-      "balance": -1082.14,
-      "picks": 28479
-    },
-    {
-      "date": "2024-10-09",
-      "balance": -1086.47,
-      "picks": 28537
-    },
-    {
-      "date": "2024-10-16",
-      "balance": -1091.32,
-      "picks": 28595
-    },
-    {
-      "date": "2024-10-22",
-      "balance": -1097.36,
-      "picks": 28653
-    },
-    {
-      "date": "2024-10-29",
-      "balance": -1103.75,
-      "picks": 28711
-    },
-    {
-      "date": "2024-11-04",
-      "balance": -1102.21,
-      "picks": 28769
+      "date": "2024-09-21",
+      "balance": -1078.37,
+      "picks": 28273
     },
     {
       "date": "2024-11-11",
-      "balance": -1110.99,
-      "picks": 28796
+      "balance": -1100.77,
+      "picks": 28656
     },
     {
       "date": "2024-11-15",
-      "balance": -1110.93,
-      "picks": 28803
+      "balance": -1100.71,
+      "picks": 28663
     }
   ],
   "baselines": {
-    "favoriteAlways": -0.04867,
-    "modelAlways": -0.04055,
-    "random": -0.07892
+    "favoriteAlways": -0.04872,
+    "modelAlways": -0.04056,
+    "random": -0.07879
   }
 }
