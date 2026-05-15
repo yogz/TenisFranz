@@ -1,60 +1,8 @@
 {
-  "updatedAt": "2026-05-14T07:59:23.764455+00:00",
-  "modelTrainedAt": "2026-05-14T04:22:28.486486+00:00",
+  "updatedAt": "2026-05-15T08:03:55.985856+00:00",
+  "modelTrainedAt": "2026-05-15T04:25:35.645303+00:00",
   "source": "local (env-driven draws_fetcher)",
   "matches": [
-    {
-      "id": "2026-05-14-atp-atp-italian-open-sinner-rublev",
-      "date": "2026-05-14",
-      "tournament": "ATP Italian Open",
-      "round": "",
-      "surface": "Hard",
-      "tour": "atp",
-      "playerA": "atp-jannik-sinner",
-      "playerB": "atp-andrey-rublev",
-      "modelProbA": 0.8984,
-      "oddsA": 1.027,
-      "oddsB": 14.626
-    },
-    {
-      "id": "2026-05-14-atp-atp-italian-open-landaluce-medvedev",
-      "date": "2026-05-14",
-      "tournament": "ATP Italian Open",
-      "round": "",
-      "surface": "Hard",
-      "tour": "atp",
-      "playerA": "atp-martin-landaluce",
-      "playerB": "atp-daniil-medvedev",
-      "modelProbA": 0.1422,
-      "oddsA": 3.347,
-      "oddsB": 1.343
-    },
-    {
-      "id": "2026-05-14-wta-wta-italian-open-cirstea-gauff",
-      "date": "2026-05-14",
-      "tournament": "WTA Italian Open",
-      "round": "",
-      "surface": "Hard",
-      "tour": "wta",
-      "playerA": "wta-sorana-cirstea",
-      "playerB": "wta-coco-gauff",
-      "modelProbA": 0.2773,
-      "oddsA": 2.913,
-      "oddsB": 1.421
-    },
-    {
-      "id": "2026-05-14-wta-wta-italian-open-swiatek-svitolina",
-      "date": "2026-05-14",
-      "tournament": "WTA Italian Open",
-      "round": "",
-      "surface": "Hard",
-      "tour": "wta",
-      "playerA": "wta-iga-swiatek",
-      "playerB": "wta-elina-svitolina",
-      "modelProbA": 0.6966,
-      "oddsA": 1.257,
-      "oddsB": 4.02
-    },
     {
       "id": "2026-05-15-atp-atp-italian-open-ruud-darderi",
       "date": "2026-05-15",
@@ -65,13 +13,39 @@
       "playerA": "atp-casper-ruud",
       "playerB": "atp-luciano-darderi",
       "modelProbA": 0.7847,
-      "oddsA": 1.339,
-      "oddsB": 3.296
+      "oddsA": 1.338,
+      "oddsB": 3.384
+    },
+    {
+      "id": "2026-05-15-atp-atp-italian-open-sinner-medvedev",
+      "date": "2026-05-15",
+      "tournament": "ATP Italian Open",
+      "round": "",
+      "surface": "Hard",
+      "tour": "atp",
+      "playerA": "atp-jannik-sinner",
+      "playerB": "atp-daniil-medvedev",
+      "modelProbA": 0.8097,
+      "oddsA": 1.062,
+      "oddsB": 9.762
+    },
+    {
+      "id": "2026-05-16-wta-wta-italian-open-gauff-svitolina",
+      "date": "2026-05-16",
+      "tournament": "WTA Italian Open",
+      "round": "",
+      "surface": "Hard",
+      "tour": "wta",
+      "playerA": "wta-coco-gauff",
+      "playerB": "wta-elina-svitolina",
+      "modelProbA": 0.6686,
+      "oddsA": 1.637,
+      "oddsB": 2.3
     }
   ],
   "stats": {
-    "fetched": 5,
-    "resolved": 5,
+    "fetched": 3,
+    "resolved": 3,
     "missRatio": 0.0
   }
 }
