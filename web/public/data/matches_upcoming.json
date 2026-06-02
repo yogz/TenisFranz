@@ -1,112 +1,8 @@
 {
-  "updatedAt": "2026-06-01T08:54:08.099976+00:00",
-  "modelTrainedAt": "2026-06-01T04:36:21.426360+00:00",
+  "updatedAt": "2026-06-02T08:34:42.535035+00:00",
+  "modelTrainedAt": "2026-06-02T04:34:06.762363+00:00",
   "source": "local (env-driven draws_fetcher)",
   "matches": [
-    {
-      "id": "2026-06-01-atp-atp-french-open-cobolli-svajda",
-      "date": "2026-06-01",
-      "tournament": "ATP French Open",
-      "round": "",
-      "surface": "Clay",
-      "tour": "atp",
-      "playerA": "atp-flavio-cobolli",
-      "playerB": "wta-dijana-stojic",
-      "modelProbA": 0.7634,
-      "oddsA": 1.125,
-      "oddsB": 6.595
-    },
-    {
-      "id": "2026-06-01-atp-atp-french-open-cerundolo-berrettini",
-      "date": "2026-06-01",
-      "tournament": "ATP French Open",
-      "round": "",
-      "surface": "Clay",
-      "tour": "atp",
-      "playerA": "atp-juan-manuel-cerundolo",
-      "playerB": "atp-matteo-berrettini",
-      "modelProbA": 0.2868,
-      "oddsA": 2.32,
-      "oddsB": 1.642
-    },
-    {
-      "id": "2026-06-01-atp-atp-french-open-auger-aliassime-tabilo",
-      "date": "2026-06-01",
-      "tournament": "ATP French Open",
-      "round": "",
-      "surface": "Clay",
-      "tour": "atp",
-      "playerA": "atp-felix-auger-aliassime",
-      "playerB": "atp-alejandro-tabilo",
-      "modelProbA": 0.6086,
-      "oddsA": 1.554,
-      "oddsB": 2.508
-    },
-    {
-      "id": "2026-06-01-atp-atp-french-open-tiafoe-arnaldi",
-      "date": "2026-06-01",
-      "tournament": "ATP French Open",
-      "round": "",
-      "surface": "Clay",
-      "tour": "atp",
-      "playerA": "atp-frances-tiafoe",
-      "playerB": "atp-matteo-arnaldi",
-      "modelProbA": 0.4487,
-      "oddsA": 1.949,
-      "oddsB": 1.887
-    },
-    {
-      "id": "2026-06-01-wta-wta-french-open-potapova-kalinskaya",
-      "date": "2026-06-01",
-      "tournament": "WTA French Open",
-      "round": "",
-      "surface": "Clay",
-      "tour": "wta",
-      "playerA": "wta-anastasia-potapova",
-      "playerB": "wta-anna-kalinskaya",
-      "modelProbA": 0.5903,
-      "oddsA": 1.507,
-      "oddsB": 2.643
-    },
-    {
-      "id": "2026-06-01-wta-wta-french-open-keys-shnaider",
-      "date": "2026-06-01",
-      "tournament": "WTA French Open",
-      "round": "",
-      "surface": "Clay",
-      "tour": "wta",
-      "playerA": "wta-madison-keys",
-      "playerB": "wta-diana-shnaider",
-      "modelProbA": 0.5505,
-      "oddsA": 1.635,
-      "oddsB": 2.316
-    },
-    {
-      "id": "2026-06-01-wta-wta-french-open-chwalinska-parry",
-      "date": "2026-06-01",
-      "tournament": "WTA French Open",
-      "round": "",
-      "surface": "Clay",
-      "tour": "wta",
-      "playerA": "wta-maja-chwalinska",
-      "playerB": "wta-diane-parry",
-      "modelProbA": 0.3988,
-      "oddsA": 1.519,
-      "oddsB": 2.602
-    },
-    {
-      "id": "2026-06-01-wta-wta-french-open-sabalenka-osaka",
-      "date": "2026-06-01",
-      "tournament": "WTA French Open",
-      "round": "",
-      "surface": "Clay",
-      "tour": "wta",
-      "playerA": "wta-aryna-sabalenka",
-      "playerB": "wta-naomi-osaka",
-      "modelProbA": 0.7722,
-      "oddsA": 1.218,
-      "oddsB": 4.508
-    },
     {
       "id": "2026-06-02-atp-atp-french-open-jodar-zverev",
       "date": "2026-06-02",
@@ -117,8 +13,8 @@
       "playerA": "atp-rafael-jodar",
       "playerB": "atp-alexander-zverev",
       "modelProbA": 0.1304,
-      "oddsA": 3.481,
-      "oddsB": 1.321
+      "oddsA": 3.773,
+      "oddsB": 1.29
     },
     {
       "id": "2026-06-02-atp-atp-french-open-mensik-fonseca",
@@ -129,22 +25,9 @@
       "tour": "atp",
       "playerA": "atp-jakub-mensik",
       "playerB": "atp-joao-fonseca",
-      "modelProbA": 0.4982,
-      "oddsA": 2.777,
-      "oddsB": 1.462
-    },
-    {
-      "id": "2026-06-02-wta-wta-french-open-svitolina-kostyuk",
-      "date": "2026-06-02",
-      "tournament": "WTA French Open",
-      "round": "",
-      "surface": "Clay",
-      "tour": "wta",
-      "playerA": "wta-elina-svitolina",
-      "playerB": "wta-marta-kostyuk",
-      "modelProbA": 0.5772,
-      "oddsA": 2.058,
-      "oddsB": 1.785
+      "modelProbA": 0.4989,
+      "oddsA": 2.796,
+      "oddsB": 1.463
     },
     {
       "id": "2026-06-02-wta-wta-french-open-andreeva-cirstea",
@@ -156,23 +39,88 @@
       "playerA": "wta-mirra-andreeva",
       "playerB": "wta-sorana-cirstea",
       "modelProbA": 0.7601,
-      "oddsA": 1.541,
-      "oddsB": 2.526
+      "oddsA": 1.494,
+      "oddsB": 2.681
+    },
+    {
+      "id": "2026-06-02-wta-wta-french-open-svitolina-kostyuk",
+      "date": "2026-06-02",
+      "tournament": "WTA French Open",
+      "round": "",
+      "surface": "Clay",
+      "tour": "wta",
+      "playerA": "wta-elina-svitolina",
+      "playerB": "wta-marta-kostyuk",
+      "modelProbA": 0.5772,
+      "oddsA": 2.116,
+      "oddsB": 1.754
+    },
+    {
+      "id": "2026-06-03-atp-atp-french-open-auger-aliassime-cobolli",
+      "date": "2026-06-03",
+      "tournament": "ATP French Open",
+      "round": "",
+      "surface": "Clay",
+      "tour": "atp",
+      "playerA": "atp-felix-auger-aliassime",
+      "playerB": "atp-flavio-cobolli",
+      "modelProbA": 0.4171,
+      "oddsA": 1.918,
+      "oddsB": 1.914
+    },
+    {
+      "id": "2026-06-03-atp-atp-french-open-berrettini-arnaldi",
+      "date": "2026-06-03",
+      "tournament": "ATP French Open",
+      "round": "",
+      "surface": "Clay",
+      "tour": "atp",
+      "playerA": "atp-matteo-berrettini",
+      "playerB": "atp-matteo-arnaldi",
+      "modelProbA": 0.6245,
+      "oddsA": 1.547,
+      "oddsB": 2.514
+    },
+    {
+      "id": "2026-06-03-wta-wta-french-open-kalinskaya-chwalinska",
+      "date": "2026-06-03",
+      "tournament": "WTA French Open",
+      "round": "",
+      "surface": "Clay",
+      "tour": "wta",
+      "playerA": "wta-anna-kalinskaya",
+      "playerB": "wta-maja-chwalinska",
+      "modelProbA": 0.6496,
+      "oddsA": 1.873,
+      "oddsB": 1.965
+    },
+    {
+      "id": "2026-06-03-wta-wta-french-open-sabalenka-shnaider",
+      "date": "2026-06-03",
+      "tournament": "WTA French Open",
+      "round": "",
+      "surface": "Clay",
+      "tour": "wta",
+      "playerA": "wta-aryna-sabalenka",
+      "playerB": "wta-diana-shnaider",
+      "modelProbA": 0.7093,
+      "oddsA": 1.139,
+      "oddsB": 5.94
     }
   ],
   "stats": {
-    "fetched": 12,
-    "resolved": 12,
+    "fetched": 8,
+    "resolved": 8,
     "missRatio": 0.0
   },
   "weather": {
-    "ATP French Open": {
-      "tempMax": 26.6,
-      "windMax": 11.7
-    },
     "WTA French Open": {
-      "tempMax": 26.6,
-      "windMax": 11.7
+      "tempMax": 21.8,
+      "windMax": 19.0
+    },
+    "ATP French Open": {
+      "tempMax": 21.8,
+      "windMax": 19.0
     }
   }
 }
