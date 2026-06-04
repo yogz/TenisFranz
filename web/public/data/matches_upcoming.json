@@ -1,60 +1,8 @@
 {
-  "updatedAt": "2026-06-03T08:41:30.612773+00:00",
-  "modelTrainedAt": "2026-06-03T04:34:54.672174+00:00",
+  "updatedAt": "2026-06-04T08:30:18.056103+00:00",
+  "modelTrainedAt": "2026-06-04T04:34:05.761213+00:00",
   "source": "local (env-driven draws_fetcher)",
   "matches": [
-    {
-      "id": "2026-06-03-atp-atp-french-open-auger-aliassime-cobolli",
-      "date": "2026-06-03",
-      "tournament": "ATP French Open",
-      "round": "",
-      "surface": "Clay",
-      "tour": "atp",
-      "playerA": "atp-felix-auger-aliassime",
-      "playerB": "atp-flavio-cobolli",
-      "modelProbA": 0.4171,
-      "oddsA": 1.933,
-      "oddsB": 1.914
-    },
-    {
-      "id": "2026-06-03-atp-atp-french-open-berrettini-arnaldi",
-      "date": "2026-06-03",
-      "tournament": "ATP French Open",
-      "round": "",
-      "surface": "Clay",
-      "tour": "atp",
-      "playerA": "atp-matteo-berrettini",
-      "playerB": "atp-matteo-arnaldi",
-      "modelProbA": 0.6245,
-      "oddsA": 1.524,
-      "oddsB": 2.606
-    },
-    {
-      "id": "2026-06-03-wta-wta-french-open-kalinskaya-chwalinska",
-      "date": "2026-06-03",
-      "tournament": "WTA French Open",
-      "round": "",
-      "surface": "Clay",
-      "tour": "wta",
-      "playerA": "wta-anna-kalinskaya",
-      "playerB": "wta-maja-chwalinska",
-      "modelProbA": 0.6496,
-      "oddsA": 1.701,
-      "oddsB": 2.209
-    },
-    {
-      "id": "2026-06-03-wta-wta-french-open-sabalenka-shnaider",
-      "date": "2026-06-03",
-      "tournament": "WTA French Open",
-      "round": "",
-      "surface": "Clay",
-      "tour": "wta",
-      "playerA": "wta-aryna-sabalenka",
-      "playerB": "wta-diana-shnaider",
-      "modelProbA": 0.7093,
-      "oddsA": 1.114,
-      "oddsB": 6.992
-    },
     {
       "id": "2026-06-04-wta-wta-french-open-kostyuk-andreeva",
       "date": "2026-06-04",
@@ -65,8 +13,34 @@
       "playerA": "wta-marta-kostyuk",
       "playerB": "wta-mirra-andreeva",
       "modelProbA": 0.4182,
-      "oddsA": 1.745,
-      "oddsB": 2.123
+      "oddsA": 1.713,
+      "oddsB": 2.185
+    },
+    {
+      "id": "2026-06-04-wta-wta-french-open-shnaider-chwalinska",
+      "date": "2026-06-04",
+      "tournament": "WTA French Open",
+      "round": "",
+      "surface": "Clay",
+      "tour": "wta",
+      "playerA": "wta-diana-shnaider",
+      "playerB": "wta-maja-chwalinska",
+      "modelProbA": 0.7069,
+      "oddsA": 1.549,
+      "oddsB": 2.531
+    },
+    {
+      "id": "2026-06-05-atp-atp-french-open-arnaldi-cobolli",
+      "date": "2026-06-05",
+      "tournament": "ATP French Open",
+      "round": "",
+      "surface": "Clay",
+      "tour": "atp",
+      "playerA": "atp-matteo-arnaldi",
+      "playerB": "atp-flavio-cobolli",
+      "modelProbA": 0.4143,
+      "oddsA": 2.966,
+      "oddsB": 1.415
     },
     {
       "id": "2026-06-05-atp-atp-french-open-mensik-zverev",
@@ -78,23 +52,23 @@
       "playerA": "atp-jakub-mensik",
       "playerB": "atp-alexander-zverev",
       "modelProbA": 0.3031,
-      "oddsA": 4.313,
-      "oddsB": 1.229
+      "oddsA": 4.104,
+      "oddsB": 1.253
     }
   ],
   "stats": {
-    "fetched": 6,
-    "resolved": 6,
+    "fetched": 4,
+    "resolved": 4,
     "missRatio": 0.0
   },
   "weather": {
-    "ATP French Open": {
-      "tempMax": 20.7,
-      "windMax": 18.5
-    },
     "WTA French Open": {
-      "tempMax": 20.7,
-      "windMax": 18.5
+      "tempMax": 20.6,
+      "windMax": 20.4
+    },
+    "ATP French Open": {
+      "tempMax": 20.6,
+      "windMax": 20.4
     }
   }
 }
