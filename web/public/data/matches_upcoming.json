@@ -1,33 +1,20 @@
 {
-  "updatedAt": "2026-06-04T08:30:18.056103+00:00",
-  "modelTrainedAt": "2026-06-04T04:34:05.761213+00:00",
+  "updatedAt": "2026-06-05T08:24:49.410682+00:00",
+  "modelTrainedAt": "2026-06-05T04:33:24.183985+00:00",
   "source": "local (env-driven draws_fetcher)",
   "matches": [
     {
-      "id": "2026-06-04-wta-wta-french-open-kostyuk-andreeva",
-      "date": "2026-06-04",
-      "tournament": "WTA French Open",
+      "id": "2026-06-05-atp-atp-french-open-mensik-zverev",
+      "date": "2026-06-05",
+      "tournament": "ATP French Open",
       "round": "",
       "surface": "Clay",
-      "tour": "wta",
-      "playerA": "wta-marta-kostyuk",
-      "playerB": "wta-mirra-andreeva",
-      "modelProbA": 0.4182,
-      "oddsA": 1.713,
-      "oddsB": 2.185
-    },
-    {
-      "id": "2026-06-04-wta-wta-french-open-shnaider-chwalinska",
-      "date": "2026-06-04",
-      "tournament": "WTA French Open",
-      "round": "",
-      "surface": "Clay",
-      "tour": "wta",
-      "playerA": "wta-diana-shnaider",
-      "playerB": "wta-maja-chwalinska",
-      "modelProbA": 0.7069,
-      "oddsA": 1.549,
-      "oddsB": 2.531
+      "tour": "atp",
+      "playerA": "atp-jakub-mensik",
+      "playerB": "atp-alexander-zverev",
+      "modelProbA": 0.3031,
+      "oddsA": 3.911,
+      "oddsB": 1.277
     },
     {
       "id": "2026-06-05-atp-atp-french-open-arnaldi-cobolli",
@@ -39,36 +26,36 @@
       "playerA": "atp-matteo-arnaldi",
       "playerB": "atp-flavio-cobolli",
       "modelProbA": 0.4143,
-      "oddsA": 2.966,
-      "oddsB": 1.415
+      "oddsA": 3.07,
+      "oddsB": 1.4
     },
     {
-      "id": "2026-06-05-atp-atp-french-open-mensik-zverev",
-      "date": "2026-06-05",
-      "tournament": "ATP French Open",
+      "id": "2026-06-06-wta-wta-french-open-chwalinska-andreeva",
+      "date": "2026-06-06",
+      "tournament": "WTA French Open",
       "round": "",
       "surface": "Clay",
-      "tour": "atp",
-      "playerA": "atp-jakub-mensik",
-      "playerB": "atp-alexander-zverev",
-      "modelProbA": 0.3031,
-      "oddsA": 4.104,
-      "oddsB": 1.253
+      "tour": "wta",
+      "playerA": "wta-maja-chwalinska",
+      "playerB": "wta-mirra-andreeva",
+      "modelProbA": 0.2259,
+      "oddsA": 4.129,
+      "oddsB": 1.25
     }
   ],
   "stats": {
-    "fetched": 4,
-    "resolved": 4,
+    "fetched": 3,
+    "resolved": 3,
     "missRatio": 0.0
   },
   "weather": {
-    "WTA French Open": {
-      "tempMax": 20.6,
-      "windMax": 20.4
-    },
     "ATP French Open": {
-      "tempMax": 20.6,
-      "windMax": 20.4
+      "tempMax": 19.4,
+      "windMax": 12.7
+    },
+    "WTA French Open": {
+      "tempMax": 19.4,
+      "windMax": 12.7
     }
   }
 }
