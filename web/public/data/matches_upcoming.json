@@ -1,34 +1,8 @@
 {
-  "updatedAt": "2026-06-05T08:24:49.410682+00:00",
-  "modelTrainedAt": "2026-06-05T04:33:24.183985+00:00",
+  "updatedAt": "2026-06-06T07:58:22.754195+00:00",
+  "modelTrainedAt": "2026-06-06T04:26:09.137714+00:00",
   "source": "local (env-driven draws_fetcher)",
   "matches": [
-    {
-      "id": "2026-06-05-atp-atp-french-open-mensik-zverev",
-      "date": "2026-06-05",
-      "tournament": "ATP French Open",
-      "round": "",
-      "surface": "Clay",
-      "tour": "atp",
-      "playerA": "atp-jakub-mensik",
-      "playerB": "atp-alexander-zverev",
-      "modelProbA": 0.3031,
-      "oddsA": 3.911,
-      "oddsB": 1.277
-    },
-    {
-      "id": "2026-06-05-atp-atp-french-open-arnaldi-cobolli",
-      "date": "2026-06-05",
-      "tournament": "ATP French Open",
-      "round": "",
-      "surface": "Clay",
-      "tour": "atp",
-      "playerA": "atp-matteo-arnaldi",
-      "playerB": "atp-flavio-cobolli",
-      "modelProbA": 0.4143,
-      "oddsA": 3.07,
-      "oddsB": 1.4
-    },
     {
       "id": "2026-06-06-wta-wta-french-open-chwalinska-andreeva",
       "date": "2026-06-06",
@@ -38,24 +12,37 @@
       "tour": "wta",
       "playerA": "wta-maja-chwalinska",
       "playerB": "wta-mirra-andreeva",
-      "modelProbA": 0.2259,
-      "oddsA": 4.129,
-      "oddsB": 1.25
+      "modelProbA": 0.2258,
+      "oddsA": 4.323,
+      "oddsB": 1.242
+    },
+    {
+      "id": "2026-06-07-atp-atp-french-open-cobolli-zverev",
+      "date": "2026-06-07",
+      "tournament": "ATP French Open",
+      "round": "",
+      "surface": "Clay",
+      "tour": "atp",
+      "playerA": "atp-flavio-cobolli",
+      "playerB": "atp-alexander-zverev",
+      "modelProbA": 0.4202,
+      "oddsA": 4.154,
+      "oddsB": 1.249
     }
   ],
   "stats": {
-    "fetched": 3,
-    "resolved": 3,
+    "fetched": 2,
+    "resolved": 2,
     "missRatio": 0.0
   },
   "weather": {
     "ATP French Open": {
-      "tempMax": 19.4,
-      "windMax": 12.7
+      "tempMax": 21.7,
+      "windMax": 19.6
     },
     "WTA French Open": {
-      "tempMax": 19.4,
-      "windMax": 12.7
+      "tempMax": 21.7,
+      "windMax": 19.6
     }
   }
 }
