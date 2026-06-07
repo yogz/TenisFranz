@@ -1,21 +1,8 @@
 {
-  "updatedAt": "2026-06-06T07:58:22.754195+00:00",
-  "modelTrainedAt": "2026-06-06T04:26:09.137714+00:00",
+  "updatedAt": "2026-06-07T08:13:36.166988+00:00",
+  "modelTrainedAt": "2026-06-07T04:34:11.900685+00:00",
   "source": "local (env-driven draws_fetcher)",
   "matches": [
-    {
-      "id": "2026-06-06-wta-wta-french-open-chwalinska-andreeva",
-      "date": "2026-06-06",
-      "tournament": "WTA French Open",
-      "round": "",
-      "surface": "Clay",
-      "tour": "wta",
-      "playerA": "wta-maja-chwalinska",
-      "playerB": "wta-mirra-andreeva",
-      "modelProbA": 0.2258,
-      "oddsA": 4.323,
-      "oddsB": 1.242
-    },
     {
       "id": "2026-06-07-atp-atp-french-open-cobolli-zverev",
       "date": "2026-06-07",
@@ -26,23 +13,19 @@
       "playerA": "atp-flavio-cobolli",
       "playerB": "atp-alexander-zverev",
       "modelProbA": 0.4202,
-      "oddsA": 4.154,
-      "oddsB": 1.249
+      "oddsA": 4.551,
+      "oddsB": 1.226
     }
   ],
   "stats": {
-    "fetched": 2,
-    "resolved": 2,
+    "fetched": 1,
+    "resolved": 1,
     "missRatio": 0.0
   },
   "weather": {
     "ATP French Open": {
-      "tempMax": 21.7,
-      "windMax": 19.6
-    },
-    "WTA French Open": {
-      "tempMax": 21.7,
-      "windMax": 19.6
+      "tempMax": 21.5,
+      "windMax": 10.0
     }
   }
 }
