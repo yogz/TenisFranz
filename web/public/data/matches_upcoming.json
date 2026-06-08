@@ -1,31 +1,77 @@
 {
-  "updatedAt": "2026-06-07T08:13:36.166988+00:00",
-  "modelTrainedAt": "2026-06-07T04:34:11.900685+00:00",
+  "updatedAt": "2026-06-08T08:37:40.332760+00:00",
+  "modelTrainedAt": "2026-06-08T04:35:08.531795+00:00",
   "source": "local (env-driven draws_fetcher)",
   "matches": [
     {
-      "id": "2026-06-07-atp-atp-french-open-cobolli-zverev",
-      "date": "2026-06-07",
-      "tournament": "ATP French Open",
+      "id": "2026-06-08-wta-wta-queen's-club-championships-dart-samsonova",
+      "date": "2026-06-08",
+      "tournament": "WTA Queen's Club Championships",
       "round": "",
-      "surface": "Clay",
-      "tour": "atp",
-      "playerA": "atp-flavio-cobolli",
-      "playerB": "atp-alexander-zverev",
-      "modelProbA": 0.4202,
-      "oddsA": 4.551,
-      "oddsB": 1.226
+      "surface": "Hard",
+      "tour": "wta",
+      "playerA": "wta-harriet-dart",
+      "playerB": "wta-liudmila-samsonova",
+      "modelProbA": 0.3235,
+      "oddsA": 3.223,
+      "oddsB": 1.356
+    },
+    {
+      "id": "2026-06-08-wta-wta-queen's-club-championships-pliskova-kessler",
+      "date": "2026-06-08",
+      "tournament": "WTA Queen's Club Championships",
+      "round": "",
+      "surface": "Hard",
+      "tour": "wta",
+      "playerA": "wta-karolina-pliskova",
+      "playerB": "wta-mccartney-kessler",
+      "modelProbA": 0.4165,
+      "oddsA": 1.682,
+      "oddsB": 2.207
+    },
+    {
+      "id": "2026-06-08-wta-wta-queen's-club-championships-zheng-cristian",
+      "date": "2026-06-08",
+      "tournament": "WTA Queen's Club Championships",
+      "round": "",
+      "surface": "Hard",
+      "tour": "wta",
+      "playerA": "wta-qinwen-zheng",
+      "playerB": "wta-jaqueline-cristian",
+      "modelProbA": 0.6787,
+      "oddsA": 1.342,
+      "oddsB": 3.301
+    },
+    {
+      "id": "2026-06-08-wta-wta-queen's-club-championships-boulter-fernandez",
+      "date": "2026-06-08",
+      "tournament": "WTA Queen's Club Championships",
+      "round": "",
+      "surface": "Hard",
+      "tour": "wta",
+      "playerA": "wta-katie-boulter",
+      "playerB": "wta-leylah-fernandez",
+      "modelProbA": 0.3215,
+      "oddsA": 1.902,
+      "oddsB": 1.921
+    },
+    {
+      "id": "2026-06-08-wta-wta-queen's-club-championships-siegemund-jones",
+      "date": "2026-06-08",
+      "tournament": "WTA Queen's Club Championships",
+      "round": "",
+      "surface": "Hard",
+      "tour": "wta",
+      "playerA": "wta-laura-siegemund",
+      "playerB": "wta-francesca-jones",
+      "modelProbA": 0.6335,
+      "oddsA": 1.418,
+      "oddsB": 2.903
     }
   ],
   "stats": {
-    "fetched": 1,
-    "resolved": 1,
+    "fetched": 5,
+    "resolved": 5,
     "missRatio": 0.0
-  },
-  "weather": {
-    "ATP French Open": {
-      "tempMax": 21.5,
-      "windMax": 10.0
-    }
   }
 }
