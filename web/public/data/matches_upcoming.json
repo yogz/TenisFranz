@@ -1,77 +1,38 @@
 {
-  "updatedAt": "2026-06-12T08:32:54.441800+00:00",
-  "modelTrainedAt": "2026-06-12T04:34:19.670371+00:00",
+  "updatedAt": "2026-06-13T08:09:37.178648+00:00",
+  "modelTrainedAt": "2026-06-13T04:33:39.069846+00:00",
   "source": "local (env-driven draws_fetcher)",
   "matches": [
     {
-      "id": "2026-06-12-wta-wta-queen's-club-championships-rybakina-maria",
-      "date": "2026-06-12",
+      "id": "2026-06-13-wta-wta-queen's-club-championships-raducanu-rakhimova",
+      "date": "2026-06-13",
       "tournament": "WTA Queen's Club Championships",
       "round": "",
       "surface": "Hard",
       "tour": "wta",
-      "playerA": "wta-elena-rybakina",
-      "playerB": "wta-tatjana-maria",
-      "modelProbA": 0.903,
-      "oddsA": 1.188,
-      "oddsB": 4.858
-    },
-    {
-      "id": "2026-06-12-wta-wta-queen's-club-championships-cristian-boulter",
-      "date": "2026-06-12",
-      "tournament": "WTA Queen's Club Championships",
-      "round": "",
-      "surface": "Hard",
-      "tour": "wta",
-      "playerA": "wta-jaqueline-cristian",
-      "playerB": "wta-katie-boulter",
-      "modelProbA": 0.5849,
-      "oddsA": 2.811,
-      "oddsB": 1.448
-    },
-    {
-      "id": "2026-06-12-wta-wta-queen's-club-championships-cirstea-raducanu",
-      "date": "2026-06-12",
-      "tournament": "WTA Queen's Club Championships",
-      "round": "",
-      "surface": "Hard",
-      "tour": "wta",
-      "playerA": "wta-sorana-cirstea",
-      "playerB": "wta-emma-raducanu",
-      "modelProbA": 0.4411,
-      "oddsA": 1.914,
-      "oddsB": 1.909
-    },
-    {
-      "id": "2026-06-12-wta-wta-queen's-club-championships-dart-rakhimova",
-      "date": "2026-06-12",
-      "tournament": "WTA Queen's Club Championships",
-      "round": "",
-      "surface": "Hard",
-      "tour": "wta",
-      "playerA": "wta-harriet-dart",
+      "playerA": "wta-emma-raducanu",
       "playerB": "wta-kamilla-rakhimova",
-      "modelProbA": 0.4867,
-      "oddsA": 1.757,
-      "oddsB": 2.103
+      "modelProbA": 0.7053,
+      "oddsA": 1.194,
+      "oddsB": 4.721
     },
     {
-      "id": "2026-06-12-wta-wta-queen's-club-championships-jovic-anisimova",
-      "date": "2026-06-12",
+      "id": "2026-06-13-wta-wta-queen's-club-championships-boulter-vekic",
+      "date": "2026-06-13",
       "tournament": "WTA Queen's Club Championships",
       "round": "",
       "surface": "Hard",
       "tour": "wta",
-      "playerA": "wta-iva-jovic",
-      "playerB": "wta-amanda-anisimova",
-      "modelProbA": 0.2962,
-      "oddsA": 2.175,
-      "oddsB": 1.695
+      "playerA": "wta-katie-boulter",
+      "playerB": "wta-donna-vekic",
+      "modelProbA": 0.4577,
+      "oddsA": 1.779,
+      "oddsB": 2.052
     }
   ],
   "stats": {
-    "fetched": 5,
-    "resolved": 5,
+    "fetched": 2,
+    "resolved": 2,
     "missRatio": 0.0
   }
 }
