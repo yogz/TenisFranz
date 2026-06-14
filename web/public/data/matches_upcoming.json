@@ -1,38 +1,25 @@
 {
-  "updatedAt": "2026-06-13T08:09:37.178648+00:00",
-  "modelTrainedAt": "2026-06-13T04:33:39.069846+00:00",
+  "updatedAt": "2026-06-14T08:25:18.796315+00:00",
+  "modelTrainedAt": "2026-06-14T04:34:25.801482+00:00",
   "source": "local (env-driven draws_fetcher)",
   "matches": [
     {
-      "id": "2026-06-13-wta-wta-queen's-club-championships-raducanu-rakhimova",
-      "date": "2026-06-13",
+      "id": "2026-06-14-wta-wta-queen's-club-championships-vekic-raducanu",
+      "date": "2026-06-14",
       "tournament": "WTA Queen's Club Championships",
       "round": "",
       "surface": "Hard",
       "tour": "wta",
-      "playerA": "wta-emma-raducanu",
-      "playerB": "wta-kamilla-rakhimova",
-      "modelProbA": 0.7053,
-      "oddsA": 1.194,
-      "oddsB": 4.721
-    },
-    {
-      "id": "2026-06-13-wta-wta-queen's-club-championships-boulter-vekic",
-      "date": "2026-06-13",
-      "tournament": "WTA Queen's Club Championships",
-      "round": "",
-      "surface": "Hard",
-      "tour": "wta",
-      "playerA": "wta-katie-boulter",
-      "playerB": "wta-donna-vekic",
-      "modelProbA": 0.4577,
-      "oddsA": 1.779,
-      "oddsB": 2.052
+      "playerA": "wta-donna-vekic",
+      "playerB": "wta-emma-raducanu",
+      "modelProbA": 0.4084,
+      "oddsA": 2.217,
+      "oddsB": 1.676
     }
   ],
   "stats": {
-    "fetched": 2,
-    "resolved": 2,
+    "fetched": 1,
+    "resolved": 1,
     "missRatio": 0.0
   }
 }
