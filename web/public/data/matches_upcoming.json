@@ -1,90 +1,51 @@
 {
-  "updatedAt": "2026-06-20T08:11:43.519630+00:00",
+  "updatedAt": "2026-06-21T08:32:55.201552+00:00",
   "modelTrainedAt": "2026-06-15T04:35:54.697331+00:00",
   "source": "local (env-driven draws_fetcher)",
   "matches": [
     {
-      "id": "2026-06-20-atp-atp-halle-open-zverev-fritz",
-      "date": "2026-06-20",
+      "id": "2026-06-21-atp-atp-halle-open-fritz-tiafoe",
+      "date": "2026-06-21",
       "tournament": "ATP Halle Open",
       "round": "",
       "surface": "Hard",
       "tour": "atp",
-      "playerA": "atp-alexander-zverev",
-      "playerB": "atp-taylor-fritz",
-      "modelProbA": 0.5468,
-      "oddsA": 1.692,
-      "oddsB": 2.192
-    },
-    {
-      "id": "2026-06-20-atp-atp-halle-open-altmaier-tiafoe",
-      "date": "2026-06-20",
-      "tournament": "ATP Halle Open",
-      "round": "",
-      "surface": "Hard",
-      "tour": "atp",
-      "playerA": "atp-daniel-altmaier",
+      "playerA": "atp-taylor-fritz",
       "playerB": "atp-frances-tiafoe",
-      "modelProbA": 0.4399,
-      "oddsA": 3.325,
-      "oddsB": 1.339
+      "modelProbA": 0.6702,
+      "oddsA": 1.44,
+      "oddsB": 2.819
     },
     {
-      "id": "2026-06-20-atp-atp-queen's-club-championships-nakashima-cerundolo",
-      "date": "2026-06-20",
+      "id": "2026-06-21-atp-atp-queen's-club-championships-cerundolo-paul",
+      "date": "2026-06-21",
       "tournament": "ATP Queen's Club Championships",
       "round": "",
       "surface": "Hard",
       "tour": "atp",
-      "playerA": "atp-brandon-nakashima",
-      "playerB": "atp-francisco-cerundolo",
-      "modelProbA": 0.4185,
-      "oddsA": 1.578,
-      "oddsB": 2.405
+      "playerA": "atp-francisco-cerundolo",
+      "playerB": "atp-tommy-paul",
+      "modelProbA": 0.4846,
+      "oddsA": 2.836,
+      "oddsB": 1.44
     },
     {
-      "id": "2026-06-20-atp-atp-queen's-club-championships-paul-humbert",
-      "date": "2026-06-20",
-      "tournament": "ATP Queen's Club Championships",
-      "round": "",
-      "surface": "Hard",
-      "tour": "atp",
-      "playerA": "atp-tommy-paul",
-      "playerB": "atp-ugo-humbert",
-      "modelProbA": 0.4385,
-      "oddsA": 1.581,
-      "oddsB": 2.41
-    },
-    {
-      "id": "2026-06-20-wta-wta-german-open-sabalenka-pegula",
-      "date": "2026-06-20",
+      "id": "2026-06-21-wta-wta-german-open-pegula-noskova",
+      "date": "2026-06-21",
       "tournament": "WTA German Open",
       "round": "",
       "surface": "Hard",
       "tour": "wta",
-      "playerA": "wta-aryna-sabalenka",
-      "playerB": "wta-jessica-pegula",
-      "modelProbA": 0.6656,
-      "oddsA": 1.489,
-      "oddsB": 2.664
-    },
-    {
-      "id": "2026-06-20-wta-wta-german-open-noskova-eala",
-      "date": "2026-06-20",
-      "tournament": "WTA German Open",
-      "round": "",
-      "surface": "Hard",
-      "tour": "wta",
-      "playerA": "wta-linda-noskova",
-      "playerB": "wta-alexandra-eala",
-      "modelProbA": 0.7467,
-      "oddsA": 1.642,
-      "oddsB": 2.288
+      "playerA": "wta-jessica-pegula",
+      "playerB": "wta-linda-noskova",
+      "modelProbA": 0.5635,
+      "oddsA": 1.597,
+      "oddsB": 2.37
     }
   ],
   "stats": {
-    "fetched": 6,
-    "resolved": 6,
+    "fetched": 3,
+    "resolved": 3,
     "missRatio": 0.0
   }
 }
